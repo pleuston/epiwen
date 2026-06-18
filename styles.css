@@ -105,8 +105,133 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
 .foot { padding: 0.5rem 1rem; font-size: 0.72rem; color: var(--muted); border-top: 1px solid var(--line); }
 .foot a { color: var(--accent); }
 
+/* ---- site navigation (about page + editor back-link) ---- */
+.sitenav { display: flex; gap: 0.5rem; align-items: center; }
+.sitenav-link {
+  font-size: 0.85rem; color: var(--ink); text-decoration: none;
+  padding: 0.35rem 0.7rem; border-radius: 6px; border: 1px solid transparent;
+}
+.sitenav-link:hover { border-color: var(--line); }
+.sitenav-link.active { color: var(--accent); font-weight: 600; }
+.sitenav-back {
+  font-size: 1rem; color: var(--muted); text-decoration: none;
+  margin-right: 0.2rem; padding: 0 0.2rem;
+}
+.sitenav-back:hover { color: var(--accent); }
+
+/* ---- about page layout ---- */
+.about-layout {
+  display: grid; grid-template-columns: 1.25fr 1fr; flex: 1; min-height: 0; overflow: hidden;
+}
+.about-pane { overflow: auto; padding: 1.2rem 1.5rem; border-right: 1px solid var(--line); }
+
+/* ---- about hero ---- */
+.about-hero h1 { font-size: 1.1rem; margin: 0 0 0.7rem; font-weight: 700; }
+.about-hero p  { font-size: 0.86rem; line-height: 1.6; margin: 0 0 0.55rem; color: var(--ink); }
+.about-hero a  { color: var(--accent); }
+
+/* ---- workflow ---- */
+.workflow-section { margin-top: 1.6rem; }
+.workflow-section h2,
+.catalog-head h2 {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--accent); border-bottom: 1px solid var(--line);
+  padding-bottom: 0.3rem; margin: 0 0 0.8rem;
+}
+.workflow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.workflow-card {
+  border: 1px solid var(--line); border-radius: 8px; padding: 1rem 1rem 0.8rem;
+  background: #fafafa; position: relative; padding-top: 1.3rem;
+}
+.workflow-num {
+  position: absolute; top: -0.75rem; left: 1rem;
+  background: var(--accent); color: #fff;
+  width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700;
+}
+.workflow-card h3 { font-size: 0.85rem; margin: 0 0 0.5rem; }
+.workflow-card ol { margin: 0; padding-left: 1.2rem; font-size: 0.82rem; line-height: 1.65; }
+.workflow-card li { margin-bottom: 0.2rem; }
+.workflow-card a  { color: var(--accent); }
+
+/* ---- catalog list ---- */
+.catalog-section { margin-top: 1.8rem; }
+.catalog-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.7rem; }
+.catalog-searchbox {
+  width: 180px; padding: 0.3rem 0.5rem;
+  border: 1px solid var(--line); border-radius: 5px;
+  background: var(--field-bg); font: inherit; font-size: 0.82rem;
+}
+.catalog-searchbox:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.catalog-loading, .catalog-empty { font-size: 0.84rem; color: var(--muted); padding: 0.5rem 0; }
+.catalog-empty a { color: var(--accent); }
+
+.catalog-item {
+  border: 1px solid var(--line); border-radius: 7px; margin-bottom: 0.6rem; overflow: hidden;
+  transition: border-color 0.15s;
+}
+.catalog-item.selected { border-color: var(--accent); }
+.catalog-monument {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 0.8rem;
+  padding: 0.6rem 0.8rem; background: #fafafa;
+}
+.catalog-info { flex: 1; min-width: 0; }
+.catalog-filename { font-size: 0.77rem; color: var(--muted); display: block; }
+.catalog-title    { font-size: 0.86rem; font-weight: 600; margin-top: 0.15rem; }
+.catalog-title-en { color: var(--ink); }
+.catalog-title-zh { color: var(--muted); font-weight: 400; margin-left: 0.35rem; }
+.catalog-date     { font-size: 0.77rem; color: var(--muted); display: block; margin-top: 0.1rem; }
+
+.catalog-actions { display: flex; gap: 0.3rem; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+.catalog-actions a.btn { text-decoration: none; }
+
+.catalog-parts {
+  list-style: none; margin: 0; padding: 0.4rem 0.8rem 0.5rem 2rem;
+  border-top: 1px solid var(--line); background: #fff;
+}
+.catalog-part {
+  font-size: 0.81rem; padding: 0.12rem 0; display: flex; align-items: baseline; gap: 0.4rem;
+}
+.catalog-part::before { content: "↳"; color: var(--muted); font-size: 0.73rem; flex-shrink: 0; }
+.catalog-part-label  { font-weight: 500; color: var(--ink); }
+.catalog-part-sutra  { color: var(--muted); }
+.catalog-part-lang   {
+  font-size: 0.71rem; color: var(--accent);
+  background: #f5f0ee; padding: 0 0.3rem; border-radius: 3px;
+}
+
+/* ---- catalog preview pane ---- */
+.catalog-preview {
+  background: var(--code-bg); color: var(--code-ink);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.catalog-preview .preview-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.5rem 0.9rem; color: #aab; font-size: 0.8rem;
+  border-bottom: 1px solid #333; position: sticky; top: 0; background: var(--code-bg);
+}
+.catalog-preview pre { margin: 0; padding: 0.9rem; overflow: auto; flex: 1; }
+.catalog-xml {
+  font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 0.78rem; white-space: pre; line-height: 1.5;
+}
+
+/* ---- editor workflow hint bar ---- */
+.editor-hint {
+  display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+  padding: 0.28rem 1rem; background: #f8f6f3; border-bottom: 1px solid var(--line);
+  font-size: 0.77rem; color: var(--muted);
+}
+.editor-hint .step strong { color: var(--accent); }
+.editor-hint .arrow { color: #ccc; }
+
 @media (max-width: 820px) {
   .layout { grid-template-columns: 1fr; }
   .form { border-right: 0; border-bottom: 1px solid var(--line); }
   .field.row { grid-template-columns: 1fr 1fr; }
+  .about-layout { grid-template-columns: 1fr; }
+  .catalog-preview { display: none; }
+  .workflow-grid { grid-template-columns: 1fr; }
+  .catalog-searchbox { width: 140px; }
 }

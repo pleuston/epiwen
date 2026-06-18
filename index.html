@@ -3,52 +3,111 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Epiwen · EpiDoc generator for Chinese inscriptions / 中文碑刻 EpiDoc 生成器</title>
+    <title>Epiwen · EpiDoc for Chinese stone inscriptions</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="lang-both">
+  <body>
     <header class="topbar">
       <div class="brand">
-        <strong>Epiwen</strong> · EpiDoc generator for Chinese stone inscriptions
-        <span class="zh">中文碑刻 EpiDoc 生成器</span>
+        <strong>Epiwen</strong> · EpiDoc for Chinese stone inscriptions
       </div>
-      <div class="controls">
-        <div class="langtoggle" role="group" aria-label="interface language">
-          <button data-lang="en" type="button">EN</button>
-          <button data-lang="zh" type="button">中</button>
-          <button data-lang="both" type="button" class="active">EN+中</button>
-        </div>
-        <button id="btn-example" type="button" class="btn">Load example / 範例</button>
-        <button id="btn-reset" type="button" class="btn">Reset / 清空</button>
-        <button id="btn-copy" type="button" class="btn primary">Copy XML</button>
-        <button id="btn-propose" type="button" class="btn">Propose to GitHub</button>
-        <button id="btn-download" type="button" class="btn primary">Download .xml</button>
-      </div>
+      <nav class="sitenav">
+        <span class="sitenav-link active">About &amp; Catalog</span>
+        <a href="editor.html" class="sitenav-link btn primary">+ New inscription</a>
+      </nav>
     </header>
 
-    <main class="layout">
-      <section id="form" class="pane form" aria-label="metadata form"></section>
-      <section class="pane preview" aria-label="EpiDoc output">
+    <div class="about-layout">
+
+      <!-- Left: about + catalog list -->
+      <div class="about-pane">
+
+        <section class="about-hero">
+          <h1>Epiwen · EpiDoc generator for Chinese stone inscriptions</h1>
+          <p>
+            A client-side, bilingual (EN / 中), dependency-free web tool that produces
+            valid <a href="https://epidoc.stoa.org/" target="_blank" rel="noopener">EpiDoc / TEI</a>
+            records for Buddhist stone-sutra inscriptions of North China — cliff-carved sutras,
+            sutra steles, sutra pillars, and cave-wall inscriptions. Developed for the
+            <em>Altergraphy / Epiwen</em> encoding project; modelled on the
+            <a href="https://tools.fdm.uni-hamburg.de/mdg/generator_metadata_epidoc.html"
+               target="_blank" rel="noopener">Hamburg Metadata Generator for EpiDoc</a>.
+          </p>
+          <p>
+            Nothing is uploaded — the XML is built live in the browser. Records are
+            contributed via GitHub pull requests and reviewed before they appear in this catalog.
+          </p>
+        </section>
+
+        <section class="workflow-section">
+          <h2>Workflow</h2>
+          <div class="workflow-grid">
+
+            <div class="workflow-card">
+              <div class="workflow-num">1</div>
+              <h3>Adding a new inscription</h3>
+              <ol>
+                <li>Open the <a href="editor.html"><strong>Editor</strong></a>.</li>
+                <li>Fill in metadata, physical description, date, and text(s).
+                    Use <em>Add text</em> for monuments with multiple faces.</li>
+                <li>Click <strong>① Copy XML</strong> — the full EpiDoc record is on your clipboard.</li>
+                <li>Click <strong>② Propose to GitHub</strong> — the web editor opens at
+                    <code>records/your-file.xml</code>.</li>
+                <li>Paste the XML and click <em>Propose new file</em>.
+                    GitHub forks the repo and opens a pull request automatically.</li>
+              </ol>
+            </div>
+
+            <div class="workflow-card">
+              <div class="workflow-num">2</div>
+              <h3>Editing an existing inscription</h3>
+              <ol>
+                <li>Find the monument in the <strong>Catalog</strong> below.</li>
+                <li>Click <strong>Preview</strong> to inspect the current XML.</li>
+                <li>Click <strong>Copy XML</strong> to copy it to your clipboard.</li>
+                <li>Click <strong>Edit on GitHub</strong> — the web editor opens the
+                    existing file; paste your revised version.</li>
+                <li>Submit a pull request. A project editor reviews and merges.</li>
+              </ol>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="catalog-section">
+          <div class="catalog-head">
+            <h2>Catalog</h2>
+            <input type="search" id="catalog-search" class="catalog-searchbox"
+                   placeholder="Filter monuments…" aria-label="filter catalog" />
+          </div>
+          <div id="catalog-list">
+            <div class="catalog-loading">Loading records from GitHub…</div>
+          </div>
+        </section>
+
+      </div><!-- /.about-pane -->
+
+      <!-- Right: XML preview -->
+      <div class="catalog-preview">
         <div class="preview-head">
-          <span>EpiDoc / TEI XML</span>
-          <span id="validity" class="validity"></span>
+          <span id="preview-title">Select a record to preview</span>
+          <button id="preview-copy" class="btn small" style="display:none">Copy XML</button>
         </div>
-        <pre><code id="out"></code></pre>
-      </section>
-    </main>
+        <pre><code id="preview-out" class="catalog-xml"></code></pre>
+      </div>
+
+    </div><!-- /.about-layout -->
 
     <footer class="foot">
-      Client-side only — nothing is uploaded; the XML is built live in your
-      browser. Vocabularies mirror the Stone Sutras thesaurus and are editable in
-      <code>vocab.js</code>. Modelled on the
+      Source:
+      <a href="https://github.com/pleuston/epiwen-epidoc-generator" target="_blank" rel="noopener"
+        >github.com/pleuston/epiwen-epidoc-generator</a> ·
+      Vocabularies mirror the Stone Sutras thesaurus. Modelled on the
       <a href="https://tools.fdm.uni-hamburg.de/mdg/generator_metadata_epidoc.html"
-        >Hamburg Metadata Generator for EpiDoc</a
-      >.
+         target="_blank" rel="noopener">Hamburg Metadata Generator for EpiDoc</a>.
     </footer>
 
     <div id="toast" role="status" aria-live="polite"></div>
-    <script src="vocab.js"></script>
-    <script src="generator.js"></script>
-    <script src="app.js"></script>
+    <script src="catalog.js"></script>
   </body>
 </html>

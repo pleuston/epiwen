@@ -539,12 +539,12 @@
 
     // Top bar buttons
     document.getElementById("btn-copy").addEventListener("click", copy);
-    document.getElementById("btn-save-github").addEventListener("click", function () {
-      if (window.EpiGitHub) {
-        EpiGitHub.save(build(cleanState()), state.filename);
-      }
+    var _btnSave = document.getElementById("btn-save-github");
+    var _btnCfg  = document.getElementById("btn-gh-settings");
+    if (_btnSave) _btnSave.addEventListener("click", function () {
+      if (window.EpiGitHub) EpiGitHub.save(build(cleanState()), state.filename);
     });
-    document.getElementById("btn-gh-settings").addEventListener("click", function () {
+    if (_btnCfg)  _btnCfg.addEventListener("click", function () {
       if (window.EpiGitHub) EpiGitHub.showSettings();
     });
     document.getElementById("btn-download").addEventListener("click", download);

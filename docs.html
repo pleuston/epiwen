@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Epiwen · Documentation</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <a href="index.html" class="brand-home">Epiwen</a>
+      </div>
+      <nav class="sitenav">
+        <a href="catalog.html" class="sitenav-link">Catalog</a>
+        <a href="editor.html" class="sitenav-link">Editor</a>
+        <a href="docs.html"   class="sitenav-link active">Docs</a>
+        <button data-workflow-modal class="btn small">? How to</button>
+      </nav>
+    </header>
+
+    <main class="docs-pane">
+
+      <section class="about-hero">
+        <h1>Epiwen · EpiDoc generator for Chinese stone inscriptions</h1>
+        <p>
+          Epiwen is a client-side, bilingual (EN / 中), dependency-free web tool that produces
+          valid <a href="https://epidoc.stoa.org/" target="_blank" rel="noopener">EpiDoc / TEI</a>
+          records for Buddhist stone-sutra inscriptions of North China — cliff-carved sutras,
+          sutra steles, sutra pillars, and cave-wall inscriptions. Developed for the
+          <em>Altergraphy / Epiwen</em> encoding project; modelled on the
+          <a href="https://tools.fdm.uni-hamburg.de/mdg/generator_metadata_epidoc.html"
+             target="_blank" rel="noopener">Hamburg Metadata Generator for EpiDoc</a>.
+        </p>
+        <p>
+          Nothing is uploaded — the XML is built live in the browser. Records are
+          contributed via GitHub pull requests and reviewed before they appear in the catalog.
+        </p>
+
+        <button data-workflow-modal class="btn primary" style="margin-top:0.6rem">
+          Open workflow guide →
+        </button>
+      </section>
+
+      <section class="docs-section">
+        <h2>Features</h2>
+        <ul class="docs-list">
+          <li><strong>Bilingual UI</strong> — toggle EN / 中 / EN+中; every field is labelled in both languages.</li>
+          <li><strong>Project vocabularies</strong> — material, object type (the five carriers: 摩崖 / 碑 / 經幢 / 窟壁 / 題記), script, language, licence, and a list of canonical sutras with CBETA/Taishō anchors. Controlled vocabulary is editable in <code>vocab.js</code>.</li>
+          <li><strong>Reign-era date helper</strong> — pick a 年號 and a reign year; the tool computes the exact <code>@when</code> and fills <code>@notBefore</code> / <code>@notAfter</code> / <code>@calendar</code> / <code>@datingMethod</code>.</li>
+          <li><strong>Several texts on one object</strong> — <em>Add text</em> repeats the block so one support bearing several texts (e.g. 碑陽 sutra + 碑陰 colophon) yields one <code>msDesc</code> with multiple <code>&lt;msItem&gt;</code> and a <code>&lt;div type="edition"&gt;</code> holding one <code>&lt;div type="textpart"&gt;</code> per text.</li>
+          <li><strong>Live preview + well-formedness check</strong>; Copy and Download .xml.</li>
+          <li><strong>Propose to GitHub</strong> — one-click contribution flow: copies the XML and opens GitHub's web editor at <code>records/your-file.xml</code>. GitHub handles the fork and pull request automatically.</li>
+        </ul>
+      </section>
+
+      <section class="docs-section">
+        <h2>Scope</h2>
+        <p>
+          The tool covers the <strong>teiHeader + physical description + edition skeleton</strong> —
+          the scope of Epiwen session 2 (<em>Headers &amp; physical description</em>). It does not
+          model the per-glyph measured layer (geometry + condition grade); that is documented
+          separately and is out of scope for any header generator.
+        </p>
+      </section>
+
+      <section class="docs-section">
+        <h2>Roadmap — dynamic version</h2>
+        <p>
+          This is the <strong>static "necessary" tier</strong> of the Epiwen tooling. The
+          <strong>desirable</strong> next step is a dynamic version with stored records,
+          structured input fields, validation, and search — on the model of EDEP / EFES /
+          an eXist-db data-entry UI. The serializer (<code>generator.js</code>) is a pure
+          function with no DOM dependency, making that migration straightforward.
+        </p>
+      </section>
+
+      <section class="docs-section">
+        <h2>Files</h2>
+        <table class="docs-table">
+          <thead><tr><th>File</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code>index.html</code></td><td>Landing page</td></tr>
+            <tr><td><code>catalog.html</code></td><td>Searchable record catalog</td></tr>
+            <tr><td><code>editor.html</code></td><td>EpiDoc form editor</td></tr>
+            <tr><td><code>docs.html</code></td><td>This page</td></tr>
+            <tr><td><code>vocab.js</code></td><td>Controlled vocabularies + reign-era table</td></tr>
+            <tr><td><code>generator.js</code></td><td>Pure <code>buildEpiDoc(data)</code> serializer — runs in browser and Node</td></tr>
+            <tr><td><code>app.js</code></td><td>Schema-driven form, state, live preview</td></tr>
+            <tr><td><code>catalog.js</code></td><td>GitHub API loader + catalog renderer</td></tr>
+            <tr><td><code>modal.js</code></td><td>Shared workflow modal (injected into every page)</td></tr>
+            <tr><td><code>records/</code></td><td>Contributed EpiDoc XML files (merged pull requests)</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="docs-section">
+        <h2>Credits &amp; licence</h2>
+        <p>
+          Concept and form pattern: Hamburg <em>Metadata Generator for EpiDoc</em> (FDM, Univ. Hamburg).
+          Vocabularies: Stone Sutras project thesaurus.<br>
+          Licence: <strong>to be set by the project</strong> — suggested MIT for the code and CC BY 4.0
+          for the vocabularies.
+        </p>
+        <p>
+          Source:
+          <a href="https://github.com/pleuston/epiwen-epidoc-generator"
+             target="_blank" rel="noopener">github.com/pleuston/epiwen-epidoc-generator</a>
+        </p>
+      </section>
+
+    </main>
+
+    <footer class="foot">
+      Source:
+      <a href="https://github.com/pleuston/epiwen-epidoc-generator"
+         target="_blank" rel="noopener">github.com/pleuston/epiwen-epidoc-generator</a> ·
+      Modelled on the
+      <a href="https://tools.fdm.uni-hamburg.de/mdg/generator_metadata_epidoc.html"
+         target="_blank" rel="noopener">Hamburg Metadata Generator for EpiDoc</a>.
+    </footer>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="modal.js"></script>
+  </body>
+</html>

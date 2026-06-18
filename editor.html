@@ -3,27 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Epiwen · New inscription — EpiDoc editor / 中文碑刻 EpiDoc 生成器</title>
+    <title>Epiwen · Editor — new inscription / 新增銘文</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="lang-both">
     <header class="topbar">
       <div class="brand">
-        <a href="index.html" class="sitenav-back" title="Back to catalog">←</a>
-        <strong>Epiwen</strong> · New inscription
-        <span class="zh">新增銘文</span>
+        <a href="index.html" class="brand-home">Epiwen</a>
+        <span class="brand-sep">·</span>
+        <span>New inscription <span class="zh">新增銘文</span></span>
       </div>
+      <nav class="sitenav sitenav-editor">
+        <a href="catalog.html" class="sitenav-link">Catalog</a>
+        <a href="editor.html" class="sitenav-link active">Editor</a>
+        <a href="docs.html"   class="sitenav-link">Docs</a>
+      </nav>
       <div class="controls">
         <div class="langtoggle" role="group" aria-label="interface language">
-          <button data-lang="en" type="button">EN</button>
-          <button data-lang="zh" type="button">中</button>
+          <button data-lang="en"   type="button">EN</button>
+          <button data-lang="zh"   type="button">中</button>
           <button data-lang="both" type="button" class="active">EN+中</button>
         </div>
-        <button id="btn-example" type="button" class="btn">Load example / 範例</button>
-        <button id="btn-reset" type="button" class="btn">Reset / 清空</button>
-        <button id="btn-copy" type="button" class="btn primary">① Copy XML</button>
-        <button id="btn-propose" type="button" class="btn primary">② Propose to GitHub</button>
+        <button id="btn-example"  type="button" class="btn">Load example / 範例</button>
+        <button id="btn-reset"    type="button" class="btn">Reset / 清空</button>
+        <button id="btn-copy"     type="button" class="btn primary">① Copy XML</button>
+        <button id="btn-propose"  type="button" class="btn primary">② Propose to GitHub</button>
         <button id="btn-download" type="button" class="btn">Download .xml</button>
+        <button data-workflow-modal type="button" class="btn">? How to</button>
       </div>
     </header>
 
@@ -60,5 +66,6 @@
     <script src="vocab.js"></script>
     <script src="generator.js"></script>
     <script src="app.js"></script>
+    <script src="modal.js"></script>
   </body>
 </html>

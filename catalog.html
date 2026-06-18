@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Epiwen · Catalog</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <a href="index.html" class="brand-home">Epiwen</a>
+      </div>
+      <nav class="sitenav">
+        <a href="catalog.html" class="sitenav-link active">Catalog</a>
+        <a href="editor.html" class="sitenav-link">Editor</a>
+        <a href="docs.html"   class="sitenav-link">Docs</a>
+        <button data-workflow-modal class="btn small">? How to</button>
+      </nav>
+    </header>
+
+    <div class="about-layout">
+
+      <div class="about-pane">
+        <section class="catalog-section" style="margin-top:0">
+          <div class="catalog-head">
+            <h2>Catalog</h2>
+            <input type="search" id="catalog-search" class="catalog-searchbox"
+                   placeholder="Filter monuments…" aria-label="filter catalog" />
+          </div>
+          <div id="catalog-list">
+            <div class="catalog-loading">Loading records from GitHub…</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="catalog-preview">
+        <div class="preview-head">
+          <span id="preview-title">Select a record to preview</span>
+          <button id="preview-copy" class="btn small" style="display:none">Copy XML</button>
+        </div>
+        <pre><code id="preview-out" class="catalog-xml"></code></pre>
+      </div>
+
+    </div>
+
+    <footer class="foot">
+      Source:
+      <a href="https://github.com/pleuston/epiwen-epidoc-generator"
+         target="_blank" rel="noopener">github.com/pleuston/epiwen-epidoc-generator</a>
+    </footer>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="catalog.js"></script>
+    <script src="modal.js"></script>
+  </body>
+</html>

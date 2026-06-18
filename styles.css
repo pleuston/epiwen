@@ -88,6 +88,12 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); bo
 textarea { resize: vertical; min-height: 3.2rem; font-family: "PingFang SC", "Microsoft YaHei", inherit; }
 textarea.mono { font-family: "SF Mono", Menlo, monospace; }
 
+/* ---- repeatable text blocks (several texts on one object) ---- */
+.textblock { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 7px; padding: 0.6rem 0.7rem; margin-bottom: 0.7rem; background: #fcfbfa; }
+.textblock-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; color: var(--accent); font-size: 0.85rem; }
+.btn.small { padding: 0.15rem 0.45rem; font-size: 0.75rem; }
+#btn-add-text { margin-top: 0.2rem; }
+
 .foot { padding: 0.5rem 1rem; font-size: 0.72rem; color: var(--muted); border-top: 1px solid var(--line); }
 .foot a { color: var(--accent); }
 

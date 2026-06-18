@@ -1,6 +1,8 @@
 /* app.js — DOM wiring for the Epiwen EpiDoc generator.
- * Renders a schema-driven bilingual form, keeps a flat `state` object, and
- * re-serializes via EpiDocGen.buildEpiDoc() on every edit. No framework. */
+ * Schema-driven bilingual form + a repeatable "texts on this object" block
+ * (several texts sharing one support → multiple <div type="textpart">).
+ * Keeps a flat `state` object and re-serializes via EpiDocGen.buildEpiDoc()
+ * on every edit. No framework. */
 (function () {
   "use strict";
   var V = window.VOCAB;
@@ -9,26 +11,23 @@
   // ---- state -------------------------------------------------------------
   var state = {
     authority: "Epiwen / Altergraphy",
-    editionLang: "zh-Hant",
     langIdent: "zh",
-    langLabel: "Literary Chinese 漢文"
+    langLabel: "Literary Chinese 漢文",
+    texts: [{ lang: "zh-Hant" }]
   };
   var pad4 = function (n) { return String(n).padStart(4, "0"); };
   var setVal = function (key, v) {
     var el = document.getElementById("f-" + key);
     if (el) el.value = v == null ? "" : v;
   };
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 
-  // ---- vocab pick handlers ----------------------------------------------
+  // ---- vocab pick handlers (object level) -------------------------------
   function pickMaterial(o) { state.material = o.zh + " " + o.en; state.materialRef = o.ref; }
   function pickObjectType(o) { state.objectType = o.zh + " " + o.en; state.objectTypeRef = o.ref; }
   function pickScript(o) { state.script = o.zh + " " + o.en; state.scriptRef = o.ref; }
   function pickLanguage(o) { state.langIdent = o.ident; state.langLabel = o.en; }
   function pickLicence(o) { state.licence = o.label; state.licenceTarget = o.target; setVal("licenceTarget", o.target); }
-  function pickSutra(o) {
-    state.sutraTitleZh = o.zh; state.sutraTitleEn = o.en; state.cbeta = o.cbeta; state.taisho = o.taisho;
-    setVal("sutraTitleZh", o.zh); setVal("sutraTitleEn", o.en); setVal("cbeta", o.cbeta);
-  }
   function pickEra(o) {
     state._era = o;
     state.notBefore = pad4(o.start); state.notAfter = pad4(o.end);
@@ -45,8 +44,13 @@
       setVal("whenISO", state.whenISO); setVal("notBefore", state.notBefore); setVal("notAfter", state.notAfter);
     }
   }
+  function parseKeywords() {
+    state.keywords = String(state.keywords_raw || "")
+      .split("\n").map(function (l) { return l.trim(); }).filter(Boolean)
+      .map(function (l) { var p = l.split("|"); return { label: (p[0] || "").trim(), ref: (p[1] || "").trim() }; });
+  }
 
-  // ---- schema ------------------------------------------------------------
+  // ---- schema (object-level fields) -------------------------------------
   var SECTIONS = [
     { en: "Identity", zh: "著錄", fields: [
       { key: "filename", en: "File name", zh: "檔名", ph: "SNS_2.xml" },
@@ -63,13 +67,8 @@
       { key: "repository", en: "Repository / in situ", zh: "收藏地／原處" },
       { key: "inventoryNo", en: "Inventory no.", zh: "編號" }
     ]},
-    { en: "Contents & text identity", zh: "內容", fields: [
-      { key: "summary", type: "textarea", en: "Summary", zh: "提要" },
-      { type: "vocab", key: "_sutra", en: "Canonical text", zh: "經目", options: V.SUTRAS,
-        label: function (o) { return o.zh + " · " + o.en + " (" + o.cbeta + ")"; }, pick: pickSutra },
-      { key: "sutraTitleZh", en: "Sutra title (zh)", zh: "經題（中）" },
-      { key: "sutraTitleEn", en: "Sutra title (en)", zh: "經題（英）" },
-      { key: "cbeta", en: "CBETA id", zh: "CBETA 編號", ph: "T08n0235" }
+    { en: "Contents", zh: "內容", fields: [
+      { key: "summary", type: "textarea", en: "Summary of contents", zh: "內容提要" }
     ]},
     { en: "Physical description", zh: "形制", fields: [
       { type: "vocab", key: "_material", en: "Material", zh: "材質", options: V.MATERIALS,
@@ -106,13 +105,12 @@
     { en: "Language & classification", zh: "語言與分類", fields: [
       { type: "vocab", key: "_language", en: "Primary language", zh: "主要語言", options: V.LANGS,
         label: function (o) { return o.en; }, pick: pickLanguage },
-      { key: "keywords", type: "textarea", en: "Keywords (one per line: label | ref)", zh: "關鍵詞（每行：標籤 | 權威碼）",
-        onInput: parseKeywords }
+      { key: "keywords", type: "textarea", en: "Keywords (one per line: label | ref)", zh: "關鍵詞（每行：標籤 | 權威碼）", onInput: parseKeywords }
     ]},
-    { en: "Transcription & apparatus", zh: "錄文", fields: [
-      { key: "editionText", type: "textarea", mono: true, en: "Transcription (one line per source line)", zh: "錄文（每行對應原石一行）" },
-      { key: "editionLang", en: "Edition lang", zh: "錄文語言碼", ph: "zh-Hant" },
-      { key: "translationText", type: "textarea", en: "Translation", zh: "翻譯" },
+    { en: "Texts on this object", zh: "本物所載文本", fields: [
+      { custom: "texts" }
+    ]},
+    { en: "Apparatus & media", zh: "附錄與圖像", fields: [
       { key: "commentaryText", type: "textarea", en: "Commentary", zh: "註釋" },
       { key: "bibliography", type: "textarea", en: "Bibliography (one per line)", zh: "參考文獻（每行一條）" },
       { key: "facsimileUrl", en: "Facsimile image URL", zh: "圖版連結" }
@@ -130,23 +128,84 @@
     ]}
   ];
 
-  function parseKeywords() {
-    state.keywords = String(state.keywords_raw || "")
-      .split("\n").map(function (l) { return l.trim(); }).filter(Boolean)
-      .map(function (l) {
-        var p = l.split("|");
-        return { label: (p[0] || "").trim(), ref: (p[1] || "").trim() };
-      });
+  // ---- repeatable texts (several texts on one object) --------------------
+  var textsBox = null;
+  function renderTextsSection() {
+    var wrap = document.createElement("div");
+    textsBox = document.createElement("div"); textsBox.id = "texts-container";
+    wrap.appendChild(textsBox);
+    var add = document.createElement("button");
+    add.type = "button"; add.className = "btn"; add.id = "btn-add-text";
+    add.innerHTML = '+ <span class="en">Add text</span><span class="zh">增加文本</span>';
+    add.addEventListener("click", function () { state.texts.push({ lang: "zh-Hant" }); renderTexts(); update(); });
+    wrap.appendChild(add);
+    renderTexts();
+    return wrap;
+  }
+  function renderTexts() {
+    if (!textsBox) return;
+    textsBox.innerHTML = "";
+    state.texts.forEach(function (tx, i) { textsBox.appendChild(renderTextBlock(tx, i)); });
+  }
+  function tField(tx, i, key, en, zh, ph, area, mono) {
+    var w = document.createElement("div"); w.className = "field";
+    w.innerHTML = '<span class="label"><span class="en">' + esc(en) + '</span><span class="zh">' + esc(zh) + "</span></span>";
+    var c = area ? document.createElement("textarea") : document.createElement("input");
+    if (area && mono) c.className = "mono";
+    c.id = "f-text-" + i + "-" + key; if (ph) c.placeholder = ph;
+    c.value = tx[key] || "";
+    c.addEventListener("input", function () { tx[key] = c.value; update(); });
+    w.appendChild(c); return w;
+  }
+  function tSutra(tx, i) {
+    var w = document.createElement("div"); w.className = "field";
+    w.innerHTML = '<span class="label"><span class="en">Canonical text</span><span class="zh">經目</span></span>';
+    var sel = document.createElement("select");
+    sel.innerHTML = '<option value="">—</option>' +
+      V.SUTRAS.map(function (o, j) { return '<option value="' + j + '">' + esc(o.zh + " · " + o.en + " (" + o.cbeta + ")") + "</option>"; }).join("");
+    sel.addEventListener("change", function () {
+      var j = parseInt(sel.value, 10);
+      if (isNaN(j)) return;
+      var o = V.SUTRAS[j];
+      tx.sutraTitleZh = o.zh; tx.sutraTitleEn = o.en; tx.cbeta = o.cbeta; tx.taisho = o.taisho;
+      var z = document.getElementById("f-text-" + i + "-sutraTitleZh"); if (z) z.value = o.zh;
+      var cb = document.getElementById("f-text-" + i + "-cbeta"); if (cb) cb.value = o.cbeta;
+      update();
+    });
+    w.appendChild(sel); return w;
+  }
+  function renderTextBlock(tx, i) {
+    var box = document.createElement("div"); box.className = "textblock";
+    var head = document.createElement("div"); head.className = "textblock-head";
+    head.innerHTML = '<strong><span class="en">Text</span><span class="zh">文本</span> ' + (i + 1) + "</strong>";
+    if (state.texts.length > 1) {
+      var del = document.createElement("button");
+      del.type = "button"; del.className = "btn small";
+      del.innerHTML = '− <span class="en">remove</span><span class="zh">刪除</span>';
+      del.addEventListener("click", function () { state.texts.splice(i, 1); renderTexts(); update(); });
+      head.appendChild(del);
+    }
+    box.appendChild(head);
+    var row = document.createElement("div"); row.className = "field row";
+    row.appendChild(tField(tx, i, "label", "Face / locus", "面／位置", "碑陽 recto"));
+    row.appendChild(tField(tx, i, "subtype", "subtype", "類別", "recto"));
+    row.appendChild(tField(tx, i, "lang", "Lang code", "語言碼", "zh-Hant"));
+    box.appendChild(row);
+    box.appendChild(tSutra(tx, i));
+    box.appendChild(tField(tx, i, "sutraTitleZh", "Sutra title (zh)", "經題（中）"));
+    box.appendChild(tField(tx, i, "cbeta", "CBETA id", "CBETA 編號", "T08n0235"));
+    box.appendChild(tField(tx, i, "editionText", "Transcription (one line per source line)", "錄文（每行對應原石一行）", "", true, true));
+    box.appendChild(tField(tx, i, "translationText", "Translation", "翻譯", "", true, false));
+    return box;
   }
 
-  // ---- render ------------------------------------------------------------
+  // ---- render object-level fields ---------------------------------------
   function labelSpan(f) {
     return '<span class="label"><span class="en">' + esc(f.en) + "</span>" +
       (f.zh ? '<span class="zh">' + esc(f.zh) + "</span>" : "") + "</span>";
   }
-  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
-
   function renderField(f) {
+    if (f.custom === "texts") return renderTextsSection();
     var wrap = document.createElement("div");
     wrap.className = "field";
     if (f.type === "vocab") {
@@ -163,13 +222,8 @@
       return wrap;
     }
     var ctrl;
-    if (f.type === "textarea") {
-      ctrl = document.createElement("textarea");
-      if (f.mono) ctrl.className = "mono";
-    } else {
-      ctrl = document.createElement("input");
-      ctrl.type = f.type === "number" ? "number" : "text";
-    }
+    if (f.type === "textarea") { ctrl = document.createElement("textarea"); if (f.mono) ctrl.className = "mono"; }
+    else { ctrl = document.createElement("input"); ctrl.type = f.type === "number" ? "number" : "text"; }
     ctrl.id = "f-" + f.key;
     if (f.ph) ctrl.placeholder = f.ph;
     wrap.innerHTML = labelSpan(f);
@@ -189,20 +243,16 @@
     }
     return wrap;
   }
-
   function renderRow(fields) {
     var row = document.createElement("div");
     row.className = "field row";
     fields.forEach(function (f) {
       var cell = renderField(f);
-      cell.classList.remove("field"); // already inside .row grid cell
-      var inner = document.createElement("div");
-      inner.appendChild(cell);
+      cell.classList.remove("field");
       row.appendChild(cell);
     });
     return row;
   }
-
   function render() {
     var root = document.getElementById("form");
     SECTIONS.forEach(function (sec) {
@@ -215,8 +265,7 @@
         else root.appendChild(renderField(f));
       });
     });
-    // reflect defaults
-    ["authority", "editionLang"].forEach(function (k) { setVal(k, state[k]); });
+    setVal("authority", state.authority);
   }
 
   // ---- preview -----------------------------------------------------------
@@ -231,8 +280,7 @@
     var v = document.getElementById("validity");
     try {
       var doc = new DOMParser().parseFromString(xml, "application/xml");
-      var err = doc.getElementsByTagName("parsererror");
-      if (err.length) { v.textContent = "✗ not well-formed"; v.className = "validity bad"; }
+      if (doc.getElementsByTagName("parsererror").length) { v.textContent = "✗ not well-formed"; v.className = "validity bad"; }
       else { v.textContent = "✓ well-formed"; v.className = "validity ok"; }
     } catch (e) { v.textContent = ""; }
   }
@@ -248,23 +296,19 @@
     var blob = new Blob([build(cleanState())], { type: "application/xml" });
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = (state.filename || "epidoc") .replace(/\.xml$/i, "") + ".xml";
+    a.download = (state.filename || "epidoc").replace(/\.xml$/i, "") + ".xml";
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1500);
   }
-  function copy() {
-    var xml = build(cleanState());
-    if (navigator.clipboard) navigator.clipboard.writeText(xml);
-  }
+  function copy() { if (navigator.clipboard) navigator.clipboard.writeText(build(cleanState())); }
 
   var EXAMPLE = {
     filename: "SNS_2.xml", editor: "Epiwen contributor",
-    titleEn: "Mañjuśrī Prajñā passage, Mount Shuiniu (stele recto)",
-    titleZh: "水牛山《文殊師利所説摩訶般若波羅蜜經》碑陽正法節文",
+    titleEn: "Mañjuśrī Prajñā stele, Mount Shuiniu (two faces)",
+    titleZh: "水牛山《文殊師利所説摩訶般若波羅蜜經》碑（兩面）",
     country: "China 中國", currentRegion: "Shandong 山東", currentSettlement: "Wenshang 汶上",
     repository: "in situ 原處", inventoryNo: "SNS_2",
-    summary: "Northern Qi stele excerpt of the Mañjuśrī Prajñā-pāramitā sūtra.",
-    sutraTitleZh: "文殊師利所説摩訶般若波羅蜜經", sutraTitleEn: "Sūtra of the Perfection of Wisdom Spoken by Mañjuśrī", cbeta: "T08n0232",
+    summary: "Northern Qi stele: Mañjuśrī Prajñā sūtra on the recto, donor colophon on the verso.",
     material: "石灰岩 limestone", materialRef: "aat:300011286",
     objectType: "碑 · stele", objectTypeRef: "sst:stele",
     heightCm: "210", widthCm: "92", depthCm: "24",
@@ -276,17 +320,26 @@
     origPlace: "Mount Shuiniu 水牛山",
     keywords: [{ ref: "sst:perfection-of-wisdom", label: "Perfection of Wisdom 般若" }],
     keywords_raw: "Perfection of Wisdom 般若 | sst:perfection-of-wisdom",
-    editionText: "文殊師利白佛言\n世尊云何名般若波羅蜜\n佛言般若波羅蜜無邊無際",
-    translationText: "Mañjuśrī addressed the Buddha: 'World-Honoured One, what is the Perfection of Wisdom?'",
-    bibliography: "Wenzel, Claudia, ed. Buddhist Stone Sutras in Shandong.\nCatalogue no. SNS_2.",
-    facsimileUrl: "images/SNS_2.jpg",
+    texts: [
+      { label: "碑陽 recto", subtype: "recto", lang: "zh-Hant",
+        sutraTitleZh: "文殊師利所説摩訶般若波羅蜜經", sutraTitleEn: "Sūtra of the Perfection of Wisdom Spoken by Mañjuśrī", cbeta: "T08n0232",
+        editionText: "文殊師利白佛言\n世尊云何名般若波羅蜜\n佛言般若波羅蜜無邊無際",
+        translationText: "Mañjuśrī addressed the Buddha: 'World-Honoured One, what is the Perfection of Wisdom?'" },
+      { label: "碑陰 verso / 題記", subtype: "verso", lang: "zh-Hant",
+        editionText: "武平六年歲次乙未\n邑義等敬造",
+        translationText: "In the sixth year of Wuping (575)... the donor society reverently made this." }
+    ],
     authority: "Epiwen / Altergraphy", licence: "CC BY 4.0", licenceTarget: "https://creativecommons.org/licenses/by/4.0/",
-    editionLang: "zh-Hant", langIdent: "zh", langLabel: "Literary Chinese 漢文",
+    langIdent: "zh", langLabel: "Literary Chinese 漢文",
     changeWhen: "2026-06-18", changeWho: "#epiwen", changeNote: "Initial EpiDoc encoding via the Epiwen generator."
   };
   function loadExample() {
     Object.keys(EXAMPLE).forEach(function (k) { state[k] = EXAMPLE[k]; });
-    Object.keys(state).forEach(function (k) { if (k[0] !== "_") setVal(k, k === "keywords" ? state.keywords_raw : state[k]); });
+    Object.keys(state).forEach(function (k) {
+      if (k[0] === "_" || k === "texts") return;
+      setVal(k, k === "keywords" ? state.keywords_raw : state[k]);
+    });
+    renderTexts();
     update();
   }
 

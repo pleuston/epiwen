@@ -32,6 +32,12 @@ either).
 - **Reign-era date helper** — pick a 年號 and a reign year and the tool computes
   the exact `@when` and fills `@notBefore`/`@notAfter`/`@calendar`/`@datingMethod`
   (e.g. 武平 + 六年 → `when="0575"`).
+- **Several texts on one object** — *Add text* repeats the block, so one support
+  bearing several texts (e.g. 碑陽 sutra + 碑陰 colophon) yields one `msDesc` with
+  multiple `<msItem>` (each with its `<locus>`) and a `<div type="edition">`
+  holding one `<div type="textpart">` per text (face/locus, language,
+  transcription, translation). This is the EpiDoc model of the project's
+  shares-support relation.
 - **Live preview + well-formedness check**; **Copy** and **Download .xml**.
 - **No build step, no server, no dependencies** — a folder of static files.
 

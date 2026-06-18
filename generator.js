@@ -140,6 +140,56 @@
       });
   }
 
+  // --- texts on the object (one, or many sharing one support) ------------
+  function normTexts(d) {
+    if (d.texts && d.texts.length) return d.texts;
+    return [{
+      label: "", subtype: "", lang: d.editionLang,
+      sutraTitleZh: d.sutraTitleZh, sutraTitleEn: d.sutraTitleEn, cbeta: d.cbeta, taisho: d.taisho,
+      editionText: d.editionText, translationText: d.translationText, translationLang: d.translationLang
+    }];
+  }
+  function msContentsNode(d) {
+    var texts = normTexts(d);
+    var multi = texts.length > 1;
+    var items = texts.map(function (tx, i) {
+      var zh = t(tx.sutraTitleZh), en = t(tx.sutraTitleEn), cb = t(tx.cbeta), ta = t(tx.taisho);
+      if (!zh && !en && !cb && !ta) return null;
+      var ref = cb ? "cbeta:" + cb : ta ? "taisho:" + ta : "";
+      return h("msItem", { n: multi ? String(i + 1) : "" },
+        t(tx.label) ? h("locus", null, tx.label) : null,
+        zh || en ? h("title", { ref: ref, "xml:lang": zh ? "zh-Hant" : "en" }, zh || en) : null,
+        zh && en ? h("title", { "xml:lang": "en", type: "translated" }, en) : null);
+    }).filter(Boolean);
+    return h("msContents", null, h("summary", null, d.summary), items.length ? items : null);
+  }
+  function bodyChildren(d) {
+    var texts = normTexts(d);
+    var simple = texts.length === 1 && !t(texts[0].label) && !t(texts[0].subtype);
+    var edition;
+    if (simple) {
+      edition = hk("div",
+        { type: "edition", "xml:lang": texts[0].lang || "zh-Hant", "xml:space": "preserve" },
+        hk("ab", null, editionChildren(texts[0].editionText)));
+    } else {
+      var parts = texts.map(function (tx, i) {
+        return hk("div",
+          { type: "textpart", n: String(i + 1), subtype: tx.subtype, "xml:lang": tx.lang || "zh-Hant" },
+          t(tx.label) ? h("head", null, tx.label) : null,
+          hk("ab", null, editionChildren(tx.editionText)));
+      });
+      edition = hk("div", { type: "edition", "xml:space": "preserve" }, parts);
+    }
+    var trans = texts.map(function (tx, i) {
+      if (!t(tx.translationText)) return null;
+      return h("div",
+        { type: "translation", "xml:lang": tx.translationLang || "en", n: texts.length > 1 ? String(i + 1) : "" },
+        texts.length > 1 && t(tx.label) ? h("head", null, tx.label) : null,
+        h("p", null, tx.translationText));
+    }).filter(Boolean);
+    return [edition].concat(trans);
+  }
+
   // --- main builder -------------------------------------------------------
   function buildEpiDoc(d) {
     d = d || {};
@@ -186,30 +236,8 @@
       h("idno", { type: "inventory" }, d.inventoryNo) || comment("inventory no. / 編號")
     );
 
-    // msContents
-    var msContents = h(
-      "msContents",
-      null,
-      h("summary", null, d.summary),
-      makeMsItem(d)
-    );
-    function makeMsItem(d) {
-      var ref = t(d.cbeta) ? "cbeta:" + t(d.cbeta) : t(d.taisho) ? "taisho:" + t(d.taisho) : "";
-      var titleNode =
-        t(d.sutraTitleZh) || t(d.sutraTitleEn)
-          ? h(
-              "title",
-              { ref: ref, "xml:lang": t(d.sutraTitleZh) ? "zh-Hant" : "en" },
-              d.sutraTitleZh || d.sutraTitleEn
-            )
-          : null;
-      var enAlt =
-        t(d.sutraTitleZh) && t(d.sutraTitleEn)
-          ? h("title", { "xml:lang": "en", type: "translated" }, d.sutraTitleEn)
-          : null;
-      if (!titleNode && !t(d.cbeta) && !t(d.taisho)) return null;
-      return h("msItem", null, titleNode, enAlt);
-    }
+    // msContents — one msItem per text on the object
+    var msContents = msContentsNode(d);
 
     // physDesc
     var support = h(
@@ -328,19 +356,8 @@
       ? h("facsimile", null, selfclose("graphic", { url: d.facsimileUrl }))
       : null;
 
-    // text / body
-    var edition = hk(
-      "div",
-      { type: "edition", "xml:lang": d.editionLang || "zh-Hant", "xml:space": "preserve" },
-      hk("ab", null, editionChildren(d.editionText))
-    );
-    var translation = t(d.translationText)
-      ? h(
-          "div",
-          { type: "translation", "xml:lang": d.translationLang || "en" },
-          h("p", null, d.translationText)
-        )
-      : null;
+    // text / body — one edition; multiple <div type="textpart"> when the
+    // object bears several texts (e.g. 碑陽 sutra + 碑陰 colophon)
     var commentaryDiv = t(d.commentaryText)
       ? h("div", { type: "commentary" }, h("p", null, d.commentaryText))
       : null;
@@ -349,7 +366,7 @@
       return bibls ? h("div", { type: "bibliography" }, h("listBibl", null, bibls)) : null;
     })();
 
-    var body = hk("body", null, edition, translation, commentaryDiv, biblDiv);
+    var body = hk("body", null, bodyChildren(d), commentaryDiv, biblDiv);
     var text = hk("text", null, body);
 
     var TEI = hk(

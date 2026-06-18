@@ -5,8 +5,8 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title xml:lang="en">Mañjuśrī Prajñā passage, Mount Shuiniu (stele recto)</title>
-        <title xml:lang="zh-Hant">水牛山《文殊師利所説摩訶般若波羅蜜經》碑陽正法節文</title>
+        <title xml:lang="en">Mañjuśrī Prajñā stele, Mount Shuiniu (two faces)</title>
+        <title xml:lang="zh-Hant">水牛山《文殊師利所説摩訶般若波羅蜜經》碑（兩面）</title>
         <editor role="editor">Epiwen contributor</editor>
       </titleStmt>
       <publicationStmt>
@@ -20,15 +20,17 @@
         <msDesc>
           <msIdentifier>
             <country>China 中國</country>
+            <region>Shandong 山東</region>
             <settlement>Wenshang 汶上</settlement>
             <repository>in situ 原處</repository>
             <idno type="inventory">SNS_2</idno>
           </msIdentifier>
           <msContents>
-            <summary>Northern Qi cliff/stele excerpt of the Mañjuśrī Prajñā-pāramitā sūtra.</summary>
-            <msItem>
+            <summary>Northern Qi stele: Mañjuśrī Prajñā sūtra on the recto, donor colophon on the verso.</summary>
+            <msItem n="1">
+              <locus>碑陽 recto</locus>
               <title ref="cbeta:T08n0232" xml:lang="zh-Hant">文殊師利所説摩訶般若波羅蜜經</title>
-              <title xml:lang="en" type="translated">Sūtra of Perfection of Wisdom Spoken by Mañjuśrī</title>
+              <title xml:lang="en" type="translated">Sūtra of the Perfection of Wisdom Spoken by Mañjuśrī</title>
             </msItem>
           </msContents>
           <physDesc>
@@ -56,7 +58,7 @@
           <history>
             <origin>
               <origDate calendar="#chinese" datingMethod="#reign-era" when="0575" notBefore="0575" notAfter="0575">北齊武平六年</origDate>
-              <origPlace ref="geonames:0000000">Mount Shuiniu 水牛山</origPlace>
+              <origPlace>Mount Shuiniu 水牛山</origPlace>
             </origin>
           </history>
         </msDesc>
@@ -69,7 +71,6 @@
       <textClass>
         <keywords scheme="#stonesutras">
           <term ref="sst:perfection-of-wisdom">Perfection of Wisdom 般若</term>
-          <term ref="sst:cliff-carved-sutra">cliff-carved sutra 摩崖刻經</term>
         </keywords>
       </textClass>
     </profileDesc>
@@ -82,24 +83,35 @@
   </facsimile>
   <text>
     <body>
-      <div type="edition" xml:lang="zh-Hant" xml:space="preserve">
-        <ab>
-          <lb n="1"/>
-          文殊師利白佛言
-          <lb n="2"/>
-          世尊云何名般若波羅蜜
-          <lb n="3"/>
-          佛言般若波羅蜜無邊無際
-        </ab>
+      <div type="edition" xml:space="preserve">
+        <div type="textpart" n="1" subtype="recto" xml:lang="zh-Hant">
+          <head>碑陽 recto</head>
+          <ab>
+            <lb n="1"/>
+            文殊師利白佛言
+            <lb n="2"/>
+            世尊云何名般若波羅蜜
+            <lb n="3"/>
+            佛言般若波羅蜜無邊無際
+          </ab>
+        </div>
+        <div type="textpart" n="2" subtype="verso" xml:lang="zh-Hant">
+          <head>碑陰 verso / 題記</head>
+          <ab>
+            <lb n="1"/>
+            武平六年歲次乙未
+            <lb n="2"/>
+            邑義等敬造
+          </ab>
+        </div>
       </div>
-      <div type="translation" xml:lang="en">
-        <p>Mañjuśrī addressed the Buddha: 'World-Honoured One, what is called the Perfection of Wisdom?'</p>
+      <div type="translation" xml:lang="en" n="1">
+        <head>碑陽 recto</head>
+        <p>Mañjuśrī addressed the Buddha: 'World-Honoured One, what is the Perfection of Wisdom?'</p>
       </div>
-      <div type="bibliography">
-        <listBibl>
-          <bibl>Wenzel, Claudia. Buddhist Stone Sutras in Shandong, vol. 1.</bibl>
-          <bibl>Ledderose, Ledderose et al., catalogue no. SNS_2.</bibl>
-        </listBibl>
+      <div type="translation" xml:lang="en" n="2">
+        <head>碑陰 verso / 題記</head>
+        <p>In the sixth year of Wuping (575)... the donor society reverently made this.</p>
       </div>
     </body>
   </text>

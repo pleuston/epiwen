@@ -1,10 +1,10 @@
 /* map.js — site locations on Leaflet (vendored locally in leaflet/).
  *
  * Base layers (radio): modern (Streets/Satellite/Terrain/Light) plus the
- * georeferenced 譚其驤 中國歷史地圖集 (Historical Atlas of China) served as
- * WMTS tiles by CCTS / Academia Sinica — Southern & Northern Dynasties (497),
- * Sui (612), and Tang (741), the stone-sutra periods.
- * Overlay (checkbox): the clustered site markers, shown on whichever base.
+ * georeferenced 譚其驤 中國歷史地圖集 (Historical Atlas of China), Qin → Qing,
+ * served as WMTS tiles by CCTS / Academia Sinica.
+ * Overlays (checkbox): clustered site markers + Tang thematic layers
+ * (circuits/prefectures, traffic routes), shown over whichever base.
  */
 (function () {
   "use strict";
@@ -31,15 +31,25 @@
     setTimeout(function () { el.className = ""; }, isErr ? 6000 : 3000);
   }
 
-  // CCTS / Academia Sinica WMTS (GoogleMapsCompatible → standard z/x/y),
-  // RESTful ResourceURL template. One layer per period of the atlas.
+  // CCTS / Academia Sinica WMTS (GoogleMapsCompatible → z/x/y, RESTful, HTTPS).
   var CCTS_ATTR = '譚其驤 <i>中國歷史地圖集</i> · <a href="https://gis.sinica.edu.tw/ccts/" target="_blank" rel="noopener">CCTS</a>, Academia Sinica';
-  function ccts(id) {
+  function ccts(id, extra) {
     return L.tileLayer(
       "https://gis.sinica.edu.tw/ccts/file-exists.php?img=" + id + "-png-{z}-{x}-{y}",
-      { maxNativeZoom: 10, maxZoom: 18, attribution: CCTS_ATTR }
+      Object.assign({ maxNativeZoom: 10, maxZoom: 18, attribution: CCTS_ATTR }, extra || {})
     );
   }
+
+  // The atlas, chronologically (id, label)
+  var DYNASTIES = [
+    ["bc0210", "Qin · 210 BCE"],            ["bc0007", "W. Han · 7 BCE"],
+    ["ad0140", "E. Han · 140"],             ["ad0262", "Three Kingdoms · 262"],
+    ["ad0281", "W. Jin · 281"],             ["ad0382", "E. Jin · 382"],
+    ["ad0497", "S. & N. Dynasties · 497"],  ["ad0612", "Sui · 612"],
+    ["ad0741", "Tang · 741"],               ["ad1111", "N. Song · 1111"],
+    ["ad1208", "S. Song · 1208"],           ["ad1330", "Yuan · 1330"],
+    ["ad1582", "Ming · 1582"],              ["ad1820", "Qing · 1820"]
+  ];
 
   document.addEventListener("DOMContentLoaded", function () {
     var mapEl = document.getElementById("map");
@@ -70,23 +80,23 @@
 
     window.addEventListener("resize", function () { sizeMap(); map.invalidateSize(); });
 
-    // ── Historical base maps (Tan Qixiang / CCTS) ──────────────────────────────
-    var baseLayers = {
-      "Streets": osm,
-      "Satellite": sat,
-      "Terrain": topo,
-      "Light": light,
-      "Tang · 741 (Tan Qixiang)": ccts("ad0741"),
-      "Sui · 612 (Tan Qixiang)": ccts("ad0612"),
-      "S. &amp; N. Dynasties · 497 (Tan Qixiang)": ccts("ad0497")
-    };
+    // ── Base layers: modern + historical atlas (Tan Qixiang / CCTS) ────────────
+    var baseLayers = { "Streets": osm, "Satellite": sat, "Terrain": topo, "Light": light };
+    DYNASTIES.forEach(function (d) { baseLayers[d[1]] = ccts(d[0]); });
 
     // ── Site markers (clustered) ──────────────────────────────────────────────
     var cluster = L.markerClusterGroup({
       maxClusterRadius: 45, showCoverageOnHover: false, spiderfyOnMaxZoom: true
     });
 
-    L.control.layers(baseLayers, { "Sites": cluster }, { collapsed: true }).addTo(map);
+    // ── Overlays: sites + Tang thematic layers (transparent, over any base) ────
+    var overlays = {
+      "Sites": cluster,
+      "Tang circuits &amp; prefectures": ccts("Tang_Admin", { zIndex: 5 }),
+      "Tang traffic routes": ccts("Tang_TrafficRoute", { zIndex: 6 })
+    };
+
+    L.control.layers(baseLayers, overlays, { collapsed: true }).addTo(map);
 
     fetch("data/site-index.json?v=" + Date.now())
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })

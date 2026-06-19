@@ -80,12 +80,14 @@
     var html = "";
     var pt = rec.pub_type;
 
-    // Contributors block
+    // Contributors block — author, else editor, else translator
     if (rec.author && rec.author.length) {
       html += "<strong>" + nameListHtml(rec.author, rec.author_zh || [], "") + ".</strong> ";
     } else if (rec.editor && rec.editor.length) {
-      var suf = rec.editor.length === 1 ? ", ed." : ", eds.";
+      var suf = rec.editor.length === 1 ? ", ed" : ", eds";
       html += "<strong>" + nameListHtml(rec.editor, rec.editor_zh || [], suf) + ".</strong> ";
+    } else if (rec.translator && rec.translator.length) {
+      html += "<strong>" + nameListHtml(rec.translator, rec.translator_zh || [], ", trans") + ".</strong> ";
     }
 
     if (pt === "article") {
@@ -160,8 +162,10 @@
       if (yearMax < 9999 && yr && yr > yearMax) return false;
       if (q) {
         var hay = [
-          r.reference || "", r.title || "", r.title_zh || "", r.title_en || "",
-          (r.author || []).join(" "), (r.editor || []).join(" "),
+          r.key || "", r.reference || "", r.title || "", r.title_zh || "", r.title_en || "",
+          (r.author || []).join(" "), (r.author_zh || []).join(" "),
+          (r.editor || []).join(" "), (r.editor_zh || []).join(" "),
+          (r.translator || []).join(" "), (r.translator_zh || []).join(" "),
           r.journal || "", r.host_title || ""
         ].join(" ").toLowerCase();
         if (hay.indexOf(q) === -1) return false;
@@ -301,8 +305,10 @@
     // Contributors
     var authors = nameListHtml(rec.author || [], rec.author_zh || [], "");
     var editors = nameListHtml(rec.editor || [], rec.editor_zh || [], "");
+    var translators = nameListHtml(rec.translator || [], rec.translator_zh || [], "");
     if (authors) html += dlRow("Author(s)", authors);
     if (editors) html += dlRow("Editor(s)", editors);
+    if (translators) html += dlRow("Translator(s)", translators);
 
     // Titles
     if (rec.title)    html += dlRow("Title", "<em>" + esc(rec.title) + "</em>");

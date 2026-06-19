@@ -112,9 +112,25 @@
   }
 
   function buildNameEl(c, indent) {
+    var kind = c.kind || "person";
+    var hrefAttr = c.href ? ' ns2:href="#' + xmlEsc(c.href) + '"' : "";
+
+    // Corporate / full-name (single-field) contributors
+    if (kind === "corp" || kind === "personFull") {
+      var ntype = kind === "corp" ? "corporate" : "personal";
+      var y = indent + '<name' + hrefAttr + ' type="' + ntype + '">\n';
+      if (c.whole)   y += indent + '  <namePart>' + xmlEsc(c.whole) + '</namePart>\n';
+      if (c.wholeZh) y += indent + '  <namePart lang="zh">' + xmlEsc(c.wholeZh) + '</namePart>\n';
+      if (c.role === "et-al")
+        y += indent + '  <role><roleTerm type="etal">author</roleTerm></role>\n';
+      else
+        y += indent + '  <role><roleTerm>' + xmlEsc(c.role || "author") + '</roleTerm></role>\n';
+      y += indent + '</name>\n';
+      return y;
+    }
+
     var hasPy = c.pyFamily || c.pyGiven;
     var hasZh = c.zhFamily || c.zhGiven;
-    var hrefAttr = c.href ? ' ns2:href="#' + xmlEsc(c.href) + '"' : "";
     var x = indent + '<name' + hrefAttr + ' type="personal">\n';
     if (c.role === "et-al") {
       x += indent + '  <role><roleTerm type="etal">author</roleTerm></role>\n';
@@ -456,8 +472,10 @@
   }
 
   function parseNameEl(nameEl) {
-    var c = { pyFamily: "", pyGiven: "", zhFamily: "", zhGiven: "", role: "author", href: "" };
+    var c = { kind: "person", pyFamily: "", pyGiven: "", zhFamily: "", zhGiven: "",
+              whole: "", wholeZh: "", role: "author", href: "" };
     c.href = (nameEl.getAttributeNS(XLINK_NS, "href") || "").replace(/^#/, "");
+    var ntype = nameEl.getAttribute("type") || "personal";
     var parts = nameEl.getElementsByTagNameNS(NS_MODS, "namePart");
     for (var i = 0; i < parts.length; i++) {
       var p      = parts[i];
@@ -465,17 +483,24 @@
       var pLang  = p.getAttribute("lang") || "";
       var pTrans = p.getAttribute("transliteration") || "";
       var pText  = p.textContent.trim();
+      if (!pText) continue;
       if (pLang === "zh") {
         if (pType === "family") c.zhFamily = pText;
         else if (pType === "given") c.zhGiven = pText;
-      } else if (pTrans === "pinyin") {
-        if (pType === "family") c.pyFamily = pText;
-        else if (pType === "given") c.pyGiven = pText;
+        else c.wholeZh = c.wholeZh || pText;            // untyped CJK whole-name
+      } else if (pType === "family") {
+        c.pyFamily = pText;
+      } else if (pType === "given") {
+        c.pyGiven = pText;
       } else {
-        if (pType === "family") c.pyFamily = pText;
-        else if (pType === "given") c.pyGiven = pText;
+        c.whole = c.whole || pText;                      // untyped western whole-name
       }
     }
+    // Classify: corporate, full-name personal, or split personal
+    if (ntype === "corporate") c.kind = "corp";
+    else if (!c.pyFamily && !c.pyGiven && !c.zhFamily && !c.zhGiven && (c.whole || c.wholeZh))
+      c.kind = "personFull";
+    else c.kind = "person";
     var roleEl = nameEl.getElementsByTagNameNS(NS_MODS, "roleTerm")[0];
     if (roleEl) {
       var rType = roleEl.getAttribute("type") || "";
@@ -492,12 +517,25 @@
     div.dataset.idx = idx;
 
     var isEtal = c.role === "et-al";
+    var kind = c.kind || "person";
+    var single = kind === "corp" || kind === "personFull";
     var mainHtml = '<div class="contrib-main">';
-    if (!isEtal) {
+    if (!isEtal && single) {
+      var rl = kind === "corp" ? "Institution name" : "Full name";
+      mainHtml += '<label style="flex:2">' + rl + '<input type="text" class="form-input contrib-whole" value="' + xmlEsc(c.whole) + '" placeholder="Sichuan daxue kaogu xuexi" /></label>';
+      mainHtml += '<label style="flex:1.4">ZH<input type="text" class="form-input contrib-whole-zh" value="' + xmlEsc(c.wholeZh) + '" placeholder="institution name" /></label>';
+    } else if (!isEtal) {
       mainHtml += '<label style="flex:1.1">Family (Py/EN)<input type="text" class="form-input contrib-py-family" value="' + xmlEsc(c.pyFamily) + '" placeholder="Ledderose" /></label>';
       mainHtml += '<label style="flex:1">Given (Py/EN)<input type="text" class="form-input contrib-py-given" value="' + xmlEsc(c.pyGiven) + '" placeholder="Lothar" /></label>';
       mainHtml += '<label style="flex:.7">ZH 姓<input type="text" class="form-input contrib-zh-family" value="' + xmlEsc(c.zhFamily) + '" placeholder="陳" /></label>';
       mainHtml += '<label style="flex:.7">ZH 名<input type="text" class="form-input contrib-zh-given" value="' + xmlEsc(c.zhGiven) + '" placeholder="清香" /></label>';
+    }
+    if (!isEtal) {
+      mainHtml += '<label class="contrib-kind-label" style="flex:0 0 6.5rem">Kind<select class="form-input contrib-kind">';
+      [["person", "Person"], ["personFull", "Full name"], ["corp", "Institution"]].forEach(function (k) {
+        mainHtml += '<option value="' + k[0] + '"' + (kind === k[0] ? ' selected' : '') + '>' + k[1] + '</option>';
+      });
+      mainHtml += '</select></label>';
     }
     mainHtml += '<label class="contrib-role-label">Role<select class="form-input contrib-role">';
     ["author", "editor", "translator", "et-al"].forEach(function (r) {
@@ -520,18 +558,30 @@
       update();
     });
 
-    div.querySelector(".contrib-role").addEventListener("change", function () {
-      var newRole = this.value;
-      var parent = this.closest(".contrib-row");
-      // rebuild row with correct fields for et-al vs normal
-      var curC = readContribRow(parent);
-      curC.role = newRole;
+    function rebuild(curC) {
       var newRow = makeContribRow(curC, idx, listId);
-      parent.parentNode.replaceChild(newRow, parent);
+      div.parentNode.replaceChild(newRow, div);
       update();
+    }
+
+    div.querySelector(".contrib-role").addEventListener("change", function () {
+      var curC = readContribRow(div); curC.role = this.value; rebuild(curC);
     });
 
-    if (!isEtal && window.EpiAuthorityLookup) {
+    var kindSel = div.querySelector(".contrib-kind");
+    if (kindSel) kindSel.addEventListener("change", function () {
+      var curC = readContribRow(div), nk = this.value;
+      // carry the entered name across the layout change so nothing is lost
+      if ((nk === "corp" || nk === "personFull") && !curC.whole && !curC.wholeZh) {
+        curC.whole = (curC.pyFamily + (curC.pyGiven ? ", " + curC.pyGiven : "")).replace(/^, /, "");
+        curC.wholeZh = curC.zhFamily + curC.zhGiven;
+      } else if (nk === "person" && !curC.pyFamily && !curC.zhFamily) {
+        curC.pyFamily = curC.whole; curC.zhFamily = curC.wholeZh;
+      }
+      curC.kind = nk; rebuild(curC);
+    });
+
+    if (!isEtal && !single && window.EpiAuthorityLookup) {
       EpiAuthorityLookup.attach(div.querySelector(".contrib-py-family"), function (rec) {
         // Western-primary: display_name has a comma before any CJK ("Ledderose, Lothar 雷德侯")
         //   → use display_name; parsePinyin strips the CJK suffix
@@ -558,11 +608,15 @@
       var el = row.querySelector("." + cls);
       return el ? el.value.trim() : "";
     }
+    var kindEl = row.querySelector(".contrib-kind");
     return {
+      kind:     kindEl ? kindEl.value : "person",
       pyFamily: rq("contrib-py-family"),
       pyGiven:  rq("contrib-py-given"),
       zhFamily: rq("contrib-zh-family"),
       zhGiven:  rq("contrib-zh-given"),
+      whole:    rq("contrib-whole"),
+      wholeZh:  rq("contrib-whole-zh"),
       role:     rq("contrib-role"),
       href:     rq("contrib-href")
     };

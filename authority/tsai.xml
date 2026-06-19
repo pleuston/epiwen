@@ -4,4 +4,6 @@
             <namePart type="family"></namePart>
             <namePart type="given"></namePart>
         </name>
-    </variant>--><variant transliteration="pinyin"><name type="personal"><namePart type="family"/><namePart type="given"/></name></variant></mads>
+    </variant>--><variant transliteration="pinyin"><name type="personal"><namePart type="family"/><namePart type="given"/></name></variant>
+  <identifier type="viaf">256015544</identifier>
+</mads>

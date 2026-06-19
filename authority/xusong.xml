@@ -11,4 +11,8 @@
             <namePart type="given">Song</namePart>
         </name>
     </variant>
+
+  <identifier type="viaf">70374371</identifier>
+  <identifier type="dila">person/A018508</identifier>
+  <identifier type="cbdb">30603</identifier>
 </mads>

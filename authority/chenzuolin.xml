@@ -3,4 +3,7 @@
 </name>
 </authority>
     <variant transliteration="pinyin">
-        <name type="personal"><namePart type="family">Chen</namePart><namePart type="given">Zuolin</namePart></name></variant></mads>
+        <name type="personal"><namePart type="family">Chen</namePart><namePart type="given">Zuolin</namePart></name></variant>
+  <identifier type="dila">person/A043747</identifier>
+  <identifier type="cbdb">81836</identifier>
+</mads>

@@ -11,4 +11,8 @@
             <namePart type="given">You</namePart>
         </name>
     </variant>
+
+  <identifier type="viaf">111268636</identifier>
+  <identifier type="dila">person/A018852</identifier>
+  <identifier type="cbdb">3927</identifier>
 </mads>

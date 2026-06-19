@@ -31,4 +31,7 @@
     <variant transliteration="pinyin">
         <name type="personal">Dunhuang Sanzang</name>
     </variant>
+
+  <identifier type="viaf">86140</identifier>
+  <identifier type="dila">person/A000749</identifier>
 </mads>

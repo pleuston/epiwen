@@ -494,6 +494,68 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
 }
 .btn-wide { width: 100%; justify-content: center; margin-top: 0.3rem; }
 
+/* ── Bibliography browser ─────────────────────────────────────────────── */
+.biblio-list-cite {
+  padding: 0.55rem 0.8rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.biblio-list-cite em { font-style: italic; }
+
+/* Fields detail pane — definition list */
+.biblio-fields {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 0.18rem 0.6rem;
+  margin: 0 0 0.9rem;
+  font-size: 0.82rem;
+}
+.biblio-field-row { display: contents; }
+.biblio-field-row dt {
+  color: var(--muted);
+  font-weight: 400;
+  padding: 0.15rem 0;
+  align-self: start;
+}
+.biblio-field-row dd {
+  margin: 0;
+  padding: 0.15rem 0;
+  color: var(--ink);
+  word-break: break-word;
+  align-self: start;
+}
+.biblio-field-row dd em { font-style: italic; }
+.biblio-field-row dd code { font-size: .85em; background: var(--code-bg); color: var(--code-ink); padding: .1em .3em; border-radius: 3px; }
+
+/* Citation block */
+.biblio-citation em  { font-style: italic; }
+.biblio-citation strong { font-weight: 600; }
+
+/* XML source view */
+.biblio-xml-pre {
+  font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--code-ink);
+  background: var(--code-bg);
+  padding: 0.8rem;
+  border-radius: 5px;
+  margin: 0;
+}
+.xml-tag     { color: #7eb8da; }
+.xml-comment { color: #7a8a6a; font-style: italic; }
+
+/* Toggle bar active state reuse */
+.detail-toggle-bar .btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
 @media (max-width: 820px) {
   .layout { grid-template-columns: 1fr; }
   .form { border-right: 0; border-bottom: 1px solid var(--line); }

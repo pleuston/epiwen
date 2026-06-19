@@ -1,17 +1,18 @@
-/* bibliography-browser.js — two-pane bibliography browser with full MODS citation rendering */
+/* bibliography-browser.js — full-citation list + structured HTML/XML detail pane */
 (function () {
   "use strict";
-
-  var NS = "http://www.loc.gov/mods/v3";
-  var CJK_LANGS = ["zh", "ja", "ko"];
 
   var allRecords    = [];
   var currentFilter = "all";
   var currentQuery  = "";
   var yearMin       = 0;
   var yearMax       = 9999;
+  // per-selection state for the XML/fields toggle
+  var _selectedRec  = null;
+  var _selectedXml  = null;
+  var _detailMode   = "fields"; // "fields" | "xml"
 
-  // ── Helpers ───────────────────────────────────────────────────────────────
+  // ── Utilities ─────────────────────────────────────────────────────────────
 
   function esc(s) {
     return String(s || "")
@@ -27,353 +28,109 @@
     setTimeout(function () { el.className = ""; }, isErr ? 6000 : 3000);
   }
 
-  function txt(el) {
-    return el ? (el.textContent || "").trim() : "";
+  // ── Citation helpers ──────────────────────────────────────────────────────
+
+  function nameWithCjk(western, cjk) {
+    if (western && cjk)  return esc(western) + " <span lang=\"zh\">" + esc(cjk) + "</span>";
+    if (western)         return esc(western);
+    return cjk ? "<span lang=\"zh\">" + esc(cjk) + "</span>" : "";
   }
 
-  function getLang(el) {
-    return el.getAttribute("lang") ||
-           el.getAttributeNS("http://www.w3.org/XML/1998/namespace", "lang") || "";
-  }
-
-  function isCJK(lang) { return CJK_LANGS.indexOf(lang) !== -1; }
-
-  function childrenNS(parent, local) {
-    return Array.prototype.filter.call(parent.children, function (c) {
-      return c.localName === local && c.namespaceURI === NS;
-    });
-  }
-
-  // ── MODS parser ───────────────────────────────────────────────────────────
-
-  function parseName(nameEl) {
-    var parts = Array.prototype.slice.call(nameEl.getElementsByTagNameNS(NS, "namePart"));
-    var roleEls = nameEl.getElementsByTagNameNS(NS, "roleTerm");
-    var role = roleEls[0] ? txt(roleEls[0]).toLowerCase() : "author";
-
-    function notCJK(p) { return !isCJK(getLang(p)); }
-
-    var family = "", given = "";
-    var prefList = ["", "de", "pinyin", "romaji", "mccunereischauer"];
-    for (var pi = 0; pi < prefList.length; pi++) {
-      var pref = prefList[pi];
-      var fParts = parts.filter(function (p) {
-        return p.getAttribute("type") === "family" &&
-               (p.getAttribute("transliteration") || "") === pref && notCJK(p);
-      });
-      var gParts = parts.filter(function (p) {
-        return p.getAttribute("type") === "given" &&
-               (p.getAttribute("transliteration") || "") === pref && notCJK(p);
-      });
-      if (fParts.length) {
-        family = txt(fParts[0]);
-        given  = gParts.length ? txt(gParts[0]) : "";
-        break;
-      }
-    }
-
-    // CJK script form
-    var cjkFamily = "", cjkGiven = "";
-    parts.forEach(function (p) {
-      if (!isCJK(getLang(p))) return;
-      if (p.getAttribute("type") === "family") cjkFamily = txt(p);
-      if (p.getAttribute("type") === "given")  cjkGiven  = txt(p);
-    });
-
-    return { family: family, given: given, cjkFamily: cjkFamily, cjkGiven: cjkGiven, role: role };
-  }
-
-  function parseTitleInfos(parent) {
-    return childrenNS(parent, "titleInfo");
-  }
-
-  function getMainTitle(tis) {
-    var ti = tis.find(function (t) { return !t.getAttribute("type") && !t.getAttribute("transliteration"); });
-    if (!ti) ti = tis[0];
-    if (!ti) return "";
-    var t = ti.getElementsByTagNameNS(NS, "title")[0];
-    var s = ti.getElementsByTagNameNS(NS, "subTitle")[0];
-    return txt(t) + (s ? ": " + txt(s) : "");
-  }
-
-  function getTranslitTitle(tis) {
-    var ti = tis.find(function (t) { return t.getAttribute("transliteration") && !t.getAttribute("type"); });
-    if (!ti) return "";
-    var t = ti.getElementsByTagNameNS(NS, "title")[0];
-    var s = ti.getElementsByTagNameNS(NS, "subTitle")[0];
-    return txt(t) + (s ? ": " + txt(s) : "");
-  }
-
-  function getNativeTitle(tis) {
-    var ti = tis.find(function (t) {
-      return !t.getAttribute("type") && !t.getAttribute("transliteration") && isCJK(getLang(t));
-    });
-    if (!ti) return "";
-    return txt(ti.getElementsByTagNameNS(NS, "title")[0]);
-  }
-
-  function getTranslatedTitle(tis) {
-    var ti = tis.find(function (t) { return t.getAttribute("type") === "translated"; });
-    if (!ti) return "";
-    return txt(ti.getElementsByTagNameNS(NS, "title")[0]);
-  }
-
-  function getReferenceTitle(tis) {
-    var ti = tis.find(function (t) { return t.getAttribute("type") === "reference"; });
-    if (!ti) return "";
-    return txt(ti.getElementsByTagNameNS(NS, "title")[0]);
-  }
-
-  function getPublisher(originEl) {
-    if (!originEl) return { place: "", publisher: "" };
-    // Place: prefer non-CJK placeTerm with transliteration, then non-CJK, then first
-    var placeTerms = Array.prototype.slice.call(originEl.getElementsByTagNameNS(NS, "placeTerm"));
-    var pt = placeTerms.find(function (p) { return !isCJK(getLang(p)); }) || placeTerms[0];
-    var place = txt(pt);
-
-    // Publisher: nameParts inside publisher element
-    var pubEl = originEl.getElementsByTagNameNS(NS, "publisher")[0];
-    var publisher = "";
-    if (pubEl) {
-      var npEls = Array.prototype.slice.call(pubEl.getElementsByTagNameNS(NS, "namePart"));
-      var np = npEls.find(function (p) { return !isCJK(getLang(p)); }) || npEls[0];
-      if (np) {
-        publisher = txt(np);
-      } else {
-        // Fallback: plain text inside publisher
-        publisher = txt(pubEl);
-      }
-    }
-    return { place: place, publisher: publisher };
-  }
-
-  function getYear(originEl) {
-    if (!originEl) return "";
-    var dis = Array.prototype.slice.call(originEl.getElementsByTagNameNS(NS, "dateIssued"));
-    var di = dis.find(function (d) { return !d.getAttribute("point"); }) ||
-             dis.find(function (d) { return d.getAttribute("point") === "start"; }) ||
-             dis[0];
-    if (!di) return "";
-    return txt(di).slice(0, 4);
-  }
-
-  function parseMods(xmlText) {
-    var doc = new DOMParser().parseFromString(xmlText, "application/xml");
-    var root = doc.documentElement;
-    if (root.localName === "parsererror") return null;
-    var mods = (root.localName === "mods") ? root : root.getElementsByTagNameNS(NS, "mods")[0];
-    if (!mods) return null;
-
-    var titleInfos   = parseTitleInfos(mods);
-    var nameEls      = childrenNS(mods, "name");
-    var allNames     = nameEls.map(parseName);
-    var authors      = allNames.filter(function (n) { return n.role === "author" || (!n.role); });
-    var editors      = allNames.filter(function (n) { return n.role === "editor"; });
-    var translators  = allNames.filter(function (n) { return n.role === "translator"; });
-
-    var originEl = mods.getElementsByTagNameNS(NS, "originInfo")[0] || null;
-    var pub  = getPublisher(originEl);
-    var year = getYear(originEl);
-    var issEl = originEl ? originEl.getElementsByTagNameNS(NS, "issuance")[0] : null;
-    var issuance = issEl ? txt(issEl) : "";
-
-    // Host related item
-    var hostEl = null;
-    childrenNS(mods, "relatedItem").forEach(function (ri) {
-      if (ri.getAttribute("type") === "host") hostEl = ri;
-    });
-
-    var host = null;
-    if (hostEl) {
-      var hTis       = parseTitleInfos(hostEl);
-      var hOriginEl  = hostEl.getElementsByTagNameNS(NS, "originInfo")[0] || null;
-      var hIssEl     = hOriginEl ? hOriginEl.getElementsByTagNameNS(NS, "issuance")[0] : null;
-      var hIssuance  = hIssEl ? txt(hIssEl) : "";
-      var hPub       = getPublisher(hOriginEl);
-      var hYear      = getYear(hOriginEl);
-
-      var partEl   = hostEl.getElementsByTagNameNS(NS, "part")[0] || null;
-      var volume = "", issue = "", pageStart = "", pageEnd = "", partDate = "";
-      if (partEl) {
-        var details = Array.prototype.slice.call(partEl.getElementsByTagNameNS(NS, "detail"));
-        details.forEach(function (d) {
-          var t = d.getAttribute("type");
-          if (t === "volume")           volume = txt(d);
-          else if (t === "issue" || t === "no") issue = txt(d);
-        });
-        var extEl = partEl.getElementsByTagNameNS(NS, "extent")[0];
-        if (extEl) {
-          pageStart = txt(extEl.getElementsByTagNameNS(NS, "start")[0]);
-          pageEnd   = txt(extEl.getElementsByTagNameNS(NS, "end")[0]);
-        }
-        var pdEl = partEl.getElementsByTagNameNS(NS, "date")[0];
-        partDate = pdEl ? txt(pdEl).slice(0, 4) : "";
-      }
-
-      var hNameEls  = childrenNS(hostEl, "name");
-      var hEditors  = hNameEls.map(parseName).filter(function (n) {
-        return n.role === "editor" || n.role === "author";
-      });
-
-      host = {
-        title:      getMainTitle(hTis),
-        translit:   getTranslitTitle(hTis),
-        native:     getNativeTitle(hTis),
-        translated: getTranslatedTitle(hTis),
-        issuance:   hIssuance,
-        year:       hYear || partDate,
-        place:      hPub.place,
-        publisher:  hPub.publisher,
-        editors:    hEditors,
-        volume:     volume,
-        issue:      issue,
-        pageStart:  pageStart,
-        pageEnd:    pageEnd,
-      };
-      if (!year) year = host.year;
-    }
-
-    // Notes
-    var notes = {};
-    Array.prototype.slice.call(mods.getElementsByTagNameNS(NS, "note")).forEach(function (n) {
-      var t = n.getAttribute("type") || "general";
-      notes[t] = txt(n);
-    });
-
-    return {
-      key:        mods.getAttribute("ID") || "",
-      reference:  getReferenceTitle(titleInfos),
-      title:      getMainTitle(titleInfos),
-      translit:   getTranslitTitle(titleInfos),
-      native:     getNativeTitle(titleInfos),
-      translated: getTranslatedTitle(titleInfos),
-      authors:    authors,
-      editors:    editors,
-      translators: translators,
-      year:       year,
-      place:      pub.place,
-      publisher:  pub.publisher,
-      issuance:   issuance,
-      host:       host,
-      notes:      notes
-    };
-  }
-
-  // ── Citation formatter ─────────────────────────────────────────────────────
-
-  function formatNameFirst(n) {
-    // "Family, Given CJK" — first author
-    var s = n.family || "";
-    if (n.given) s += ", " + n.given;
-    if (n.cjkFamily || n.cjkGiven) s += " " + (n.cjkFamily + n.cjkGiven);
-    return s.trim();
-  }
-
-  function formatNameSubseq(n) {
-    // "Given Family CJK" — subsequent authors
-    var s = (n.given ? n.given + " " : "") + (n.family || "");
-    if (n.cjkFamily || n.cjkGiven) s += " " + (n.cjkFamily + n.cjkGiven);
-    return s.trim() || (n.cjkFamily + n.cjkGiven);
-  }
-
-  function formatNameList(names, roleLabel) {
-    // roleLabel: "" | ", ed." | ", eds." | ", trans."
-    if (!names.length) return "";
+  function nameListHtml(ws, zs, roleHtml) {
+    // ws = ["Family, Given", …]  zs = ["中文", …]
+    if (!ws.length && !zs.length) return "";
+    var max = Math.max(ws.length, zs.length);
     var parts = [];
-    names.forEach(function (n, i) {
-      parts.push(i === 0 ? formatNameFirst(n) : formatNameSubseq(n));
-    });
+    for (var i = 0; i < max; i++) {
+      parts.push(nameWithCjk(ws[i] || "", zs[i] || ""));
+    }
     var joined = "";
     if (parts.length === 1) joined = parts[0];
     else if (parts.length === 2) joined = parts[0] + " and " + parts[1];
     else joined = parts.slice(0, -1).join(", ") + ", and " + parts[parts.length - 1];
-    return joined + (roleLabel || "");
+    return joined + (roleHtml || "");
   }
 
-  function nameBlock(parsed) {
-    // Authors, or editors-as-authors for edited volumes
-    if (parsed.authors.length) {
-      return formatNameList(parsed.authors, "");
-    } else if (parsed.editors.length) {
-      var suf = parsed.editors.length === 1 ? ", ed." : ", eds.";
-      return formatNameList(parsed.editors, suf);
-    }
-    return "";
-  }
-
-  function titleBlock(translit, native, main, translated, italic) {
-    // Build: translit native [translated]
-    // italic=true wraps the primary form in <em>
+  function titleHtml(main, zh, en, italic) {
+    // main = translit/EN, zh = CJK native, en = translated title
     var parts = [];
-    var primary = translit || main || "";
-    if (primary) parts.push(italic ? "<em>" + esc(primary) + "</em>" : esc(primary));
-    if (native)  parts.push("<span lang=\"zh\">" + esc(native) + "</span>");
-    if (translated && !primary.match(/[a-zA-Z]/)) {
-      // only show translation when primary is non-Latin
-      parts.push("[" + esc(translated) + "]");
+    if (main) {
+      parts.push(italic
+        ? "<em>" + esc(main) + "</em>"
+        : esc(main));
+    }
+    if (zh) parts.push("<span lang=\"zh\">" + esc(zh) + "</span>");
+    // show translation only when primary is non-Latin (i.e., all-CJK main)
+    if (en && main && /^[a-zA-Z]/.test(main)) {
+      // main is Latin → translation is redundant, skip
+    } else if (en) {
+      parts.push("[" + esc(en) + "]");
     }
     return parts.join(" ");
   }
 
   function pagesStr(start, end) {
     if (!start) return "";
-    return end && end !== start ? start + "–" + end : start;
+    return (end && end !== start) ? start + "–" + end : start;
   }
 
-  function pubInfo(place, publisher, year) {
-    var parts = [];
-    if (place || publisher) parts.push((place ? esc(place) : "") + (publisher ? ": " + esc(publisher) : ""));
-    if (year) parts.push(esc(year));
-    return parts.join(", ");
-  }
+  // ── Full Chicago citation from index record ───────────────────────────────
 
-  function formatCitation(p) {
-    // Returns an HTML string representing the full Chicago-style citation
+  function formatCitation(rec) {
     var html = "";
-    var nb = nameBlock(p);
-    if (nb) html += "<strong>" + esc(nb) + ".</strong> ";
+    var pt = rec.pub_type;
 
-    if (p.translators.length) {
-      html += "Trans. " + esc(formatNameList(p.translators, "")) + ". ";
+    // Contributors block
+    if (rec.author && rec.author.length) {
+      html += "<strong>" + nameListHtml(rec.author, rec.author_zh || [], "") + ".</strong> ";
+    } else if (rec.editor && rec.editor.length) {
+      var suf = rec.editor.length === 1 ? ", ed." : ", eds.";
+      html += "<strong>" + nameListHtml(rec.editor, rec.editor_zh || [], suf) + ".</strong> ";
     }
 
-    var h = p.host;
+    if (pt === "article") {
+      // "Article title." *Journal* vol, no. N (year): pp–pp.
+      html += "“" + titleHtml(rec.title, rec.title_zh, rec.title_en, false) + ".” ";
+      html += titleHtml(rec.journal || "", rec.journal_zh || "", "", true);
+      var loc = "";
+      if (rec.volume && rec.issue)  loc = " " + esc(rec.volume) + ", no. " + esc(rec.issue) + " (" + esc(rec.year) + ")";
+      else if (rec.volume)          loc = " " + esc(rec.volume) + " (" + esc(rec.year) + ")";
+      else if (rec.issue)           loc = " no. " + esc(rec.issue) + " (" + esc(rec.year) + ")";
+      else if (rec.year)            loc = " (" + esc(rec.year) + ")";
+      var pp = pagesStr(rec.page_start, rec.page_end);
+      html += loc + ": " + (pp || "—") + ".";
 
-    if (!h) {
-      // ── Monograph ────────────────────────────────────────────────────────
-      html += titleBlock(p.translit, p.native, p.title, p.translated, true) + ". ";
-      var pi = pubInfo(p.place, p.publisher, p.year);
-      if (pi) html += pi + ".";
-
-    } else if (h.issuance === "continuing") {
-      // ── Journal article ───────────────────────────────────────────────────
-      html += "“" + titleBlock(p.translit, p.native, p.title, p.translated, false) + ".” ";
-      // Journal title
-      html += titleBlock(h.translit, h.native, h.title, h.translated, true);
-      // Volume/issue/year/pages
-      var locStr = "";
-      if (h.volume && h.issue)   locStr = " " + esc(h.volume) + ", no. " + esc(h.issue) + " (" + esc(h.year) + ")";
-      else if (h.volume)         locStr = " " + esc(h.volume) + " (" + esc(h.year) + ")";
-      else if (h.issue)          locStr = " no. " + esc(h.issue) + " (" + esc(h.year) + ")";
-      else if (h.year)           locStr = " (" + esc(h.year) + ")";
-      var pp = pagesStr(h.pageStart, h.pageEnd);
-      if (locStr) html += locStr + ": " + (pp || "—") + ".";
-
-    } else {
-      // ── Book chapter ──────────────────────────────────────────────────────
-      html += "“" + titleBlock(p.translit, p.native, p.title, p.translated, false) + ".” ";
-      html += "In ";
-      html += titleBlock(h.translit, h.native, h.title, h.translated, true);
-      if (h.editors.length) {
-        var edSuf = h.editors.length === 1 ? ", ed. " : ", eds. ";
-        html += edSuf + esc(formatNameList(h.editors, ""));
+    } else if (pt === "chapter") {
+      // "Chapter." In *Book*, eds. Editor. Place: Pub, year, pp–pp.
+      html += "“" + titleHtml(rec.title, rec.title_zh, rec.title_en, false) + ".” ";
+      html += "In " + titleHtml(rec.host_title || "", rec.host_title_zh || "", "", true);
+      var heditors = rec.host_editor || [];
+      var heditors_z = rec.host_editor_zh || [];
+      if (heditors.length) {
+        var heSuf = heditors.length === 1 ? ", ed. " : ", eds. ";
+        html += heSuf + nameListHtml(heditors, heditors_z, "");
       }
       html += ". ";
-      var pi2 = pubInfo(h.place, h.publisher, h.year || p.year);
-      if (pi2) html += pi2;
-      var pp2 = pagesStr(h.pageStart, h.pageEnd);
+      var pi2 = [];
+      if (rec.host_place)     pi2.push(esc(rec.host_place));
+      if (rec.host_publisher) pi2.push(esc(rec.host_publisher));
+      if (rec.year)           pi2.push(esc(rec.year));
+      if (pi2.length) html += pi2.join(": ").replace(": " + esc(rec.year), ", " + esc(rec.year)) + "";
+      var pp2 = pagesStr(rec.page_start, rec.page_end);
       if (pp2) html += ", " + pp2;
       html += ".";
+
+    } else {
+      // monograph / edited / other
+      html += titleHtml(rec.title, rec.title_zh, rec.title_en, true);
+      html += ". ";
+      var pi = [];
+      var sep = "";
+      if (rec.place && rec.publisher) { pi.push(esc(rec.place) + ": " + esc(rec.publisher)); }
+      else if (rec.place)             { pi.push(esc(rec.place)); }
+      else if (rec.publisher)         { pi.push(esc(rec.publisher)); }
+      if (rec.year) pi.push(esc(rec.year));
+      html += pi.join(", ") + ".";
     }
 
     return html;
@@ -383,16 +140,10 @@
 
   function loadIndex() {
     var list = document.getElementById("biblio-list");
-    list.innerHTML = '<div class="catalog-loading">Loading bibliography index…</div>';
+    list.innerHTML = '<div class="catalog-loading">Loading bibliography…</div>';
     fetch("data/biblio-index.json?v=" + Date.now())
-      .then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      })
-      .then(function (data) {
-        allRecords = data;
-        renderList();
-      })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (data) { allRecords = data; renderList(); })
       .catch(function (err) {
         list.innerHTML = '<div class="catalog-loading">Error: ' + esc(err.message) + '</div>';
       });
@@ -408,8 +159,11 @@
       if (yearMin && yr && yr < yearMin) return false;
       if (yearMax < 9999 && yr && yr > yearMax) return false;
       if (q) {
-        var hay = [r.reference || "", r.title || "", r.title_zh || "",
-                   (r.author || []).join(" ")].join(" ").toLowerCase();
+        var hay = [
+          r.reference || "", r.title || "", r.title_zh || "", r.title_en || "",
+          (r.author || []).join(" "), (r.editor || []).join(" "),
+          r.journal || "", r.host_title || ""
+        ].join(" ").toLowerCase();
         if (hay.indexOf(q) === -1) return false;
       }
       return true;
@@ -436,22 +190,11 @@
     div.className = "catalog-item";
     div.dataset.biblioKey = rec.key;
 
-    var info = document.createElement("div");
-    info.className = "catalog-item-info";
+    var cite = document.createElement("div");
+    cite.className = "biblio-list-cite";
+    cite.innerHTML = formatCitation(rec);
+    div.appendChild(cite);
 
-    var refEl = document.createElement("div");
-    refEl.className = "catalog-title";
-    refEl.textContent = rec.reference || rec.key;
-    info.appendChild(refEl);
-
-    if (rec.title) {
-      var tEl = document.createElement("div");
-      tEl.className = "catalog-date";
-      tEl.textContent = rec.title.length > 72 ? rec.title.slice(0, 70) + "…" : rec.title;
-      info.appendChild(tEl);
-    }
-
-    div.appendChild(info);
     div.addEventListener("click", function () { selectRecord(rec, div); });
     return div;
   }
@@ -460,6 +203,8 @@
     var prev = document.querySelector(".catalog-item.selected");
     if (prev) prev.classList.remove("selected");
     if (itemEl) itemEl.classList.add("selected");
+    _selectedRec = rec;
+    _selectedXml = null;
     showDetailLoading(rec);
   }
 
@@ -471,85 +216,153 @@
     var contentEl = document.getElementById("biblio-detail-content");
     if (contentEl) contentEl.innerHTML = '<div class="catalog-loading">Loading…</div>';
 
-    // Fetch full MODS XML (relative URL works both locally and on Pages)
-    var relPath = "biblio/" + rec.group + "/" + rec.key + ".xml";
-    fetch(relPath)
-      .then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.text();
-      })
-      .then(function (xmlText) {
-        var parsed = parseMods(xmlText);
-        showDetailFull(rec, parsed, xmlText);
+    fetch("biblio/" + rec.group + "/" + rec.key + ".xml")
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+      .then(function (xml) {
+        _selectedXml = xml;
+        renderDetail(rec, xml);
       })
       .catch(function (err) {
-        showDetailFallback(rec, err.message);
+        var contentEl2 = document.getElementById("biblio-detail-content");
+        if (contentEl2) contentEl2.innerHTML =
+          '<div style="padding:1rem"><p class="catalog-date">Could not load XML: ' + esc(err.message) + '</p>' +
+          '<div style="font-size:.97em;line-height:1.7">' + formatCitation(rec) + '</div></div>';
       });
   }
 
-  function showDetailFull(rec, parsed, rawXml) {
+  function renderDetail(rec, xml) {
+    if (_detailMode === "xml") {
+      renderDetailXml(rec, xml);
+    } else {
+      renderDetailFields(rec, xml);
+    }
+  }
+
+  function makeToggleBar(rec, xml) {
+    var bar = '<div class="detail-toggle-bar" style="display:flex;gap:.4rem;align-items:center;margin-bottom:.9rem">';
+    bar += '<button class="btn small' + (_detailMode === "fields" ? " active" : "") + '" id="det-fields-btn">Fields</button>';
+    bar += '<button class="btn small' + (_detailMode === "xml"    ? " active" : "") + '" id="det-xml-btn">XML source</button>';
+    bar += '<button class="btn small primary" id="det-edit-btn" style="margin-left:auto">Edit</button>';
+    bar += '<button class="btn small" id="det-copy-btn">Copy XML</button>';
+    bar += '</div>';
+    return bar;
+  }
+
+  function bindToggleBar(rec, xml) {
+    var fieldsBtn = document.getElementById("det-fields-btn");
+    var xmlBtn    = document.getElementById("det-xml-btn");
+    var editBtn   = document.getElementById("det-edit-btn");
+    var copyBtn   = document.getElementById("det-copy-btn");
+
+    if (fieldsBtn) fieldsBtn.addEventListener("click", function () {
+      _detailMode = "fields";
+      renderDetailFields(rec, xml);
+    });
+    if (xmlBtn) xmlBtn.addEventListener("click", function () {
+      _detailMode = "xml";
+      renderDetailXml(rec, xml);
+    });
+    if (editBtn) editBtn.addEventListener("click", function () {
+      sessionStorage.setItem("epiwen_preload_biblio", JSON.stringify({
+        key: rec.key, group: rec.group, reference: rec.reference,
+        pub_type: rec.pub_type, xml: xml
+      }));
+      window.location.href = "biblio-editor.html";
+    });
+    if (copyBtn) copyBtn.addEventListener("click", function () {
+      navigator.clipboard.writeText(xml)
+        .then(function () { toast("XML copied"); })
+        .catch(function (e) { toast("Copy failed: " + e.message, true); });
+    });
+  }
+
+  function dlRow(term, value) {
+    if (!value) return "";
+    return '<div class="biblio-field-row"><dt>' + esc(term) + '</dt><dd>' + value + '</dd></div>';
+  }
+
+  function renderDetailFields(rec, xml) {
     var titleEl = document.getElementById("preview-title");
     if (titleEl) titleEl.textContent = rec.reference || rec.key;
     var contentEl = document.getElementById("biblio-detail-content");
     if (!contentEl) return;
 
     var html = '<div style="padding:1rem 1.2rem">';
+    html += makeToggleBar(rec, xml);
 
-    // Full citation block
-    html += '<div class="biblio-citation" style="font-size:.97em;line-height:1.7;margin-bottom:1.1rem">';
-    if (parsed) {
-      html += formatCitation(parsed);
+    // Full citation
+    html += '<div class="biblio-citation" style="font-size:.97em;line-height:1.7;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--border)">';
+    html += formatCitation(rec);
+    html += '</div>';
+
+    // Structured fields
+    html += '<dl class="biblio-fields">';
+
+    // Contributors
+    var authors = nameListHtml(rec.author || [], rec.author_zh || [], "");
+    var editors = nameListHtml(rec.editor || [], rec.editor_zh || [], "");
+    if (authors) html += dlRow("Author(s)", authors);
+    if (editors) html += dlRow("Editor(s)", editors);
+
+    // Titles
+    if (rec.title)    html += dlRow("Title", "<em>" + esc(rec.title) + "</em>");
+    if (rec.title_zh) html += dlRow("Title (Chinese/Japanese)", "<span lang=\"zh\">" + esc(rec.title_zh) + "</span>");
+    if (rec.title_en) html += dlRow("Translation", esc(rec.title_en));
+
+    // Publication info by type
+    var pt = rec.pub_type;
+    if (pt === "article") {
+      html += dlRow("Journal", rec.journal ? ("<em>" + esc(rec.journal) + "</em>" + (rec.journal_zh ? " <span lang=\"zh\">" + esc(rec.journal_zh) + "</span>" : "")) : "");
+      html += dlRow("Volume",  esc(rec.volume));
+      html += dlRow("Issue",   esc(rec.issue));
+      html += dlRow("Pages",   esc(pagesStr(rec.page_start, rec.page_end)));
+      html += dlRow("Year",    esc(rec.year));
+    } else if (pt === "chapter") {
+      html += dlRow("In", titleHtml(rec.host_title || "", rec.host_title_zh || "", "", true));
+      var hedHtml = nameListHtml(rec.host_editor || [], rec.host_editor_zh || [], "");
+      if (hedHtml) html += dlRow((rec.host_editor || []).length === 1 ? "Host editor" : "Host editors", hedHtml);
+      html += dlRow("Pages",     esc(pagesStr(rec.page_start, rec.page_end)));
+      html += dlRow("Place",     esc(rec.host_place));
+      html += dlRow("Publisher", esc(rec.host_publisher));
+      html += dlRow("Year",      esc(rec.year));
     } else {
-      html += "<em>Could not parse MODS record.</em>";
+      html += dlRow("Place",     esc(rec.place));
+      html += dlRow("Publisher", esc(rec.publisher));
+      html += dlRow("Year",      esc(rec.year));
     }
-    html += '</div>';
 
-    // Metadata strip
-    html += '<div class="biblio-meta" style="font-size:.8em;color:var(--text-muted);margin-bottom:.9rem;display:flex;gap:1rem;flex-wrap:wrap">';
-    html += '<span><strong>Key</strong> <code>' + esc(rec.key) + '</code></span>';
-    html += '<span><strong>Type</strong> ' + esc(rec.pub_type || "—") + '</span>';
-    html += '<span><strong>Group</strong> ' + esc(rec.group || "—") + '</span>';
-    html += '</div>';
+    // Identifiers
+    html += dlRow("Type",  esc(pt));
+    html += dlRow("Key",   "<code>" + esc(rec.key) + "</code>");
+    html += dlRow("Group", esc(rec.group));
 
-    // Actions
-    html += '<div style="display:flex;gap:.5rem;flex-wrap:wrap">';
-    html += '<button class="btn small primary" id="biblio-edit-btn">Edit</button>';
-    html += '<button class="btn small" id="biblio-copy-btn">Copy XML</button>';
-    html += '</div>';
+    html += '</dl>';
     html += '</div>';
 
     contentEl.innerHTML = html;
-
-    document.getElementById("biblio-edit-btn").addEventListener("click", function () {
-      sessionStorage.setItem("epiwen_preload_biblio", JSON.stringify({
-        key:      rec.key,
-        group:    rec.group,
-        reference: rec.reference,
-        pub_type: rec.pub_type,
-        xml:      rawXml
-      }));
-      window.location.href = "biblio-editor.html";
-    });
-
-    document.getElementById("biblio-copy-btn").addEventListener("click", function () {
-      navigator.clipboard.writeText(rawXml)
-        .then(function () { toast("XML copied to clipboard"); })
-        .catch(function (e) { toast("Copy failed: " + e.message, true); });
-    });
+    bindToggleBar(rec, xml);
   }
 
-  function showDetailFallback(rec, errMsg) {
+  function syntaxColorXml(raw) {
+    return esc(raw)
+      .replace(/(&lt;\/?[a-zA-Z][^&gt;]*?&gt;)/g, '<span class="xml-tag">$1</span>')
+      .replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="xml-comment">$1</span>');
+  }
+
+  function renderDetailXml(rec, xml) {
+    var titleEl = document.getElementById("preview-title");
+    if (titleEl) titleEl.textContent = rec.reference || rec.key;
     var contentEl = document.getElementById("biblio-detail-content");
     if (!contentEl) return;
-    contentEl.innerHTML =
-      '<div style="padding:1rem 1.2rem">' +
-      '<p class="catalog-date">Could not load XML: ' + esc(errMsg) + '</p>' +
-      '<table class="docs-table"><tbody>' +
-      '<tr><th>Reference</th><td>' + esc(rec.reference || rec.key) + '</td></tr>' +
-      '<tr><th>Author(s)</th><td>' + esc((rec.author || []).join("; ")) + '</td></tr>' +
-      '<tr><th>Year</th><td>' + esc(rec.year || "—") + '</td></tr>' +
-      '<tr><th>Type</th><td>' + esc(rec.pub_type || "—") + '</td></tr>' +
-      '</tbody></table></div>';
+
+    var html = '<div style="padding:1rem 1.2rem">';
+    html += makeToggleBar(rec, xml);
+    html += '<pre class="biblio-xml-pre" style="font-size:.78em;line-height:1.5;overflow-x:auto;white-space:pre-wrap;word-break:break-all">';
+    html += syntaxColorXml(xml);
+    html += '</pre></div>';
+
+    contentEl.innerHTML = html;
+    bindToggleBar(rec, xml);
   }
 
   // ── Init ──────────────────────────────────────────────────────────────────
@@ -564,9 +377,7 @@
 
     document.querySelectorAll(".biblio-tab-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        document.querySelectorAll(".biblio-tab-btn").forEach(function (b) {
-          b.classList.remove("active");
-        });
+        document.querySelectorAll(".biblio-tab-btn").forEach(function (b) { b.classList.remove("active"); });
         this.classList.add("active");
         currentFilter = this.dataset.filter;
         renderList();
@@ -576,12 +387,10 @@
     var yearMinEl = document.getElementById("year-min");
     var yearMaxEl = document.getElementById("year-max");
     if (yearMinEl) yearMinEl.addEventListener("input", function () {
-      yearMin = parseInt(this.value, 10) || 0;
-      renderList();
+      yearMin = parseInt(this.value, 10) || 0; renderList();
     });
     if (yearMaxEl) yearMaxEl.addEventListener("input", function () {
-      yearMax = parseInt(this.value, 10) || 9999;
-      renderList();
+      yearMax = parseInt(this.value, 10) || 9999; renderList();
     });
   });
 })();

@@ -13,12 +13,14 @@
         <a href="index.html" class="brand-home">Epiwen</a>
       </div>
       <nav class="sitenav">
-        <a href="catalog.html" class="sitenav-link">Catalog</a>
-        <a href="editor.html" class="sitenav-link">Editor</a>
-        <a href="docs.html"   class="sitenav-link active">Docs</a>
-        <button data-workflow-modal class="btn small">? How to</button>
-        <button onclick="EpiAuth.signOut()" class="btn small">Sign out</button>
+        <a href="catalog.html"                 class="sitenav-link" data-tab="objects">Objects</a>
+        <a href="catalog.html?tab=inscriptions" class="sitenav-link" data-tab="inscriptions">Inscriptions</a>
+        <a href="catalog.html?tab=rubbings"    class="sitenav-link" data-tab="rubbings">Rubbings</a>
+        <a href="authorities.html"             class="sitenav-link">Authorities</a>
+        <a href="bibliography.html"            class="sitenav-link">Bibliography</a>
+        <a href="docs.html"                    class="sitenav-link active">Docs</a>
       </nav>
+      <button onclick="EpiAuth.signOut()" class="btn small">Sign out</button>
     </header>
 
     <main class="docs-pane">

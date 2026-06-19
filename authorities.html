@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Epiwen · Authorities</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="auth.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <a href="catalog.html" class="brand-home">Epiwen</a>
+      </div>
+      <nav class="sitenav">
+        <a href="catalog.html"                 class="sitenav-link" data-tab="objects">Objects</a>
+        <a href="catalog.html?tab=inscriptions" class="sitenav-link" data-tab="inscriptions">Inscriptions</a>
+        <a href="catalog.html?tab=rubbings"    class="sitenav-link" data-tab="rubbings">Rubbings</a>
+        <a href="authorities.html"             class="sitenav-link active">Authorities</a>
+        <a href="bibliography.html"            class="sitenav-link">Bibliography</a>
+        <a href="docs.html"                    class="sitenav-link">Docs</a>
+      </nav>
+      <button onclick="EpiAuth.signOut()" class="btn small">Sign out</button>
+    </header>
+
+    <main class="docs-pane">
+
+      <section class="about-hero">
+        <h1>Authorities</h1>
+        <p>
+          Authority records for persons, places, and institutions referenced across
+          the inscription and rubbing catalog — calligraphers, donors, patrons,
+          monasteries, and administrative toponyms. Aligned to DILA, Wikidata, VIAF,
+          and GND where available.
+        </p>
+        <p class="coming-soon">
+          Authority browser coming soon.
+        </p>
+      </section>
+
+    </main>
+
+    <footer class="foot">
+      Source:
+      <a href="https://github.com/pleuston/epiwen-epidoc-generator"
+         target="_blank" rel="noopener">github.com/pleuston/epiwen-epidoc-generator</a>
+    </footer>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="modal.js"></script>
+  </body>
+</html>

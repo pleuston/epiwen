@@ -439,6 +439,10 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
   accent-color: var(--accent); width: 0.9rem; height: 0.9rem; cursor: pointer;
 }
 
+/* ---- catalog head actions (+ New button + search) ---- */
+.catalog-head-actions { display: flex; gap: 0.5rem; align-items: center; }
+.coming-soon { font-style: italic; color: var(--muted); }
+
 /* ---- catalog tabs ---- */
 .catalog-tabs {
   display: flex; border-bottom: 1px solid var(--line); margin: 0.3rem 0 0.5rem;

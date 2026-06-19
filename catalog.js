@@ -614,10 +614,18 @@
   function renderByTab(tab) {
     currentTab = tab;
 
-    // Update tab button states
-    Array.prototype.forEach.call(document.querySelectorAll(".cat-tab"), function (btn) {
-      btn.classList.toggle("active", btn.dataset.tab === tab);
+    // Update nav active state
+    Array.prototype.forEach.call(document.querySelectorAll(".sitenav-link[data-tab]"), function (link) {
+      link.classList.toggle("active", link.dataset.tab === tab);
     });
+
+    // Update "+ New" add button
+    var addBtn = document.getElementById("btn-add-new");
+    if (addBtn) {
+      if (tab === "objects")   { addBtn.href = "editor.html";  addBtn.style.display = ""; }
+      else if (tab === "rubbings") { addBtn.href = "rubbing.html"; addBtn.style.display = ""; }
+      else                         { addBtn.style.display = "none"; }
+    }
 
     // Reset search and preview when switching tabs
     var searchEl = document.getElementById("catalog-search");
@@ -696,22 +704,31 @@
       btn.addEventListener("click", function () { setCatView(btn.dataset.view); });
     });
 
-    Array.prototype.forEach.call(document.querySelectorAll(".cat-tab"), function (btn) {
-      btn.addEventListener("click", function () {
-        if (allRecords.length) {
-          renderByTab(btn.dataset.tab);
-        } else {
-          currentTab = btn.dataset.tab;
-          Array.prototype.forEach.call(document.querySelectorAll(".cat-tab"), function (b) {
-            b.classList.toggle("active", b.dataset.tab === btn.dataset.tab);
-          });
-        }
+    // SPA nav — catalog tab links switch view without a full reload
+    Array.prototype.forEach.call(document.querySelectorAll(".sitenav-link[data-tab]"), function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        var tab = link.dataset.tab;
+        history.pushState({ tab: tab }, "", link.href);
+        renderByTab(tab);
       });
+    });
+
+    // Browser back/forward
+    window.addEventListener("popstate", function (e) {
+      var tab = (e.state && e.state.tab)
+        || new URLSearchParams(window.location.search).get("tab")
+        || "objects";
+      renderByTab(tab);
     });
 
     document.getElementById("catalog-search").addEventListener("input", function () {
       filterCatalog(this.value);
     });
+
+    // Initial tab from URL param
+    var tabParam = new URLSearchParams(window.location.search).get("tab") || "objects";
+    currentTab = tabParam;
 
     // Load records from GitHub
     ghFetch(API)

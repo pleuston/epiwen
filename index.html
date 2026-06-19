@@ -9,12 +9,18 @@
   </head>
   <body class="landing-page">
 
-    <header class="landing-header">
-      <div class="landing-brand">
-        <strong>Epiwen</strong>
-        <span class="landing-tagline">EpiDoc for Chinese stone inscriptions / 中文碑刻 EpiDoc 生成器</span>
+    <header class="topbar">
+      <div class="brand">
+        <a href="catalog.html" class="brand-home">Epiwen</a>
       </div>
-      <button data-workflow-modal class="btn">? How to</button>
+      <nav class="sitenav">
+        <a href="catalog.html"                 class="sitenav-link" data-tab="objects">Objects</a>
+        <a href="catalog.html?tab=inscriptions" class="sitenav-link" data-tab="inscriptions">Inscriptions</a>
+        <a href="catalog.html?tab=rubbings"    class="sitenav-link" data-tab="rubbings">Rubbings</a>
+        <a href="authorities.html"             class="sitenav-link">Authorities</a>
+        <a href="bibliography.html"            class="sitenav-link">Bibliography</a>
+        <a href="docs.html"                    class="sitenav-link">Docs</a>
+      </nav>
       <button onclick="EpiAuth.signOut()" class="btn small">Sign out</button>
     </header>
 

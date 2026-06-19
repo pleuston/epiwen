@@ -52,6 +52,9 @@
           (byParent[r.parent || ""] = byParent[r.parent || ""] || []).push(r);
         });
         renderTree("");
+        // Deep-link from the map: sites.html?site=<id>
+        var want = new URLSearchParams(location.search).get("site");
+        if (want && byId[want]) showDetail(want);
       })
       .catch(function (e) {
         tree.innerHTML = '<div class="catalog-loading">Error: ' + esc(e.message) + "</div>";

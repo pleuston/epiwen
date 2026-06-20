@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IIIF viewer · Epiwen</title>
+    <style>
+      html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      #bar {
+        height: 38px; display: flex; align-items: center; gap: 0.8rem;
+        padding: 0 0.9rem; background: #2a2326; color: #fff; font-size: 0.82rem;
+        position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+      }
+      #bar a { color: #fff; text-decoration: none; }
+      #bar .brand { font-weight: 700; }
+      #bar .hint { color: #c7b9bc; margin-left: auto; font-size: 0.74rem; }
+      #mirador { position: fixed; top: 38px; left: 0; right: 0; bottom: 0; }
+      #empty, #loading {
+        position: fixed; top: 38px; left: 0; right: 0; bottom: 0;
+        display: flex; align-items: center; justify-content: center; flex-direction: column;
+        gap: 0.6rem; color: #6b7280; text-align: center; padding: 2rem;
+      }
+      #empty a { color: #7a1f2b; }
+    </style>
+  </head>
+  <body>
+    <div id="bar">
+      <a class="brand" href="catalog.html?tab=rubbings">← Epiwen</a>
+      <span>IIIF viewer</span>
+      <span class="hint">drag tabs side by side to compare · scroll to zoom · use the page list to turn pages</span>
+    </div>
+    <div id="loading">Loading IIIF viewer…</div>
+    <div id="empty" style="display:none">
+      <p>No IIIF manifest given.</p>
+      <p><a href="catalog.html?tab=rubbings">Back to rubbings →</a></p>
+    </div>
+    <div id="mirador"></div>
+
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var manifests = params.getAll("manifest").filter(Boolean);
+        if (!manifests.length) {
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("empty").style.display = "flex";
+          return;
+        }
+        // Lay windows out side by side in a mosaic so comparisons are immediate.
+        var windows = manifests.map(function (m) { return { manifestId: m }; });
+        var s = document.createElement("script");
+        s.src = "https://unpkg.com/mirador@3.4.3/dist/mirador.min.js";
+        s.onload = function () {
+          document.getElementById("loading").style.display = "none";
+          Mirador.viewer({
+            id: "mirador",
+            windows: windows,
+            workspace: { type: "mosaic", showZoomControls: true },
+            window: {
+              allowClose: true, allowFullscreen: true, allowMaximize: true,
+              sideBarOpenByDefault: true, defaultSideBarPanel: "canvas"
+            },
+            thumbnailNavigation: { defaultPosition: "far-bottom" }
+          });
+        };
+        s.onerror = function () {
+          document.getElementById("loading").textContent = "Could not load Mirador from the CDN.";
+        };
+        document.body.appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

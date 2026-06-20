@@ -18,6 +18,8 @@
   var showMine     = false;
   var sourceFilter = "all";   // "all" | "public" | "private" | "col:<id>"
   var rubSourceFilter = "all"; // Rubbings tab: filter by holding collection / source
+  var siteFilter   = "all";    // Objects/Inscriptions: filter by site (origPlace / repository)
+  var rubViewMode  = "flat";   // Rubbings tab: "flat" (every rubbing) | "compact" (by inscription)
   var currentUsername = (window.EpiAuth ? EpiAuth.getUser().username : "") ||
                         localStorage.getItem("epiwen_gh_username") || "";
 
@@ -222,17 +224,18 @@
       .filter(Boolean);
     // Provenance: distinguish the holding institution's own record (type="record"
     // or untyped) from a data aggregator/provider (type="provider", e.g. EFEO).
-    var sourceUrl = "", provider = null;
+    var sourceUrl = "", provider = null, manifest = "";
     qns(doc, "ref").forEach(function (r) {
       var t = r.getAttribute("target") || "", typ = r.getAttribute("type") || "";
       if (!/^https?:\/\//.test(t)) return;
-      if (typ === "provider") { if (!provider) provider = { url: t, label: txt(r) }; }
+      if (typ === "iiif-manifest") { if (!manifest) manifest = t; }
+      else if (typ === "provider") { if (!provider) provider = { url: t, label: txt(r) }; }
       else if (!sourceUrl) sourceUrl = t;
     });
 
     return {
       name: name, recordType: recordType, surrogateOf: surrogateOf,
-      images: images, sourceUrl: sourceUrl, provider: provider,
+      images: images, sourceUrl: sourceUrl, provider: provider, manifest: manifest,
       editor: editor, titleEn: titleEn, titleZh: titleZh,
       country: country, countryRef: countryRef, region: region, settlement: settlement,
       repository: repository, inventoryNo: inventoryNo, summary: summary,
@@ -283,14 +286,19 @@
     var dims = [rec.height, rec.width, rec.depth].filter(Boolean).join(" × ");
     var html = '<div class="hp-preview">';
 
-    // Facsimile image(s) — e.g. live IIIF rubbing image from a holding library
-    if (rec.images && rec.images.length) {
-      html += '<div class="hp-images">' + rec.images.map(function (u) {
-        return '<a href="' + esc(u) + '" target="_blank" rel="noopener" title="open full image ↗">' +
-          '<img class="hp-img" src="' + esc(u) + '" loading="lazy" alt="' + esc(rec.titleEn || "rubbing") + '"></a>';
-      }).join("") +
-      (rec.sourceUrl ? '<a class="hp-source" href="' + esc(rec.sourceUrl) +
-        '" target="_blank" rel="noopener">Source record ↗</a>' : "") +
+    // Facsimile image(s) + IIIF viewer (zoom · page-turn · compare via Mirador)
+    if ((rec.images && rec.images.length) || rec.manifest) {
+      html += '<div class="hp-images">' +
+        (rec.images || []).map(function (u) {
+          return '<a href="' + esc(u) + '" target="_blank" rel="noopener" title="open full image ↗">' +
+            '<img class="hp-img" src="' + esc(u) + '" loading="lazy" alt="' + esc(rec.titleEn || "rubbing") + '"></a>';
+        }).join("") +
+        (rec.manifest ? '<a class="hp-viewer btn small primary" href="viewer.html?manifest=' +
+          encodeURIComponent(rec.manifest) + '" target="_blank" rel="noopener">🔍 Open in IIIF viewer — zoom · turn pages</a>' : "") +
+        (rec.manifest ? '<button class="hp-compare btn small" type="button" data-manifest="' + esc(rec.manifest) + '">' +
+          (compareHas(rec.manifest) ? "✓ In comparison" : "⊕ Add to comparison") + '</button>' : "") +
+        (rec.sourceUrl ? '<a class="hp-source" href="' + esc(rec.sourceUrl) +
+          '" target="_blank" rel="noopener">Source record ↗</a>' : "") +
       '</div>';
     }
 
@@ -514,9 +522,19 @@
     document.getElementById("preview-copy").style.display = "";
     document.getElementById("cat-view-toggle").style.display = "";
 
-    document.getElementById("cat-html-view").innerHTML = buildHtmlPreview(rec);
+    var view = document.getElementById("cat-html-view");
+    view.innerHTML = buildHtmlPreview(rec);
     document.getElementById("preview-out").textContent = rec.rawXml || "";
     currentXml = rec.rawXml || "";
+
+    var hc = view.querySelector(".hp-compare");
+    if (hc) hc.addEventListener("click", function () {
+      var m = hc.getAttribute("data-manifest");
+      compareToggle(m);
+      var on = compareHas(m);
+      hc.textContent = on ? "✓ In comparison" : "⊕ Add to comparison";
+      hc.classList.toggle("on", on);
+    });
 
     setCatView("html");
   }
@@ -570,25 +588,28 @@
           '</span>'
         : '');
 
+    // the entry itself is selectable (replaces the old per-entry Preview button)
+    monument.classList.add("selectable");
+    monument.setAttribute("role", "button");
+    monument.setAttribute("tabindex", "0");
+    monument.addEventListener("click", function () { showPreview(rec, item); });
+    monument.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showPreview(rec, item); }
+    });
+
     var actions = document.createElement("div");
     actions.className = "catalog-actions";
-
-    var previewBtn = document.createElement("button");
-    previewBtn.type = "button"; previewBtn.className = "btn small";
-    previewBtn.textContent = "Preview";
-    previewBtn.addEventListener("click", function () { showPreview(rec, item); });
 
     var copyBtn = document.createElement("button");
     copyBtn.type = "button"; copyBtn.className = "btn small";
     copyBtn.textContent = "Copy XML";
-    copyBtn.addEventListener("click", function () { flashCopy(rec.rawXml, copyBtn); });
+    copyBtn.addEventListener("click", function (e) { e.stopPropagation(); flashCopy(rec.rawXml, copyBtn); });
 
     var editBtn = document.createElement("button");
     editBtn.type = "button"; editBtn.className = "btn small primary";
     editBtn.textContent = "Edit";
-    editBtn.addEventListener("click", function () { openInEditor(rec); });
+    editBtn.addEventListener("click", function (e) { e.stopPropagation(); openInEditor(rec); });
 
-    actions.appendChild(previewBtn);
     actions.appendChild(copyBtn);
     actions.appendChild(editBtn);
     monument.appendChild(info);
@@ -632,12 +653,50 @@
     if (rp.indexOf("sinica") !== -1 || rp.indexOf("philology") !== -1) return "IHP";
     return rec.repository || "—";
   }
+  // ---- side-by-side comparison basket (Mirador) ----------------------------
+  function compareGet() {
+    try { var a = JSON.parse(sessionStorage.getItem("epiwen_compare") || "[]"); return Array.isArray(a) ? a : []; }
+    catch (e) { return []; }
+  }
+  function compareSet(a) { sessionStorage.setItem("epiwen_compare", JSON.stringify(a)); renderCompareBar(); }
+  function compareHas(m) { return compareGet().indexOf(m) !== -1; }
+  function compareToggle(m) {
+    var a = compareGet(), i = a.indexOf(m);
+    if (i === -1) a.push(m); else a.splice(i, 1);
+    compareSet(a);
+  }
+  function renderCompareBar() {
+    var bar = document.getElementById("compare-bar");
+    if (!bar) { bar = document.createElement("div"); bar.id = "compare-bar"; bar.className = "compare-bar"; document.body.appendChild(bar); }
+    var a = compareGet();
+    if (!a.length) { bar.style.display = "none"; return; }
+    bar.style.display = "flex";
+    var href = "viewer.html?" + a.map(function (m) { return "manifest=" + encodeURIComponent(m); }).join("&");
+    bar.innerHTML =
+      '<span class="compare-count">⊟ Comparison: ' + a.length + ' rubbing' + (a.length > 1 ? "s" : "") + '</span>' +
+      '<a class="btn small primary" href="' + esc(href) + '" target="_blank" rel="noopener">Open side by side ↗</a>' +
+      '<button class="btn small" id="compare-clear" type="button">clear</button>';
+    bar.querySelector("#compare-clear").addEventListener("click", function () { compareSet([]); });
+  }
+
   function appendFoldedRubbings(item, objName) {
     var rubs = rubbingsFor(objName);
     if (!rubs.length) return;
     var head = document.createElement("div");
     head.className = "catalog-rubbings-head";
-    head.textContent = "Rubbings (" + rubs.length + ")";
+    head.appendChild(document.createTextNode("Rubbings (" + rubs.length + ")"));
+    var withManifest = rubs.filter(function (r) { return r.manifest; });
+    if (withManifest.length >= 2) {
+      var cmp = document.createElement("a");
+      cmp.className = "rub-compare-btn";
+      cmp.textContent = "⊟ Compare " + withManifest.length + " side by side";
+      cmp.href = "viewer.html?" + withManifest.map(function (r) {
+        return "manifest=" + encodeURIComponent(r.manifest);
+      }).join("&");
+      cmp.target = "_blank"; cmp.rel = "noopener";
+      cmp.addEventListener("click", function (e) { e.stopPropagation(); });
+      head.appendChild(cmp);
+    }
     item.appendChild(head);
     var ul = document.createElement("ul");
     ul.className = "catalog-rubbings";
@@ -650,8 +709,20 @@
           (hasImg ? "🖼" : "🔎") + '</span>' +
         '<span class="rub-title">' + esc(rub.titleEn || rub.name) + '</span>' +
         '<span class="rub-src">' + esc(rubbingSourceLabel(rub)) +
-          (rub.provider ? ' <span class="rub-prov-flag">via aggregator</span>' : '') + '</span>';
+          (rub.provider ? ' <span class="rub-prov-flag">via aggregator</span>' : '') + '</span>' +
+        (rub.manifest ? '<button class="rub-cmp' + (compareHas(rub.manifest) ? " on" : "") +
+          '" type="button" title="add to side-by-side comparison">' +
+          (compareHas(rub.manifest) ? "✓" : "⊕") + '</button>' : '');
       li.addEventListener("click", function (e) { e.stopPropagation(); showPreview(rub, item); });
+      if (rub.manifest) {
+        var cb = li.querySelector(".rub-cmp");
+        cb.addEventListener("click", function (e) {
+          e.stopPropagation();
+          compareToggle(rub.manifest);
+          cb.classList.toggle("on", compareHas(rub.manifest));
+          cb.textContent = compareHas(rub.manifest) ? "✓" : "⊕";
+        });
+      }
       ul.appendChild(li);
     });
     item.appendChild(ul);
@@ -991,6 +1062,8 @@
 
   // ---- init ----------------------------------------------------------------
   document.addEventListener("DOMContentLoaded", function () {
+
+    renderCompareBar();   // restore a pending side-by-side comparison basket
 
     /* Mine filter + Collections — only shown when a GitHub identity is stored */
     var mineBar = document.getElementById("mine-bar");

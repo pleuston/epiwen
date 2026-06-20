@@ -114,6 +114,57 @@
     });
   }
 
+  function b64(str) { return btoa(unescape(encodeURIComponent(str))); }
+
+  function contentsUrl(path) {  // PUT target — branch goes in the body, no ?ref
+    var c = getConfig();
+    return "https://api.github.com/repos/" + c.owner + "/" + c.repo + "/contents/" + path;
+  }
+
+  /* List the signed-in user's own repositories (for the connect selector). */
+  function listUserRepos() {
+    if (!token()) return Promise.resolve({ ok: false, code: "no-token", repos: [] });
+    return fetch("https://api.github.com/user/repos?per_page=100&affiliation=owner&sort=pushed",
+        { headers: headers(false) })
+      .then(function (r) {
+        if (!r.ok) return { ok: false, code: "http-" + r.status, repos: [] };
+        return r.json().then(function (list) {
+          return { ok: true, repos: (list || []).map(function (x) {
+            return { name: x.name, owner: x.owner ? x.owner.login : "", private: x.private };
+          }) };
+        });
+      })
+      .catch(function (e) { return { ok: false, code: "network", message: e.message, repos: [] }; });
+  }
+
+  /* Create a new collection (package) by writing collections/<name>/_package.json. */
+  function createPackage(name, title) {
+    var c = getConfig();
+    var path = "collections/" + name.replace(/^\/+|\/+$/g, "") + "/_package.json";
+    var content = b64(JSON.stringify({ title: title || name }, null, 2) + "\n");
+    return fetch(contentsUrl(path), {
+      method: "PUT",
+      headers: Object.assign({ "Content-Type": "application/json" }, headers(false)),
+      body: JSON.stringify({ message: "Add collection: " + name, content: content, branch: c.branch })
+    }).then(function (r) {
+      if (!r.ok) return r.json().then(function (e) { throw new Error(e.message || ("HTTP " + r.status)); });
+      return r.json();
+    });
+  }
+
+  /* Create a new private repository to hold collections. Returns the repo name. */
+  function createRepo(name) {
+    return fetch("https://api.github.com/user/repos", {
+      method: "POST",
+      headers: Object.assign({ "Content-Type": "application/json" }, headers(false)),
+      body: JSON.stringify({ name: name, private: true, auto_init: true,
+        description: "Epiwen private record collections" })
+    }).then(function (r) {
+      if (!r.ok) return r.json().then(function (e) { throw new Error(e.message || ("HTTP " + r.status)); });
+      return r.json();
+    });
+  }
+
   /* Optional per-package metadata from collections/<id>/_package.json */
   function fetchPackageMeta(id) {
     return fetchFileRaw("collections/" + encodeURIComponent(id) + "/_package.json")
@@ -310,7 +361,7 @@
             '<input type="text" id="col-owner" class="gh-input" value="' + esc(c.owner) + '" placeholder="your-github-username"/>' +
           '</label>' +
           '<label class="gh-label">Repository' +
-            '<input type="text" id="col-repo" class="gh-input" value="' + esc(c.repo) + '"/>' +
+            '<select id="col-repo" class="gh-input"></select>' +
           '</label>' +
           '<label class="gh-label">Branch' +
             '<input type="text" id="col-branch" class="gh-input" value="' + esc(c.branch) + '"/>' +
@@ -321,6 +372,14 @@
         '</div>' +
         '<div id="col-status" class="col-status"></div>' +
         '<div id="col-pkg-list" class="col-pkg-list"></div>' +
+        '<div class="col-newpkg">' +
+          '<div class="col-newpkg-title">＋ New collection in this repo</div>' +
+          '<div class="col-newpkg-row">' +
+            '<input type="text" id="col-new-name" class="gh-input" placeholder="folder-name (e.g. fieldwork-2027)"/>' +
+            '<input type="text" id="col-new-title" class="gh-input" placeholder="Display title (optional)"/>' +
+            '<button class="btn small" id="col-new-create" type="button">Create</button>' +
+          '</div>' +
+        '</div>' +
         '<div class="gh-actions">' +
           '<button class="btn primary" id="col-save">Save &amp; load</button>' +
           '<button class="btn" id="col-cancel">Cancel</button>' +
@@ -365,6 +424,83 @@
       hideManager();
       fireChange();
     });
+
+    // Repository selector — pick a discovered repo, enter another, or create one.
+    document.getElementById("col-repo").addEventListener("change", function () {
+      var v = this.value;
+      var owner = document.getElementById("col-owner").value.trim();
+      if (v === "__manual__") {
+        var nm = (window.prompt("Repository name (under owner '" + owner + "'):") || "").trim();
+        if (nm) { setConfig({ owner: owner, repo: nm }); populateRepoSelect(nm); refreshList(); }
+        else populateRepoSelect(getConfig().repo);
+        return;
+      }
+      if (v === "__new__") {
+        var nn = (window.prompt("Name for the new private collections repo:", "epiwen-private") || "").trim();
+        if (!nn) { populateRepoSelect(getConfig().repo); return; }
+        setStatus("Creating private repository " + nn + "…");
+        createRepo(nn).then(function (repo) {
+          setConfig({ owner: (repo.owner && repo.owner.login) || owner, repo: repo.name });
+          document.getElementById("col-owner").value = getConfig().owner;
+          setStatus("Created " + (repo.full_name || repo.name) + ".");
+          populateRepoSelect(repo.name);
+          refreshList();
+        }).catch(function (e) {
+          setStatus("Could not create repo: " + e.message + " (token needs repo scope).", true);
+          populateRepoSelect(getConfig().repo);
+        });
+        return;
+      }
+      setConfig({ owner: owner, repo: v });
+      refreshList();
+    });
+
+    // Create a new collection (package) in the selected repo.
+    document.getElementById("col-new-create").addEventListener("click", function () {
+      var name  = (document.getElementById("col-new-name").value || "").trim();
+      var title = (document.getElementById("col-new-title").value || "").trim();
+      if (!name) { setStatus("Enter a folder name for the new collection.", true); return; }
+      if (!/^[A-Za-z0-9._-]+$/.test(name)) {
+        setStatus("Folder name: letters, numbers, dashes or underscores only.", true); return;
+      }
+      setConfig({
+        owner:  document.getElementById("col-owner").value.trim(),
+        repo:   document.getElementById("col-repo").value.trim(),
+        branch: document.getElementById("col-branch").value.trim()
+      });
+      setStatus("Creating collection " + name + "…");
+      createPackage(name, title).then(function () {
+        document.getElementById("col-new-name").value = "";
+        document.getElementById("col-new-title").value = "";
+        var tm = getTitleMap(); tm[name] = title || name; setTitleMap(tm);
+        var en = getEnabled(); if (en.indexOf(name) === -1) { en.push(name); setEnabled(en); }
+        setStatus("Created collection “" + (title || name) + "”.");
+        refreshList();
+      }).catch(function (e) {
+        setStatus("Could not create collection: " + e.message + " (token needs repo scope).", true);
+      });
+    });
+  }
+
+  // Populate the repository <select> with the user's repos + create options.
+  function populateRepoSelect(selected) {
+    var sel = document.getElementById("col-repo");
+    if (!sel) return;
+    selected = selected || getConfig().repo;
+    function paint(list) {
+      var seen = {}, html = "";
+      if (selected) { html += '<option value="' + esc(selected) + '">' + esc(selected) + '</option>'; seen[selected] = 1; }
+      list.forEach(function (r) {
+        if (seen[r.name]) return; seen[r.name] = 1;
+        html += '<option value="' + esc(r.name) + '">' + esc(r.name) + (r.private ? " 🔒" : "") + '</option>';
+      });
+      html += '<option value="__manual__">— enter another repo…</option>';
+      html += '<option value="__new__">＋ Create new private repo…</option>';
+      sel.innerHTML = html;
+      sel.value = selected;
+    }
+    paint([]);  // immediate paint with the current value
+    listUserRepos().then(function (res) { if (res.ok) paint(res.repos); });
   }
 
   function setStatus(msg, isErr) {
@@ -407,8 +543,8 @@
     // refresh field values from stored config
     var c = getConfig();
     document.getElementById("col-owner").value  = c.owner;
-    document.getElementById("col-repo").value   = c.repo;
     document.getElementById("col-branch").value = c.branch;
+    populateRepoSelect(c.repo);
     setStatus("");
     document.getElementById("col-pkg-list").innerHTML = "";
     document.getElementById(MODAL_ID).hidden = false;
@@ -440,6 +576,9 @@
     loadIndex:       loadIndex,
     fetchRecordXml:  fetchRecordXml,
     mountBar:        mountBar,
+    listUserRepos:   listUserRepos,
+    createPackage:   createPackage,
+    createRepo:      createRepo,
     showManager:     showManager,
     hideManager:     hideManager,
     onChange:        onChange

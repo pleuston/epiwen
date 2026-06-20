@@ -134,6 +134,13 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
 .col-pkg input[type="checkbox"] { width: auto; flex: 0 0 auto; margin: 0; }
 .col-pkg > span { flex: 1 1 auto; text-align: left; }
 .col-pkg code { font-size: 0.74rem; color: var(--muted); flex: 0 0 auto; }
+.col-newpkg {
+  border-top: 1px solid var(--line); margin: 0.4rem 0 1rem; padding-top: 0.7rem;
+}
+.col-newpkg-title { font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 0.4rem; }
+.col-newpkg-row { display: flex; gap: 0.4rem; align-items: center; }
+.col-newpkg-row .gh-input { flex: 1 1 auto; }
+.col-newpkg-row .btn { flex: 0 0 auto; }
 
 /* ---- prominent collections bar (catalog / authorities / bibliography) ---- */
 .collections-bar {

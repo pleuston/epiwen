@@ -64,11 +64,15 @@
       }
 
       groups.forEach(function (g) {
-        var gEl = C("div", "lp-group", body);
+        var gEl = C("div", "lp-group" + (g.collapsible ? " collapsible" + (g.collapsed ? "" : " open") : ""), body);
         var gh = C("div", "lp-grouphead", gEl);
         gh.innerHTML = '<span class="lp-gtitle">' + g.title + "</span>" +
-          (g.source ? '<span class="lp-gsrc">' + g.source + "</span>" : "");
+          (g.source ? '<span class="lp-gsrc">' + esc(g.source) + "</span>" : "");
         var items = C("div", "lp-items", gEl);
+
+        if (g.collapsible) {
+          on(gh, "click", function () { gEl.classList.toggle("open"); });
+        }
 
         if (g.tree) {                                   // dynasty tree (atlas)
           g.tree.forEach(function (dyn) {
@@ -159,7 +163,8 @@
       ];
       if (atlasTree && atlasTree.length) {
         groups.push({ kind: "atlas", title: "中國歷史地圖集",
-                      source: "左图右史 · OSGeo", tree: atlasTree });
+                      source: "左图右史 · OSGeo", collapsible: true, collapsed: true,
+                      tree: atlasTree });
       }
       groupedControl(map, groups).addTo(map);
     }

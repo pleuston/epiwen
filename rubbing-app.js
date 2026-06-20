@@ -823,6 +823,9 @@
         if (_formEl) _formEl.innerHTML = "";
         _agBox = null; _paBox = null;
         renderForm(); refreshSubtypes(); update();
+        if (_preload._writeTarget && window.EpiGitHub && EpiGitHub.setTarget) {
+          EpiGitHub.setTarget(_preload._writeTarget);
+        }
       } catch (e) { console.warn("epiwen_preload_rubbing parse error", e); }
     }
   });

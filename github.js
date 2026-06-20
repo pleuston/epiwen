@@ -43,6 +43,40 @@
 
   function hasToken() { return !!localStorage.getItem(LS.token); }
 
+  // ---- save-target override --------------------------------------------------
+  // When set (e.g. editing a record loaded from a private collection), saves go
+  // to this owner/repo/branch/path instead of the stored defaults. The token is
+  // always taken from the stored settings. null → default public behaviour.
+  var _target = null;
+
+  function effectiveSettings() {
+    var s = getSettings();
+    if (_target) {
+      if (_target.owner)  s.owner  = _target.owner;
+      if (_target.repo)   s.repo   = _target.repo;
+      if (_target.branch) s.branch = _target.branch;
+      if (_target.path)   s.path   = _target.path;
+    }
+    return s;
+  }
+
+  function refreshTargetUI() {
+    var el = document.getElementById("save-target");
+    if (!el) return;
+    var s = effectiveSettings();
+    el.textContent = s.owner + "/" + s.repo + " · " + (s.path || "records/");
+    el.classList.toggle("save-target-private", !!_target);
+    el.title = _target
+      ? "Saving back into the private collection this record came from"
+      : "Default save destination";
+  }
+
+  function setTarget(t)  { _target = t || null; refreshTargetUI(); }
+  function clearTarget() { _target = null; refreshTargetUI(); }
+  function getTarget()   { return _target; }
+
+  document.addEventListener("DOMContentLoaded", refreshTargetUI);
+
   // ---- Settings modal --------------------------------------------------------
 
   function buildModalHtml(s) {
@@ -53,6 +87,9 @@
         '<h2 id="gh-modal-heading" class="modal-title">GitHub save settings</h2>' +
         '<p class="modal-desc">Generate a <a href="https://github.com/settings/tokens/new?scopes=repo&amp;description=Epiwen" target="_blank" rel="noopener">personal access token</a> (classic, <code>repo</code> scope). Stored only in this browser — never transmitted elsewhere.</p>' +
         '<div class="gh-form">' +
+          '<label class="gh-label" id="gh-s-collection-wrap" style="display:none">Save into' +
+            '<select id="gh-s-collection" class="gh-input"></select>' +
+          '</label>' +
           '<label class="gh-label">Token' +
             '<input type="password" id="gh-s-token" class="gh-input" autocomplete="off"' +
             ' value="' + esc(s.token) + '" placeholder="github_pat_…"/>' +
@@ -103,6 +140,54 @@
     document.getElementById(MODAL_ID).addEventListener("click", function (e) {
       if (e.target === this) hideSettings();
     });
+    var picker = document.getElementById("gh-s-collection");
+    if (picker) picker.addEventListener("change", function () { applyCollectionChoice(this.value); });
+  }
+
+  // Fill owner/repo/branch/path fields from the chosen destination.
+  function applyCollectionChoice(value) {
+    if (value === "public") {
+      document.getElementById("gh-s-owner").value  = DEFAULTS.owner;
+      document.getElementById("gh-s-repo").value   = DEFAULTS.repo;
+      document.getElementById("gh-s-branch").value = DEFAULTS.branch;
+      document.getElementById("gh-s-path").value   = DEFAULTS.path;
+    } else if (value.indexOf("col:") === 0 && window.EpiCollections) {
+      var id = value.slice(4);
+      var c  = EpiCollections.getConfig();
+      document.getElementById("gh-s-owner").value  = c.owner;
+      document.getElementById("gh-s-repo").value   = c.repo;
+      document.getElementById("gh-s-branch").value = c.branch;
+      document.getElementById("gh-s-path").value   = "collections/" + id + "/";
+    }
+  }
+
+  // Populate the "Save into" picker from enabled private collections (no network).
+  function populateCollectionPicker() {
+    var wrap = document.getElementById("gh-s-collection-wrap");
+    var sel  = document.getElementById("gh-s-collection");
+    if (!wrap || !sel) return;
+    var enabled = window.EpiCollections ? EpiCollections.getEnabled() : [];
+    if (!enabled.length) { wrap.style.display = "none"; return; }
+
+    var titles = EpiCollections.getTitleMap ? EpiCollections.getTitleMap() : {};
+    var c      = EpiCollections.getConfig();
+    var opts   = '<option value="public">Public · ' + esc(DEFAULTS.repo) + ' / ' + esc(DEFAULTS.path) + '</option>';
+    enabled.forEach(function (id) {
+      opts += '<option value="col:' + esc(id) + '">🔒 ' + esc(titles[id] || id) +
+              ' · ' + esc(c.repo) + '</option>';
+    });
+    sel.innerHTML = opts;
+    wrap.style.display = "";
+
+    // Reflect the current destination if it already points at a collection.
+    var cur = effectiveSettings();
+    var match = "public";
+    enabled.forEach(function (id) {
+      if (cur.repo === c.repo && (cur.path || "").replace(/^\/+/, "") === ("collections/" + id + "/")) {
+        match = "col:" + id;
+      }
+    });
+    sel.value = match;
   }
 
   function showSettings() {
@@ -114,6 +199,7 @@
     document.getElementById("gh-s-repo").value   = s.repo;
     document.getElementById("gh-s-branch").value = s.branch;
     document.getElementById("gh-s-path").value   = s.path;
+    populateCollectionPicker();
     document.getElementById(MODAL_ID).hidden = false;
     document.body.style.overflow = "hidden";
     document.getElementById("gh-s-token").focus();
@@ -151,7 +237,7 @@
     if (!relPath) { toast("Set a file path before saving", true); return; }
     if (!xml)     { toast("Nothing to save — fill the form first", true); return; }
 
-    var s = getSettings();
+    var s = effectiveSettings();
     if (!s.token) { showSettings(); return; }
 
     relPath = relPath.replace(/^\/+/, "");
@@ -205,7 +291,7 @@
   function save(xml, filename, onDone) {
     if (!filename) { toast("Set a filename before saving", true); return; }
     if (!xml)      { toast("Nothing to save — fill the form first", true); return; }
-    var s = getSettings();
+    var s = effectiveSettings();
     if (!s.token) { showSettings(); return; }
     filename = filename.replace(/\.xml$/i, "") + ".xml";
     var filePath = s.path.replace(/\/+$/, "") + "/" + filename;
@@ -218,10 +304,14 @@
   });
 
   window.EpiGitHub = {
-    save:         save,
-    saveAt:       saveAt,
-    showSettings: showSettings,
-    hideSettings: hideSettings,
-    hasToken:     hasToken
+    save:            save,
+    saveAt:          saveAt,
+    showSettings:    showSettings,
+    hideSettings:    hideSettings,
+    hasToken:        hasToken,
+    setTarget:       setTarget,
+    clearTarget:     clearTarget,
+    getTarget:       getTarget,
+    refreshTargetUI: refreshTargetUI
   };
 })();

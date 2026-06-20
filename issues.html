@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Issues · Epiwen</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="auth.js"></script>
+    <style>
+      .issues-main {
+        max-width: 960px;
+        padding: 2.4rem 2.5rem 4rem;
+      }
+      .issues-header {
+        display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.4rem;
+      }
+      .issues-h1 {
+        font-size: 1.35rem; font-weight: 700; margin: 0;
+        color: var(--text, #222);
+      }
+      .issues-new {
+        margin-left: auto;
+        font-size: .8rem; font-weight: 600;
+        padding: .3rem .75rem;
+        background: var(--accent, #c0392b); color: #fff;
+        border: none; border-radius: 4px; cursor: pointer;
+        text-decoration: none; display: inline-block;
+      }
+      .issues-new:hover { opacity: .88; }
+
+      /* Tabs — reuse logs pattern */
+      .logs-tabs {
+        display: flex; gap: .25rem; margin-bottom: 1.2rem;
+        border-bottom: 1px solid var(--border, #e4e4e4);
+      }
+      .logs-tab {
+        padding: .38rem .9rem; font-size: .82rem; font-weight: 600;
+        background: none; border: none; cursor: pointer;
+        color: var(--text-muted, #888);
+        border-bottom: 2px solid transparent; margin-bottom: -1px;
+        transition: color .12s, border-color .12s;
+      }
+      .logs-tab.active { color: var(--accent, #c0392b); border-bottom-color: var(--accent, #c0392b); }
+      .logs-tab:hover:not(.active) { color: var(--text, #333); }
+      .logs-tab .tab-count {
+        display: inline-block; margin-left: .3rem;
+        background: var(--border, #e4e4e4); color: var(--text-muted, #888);
+        border-radius: 10px; padding: 0 .45rem;
+        font-size: .72rem; font-weight: 600; vertical-align: middle;
+      }
+      .logs-pane { display: none; }
+      .logs-pane.active { display: block; }
+      .logs-desc { font-size: .82rem; color: var(--text-muted, #888); margin: 0 0 .9rem; }
+
+      /* Column header */
+      .it-head {
+        display: grid;
+        grid-template-columns: 52px 1fr 44px 108px;
+        gap: .5rem;
+        padding: .25rem .4rem;
+        font-size: .7rem; font-weight: 700; letter-spacing: .07em;
+        text-transform: uppercase; color: var(--text-muted, #bbb);
+        border-bottom: 1px solid var(--border, #e4e4e4);
+        margin-bottom: .1rem;
+      }
+
+      /* Issue row */
+      .irow {
+        display: grid;
+        grid-template-columns: 52px 1fr 44px 108px;
+        gap: .5rem;
+        padding: .42rem .4rem;
+        font-size: .8rem;
+        border-bottom: 1px solid var(--border-light, #f3f3f3);
+        align-items: start;
+        min-width: 0;
+      }
+      .irow:hover { background: var(--bg-subtle, #fdfcfc); }
+      .irow-num {
+        color: var(--text-muted, #aaa);
+        font-variant-numeric: tabular-nums;
+        font-size: .76rem; padding-top: .1rem;
+        white-space: nowrap;
+      }
+      .irow-body { min-width: 0; }
+      .irow-title {
+        color: var(--text, #222); font-weight: 600;
+        text-decoration: none; display: block;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        line-height: 1.35;
+      }
+      .irow-title:hover { color: var(--accent, #c0392b); }
+      .irow-labels { display: flex; flex-wrap: wrap; gap: .25rem; margin-top: .3rem; }
+      .irow-label {
+        display: inline-block;
+        padding: .08rem .42rem;
+        border-radius: 10px;
+        font-size: .68rem; font-weight: 600;
+        line-height: 1.5;
+        border: 1px solid transparent;
+      }
+      .irow-meta {
+        font-size: .73rem; color: var(--text-muted, #aaa);
+        margin-top: .2rem;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .irow-comments {
+        color: var(--text-muted, #aaa); font-size: .78rem;
+        display: flex; align-items: center; gap: .2rem;
+        justify-content: flex-end; padding-top: .1rem;
+        white-space: nowrap;
+      }
+      .irow-comments svg { flex: 0 0 12px; opacity: .6; }
+      .irow-date {
+        color: var(--text-muted, #aaa); font-size: .76rem;
+        text-align: right; padding-top: .1rem;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .log-status { padding: .8rem 0; font-size: .82rem; color: var(--text-muted, #aaa); }
+
+      /* Label hint */
+      .issues-hint {
+        margin-top: 1.4rem; padding: .7rem 1rem;
+        background: var(--bg-subtle, #fafafa);
+        border: 1px solid var(--border, #e4e4e4);
+        border-radius: 5px;
+        font-size: .78rem; color: var(--text-muted, #888);
+        line-height: 1.55;
+      }
+      .issues-hint a { color: var(--accent, #c0392b); }
+      .issues-hint code {
+        background: var(--border, #e4e4e4); padding: .05rem .3rem;
+        border-radius: 3px; font-size: .85em;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><a href="index.html" class="brand-home">Epiwen</a></div>
+      <nav class="sitenav">
+        <a href="map.html"                      class="sitenav-link">Map</a>
+        <a href="sites.html"                    class="sitenav-link">Sites</a>
+        <a href="catalog.html"                  class="sitenav-link">Objects</a>
+        <a href="catalog.html?tab=inscriptions"  class="sitenav-link">Inscriptions</a>
+        <a href="catalog.html?tab=rubbings"     class="sitenav-link">Rubbings</a>
+        <a href="authorities.html"              class="sitenav-link">Authorities</a>
+        <a href="bibliography.html"             class="sitenav-link">Bibliography</a>
+        <a href="docs.html"                     class="sitenav-link">Docs</a>
+        <a href="issues.html"                   class="sitenav-link active">Issues</a>
+      </nav>
+      <button onclick="EpiAuth.signOut()" class="btn small">Sign out</button>
+    </header>
+
+    <main class="issues-main">
+      <div class="issues-header">
+        <h1 class="issues-h1">Issues</h1>
+        <a id="new-issue-link" href="#" target="_blank" rel="noopener" class="issues-new">+ New issue ↗</a>
+      </div>
+
+      <div class="logs-tabs">
+        <button class="logs-tab active" data-tab="all">
+          All <span id="count-all" class="tab-count">…</span>
+        </button>
+        <button class="logs-tab" data-tab="discussion">
+          Discussion <span id="count-discussion" class="tab-count">…</span>
+        </button>
+        <button class="logs-tab" data-tab="technical">
+          Technical <span id="count-technical" class="tab-count">…</span>
+        </button>
+      </div>
+
+      <section id="tab-all" class="logs-pane active">
+        <p class="logs-desc">All open issues — technical and conceptual.</p>
+        <div class="it-head">
+          <span>#</span><span>Issue</span>
+          <span style="text-align:right">💬</span>
+          <span style="text-align:right">Opened</span>
+        </div>
+        <div id="all-list"><div class="log-status">Loading…</div></div>
+      </section>
+
+      <section id="tab-discussion" class="logs-pane">
+        <p class="logs-desc">Conceptual discussions — research questions, interpretive debates, editorial decisions. Label: <code>discussion</code>.</p>
+        <div class="it-head">
+          <span>#</span><span>Issue</span>
+          <span style="text-align:right">💬</span>
+          <span style="text-align:right">Opened</span>
+        </div>
+        <div id="discussion-list"><div class="log-status">Loading…</div></div>
+      </section>
+
+      <section id="tab-technical" class="logs-pane">
+        <p class="logs-desc">Technical issues — bugs, data problems, infrastructure. Label: <code>technical</code>.</p>
+        <div class="it-head">
+          <span>#</span><span>Issue</span>
+          <span style="text-align:right">💬</span>
+          <span style="text-align:right">Opened</span>
+        </div>
+        <div id="technical-list"><div class="log-status">Loading…</div></div>
+      </section>
+
+      <div class="issues-hint">
+        <strong>Label convention:</strong> tag issues with
+        <code>discussion</code> for conceptual/research threads and
+        <code>technical</code> for bugs and infrastructure.
+        Unlabelled issues appear in All only.
+        Create labels at
+        <a id="labels-link" href="#" target="_blank" rel="noopener">GitHub → Labels ↗</a>.
+        A GitHub token (stored in settings) is required for private repos.
+        · <a href="contribute.html">New to GitHub? Read the contributor guide →</a>
+      </div>
+    </main>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      "use strict";
+
+      /* ---- Config (same localStorage keys as github.js / changelog.js) ---- */
+      var LS_TOKEN = "epiwen_gh_token";
+      var LS_OWNER = "epiwen_gh_owner";
+      var LS_REPO  = "epiwen_gh_repo";
+      var DEF = { owner: "pleuston", repo: "epiwen" };
+
+      function cfg() {
+        return {
+          token: localStorage.getItem(LS_TOKEN) || "",
+          owner: localStorage.getItem(LS_OWNER) || DEF.owner,
+          repo:  localStorage.getItem(LS_REPO)  || DEF.repo
+        };
+      }
+
+      /* ---- Utility ---- */
+      function esc(s) {
+        return String(s || "")
+          .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+          .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+      }
+
+      function fmtDate(iso) {
+        var d = new Date(iso);
+        return d.getFullYear() + "-" +
+          String(d.getMonth() + 1).padStart(2, "0") + "-" +
+          String(d.getDate()).padStart(2, "0");
+      }
+
+      /* Decide label text colour from hex background — simple luminance check */
+      function labelTextColor(hex) {
+        var r = parseInt(hex.slice(0,2),16);
+        var g = parseInt(hex.slice(2,4),16);
+        var b = parseInt(hex.slice(4,6),16);
+        var lum = (0.299*r + 0.587*g + 0.114*b) / 255;
+        return lum > 0.55 ? "#333" : "#fff";
+      }
+
+      /* ---- Rendering ---- */
+      function renderIssues(issues) {
+        if (!issues.length) return '<div class="log-status">No open issues in this category.</div>';
+        return issues.map(function (issue) {
+          var labels = (issue.labels || []).map(function (l) {
+            var bg   = "#" + l.color;
+            var text = labelTextColor(l.color);
+            return '<span class="irow-label" style="background:' + bg +
+              ';color:' + text +
+              ';border-color:' + bg + '">' + esc(l.name) + "</span>";
+          }).join("");
+
+          var meta = "by " + esc(issue.user ? issue.user.login : "unknown");
+
+          return '<div class="irow">' +
+            '<span class="irow-num">#' + esc(issue.number) + '</span>' +
+            '<div class="irow-body">' +
+              '<a class="irow-title" href="' + esc(issue.html_url) +
+                '" target="_blank" rel="noopener">' + esc(issue.title) + '</a>' +
+              (labels ? '<div class="irow-labels">' + labels + '</div>' : '') +
+              '<div class="irow-meta">' + meta + '</div>' +
+            '</div>' +
+            '<span class="irow-comments">' +
+              '<svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor">' +
+                '<path d="M1 2.75A.75.75 0 0 1 1.75 2h12.5a.75.75 0 0 1 .75.75v8.5a.75.75 0 0 1-.75.75H5.06l-2.56 2.56A.75.75 0 0 1 1 14V2.75Z"/>' +
+              '</svg>' +
+              esc(issue.comments) +
+            '</span>' +
+            '<span class="irow-date">' + fmtDate(issue.created_at) + '</span>' +
+          '</div>';
+        }).join("");
+      }
+
+      /* ---- Tab switching ---- */
+      document.querySelectorAll(".logs-tab").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".logs-tab").forEach(function (b) { b.classList.remove("active"); });
+          document.querySelectorAll(".logs-pane").forEach(function (p) { p.classList.remove("active"); });
+          btn.classList.add("active");
+          document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+        });
+      });
+
+      /* ---- Wire links ---- */
+      var c = cfg();
+      var baseUrl = "https://github.com/" + c.owner + "/" + c.repo;
+      document.getElementById("new-issue-link").href = baseUrl + "/issues/new";
+      document.getElementById("labels-link").href    = baseUrl + "/labels";
+
+      /* ---- Fetch ---- */
+      var apiBase = "https://api.github.com/repos/" + c.owner + "/" + c.repo;
+      var headers = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+      if (c.token) headers["Authorization"] = "Bearer " + c.token;
+
+      fetch(apiBase + "/issues?state=open&per_page=100", { headers: headers })
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          /* GitHub issues endpoint also returns pull requests — exclude them */
+          var issues = data.filter(function (i) { return !i.pull_request; });
+
+          var discussion = issues.filter(function (i) {
+            return i.labels.some(function (l) { return l.name === "discussion"; });
+          });
+          var technical = issues.filter(function (i) {
+            return i.labels.some(function (l) { return l.name === "technical"; });
+          });
+
+          document.getElementById("count-all").textContent        = issues.length;
+          document.getElementById("count-discussion").textContent = discussion.length;
+          document.getElementById("count-technical").textContent  = technical.length;
+
+          document.getElementById("all-list").innerHTML        = renderIssues(issues);
+          document.getElementById("discussion-list").innerHTML = renderIssues(discussion);
+          document.getElementById("technical-list").innerHTML  = renderIssues(technical);
+        })
+        .catch(function (err) {
+          var msg = err.message.indexOf("401") !== -1 || err.message.indexOf("404") !== -1
+            ? "Could not load issues — a GitHub token is required for private repos. Set one in the editor settings."
+            : "Could not load issues: " + err.message;
+          ["all-list","discussion-list","technical-list"].forEach(function (id) {
+            document.getElementById(id).innerHTML = '<div class="log-status">' + esc(msg) + '</div>';
+          });
+          document.getElementById("count-all").textContent        = "–";
+          document.getElementById("count-discussion").textContent = "–";
+          document.getElementById("count-technical").textContent  = "–";
+        });
+    </script>
+  </body>
+</html>

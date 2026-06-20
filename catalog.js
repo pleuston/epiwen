@@ -9,10 +9,18 @@
   var API    = "https://api.github.com/repos/" + OWNER + "/" + REPO + "/contents/records";
   var RAW    = "https://raw.githubusercontent.com/" + OWNER + "/" + REPO + "/" + BRANCH + "/records/";
 
-  var allRecords   = [];
+  var allRecords    = [];
+  var publicRecords = [];
+  var privateRecords = [];
   var currentXml   = "";
   var selectedItem = null;
   var currentTab   = "objects";
+  var showMine     = false;
+  var sourceFilter = "all";   // "all" | "public" | "private" | "col:<id>"
+  var currentUsername = (window.EpiAuth ? EpiAuth.getUser().username : "") ||
+                        localStorage.getItem("epiwen_gh_username") || "";
+
+  function rebuildAll() { allRecords = publicRecords.concat(privateRecords); }
 
   // ---- fetch helpers -------------------------------------------------------
   function ghFetch(url) {
@@ -234,6 +242,15 @@
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
+  /* Pill shown on records loaded from a private collection. */
+  function sourceBadge(rec) {
+    if (!rec || rec.source !== "private") return "";
+    var label = rec.collectionTitle || rec.collection || "private";
+    return '<span class="catalog-badge-private" ' +
+      'title="Private collection — only visible with your token">🔒 ' +
+      esc(label) + '</span>';
+  }
+
   // ---- HTML preview card ---------------------------------------------------
   function buildHtmlPreview(rec) {
     function row(label, val) {
@@ -390,8 +407,22 @@
     };
   }
 
+  /* Carry the record's origin as a write-target so the editor saves it back to
+     where it came from (round-trip) — a private collection, or the public path —
+     overriding any persisted "Save into" default. */
+  function writeTargetFor(rec) {
+    if (rec.source === "private" && window.EpiCollections) {
+      var c = EpiCollections.getConfig();
+      return { owner: c.owner, repo: c.repo, branch: c.branch,
+               path: "collections/" + rec.collection + "/" };
+    }
+    return { owner: OWNER, repo: REPO, branch: BRANCH, path: "records/" };
+  }
+
   function openInEditor(rec) {
-    sessionStorage.setItem("epiwen_preload", JSON.stringify(recToState(rec)));
+    var state = recToState(rec);
+    state._writeTarget = writeTargetFor(rec);
+    sessionStorage.setItem("epiwen_preload", JSON.stringify(state));
     window.location.href = "editor.html";
   }
 
@@ -417,7 +448,9 @@
   }
 
   function openInRubbingEditor(rec) {
-    sessionStorage.setItem("epiwen_preload_rubbing", JSON.stringify(recToRubbingState(rec)));
+    var state = recToRubbingState(rec);
+    state._writeTarget = writeTargetFor(rec);
+    sessionStorage.setItem("epiwen_preload_rubbing", JSON.stringify(state));
     window.location.href = "rubbing.html";
   }
 
@@ -485,6 +518,7 @@
     var info = document.createElement("div");
     info.className = "catalog-info";
     info.innerHTML =
+      sourceBadge(rec) +
       '<code class="catalog-filename">' + esc(rec.name) + '</code>' +
       (rec.titleEn || rec.titleZh
         ? '<div class="catalog-title">' +
@@ -566,6 +600,7 @@
     }
 
     info.innerHTML =
+      sourceBadge(rec) +
       titleHtml +
       '<span class="catalog-date">' + esc(label) +
       ' · inscribed on <a href="catalog.html?tab=objects&amp;file=' + encodeURIComponent(rec.name) +
@@ -614,6 +649,7 @@
     var dateClause = rec.dateText ? esc(rec.dateText) : "";
 
     info.innerHTML =
+      sourceBadge(rec) +
       '<code class="catalog-filename">' + esc(rec.name) + '</code>' +
       (rec.titleEn || rec.titleZh
         ? '<div class="catalog-title">' +
@@ -685,15 +721,57 @@
     }
   }
 
+  function applySourceFilter(records) {
+    if (sourceFilter === "all")     return records;
+    if (sourceFilter === "public")  return records.filter(function (r) { return r.source !== "private"; });
+    if (sourceFilter === "private") return records.filter(function (r) { return r.source === "private"; });
+    if (sourceFilter.indexOf("col:") === 0) {
+      var id = sourceFilter.slice(4);
+      return records.filter(function (r) { return r.collection === id; });
+    }
+    return records;
+  }
+
+  function applyMineFilter(records) {
+    if (!showMine || !currentUsername) return records;
+    return records.filter(function (r) { return r.editor === currentUsername; });
+  }
+
+  /* Compose source + mine filters. */
+  function applyFilters(records) {
+    return applyMineFilter(applySourceFilter(records));
+  }
+
+  function updateMineLabel(filtered, total) {
+    var lbl = document.getElementById("mine-label");
+    if (!lbl) return;
+    var parts = [];
+    if (sourceFilter !== "all") {
+      var srcName = sourceFilter === "public" ? "public"
+        : sourceFilter === "private" ? "private"
+        : "“" + sourceFilter.slice(4) + "”";
+      parts.push(srcName);
+    }
+    if (showMine && currentUsername) parts.push("@" + currentUsername);
+    lbl.textContent = parts.length
+      ? (filtered + " of " + total + " record" + (total === 1 ? "" : "s") + " · " + parts.join(" · "))
+      : "";
+  }
+
   function renderObjectsCatalog(records, file) {
     var list = document.getElementById("catalog-list");
-    if (!records.length) {
+    var filtered = applyFilters(records);
+    updateMineLabel(filtered.length, records.length);
+    if (!filtered.length) {
       list.innerHTML = '<div class="catalog-empty">' +
-        'No records yet. <a href="editor.html">Add the first inscription →</a></div>';
+        (showMine && currentUsername
+          ? 'No records by @' + esc(currentUsername) + ' yet. <a href="editor.html">Add the first →</a>'
+          : 'No records yet. <a href="editor.html">Add the first inscription →</a>') +
+        '</div>';
       return;
     }
     list.innerHTML = "";
-    records.forEach(function (rec) {
+    filtered.forEach(function (rec) {
       var item = buildItem(rec);
       list.appendChild(item);
       if (file && rec.name === file) {
@@ -709,14 +787,17 @@
     var list = document.getElementById("catalog-list");
     list.innerHTML = "";
 
+    var nonRubbing = allRecords.filter(function (r) { return r.recordType !== "rubbing"; });
+    var totalParts = nonRubbing.reduce(function (n, r) { return n + r.parts.length; }, 0);
+    var base = applyFilters(nonRubbing);
     var items = [];
-    allRecords
-      .filter(function (r) { return r.recordType !== "rubbing"; })
-      .forEach(function (rec) {
-        rec.parts.forEach(function (part, pIdx) {
-          items.push({ rec: rec, part: part, pIdx: pIdx });
-        });
+    base.forEach(function (rec) {
+      rec.parts.forEach(function (part, pIdx) {
+        items.push({ rec: rec, part: part, pIdx: pIdx });
       });
+    });
+
+    updateMineLabel(items.length, totalParts);
 
     if (!items.length) {
       list.innerHTML = '<div class="catalog-empty">No inscriptions found.</div>';
@@ -729,13 +810,18 @@
 
   function renderRubbingsCatalog(records) {
     var list = document.getElementById("catalog-list");
-    if (!records.length) {
+    var filtered = applyFilters(records);
+    updateMineLabel(filtered.length, records.length);
+    if (!filtered.length) {
       list.innerHTML = '<div class="catalog-empty">' +
-        'No rubbing records yet. <a href="rubbing.html">Add the first rubbing →</a></div>';
+        (showMine && currentUsername
+          ? 'No rubbing records by @' + esc(currentUsername) + ' yet. <a href="rubbing.html">Add the first →</a>'
+          : 'No rubbing records yet. <a href="rubbing.html">Add the first rubbing →</a>') +
+        '</div>';
       return;
     }
     list.innerHTML = "";
-    records.forEach(function (rec) { list.appendChild(buildRubbingItem(rec)); });
+    filtered.forEach(function (rec) { list.appendChild(buildRubbingItem(rec)); });
   }
 
   // ---- search --------------------------------------------------------------
@@ -746,8 +832,86 @@
     });
   }
 
+  // ---- private collections -------------------------------------------------
+  /* Fetch enabled private packages (raw XML), parse here, tag, merge, re-render.
+     Additive and idempotent — safe to call again after the manager changes the
+     enabled set. */
+  function loadPrivate() {
+    if (!window.EpiCollections) return;
+    EpiCollections.loadEnabled().then(function (res) {
+      privateRecords = (res.records || []).map(function (r) {
+        var rec = parseRecord(r.name, r.xml);
+        rec.source          = "private";
+        rec.collection      = r.collection;
+        rec.collectionTitle = r.collectionTitle || r.collection;
+        return rec;
+      });
+      privateRecords.sort(function (a, b) { return a.name.localeCompare(b.name); });
+      rebuildAll();
+      updateSourceFilterOptions();
+      renderByTab(currentTab);
+    });
+  }
+
+  /* Rebuild the source-filter <select> options from the loaded private records. */
+  function updateSourceFilterOptions() {
+    var sel = document.getElementById("source-filter");
+    if (!sel) return;
+    if (!privateRecords.length) {
+      sel.style.display = "none";
+      if (sourceFilter !== "all") { sourceFilter = "all"; }
+      return;
+    }
+    var cols = {};
+    privateRecords.forEach(function (r) { cols[r.collection] = r.collectionTitle || r.collection; });
+    var opts = '<option value="all">All sources</option>' +
+               '<option value="public">Public only</option>' +
+               '<option value="private">Private only</option>';
+    Object.keys(cols).sort().forEach(function (id) {
+      opts += '<option value="col:' + esc(id) + '">🔒 ' + esc(cols[id]) + '</option>';
+    });
+    sel.innerHTML = opts;
+    // keep current selection if still valid, else reset
+    var valid = ["all", "public", "private"].concat(Object.keys(cols).map(function (id) { return "col:" + id; }));
+    if (valid.indexOf(sourceFilter) === -1) sourceFilter = "all";
+    sel.value = sourceFilter;
+    sel.style.display = "";
+  }
+
   // ---- init ----------------------------------------------------------------
   document.addEventListener("DOMContentLoaded", function () {
+
+    /* Mine filter + Collections — only shown when a GitHub identity is stored */
+    var mineBar = document.getElementById("mine-bar");
+    var mineBtn = document.getElementById("btn-mine");
+    if (mineBar && mineBtn && currentUsername) {
+      mineBar.style.display = "flex";
+      mineBtn.addEventListener("click", function () {
+        showMine = !showMine;
+        mineBtn.dataset.active = showMine ? "true" : "false";
+        mineBtn.textContent = showMine ? "Show all" : "Show mine";
+        mineBtn.classList.toggle("primary", showMine);
+        renderByTab(currentTab);
+      });
+
+      var colBtn = document.getElementById("btn-collections");
+      if (colBtn && window.EpiCollections) {
+        colBtn.addEventListener("click", function () { EpiCollections.showManager(); });
+      }
+
+      var sourceSel = document.getElementById("source-filter");
+      if (sourceSel) {
+        sourceSel.addEventListener("change", function () {
+          sourceFilter = this.value;
+          renderByTab(currentTab);
+        });
+      }
+
+      // Re-load private records whenever the manager changes the enabled set
+      if (window.EpiCollections) {
+        EpiCollections.onChange(function () { loadPrivate(); });
+      }
+    }
 
     document.getElementById("preview-copy").addEventListener("click", function () {
       flashCopy(currentXml, this);
@@ -788,19 +952,22 @@
     // Load records from GitHub
     ghFetch(API)
       .then(function (files) {
-        if (!files) { renderByTab(currentTab, fileParam); return; }
+        if (!files) { renderByTab(currentTab, fileParam); loadPrivate(); return; }
 
         var xmlFiles = files
           .filter(function (f) { return /\.xml$/i.test(f.name); })
           .sort(function (a, b) { return a.name.localeCompare(b.name); });
 
-        if (!xmlFiles.length) { renderByTab(currentTab, fileParam); return; }
+        if (!xmlFiles.length) { renderByTab(currentTab, fileParam); loadPrivate(); return; }
 
         var records = [], remaining = xmlFiles.length;
         function done() {
           records.sort(function (a, b) { return a.name.localeCompare(b.name); });
-          allRecords = records;
+          records.forEach(function (r) { r.source = "public"; });
+          publicRecords = records;
+          rebuildAll();
           renderByTab(currentTab, fileParam);
+          loadPrivate();   // additive — merges private records when they arrive
         }
         xmlFiles.forEach(function (f) {
           // Use locally-cached fresh XML if the user just saved this file from the editor;
@@ -817,6 +984,7 @@
         document.getElementById("catalog-list").innerHTML =
           '<div class="catalog-empty">Could not load records from GitHub: ' +
           esc(e.message) + '</div>';
+        loadPrivate();   // private collections may still be reachable
       });
   });
 })();

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Involved · Epiwen</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="auth.js"></script>
+    <style>
+      /* ---- step layout ---- */
+      .step {
+        display: grid;
+        grid-template-columns: 36px 1fr;
+        gap: 0 1.1rem;
+        margin: 1.4rem 0 0;
+        align-items: start;
+      }
+      .step-num {
+        width: 36px; height: 36px; border-radius: 50%;
+        background: var(--accent); color: var(--accent-ink);
+        font-size: .9rem; font-weight: 700;
+        display: flex; align-items: center; justify-content: center;
+        flex: 0 0 36px; margin-top: .05rem;
+      }
+      .step-body { min-width: 0; }
+      .step-title {
+        font-size: .95rem; font-weight: 700; color: var(--ink);
+        margin: .2rem 0 .45rem;
+      }
+      .step-body p { font-size: .87rem; line-height: 1.65; margin: 0 0 .5rem; }
+      .step-body a { color: var(--accent); }
+      .step-body ol, .step-body ul {
+        font-size: .87rem; line-height: 1.65;
+        margin: .3rem 0 .5rem; padding-left: 1.3rem;
+      }
+      .step-body li { margin-bottom: .3rem; }
+
+      /* ---- callout boxes ---- */
+      .callout {
+        border-left: 3px solid var(--accent);
+        background: #fdf6f6;
+        border-radius: 0 5px 5px 0;
+        padding: .6rem .9rem; margin: .6rem 0;
+        font-size: .83rem; line-height: 1.6; color: var(--ink);
+      }
+      .callout.tip {
+        border-color: #2d7a4f;
+        background: #f3faf6;
+      }
+      .callout strong { display: block; margin-bottom: .2rem; }
+
+      /* ---- browser-chrome mockup ---- */
+      .mockup {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        margin: .8rem 0 1.2rem;
+        max-width: 640px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.06);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      .mockup-bar {
+        background: #f3f3f3;
+        border-bottom: 1px solid var(--line);
+        padding: .45rem .75rem;
+        display: flex; align-items: center; gap: .5rem;
+      }
+      .mockup-dots { display: flex; gap: .35rem; }
+      .mockup-dot {
+        width: 10px; height: 10px; border-radius: 50%;
+      }
+      .mockup-dot.red   { background: #ff5f57; }
+      .mockup-dot.amber { background: #febc2e; }
+      .mockup-dot.green { background: #28c840; }
+      .mockup-url {
+        flex: 1; background: white;
+        border: 1px solid #ddd; border-radius: 4px;
+        padding: .18rem .6rem;
+        font-size: .7rem; color: #555;
+        font-family: monospace;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .mockup-body { background: white; padding: 0; }
+
+      /* ---- GitHub-style signup mockup ---- */
+      .gh-signup {
+        max-width: 340px; margin: 0 auto; padding: 1.8rem 1.2rem;
+        text-align: center;
+      }
+      .gh-signup-logo {
+        font-size: 1rem; font-weight: 800; letter-spacing: -.02em;
+        margin-bottom: 1rem; color: #111;
+      }
+      .gh-signup h3 {
+        font-size: .95rem; font-weight: 700; margin: 0 0 1rem; color: #111;
+      }
+      .gh-field {
+        display: block; width: 100%; box-sizing: border-box;
+        border: 1px solid #ccc; border-radius: 6px;
+        padding: .5rem .75rem; font-size: .85rem;
+        margin-bottom: .7rem; background: #f6f8fa; color: #999;
+        text-align: left;
+      }
+      .gh-field span { color: #bbb; font-style: italic; }
+      .gh-btn {
+        display: block; width: 100%; padding: .55rem;
+        background: #2da44e; color: white; border: none;
+        border-radius: 6px; font-size: .87rem; font-weight: 600;
+        cursor: default; margin-top: .3rem;
+      }
+      .gh-divider {
+        font-size: .75rem; color: #aaa; margin: 1rem 0 .6rem;
+      }
+      .gh-link { font-size: .78rem; color: #0969da; text-decoration: underline; }
+
+      /* ---- email-verify mockup ---- */
+      .verify-box {
+        padding: 1.8rem 1.5rem; text-align: center;
+      }
+      .verify-icon {
+        font-size: 2.2rem; margin-bottom: .8rem; line-height: 1;
+      }
+      .verify-box h3 {
+        font-size: .95rem; font-weight: 700; margin: 0 0 .4rem; color: #111;
+      }
+      .verify-box p { font-size: .8rem; color: #666; margin: 0 0 1rem; }
+      .verify-btn {
+        display: inline-block; padding: .45rem 1.2rem;
+        background: #2da44e; color: white;
+        border-radius: 6px; font-size: .83rem; font-weight: 600; cursor: default;
+      }
+
+      /* ---- invite-email mockup ---- */
+      .invite-email {
+        padding: 1.4rem 1.5rem;
+      }
+      .invite-email-subject {
+        font-size: .8rem; font-weight: 700; color: #111; margin-bottom: .8rem;
+        border-bottom: 1px solid var(--line); padding-bottom: .6rem;
+      }
+      .invite-email-body {
+        font-size: .82rem; line-height: 1.65; color: #333;
+      }
+      .invite-accept {
+        display: inline-block; margin-top: .9rem; padding: .45rem 1.2rem;
+        background: #2da44e; color: white;
+        border-radius: 6px; font-size: .83rem; font-weight: 600; cursor: default;
+      }
+
+      /* ---- issues page mockup ---- */
+      .issues-mockup-nav {
+        background: #111; color: white;
+        padding: .45rem .9rem;
+        display: flex; align-items: center; gap: .75rem;
+        font-size: .75rem;
+      }
+      .issues-mockup-brand { font-weight: 800; letter-spacing: -.01em; }
+      .issues-mockup-navlink { color: #ccc; }
+      .issues-mockup-navlink.hi { color: white; font-weight: 600; }
+      .issues-mockup-body {
+        padding: 1rem 1.2rem;
+      }
+      .issues-mockup-h {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: .8rem;
+      }
+      .issues-mockup-title { font-size: .95rem; font-weight: 700; color: #111; }
+      .issues-mockup-new {
+        background: var(--accent); color: white;
+        border-radius: 4px; padding: .28rem .7rem;
+        font-size: .75rem; font-weight: 600; cursor: default;
+      }
+      .issues-mockup-tabs {
+        display: flex; gap: .2rem;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: .9rem;
+      }
+      .issues-mockup-tab {
+        padding: .32rem .7rem; font-size: .76rem; font-weight: 600;
+        color: #aaa; border-bottom: 2px solid transparent; margin-bottom: -1px;
+      }
+      .issues-mockup-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+      .issues-mockup-row {
+        display: flex; gap: .6rem; align-items: baseline;
+        padding: .35rem 0; border-bottom: 1px solid #f5f5f5;
+        font-size: .8rem;
+      }
+      .issues-mockup-num { color: #bbb; font-variant-numeric: tabular-nums; width: 36px; flex: 0 0 36px; }
+      .issues-mockup-t { flex: 1; font-weight: 600; color: #111; }
+      .issues-mockup-label {
+        font-size: .68rem; font-weight: 600;
+        padding: .06rem .4rem; border-radius: 10px;
+        display: inline-block;
+      }
+      .issues-mockup-meta { color: #bbb; font-size: .72rem; }
+
+      /* ---- new-issue form mockup ---- */
+      .ni-body {
+        padding: 1.2rem 1.4rem;
+      }
+      .ni-h { font-size: .88rem; font-weight: 700; color: #111; margin-bottom: 1rem; }
+      .ni-row { display: grid; grid-template-columns: 1fr 180px; gap: 1rem; }
+      .ni-left { min-width: 0; }
+      .ni-label {
+        font-size: .76rem; font-weight: 600; color: #555;
+        display: block; margin-bottom: .3rem;
+      }
+      .ni-input {
+        width: 100%; box-sizing: border-box;
+        border: 1px solid #ccc; border-radius: 6px;
+        padding: .45rem .65rem; font-size: .82rem;
+        background: #f6f8fa; color: #999;
+        display: block;
+      }
+      .ni-textarea {
+        width: 100%; box-sizing: border-box;
+        border: 1px solid #ccc; border-radius: 6px;
+        padding: .5rem .65rem; font-size: .8rem;
+        background: #f6f8fa; color: #aaa;
+        height: 90px; display: block; margin-top: .3rem;
+        resize: none; font-family: monospace;
+        line-height: 1.5;
+      }
+      .ni-sidebar { font-size: .78rem; }
+      .ni-sidebar-h {
+        font-weight: 700; color: #555; font-size: .74rem;
+        text-transform: uppercase; letter-spacing: .05em;
+        margin-bottom: .35rem;
+        border-bottom: 1px solid var(--line); padding-bottom: .25rem;
+      }
+      .ni-sidebar-lbl {
+        display: inline-block; margin: .2rem .2rem 0 0;
+        padding: .1rem .45rem; border-radius: 10px;
+        font-size: .72rem; font-weight: 600;
+      }
+      .ni-submit {
+        display: inline-block; margin-top: 1rem;
+        background: #2da44e; color: white;
+        border-radius: 6px; padding: .45rem 1.1rem;
+        font-size: .83rem; font-weight: 600; cursor: default;
+      }
+      .ni-submit.dim { background: #94d3a2; cursor: default; }
+
+      /* ---- tips card ---- */
+      .tip-grid {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: .8rem; margin: .6rem 0;
+      }
+      .tip-card {
+        border: 1px solid var(--line); border-radius: 7px;
+        padding: .8rem 1rem;
+      }
+      .tip-card h4 {
+        font-size: .8rem; font-weight: 700; margin: 0 0 .45rem;
+        display: flex; align-items: center; gap: .4rem;
+      }
+      .tip-card ul {
+        font-size: .8rem; line-height: 1.6;
+        margin: 0; padding-left: 1.1rem;
+      }
+      .tip-card li { margin-bottom: .25rem; }
+
+      /* ---- label pill ---- */
+      .pill {
+        display: inline-block; padding: .1rem .5rem; border-radius: 10px;
+        font-size: .73rem; font-weight: 600; vertical-align: middle;
+      }
+      .pill.discussion { background: #ddf4ff; color: #0550ae; }
+      .pill.technical  { background: #fff1e5; color: #953800; }
+
+      /* ---- section intro ---- */
+      .docs-section .intro {
+        font-size: .87rem; line-height: 1.65; color: var(--muted);
+        margin: 0 0 .3rem;
+      }
+
+      @media (max-width: 580px) {
+        .tip-grid { grid-template-columns: 1fr; }
+        .ni-row { grid-template-columns: 1fr; }
+        .ni-sidebar { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><a href="index.html" class="brand-home">Epiwen</a></div>
+      <nav class="sitenav">
+        <a href="map.html"                      class="sitenav-link">Map</a>
+        <a href="sites.html"                    class="sitenav-link">Sites</a>
+        <a href="catalog.html"                  class="sitenav-link">Objects</a>
+        <a href="catalog.html?tab=inscriptions"  class="sitenav-link">Inscriptions</a>
+        <a href="catalog.html?tab=rubbings"     class="sitenav-link">Rubbings</a>
+        <a href="authorities.html"              class="sitenav-link">Authorities</a>
+        <a href="bibliography.html"             class="sitenav-link">Bibliography</a>
+        <a href="docs.html"                     class="sitenav-link">Docs</a>
+        <a href="issues.html"                   class="sitenav-link">Issues</a>
+      </nav>
+      <!-- ungated page — show sign-in link when not logged in, sign-out when logged in -->
+      <a id="contrib-auth-btn" href="login.html" class="btn small">Sign in</a>
+      <script>
+        (function(){
+          var u = localStorage.getItem("epiwen_gh_username");
+          var s = sessionStorage.getItem("epiwen_authed");
+          if (u && s === u) {
+            var btn = document.getElementById("contrib-auth-btn");
+            btn.textContent = "@" + u;
+            btn.href = "#";
+            btn.onclick = function(e){ e.preventDefault(); EpiAuth.signOut(); };
+          }
+        })();
+      </script>
+    </header>
+
+    <main class="docs-pane">
+
+      <section class="about-hero">
+        <h1>Getting Involved</h1>
+        <p>
+          Epiwen uses <strong>GitHub</strong> — a free, web-based platform — to coordinate
+          scholarly contributions: research discussions, data questions, technical feedback,
+          and encoded records. You do not need programming experience to participate.
+          This guide walks you through the full process from account creation to opening your first issue.
+        </p>
+      </section>
+
+      <!-- ============================================================ -->
+      <section class="docs-section">
+        <h2>What contributors can do</h2>
+        <table class="docs-table">
+          <thead>
+            <tr>
+              <th>Role</th><th>What you can do</th><th>Access needed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Participant</strong></td>
+              <td>Open and comment on issues — research questions, interpretive debates, technical feedback</td>
+              <td>GitHub account + project invitation</td>
+            </tr>
+            <tr>
+              <td><strong>Editor</strong></td>
+              <td>All of the above, plus contribute encoded EpiDoc records via the editor tool</td>
+              <td>GitHub account + editor invitation + personal access token</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ============================================================ -->
+      <section class="docs-section">
+        <h2>Step 1 — Create a free GitHub account</h2>
+        <p class="intro">If you already have a GitHub account, skip to Step 2.</p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Go to github.com and click <em>Sign up</em></div>
+            <p>Open <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>
+            in your browser. You will see a form asking for your email address.</p>
+
+            <div class="mockup">
+              <div class="mockup-bar">
+                <div class="mockup-dots">
+                  <div class="mockup-dot red"></div>
+                  <div class="mockup-dot amber"></div>
+                  <div class="mockup-dot green"></div>
+                </div>
+                <div class="mockup-url">github.com/signup</div>
+              </div>
+              <div class="mockup-body">
+                <div class="gh-signup">
+                  <div class="gh-signup-logo">GitHub</div>
+                  <h3>Create your account</h3>
+                  <div class="gh-field"><span>Enter your email address</span></div>
+                  <div class="gh-field"><span>Create a password</span></div>
+                  <div class="gh-field"><span>Enter a username</span></div>
+                  <button class="gh-btn" disabled>Create account</button>
+                  <div class="gh-divider">Already have an account?
+                    <span class="gh-link">Sign in →</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Fill in email, password, and username</div>
+            <p>Choose a username that colleagues can recognise (e.g. your surname or
+            institutional abbreviation). The username will appear on your issue comments.</p>
+            <div class="callout tip">
+              <strong>Tip — institutional email</strong>
+              Use your institutional email address. GitHub will never share it publicly.
+              You can change it later under <em>Settings → Emails</em>.
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Verify your email address</div>
+            <p>GitHub sends a verification email immediately. Open it and click
+            <strong>Verify email address</strong>.</p>
+
+            <div class="mockup">
+              <div class="mockup-bar">
+                <div class="mockup-dots">
+                  <div class="mockup-dot red"></div>
+                  <div class="mockup-dot amber"></div>
+                  <div class="mockup-dot green"></div>
+                </div>
+                <div class="mockup-url">Your email inbox</div>
+              </div>
+              <div class="mockup-body">
+                <div class="verify-box">
+                  <div class="verify-icon">✉️</div>
+                  <h3>Please verify your email address</h3>
+                  <p>GitHub sent a message to your inbox.<br>
+                  Click the button in the email to confirm your address.</p>
+                  <div class="verify-btn">Verify email address</div>
+                </div>
+              </div>
+            </div>
+
+            <p>After verification you can sign in at
+            <a href="https://github.com/login" target="_blank" rel="noopener">github.com/login</a>
+            at any time. The free plan is all you need.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section class="docs-section">
+        <h2>Step 2 — Request access to the project</h2>
+        <p>
+          The Epiwen platform is a private working environment for the Buddhist Stone Sutras
+          research group. To contribute, you need to be invited by a project administrator.
+        </p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Contact the project team</div>
+            <p>Send your GitHub username (not your password — only the username) to the
+            project coordinator. You can find your username at the top right of any GitHub
+            page after signing in, or under
+            <a href="https://github.com/settings/profile" target="_blank" rel="noopener">Settings → Profile</a>.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Accept the invitation email</div>
+            <p>GitHub sends an invitation to your email address. Open it and click
+            <strong>Accept invitation</strong>. You can also accept via the notification
+            bell (🔔) on GitHub after signing in.</p>
+
+            <div class="mockup">
+              <div class="mockup-bar">
+                <div class="mockup-dots">
+                  <div class="mockup-dot red"></div>
+                  <div class="mockup-dot amber"></div>
+                  <div class="mockup-dot green"></div>
+                </div>
+                <div class="mockup-url">Your email inbox</div>
+              </div>
+              <div class="mockup-body">
+                <div class="invite-email">
+                  <div class="invite-email-subject">
+                    📩 &nbsp;You have been invited to collaborate on <strong>pleuston/epiwen</strong>
+                  </div>
+                  <div class="invite-email-body">
+                    <strong>pleuston</strong> has invited you to collaborate on the
+                    <strong>epiwen</strong> repository.<br><br>
+                    To accept this invitation, click the button below.
+                    This invitation will expire in 7 days.
+                    <br>
+                    <div class="invite-accept">Accept invitation</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout">
+              <strong>Check your spam folder</strong>
+              GitHub invitation emails occasionally land in spam or junk. Search for
+              "GitHub" if you don't see the email within a few minutes.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section class="docs-section">
+        <h2>Step 3 — Access the Issues page</h2>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Open Epiwen and go to Issues</div>
+            <p>After signing into the Epiwen platform, click <strong>Issues</strong>
+            in the top navigation bar.</p>
+
+            <div class="mockup">
+              <div class="mockup-bar">
+                <div class="mockup-dots">
+                  <div class="mockup-dot red"></div>
+                  <div class="mockup-dot amber"></div>
+                  <div class="mockup-dot green"></div>
+                </div>
+                <div class="mockup-url">epiwen · Issues</div>
+              </div>
+              <div class="mockup-body">
+                <div style="padding: .5rem .9rem; border-bottom: 1px solid var(--line); display:flex; align-items:center; gap: .75rem; background: #fafafa; font-size:.75rem; color:#555;">
+                  <strong style="font-size:.82rem;color:#111;">Epiwen</strong>
+                  <span>Map</span><span>Sites</span><span>…</span>
+                  <span style="font-weight:700;color:var(--accent)">Issues ←</span>
+                </div>
+                <div class="issues-mockup-body">
+                  <div class="issues-mockup-h">
+                    <span class="issues-mockup-title">Issues</span>
+                    <span class="issues-mockup-new">+ New issue ↗</span>
+                  </div>
+                  <div class="issues-mockup-tabs">
+                    <div class="issues-mockup-tab active">All <span style="background:#eee;border-radius:8px;padding:0 .4rem;font-size:.68rem">4</span></div>
+                    <div class="issues-mockup-tab">Discussion <span style="background:#eee;border-radius:8px;padding:0 .4rem;font-size:.68rem">2</span></div>
+                    <div class="issues-mockup-tab">Technical <span style="background:#eee;border-radius:8px;padding:0 .4rem;font-size:.68rem">2</span></div>
+                  </div>
+                  <div class="issues-mockup-row">
+                    <span class="issues-mockup-num">#4</span>
+                    <span class="issues-mockup-t">Which sutra is the JSY inscription?
+                      <span class="issues-mockup-label" style="background:#ddf4ff;color:#0550ae">discussion</span>
+                    </span>
+                    <span class="issues-mockup-meta">3 comments · 2 days ago</span>
+                  </div>
+                  <div class="issues-mockup-row">
+                    <span class="issues-mockup-num">#3</span>
+                    <span class="issues-mockup-t">Map tiles not loading on mobile
+                      <span class="issues-mockup-label" style="background:#fff1e5;color:#953800">technical</span>
+                    </span>
+                    <span class="issues-mockup-meta">1 comment · 5 days ago</span>
+                  </div>
+                  <div class="issues-mockup-row">
+                    <span class="issues-mockup-num">#2</span>
+                    <span class="issues-mockup-t">Proposed re-attribution of BSY calligrapher
+                      <span class="issues-mockup-label" style="background:#ddf4ff;color:#0550ae">discussion</span>
+                    </span>
+                    <span class="issues-mockup-meta">7 comments · 1 week ago</span>
+                  </div>
+                  <div class="issues-mockup-row">
+                    <span class="issues-mockup-num">#1</span>
+                    <span class="issues-mockup-t">WFY site coordinates need correction
+                      <span class="issues-mockup-label" style="background:#fff1e5;color:#953800">technical</span>
+                    </span>
+                    <span class="issues-mockup-meta">2 comments · 2 weeks ago</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p>Three tabs organise the issues:
+            <strong>All</strong> shows everything open;
+            <strong>Discussion</strong> shows conceptual and research threads
+            (<span class="pill discussion">discussion</span> label);
+            <strong>Technical</strong> shows bugs and data problems
+            (<span class="pill technical">technical</span> label).</p>
+
+            <p>Click any issue title to read the full thread on GitHub, where you can also
+            leave a comment.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section class="docs-section">
+        <h2>Step 4 — Open a new issue</h2>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Click "+ New issue"</div>
+            <p>The <strong>+ New issue ↗</strong> button in the top right of the Issues page
+            takes you directly to GitHub's issue editor for this project.
+            You must be signed into GitHub to proceed.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Write a title and description</div>
+
+            <div class="mockup">
+              <div class="mockup-bar">
+                <div class="mockup-dots">
+                  <div class="mockup-dot red"></div>
+                  <div class="mockup-dot amber"></div>
+                  <div class="mockup-dot green"></div>
+                </div>
+                <div class="mockup-url">github.com/pleuston/epiwen/issues/new</div>
+              </div>
+              <div class="mockup-body">
+                <div class="ni-body">
+                  <div class="ni-h">New issue</div>
+                  <div class="ni-row">
+                    <div class="ni-left">
+                      <label class="ni-label">Title</label>
+                      <div class="ni-input" style="color:#555;background:#fff;border-color:#aaa;">
+                        Which canonical sutra does JSY_01 transcribe?
+                      </div>
+                      <label class="ni-label" style="margin-top:.7rem">
+                        Leave a comment
+                        <span style="font-weight:400;color:#aaa"> — supports Markdown</span>
+                      </label>
+                      <div class="ni-textarea" style="color:#555;background:#fff;border-color:#aaa;">
+The inscription at JSY_01 (cliff face, Mount Tai) has been
+tentatively identified as the Diamond Sūtra (T08n0235)
+by Wenzel (2003), but the opening character sequence
+suggests it may be the Perfection of Wisdom in 8,000 Lines.
+
+Source: sutras-data:catalog/JSY_01.xml, &lt;ref value="discussion"&gt;
+                      </div>
+                    </div>
+                    <div class="ni-sidebar">
+                      <div class="ni-sidebar-h">Labels</div>
+                      <div class="ni-sidebar-lbl" style="background:#ddf4ff;color:#0550ae">discussion</div>
+                      <div style="margin-top:1rem" class="ni-sidebar-h">Assignees</div>
+                      <div style="font-size:.74rem;color:#aaa">No one assigned</div>
+                    </div>
+                  </div>
+                  <div class="ni-submit">Submit new issue</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Add a label</div>
+            <p>On the right sidebar, click <strong>Labels</strong> and choose the appropriate category:</p>
+            <ul>
+              <li><span class="pill discussion">discussion</span> — research questions, interpretive debates,
+              attribution disputes, editorial decisions, requests for comparative material.</li>
+              <li><span class="pill technical">technical</span> — platform bugs, missing or incorrect data,
+              display problems, broken links, feature requests.</li>
+            </ul>
+            <p>You can apply both labels if an issue is both conceptual and has a technical dimension.
+            Unlabelled issues appear in the <strong>All</strong> tab only.</p>
+
+            <div class="mockup">
+              <div class="mockup-bar">
+                <div class="mockup-dots">
+                  <div class="mockup-dot red"></div>
+                  <div class="mockup-dot amber"></div>
+                  <div class="mockup-dot green"></div>
+                </div>
+                <div class="mockup-url">github.com/pleuston/epiwen/issues/new — Labels dropdown</div>
+              </div>
+              <div class="mockup-body" style="padding:1rem 1.2rem">
+                <div style="font-size:.78rem;font-weight:700;color:#555;margin-bottom:.5rem">
+                  Apply labels to this issue
+                </div>
+                <div style="display:flex;flex-direction:column;gap:.4rem;max-width:240px">
+                  <label style="display:flex;align-items:center;gap:.5rem;font-size:.82rem;cursor:default">
+                    <input type="checkbox" checked disabled>
+                    <span class="ni-sidebar-lbl" style="background:#ddf4ff;color:#0550ae">discussion</span>
+                    <span style="color:#888;font-size:.75rem">Conceptual / research</span>
+                  </label>
+                  <label style="display:flex;align-items:center;gap:.5rem;font-size:.82rem;cursor:default">
+                    <input type="checkbox" disabled>
+                    <span class="ni-sidebar-lbl" style="background:#fff1e5;color:#953800">technical</span>
+                    <span style="color:#888;font-size:.75rem">Bugs / infrastructure</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Submit the issue</div>
+            <p>Click <strong>Submit new issue</strong>. The issue immediately appears on
+            the Epiwen Issues page and all project members receive a notification.
+            You can edit your issue after submission by clicking <strong>Edit</strong>
+            in the top right of the issue thread.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section class="docs-section">
+        <h2>How to write a good issue</h2>
+        <p>A well-written issue gets a faster, more useful response.</p>
+
+        <div class="tip-grid">
+          <div class="tip-card">
+            <h4><span class="pill discussion">discussion</span> Research &amp; conceptual</h4>
+            <ul>
+              <li>Identify the inscription by its ID or conventional name (e.g. <em>BSY_Diamond</em>, <em>JSY_01</em>)</li>
+              <li>State your question or position clearly in the title</li>
+              <li>Cite the relevant scholarship: author (year), page</li>
+              <li>Quote the primary source passage if applicable</li>
+              <li>Distinguish between what the source says and your interpretation</li>
+              <li>It's fine to leave a question open — the discussion thread resolves it</li>
+            </ul>
+          </div>
+          <div class="tip-card">
+            <h4><span class="pill technical">technical</span> Technical &amp; data</h4>
+            <ul>
+              <li>Describe what you <em>expected</em> to see and what you actually saw</li>
+              <li>Name the page or record involved (e.g. <em>Map page</em>, <em>record BSS_001.xml</em>)</li>
+              <li>Note your browser and device if relevant (e.g. <em>Safari on iPhone</em>)</li>
+              <li>One problem per issue — don't bundle multiple bugs together</li>
+              <li>For data errors, include the correct value and its source</li>
+              <li>Screenshots are welcome — paste them directly into the GitHub editor</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <strong>Example: good discussion title</strong>
+          "JSY_01: Diamond Sūtra or Perfection of Wisdom in 8,000 Lines? — opening sequence ambiguous"<br>
+          <span style="color:var(--muted)">vs. a vague title:</span> "Question about JSY"
+        </div>
+
+        <div class="callout tip">
+          <strong>Example: good technical title</strong>
+          "Map page: OSGeo atlas tiles not loading on Firefox — blank grey background"<br>
+          <span style="color:var(--muted)">vs. a vague title:</span> "Map broken"
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section class="docs-section">
+        <h2>What happens after you submit</h2>
+        <ul class="docs-list">
+          <li>All project members receive a notification (email and/or GitHub bell).</li>
+          <li>Anyone can comment on the thread — discussion continues until the question is resolved.</li>
+          <li>The project team may apply additional labels, ask for clarification, or link
+          related issues.</li>
+          <li>When an issue is resolved it is <strong>closed</strong> — closed issues remain
+          permanently searchable in the GitHub archive.</li>
+          <li>You can subscribe to an issue you didn't open by clicking
+          <strong>Subscribe</strong> in the right sidebar to get notifications.</li>
+        </ul>
+      </section>
+
+      <!-- ============================================================ -->
+      <section class="docs-section">
+        <h2>Becoming an editor (contributing records)</h2>
+        <p>
+          Editors can contribute encoded EpiDoc records directly via the
+          <a href="editor.html">Epiwen editor</a>. This requires a GitHub
+          <strong>personal access token</strong> (PAT) with <code>repo</code> scope,
+          stored locally in your browser. A separate guide covers the editor workflow —
+          click <strong>Open workflow guide →</strong> on the <a href="docs.html">Docs page</a>.
+        </p>
+        <div class="callout">
+          <strong>To become an editor</strong>
+          Contact the project coordinator with your GitHub username and a brief description
+          of your role in the project. Editors are invited individually.
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="foot">
+      Questions? Open an <a href="issues.html">issue</a> or contact the project coordinator. ·
+      <a href="docs.html">Docs</a> · <a href="https://github.com/pleuston/epiwen" target="_blank" rel="noopener">GitHub ↗</a>
+    </footer>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

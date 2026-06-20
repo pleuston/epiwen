@@ -21,6 +21,7 @@
         <a href="authorities.html"             class="sitenav-link">Authorities</a>
         <a href="bibliography.html"            class="sitenav-link">Bibliography</a>
         <a href="docs.html"                    class="sitenav-link">Docs</a>
+        <a href="issues.html"                   class="sitenav-link">Issues</a>
       </nav>
       <button onclick="EpiAuth.signOut()" class="btn small">Sign out</button>
     </header>
@@ -36,6 +37,17 @@
               <input type="search" id="catalog-search" class="catalog-searchbox"
                      placeholder="Filter…" aria-label="filter catalog" />
             </div>
+          </div>
+          <div id="mine-bar" style="display:none; align-items:center; gap:.5rem; flex-wrap:wrap; margin-bottom:.5rem">
+            <button id="btn-mine" type="button" class="btn small" data-active="false">
+              Show mine
+            </button>
+            <button id="btn-collections" type="button" class="btn small">
+              Collections…
+            </button>
+            <select id="source-filter" class="catalog-searchbox"
+                    style="display:none; max-width:220px" aria-label="filter by source"></select>
+            <span id="mine-label" style="font-size:.78rem;color:var(--muted)"></span>
           </div>
           <div id="catalog-list">
             <div class="catalog-loading">Loading records from GitHub…</div>
@@ -67,6 +79,7 @@
     </footer>
 
     <div id="toast" role="status" aria-live="polite"></div>
+    <script src="collections.js"></script>
     <script src="catalog.js"></script>
     <script src="modal.js"></script>
   </body>

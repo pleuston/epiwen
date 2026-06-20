@@ -438,6 +438,11 @@
 
       renderTexts();
       update();
+
+      // If this record came from a private collection, save it back there.
+      if (loaded._writeTarget && window.EpiGitHub && EpiGitHub.setTarget) {
+        EpiGitHub.setTarget(loaded._writeTarget);
+      }
     } catch (e) { console.warn("epiwen_preload parse error", e); }
   }
 
@@ -553,6 +558,12 @@
 
     // Preload from catalog "Edit" button (via sessionStorage)
     preloadFromSession();
+
+    // Pre-fill editor field with GitHub identity if not already set by preload
+    if (!state.editor) {
+      var ghUser = localStorage.getItem("epiwen_gh_username") || "";
+      if (ghUser) { state.editor = ghUser; setVal("editor", ghUser); }
+    }
 
     update();
   });

@@ -22,6 +22,7 @@
         <a href="authorities.html"             class="sitenav-link">Authorities</a>
         <a href="bibliography.html"            class="sitenav-link">Bibliography</a>
         <a href="docs.html"                    class="sitenav-link">Docs</a>
+        <a href="issues.html"                   class="sitenav-link">Issues</a>
       </nav>
       <div class="controls">
         <div class="langtoggle" role="group" aria-label="interface language">
@@ -45,6 +46,9 @@
       <span class="step">② <strong>Save to GitHub</strong> — commits the TEI record directly</span>
       <span class="arrow hint-or">or</span>
       <span class="step">② <strong>Copy XML</strong> → paste in GitHub web editor</span>
+      <span class="step save-target-wrap" style="margin-left:auto">
+        Saving to <code id="save-target">…</code>
+      </span>
     </div>
 
     <main class="layout">
@@ -71,6 +75,7 @@
     <div id="toast" role="status" aria-live="polite"></div>
     <script src="vocab.js"></script>
     <script src="rubbing-app.js"></script>
+    <script src="collections.js"></script>
     <script src="github.js"></script>
     <script src="modal.js"></script>
   </body>

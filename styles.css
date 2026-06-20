@@ -122,9 +122,32 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
 .gh-input:focus { outline: none; border-color: var(--accent); }
 .gh-actions { display: flex; gap: 0.5rem; }
 
+/* ---- private collections manager ---- */
+.col-status { font-size: 0.8rem; color: var(--muted); margin: 0.2rem 0 0.5rem; min-height: 1em; }
+.col-pkg-list { display: flex; flex-direction: column; gap: 0.3rem; margin: 0 0 1rem; }
+.col-pkg {
+  display: flex; align-items: center; gap: 0.55rem; font-size: 0.85rem;
+  padding: 0.4rem 0.55rem; border: 1px solid var(--line); border-radius: 5px;
+  cursor: pointer;
+}
+.col-pkg:hover { border-color: var(--accent); }
+.col-pkg input[type="checkbox"] { width: auto; flex: 0 0 auto; margin: 0; }
+.col-pkg > span { flex: 1 1 auto; text-align: left; }
+.col-pkg code { font-size: 0.74rem; color: var(--muted); flex: 0 0 auto; }
+
 /* ---- hint bar "or" divider ---- */
 .hint-or {
   color: var(--muted); font-style: italic; font-size: 0.78rem; padding: 0 0.1rem;
+}
+
+/* ---- editor save-target indicator ---- */
+.save-target-wrap { font-size: 0.78rem; color: var(--muted); }
+#save-target {
+  font-size: 0.74rem; background: var(--field-bg); border: 1px solid var(--line);
+  border-radius: 3px; padding: 0.05rem 0.35rem; color: var(--ink);
+}
+#save-target.save-target-private {
+  background: #fdf6f6; border-color: var(--accent); color: var(--accent); font-weight: 600;
 }
 
 .foot { padding: 0.5rem 1rem; font-size: 0.72rem; color: var(--muted); border-top: 1px solid var(--line); }
@@ -202,6 +225,12 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
   padding: 0.6rem 0.8rem; background: #fafafa;
 }
 .catalog-info { flex: 1; min-width: 0; }
+.catalog-badge-private {
+  display: inline-block; margin: 0 0 0.25rem; padding: 0.04rem 0.45rem;
+  font-size: 0.68rem; font-weight: 600; border-radius: 10px;
+  background: #fdf6f6; color: var(--accent); border: 1px solid var(--accent);
+  vertical-align: middle; white-space: nowrap;
+}
 .catalog-filename { font-size: 0.77rem; color: var(--muted); display: block; }
 .catalog-title    { font-size: 0.86rem; font-weight: 600; margin-top: 0.15rem; }
 .catalog-title-en { color: var(--ink); }

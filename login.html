@@ -5,162 +5,275 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Epiwen · Sign in</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ---- avatar chip (returning-user state) ---- */
+      .login-avatar-row {
+        display: flex; align-items: center; gap: .75rem;
+        padding: .7rem .9rem;
+        background: var(--field-bg, #f5f5f5);
+        border: 1px solid var(--line); border-radius: 6px;
+        margin-bottom: .9rem;
+      }
+      .login-avatar {
+        width: 40px; height: 40px; border-radius: 50%;
+        flex: 0 0 40px; background: var(--line);
+        display: block; object-fit: cover;
+      }
+      .login-avatar-placeholder {
+        width: 40px; height: 40px; border-radius: 50%;
+        flex: 0 0 40px; background: var(--line);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.1rem; color: var(--muted);
+      }
+      .login-avatar-info { min-width: 0; }
+      .login-avatar-handle {
+        font-weight: 700; font-size: .92rem; color: var(--ink);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .login-avatar-fullname {
+        font-size: .78rem; color: var(--muted);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+
+      /* ---- PAT reveal toggle ---- */
+      .pat-wrap { position: relative; }
+      .pat-reveal {
+        position: absolute; right: .6rem; top: 50%; transform: translateY(-50%);
+        background: none; border: none; cursor: pointer;
+        font-size: .75rem; color: var(--muted); padding: .2rem .3rem;
+        line-height: 1;
+      }
+      .pat-reveal:hover { color: var(--ink); }
+      .pat-wrap .text-input { padding-right: 3rem; width: 100%; box-sizing: border-box; }
+
+      /* ---- help link below form ---- */
+      .login-help {
+        margin-top: 1.2rem;
+        padding-top: .9rem;
+        border-top: 1px solid var(--line);
+        font-size: .8rem; color: var(--muted); text-align: center;
+        line-height: 1.55;
+      }
+      .login-help a { color: var(--accent); }
+
+      /* ---- spinner ---- */
+      .login-spinner {
+        display: inline-block; width: 14px; height: 14px;
+        border: 2px solid rgba(255,255,255,.4);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin .7s linear infinite;
+        vertical-align: middle; margin-right: .4rem;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
   </head>
   <body class="login-page">
 
     <main class="login-main">
       <div class="login-card">
-        <h1 class="login-title"><a href="index.html">Epiwen</a></h1>
+        <h1 class="login-title"><a href="login.html">Epiwen</a></h1>
 
-        <!-- Login form (shown when password is already configured) -->
-        <form id="login-form" class="login-form" style="display:none" autocomplete="on">
-          <p class="login-mode-label">Sign in</p>
-          <label class="field-label" for="login-pass">Password</label>
-          <input id="login-pass" type="password" class="text-input"
-                 autocomplete="current-password" />
-          <p id="login-error" class="login-error" aria-live="polite"></p>
-          <button type="submit" class="btn primary btn-wide">Sign in</button>
-          <p class="login-change">
-            <a href="#" id="show-change">Change password</a>
-          </p>
-        </form>
-
-        <!-- Setup form (shown on first run — no hash in localStorage yet) -->
-        <form id="setup-form" class="login-form" style="display:none" autocomplete="off">
-          <p class="login-mode-label">Set a password for this site</p>
-          <label class="field-label" for="setup-pass">New password</label>
-          <input id="setup-pass" type="password" class="text-input"
-                 autocomplete="new-password" />
-          <label class="field-label" for="setup-confirm">Confirm password</label>
-          <input id="setup-confirm" type="password" class="text-input"
-                 autocomplete="new-password" />
-          <p id="setup-error" class="login-error" aria-live="polite"></p>
-          <button type="submit" class="btn primary btn-wide">Set password</button>
-          <p class="login-note">
-            The password hash is stored in this browser only and never transmitted.
-          </p>
-        </form>
-
-        <!-- Change-password form -->
-        <form id="change-form" class="login-form" style="display:none" autocomplete="off">
-          <p class="login-mode-label">Change password</p>
-          <label class="field-label" for="change-current">Current password</label>
-          <input id="change-current" type="password" class="text-input"
-                 autocomplete="current-password" />
-          <label class="field-label" for="change-new">New password</label>
-          <input id="change-new" type="password" class="text-input"
-                 autocomplete="new-password" />
-          <label class="field-label" for="change-confirm">Confirm new password</label>
-          <input id="change-confirm" type="password" class="text-input"
-                 autocomplete="new-password" />
-          <p id="change-error" class="login-error" aria-live="polite"></p>
-          <div class="login-btn-row">
-            <button type="submit" class="btn primary">Update</button>
-            <button type="button" class="btn" id="change-cancel">Cancel</button>
+        <!-- ══ RETURNING USER — known identity, start new session ══ -->
+        <div id="returning-form" style="display:none">
+          <p class="login-mode-label">Welcome back</p>
+          <div class="login-avatar-row" id="returning-chip">
+            <!-- filled by JS -->
           </div>
+          <button id="btn-continue" type="button" class="btn primary btn-wide">
+            Sign in →
+          </button>
+          <p class="login-change">
+            <a href="#" id="link-switch">Use a different account</a>
+          </p>
+        </div>
+
+        <!-- ══ FRESH — no identity stored yet ══ -->
+        <form id="fresh-form" style="display:none" autocomplete="off">
+          <p class="login-mode-label">Sign in with GitHub</p>
+
+          <label class="field-label" for="pat-input">
+            Personal access token
+          </label>
+          <div class="pat-wrap">
+            <input id="pat-input" type="password" class="text-input"
+                   autocomplete="off" spellcheck="false"
+                   placeholder="github_pat_…  or  ghp_…" />
+            <button type="button" class="pat-reveal" id="pat-toggle"
+                    aria-label="Show / hide token">Show</button>
+          </div>
+          <p id="fresh-error" class="login-error" aria-live="polite"></p>
+          <button id="btn-signin" type="submit" class="btn primary btn-wide">
+            Sign in →
+          </button>
+
+          <p class="login-note">
+            Generate a token at
+            <a href="https://github.com/settings/tokens/new?scopes=repo&description=Epiwen"
+               target="_blank" rel="noopener">GitHub → Settings → Developer settings</a>
+            with <strong>repo</strong> scope
+            (or <strong>public_repo</strong> if the repository is public).
+            The token is stored only in this browser — never transmitted to Epiwen servers.
+          </p>
         </form>
+
+        <!-- ══ HELP — always visible ══ -->
+        <div class="login-help">
+          New to GitHub?
+          <a href="contribute.html">Create an account and get access →</a>
+        </div>
       </div>
     </main>
 
     <script>
       (function () {
-        var HASH_KEY = "epiwen_pass_hash";
-        var AUTH_KEY = "epiwen_authed";
+        "use strict";
+
+        var LS = {
+          username: "epiwen_gh_username",
+          avatar:   "epiwen_gh_avatar",
+          name:     "epiwen_gh_name",
+          token:    "epiwen_gh_token"
+        };
+        var SESSION_KEY = "epiwen_authed";
 
         var params    = new URLSearchParams(window.location.search);
         var returnUrl = params.get("r") || "catalog.html";
-        var stored    = localStorage.getItem(HASH_KEY);
 
-        // Already authenticated — skip login
-        if (stored && sessionStorage.getItem(AUTH_KEY) === stored) {
-          window.location.href = returnUrl;
+        /* If already in an active session, skip login entirely */
+        var storedUser = localStorage.getItem(LS.username);
+        if (storedUser && sessionStorage.getItem(SESSION_KEY) === storedUser) {
+          window.location.replace(returnUrl);
           return;
         }
 
-        // SHA-256 via Web Crypto
-        function sha256(str) {
-          return crypto.subtle.digest(
-            "SHA-256",
-            new TextEncoder().encode(str)
-          ).then(function (buf) {
-            return Array.from(new Uint8Array(buf))
-              .map(function (b) { return b.toString(16).padStart(2, "0"); })
-              .join("");
+        /* ---- helpers ---- */
+        function esc(s) {
+          return String(s || "")
+            .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        function startSession(username) {
+          sessionStorage.setItem(SESSION_KEY, username);
+          window.location.replace(returnUrl);
+        }
+
+        function setSigninBusy(busy) {
+          var btn = document.getElementById("btn-signin");
+          if (busy) {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="login-spinner"></span>Verifying…';
+          } else {
+            btn.disabled = false;
+            btn.textContent = "Sign in →";
+          }
+        }
+
+        function showError(msg) {
+          document.getElementById("fresh-error").textContent = msg;
+          setSigninBusy(false);
+        }
+
+        /* ---- GitHub /user fetch ---- */
+        function verifyToken(token) {
+          return fetch("https://api.github.com/user", {
+            headers: {
+              "Authorization":        "Bearer " + token,
+              "Accept":               "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28"
+            }
           });
         }
 
-        function authenticate(hash) {
-          sessionStorage.setItem(AUTH_KEY, hash);
-          window.location.href = returnUrl;
-        }
+        /* ---- Mode: returning user ---- */
+        if (storedUser) {
+          var rf = document.getElementById("returning-form");
+          rf.style.display = "";
 
-        /* ---- Login mode ---- */
-        if (stored) {
-          var lf = document.getElementById("login-form");
-          lf.style.display = "";
-          document.getElementById("login-pass").focus();
+          var av     = localStorage.getItem(LS.avatar) || "";
+          var fname  = localStorage.getItem(LS.name)   || "";
+          var chip   = document.getElementById("returning-chip");
+          chip.innerHTML =
+            (av
+              ? '<img class="login-avatar" src="' + esc(av) + '" alt="@' + esc(storedUser) + '">'
+              : '<div class="login-avatar-placeholder">👤</div>'
+            ) +
+            '<div class="login-avatar-info">' +
+              '<div class="login-avatar-handle">@' + esc(storedUser) + '</div>' +
+              (fname ? '<div class="login-avatar-fullname">' + esc(fname) + '</div>' : '') +
+            '</div>';
 
-          lf.addEventListener("submit", function (e) {
+          document.getElementById("btn-continue").addEventListener("click", function () {
+            startSession(storedUser);
+          });
+
+          document.getElementById("link-switch").addEventListener("click", function (e) {
             e.preventDefault();
-            var err = document.getElementById("login-error");
-            sha256(document.getElementById("login-pass").value).then(function (hash) {
-              if (hash !== stored) { err.textContent = "Incorrect password."; return; }
-              err.textContent = "";
-              authenticate(hash);
+            /* Clear stored identity and show fresh form */
+            [LS.username, LS.avatar, LS.name, LS.token].forEach(function (k) {
+              localStorage.removeItem(k);
             });
-          });
-
-          /* Change-password link */
-          document.getElementById("show-change").addEventListener("click", function (e) {
-            e.preventDefault();
-            lf.style.display = "none";
-            document.getElementById("change-form").style.display = "";
-            document.getElementById("change-current").focus();
-          });
-
-          document.getElementById("change-cancel").addEventListener("click", function () {
-            document.getElementById("change-form").style.display = "none";
-            lf.style.display = "";
-          });
-
-          document.getElementById("change-form").addEventListener("submit", function (e) {
-            e.preventDefault();
-            var err  = document.getElementById("change-error");
-            var cur  = document.getElementById("change-current").value;
-            var nw   = document.getElementById("change-new").value;
-            var conf = document.getElementById("change-confirm").value;
-            if (!nw)         { err.textContent = "New password cannot be empty."; return; }
-            if (nw !== conf) { err.textContent = "New passwords do not match."; return; }
-            sha256(cur).then(function (curHash) {
-              if (curHash !== stored) { err.textContent = "Current password is incorrect."; return; }
-              sha256(nw).then(function (newHash) {
-                localStorage.setItem(HASH_KEY, newHash);
-                err.textContent = "";
-                authenticate(newHash);
-              });
-            });
+            rf.style.display = "none";
+            showFresh();
           });
 
         } else {
-          /* ---- Setup mode (first run) ---- */
-          var sf = document.getElementById("setup-form");
-          sf.style.display = "";
-          document.getElementById("setup-pass").focus();
+          showFresh();
+        }
 
-          sf.addEventListener("submit", function (e) {
+        /* ---- Mode: fresh PAT entry ---- */
+        function showFresh() {
+          var ff = document.getElementById("fresh-form");
+          ff.style.display = "";
+          document.getElementById("pat-input").focus();
+
+          /* Show / hide toggle */
+          document.getElementById("pat-toggle").addEventListener("click", function () {
+            var inp = document.getElementById("pat-input");
+            var isHidden = inp.type === "password";
+            inp.type = isHidden ? "text" : "password";
+            this.textContent = isHidden ? "Hide" : "Show";
+          });
+
+          /* Submit */
+          ff.addEventListener("submit", function (e) {
             e.preventDefault();
-            var err  = document.getElementById("setup-error");
-            var pass = document.getElementById("setup-pass").value;
-            var conf = document.getElementById("setup-confirm").value;
-            if (!pass)         { err.textContent = "Password cannot be empty."; return; }
-            if (pass !== conf) { err.textContent = "Passwords do not match."; return; }
-            sha256(pass).then(function (hash) {
-              localStorage.setItem(HASH_KEY, hash);
-              err.textContent = "";
-              authenticate(hash);
-            });
+            var token = document.getElementById("pat-input").value.trim();
+            if (!token) { showError("Paste your GitHub personal access token."); return; }
+
+            setSigninBusy(true);
+            document.getElementById("fresh-error").textContent = "";
+
+            verifyToken(token)
+              .then(function (r) {
+                if (r.status === 401) throw new Error("Token invalid or expired — check it has repo scope.");
+                if (r.status === 403) throw new Error("Token lacks permission — regenerate with repo scope.");
+                if (!r.ok) throw new Error("GitHub returned HTTP " + r.status + ". Check your token and try again.");
+                return r.json();
+              })
+              .then(function (user) {
+                /* Store identity */
+                localStorage.setItem(LS.token,    token);
+                localStorage.setItem(LS.username, user.login);
+                localStorage.setItem(LS.avatar,   user.avatar_url || "");
+                localStorage.setItem(LS.name,     user.name       || "");
+                /* Also pre-fill the github.js settings keys so the editor
+                   picks up the same token without re-entering settings. */
+                if (!localStorage.getItem("epiwen_gh_owner")) {
+                  localStorage.setItem("epiwen_gh_owner",  "pleuston");
+                  localStorage.setItem("epiwen_gh_repo",   "epiwen-epidoc-generator");
+                  localStorage.setItem("epiwen_gh_branch", "main");
+                  localStorage.setItem("epiwen_gh_path",   "records/");
+                }
+                startSession(user.login);
+              })
+              .catch(function (err) {
+                showError(err.message);
+              });
           });
         }
+
       })();
     </script>
   </body>

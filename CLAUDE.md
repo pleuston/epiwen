@@ -6,7 +6,7 @@ representative example records — suitable for working-group distribution,
 experimentation, and adaptation to other corpora.
 
 The private working instance (Stone Sutras of North China, full dataset) lives at:
-`/Users/sassmann/Documents/epiwen/` (private GitHub repo `pleuston/epiwen`)
+`/Users/sassmann/repos/epiwen/` (private GitHub repo `pleuston/epiwen`)
 
 ---
 
@@ -36,14 +36,14 @@ Experiments and working-group features can be developed here.
 Once confirmed, sync platform-level changes back to the private instance:
 
 ```bash
-cp <file> /Users/sassmann/Documents/epiwen/<file>
+cp <file> /Users/sassmann/repos/epiwen/<file>
 # then commit in epiwen/ separately
 ```
 
 When the private instance makes platform improvements:
 ```bash
 # In the private repo, after committing:
-cp <file> /Users/sassmann/Documents/epiwen-epidoc-generator/<file>
+cp <file> /Users/sassmann/repos/epiwen-epidoc-generator/<file>
 cp <file> /Users/sassmann/repos/vaults/stonehistory/AI/spaces/epiwen-epidoc-generator/<file>
 # Commit each repo
 ```
@@ -53,7 +53,7 @@ cp <file> /Users/sassmann/repos/vaults/stonehistory/AI/spaces/epiwen-epidoc-gene
 ## Session orientation
 
 ```bash
-cd /Users/sassmann/Documents/epiwen-epidoc-generator
+cd /Users/sassmann/repos/epiwen-epidoc-generator
 git log --oneline -5
 git status --short
 ```

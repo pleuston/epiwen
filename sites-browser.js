@@ -41,22 +41,9 @@
   // ── load ─────────────────────────────────────────────────────────────────────
 
   function load() {
-    var tree = el("site-tree");
-    tree.innerHTML = '<div class="catalog-loading">Loading sites…</div>';
-    EpiData.fetch("data/site-index.json")
-      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-      .then(function (data) {
-        publicRecords = data;
-        rebuildIndexes(publicRecords);
-        renderTree("");
-        // Deep-link from the map: sites.html?site=<id>
-        var want = new URLSearchParams(location.search).get("site");
-        if (want && byId[want]) showDetail(want);
-        mergePrivate();   // fold in sites from enabled collections, if any
-      })
-      .catch(function (e) {
-        tree.innerHTML = '<div class="catalog-loading">Error: ' + esc(e.message) + "</div>";
-      });
+    el("site-tree").innerHTML = '<div class="catalog-loading">Loading sites…</div>';
+    publicRecords = [];   // sites now come from the Stone Sutras corpus + enabled collections
+    mergePrivate(true);
   }
 
   function rebuildIndexes(records) {
@@ -68,16 +55,31 @@
     });
   }
 
-  // Fold sites from enabled collections into the tree (additive; re-run on toggle).
-  // A collection contributes sites by carrying collections/<pkg>/site-index.json.
-  function mergePrivate() {
-    if (!window.EpiCollections || !EpiCollections.loadIndex) return;
+  // Sites come from the Stone Sutras corpus collection (default-on) + any enabled
+  // collections (each carries collections/<pkg>/site-index.json). Re-run on toggle.
+  function mergePrivate(initial) {
+    var tree = el("site-tree");
+    if (!window.EpiCollections || !EpiCollections.loadIndex) {
+      tree.innerHTML = '<div class="catalog-loading">Collections unavailable.</div>'; return;
+    }
     EpiCollections.loadIndex("site").then(function (priv) {
       rebuildIndexes(publicRecords.concat(priv || []));
-      var s = el("site-search");
-      renderTree(s ? s.value : "");
-      if (selectedId && byId[selectedId]) showDetail(selectedId);
-    }).catch(function () {});
+      if (!allRecords.length) {
+        tree.innerHTML = '<div class="catalog-loading">No sites — enable the Stone Sutras corpus in the Collections menu, ' +
+          'or check your token can read the backend.</div>';
+      } else {
+        var s = el("site-search");
+        renderTree(s ? s.value : "");
+      }
+      if (initial) {
+        var want = new URLSearchParams(location.search).get("site");   // deep-link from the map
+        if (want && byId[want]) showDetail(want);
+      } else if (selectedId && byId[selectedId]) {
+        showDetail(selectedId);
+      }
+    }).catch(function (e) {
+      tree.innerHTML = '<div class="catalog-loading">Error: ' + esc(e.message) + "</div>";
+    });
   }
 
   // ── tree ───────────────────────────────────────────────────────────────────
@@ -251,16 +253,19 @@
 
     if (cache[id]) { renderDetail(rec); return; }
 
-    var jobs = [rec.catalog_file
-      ? EpiData.fetch(rec.catalog_file).then(okText).catch(function () { return ""; })
-      : Promise.resolve("")];
-    jobs.push(rec.prose_file
-      ? EpiData.fetch(rec.prose_file).then(okText).catch(function () { return ""; })
-      : Promise.resolve(""));
-    Promise.all(jobs).then(function (res) {
+    Promise.all([fetchSiteFile(rec, rec.catalog_file), fetchSiteFile(rec, rec.prose_file)]).then(function (res) {
       cache[id] = { siteXml: res[0], proseXml: res[1] };
       if (selectedId === id) renderDetail(rec);
     });
+  }
+
+  // Site XML/prose for a corpus/collection site comes from inside the collection;
+  // a core site (legacy) from the repo root. catalog_file/prose_file are relative.
+  function fetchSiteFile(rec, file) {
+    if (!file) return Promise.resolve("");
+    if (rec.source === "private" && rec.collection && window.EpiCollections && EpiCollections.fetchRecordXml)
+      return EpiCollections.fetchRecordXml(rec.collection, file).catch(function () { return ""; });
+    return EpiData.fetch(file).then(okText).catch(function () { return ""; });
   }
 
   function volLabel(v) {

@@ -199,9 +199,11 @@
       .catch(function () { return []; })
       .then(buildControl);
 
-    EpiData.fetch("data/site-index.json")
-      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    // Sites come from the Stone Sutras corpus + enabled collections (the atlas
+    // above stays in the always-on core).
+    (window.EpiCollections ? EpiCollections.loadIndex("site") : Promise.resolve([]))
       .then(function (recs) {
+        recs = recs || [];
         var childParents = {};
         recs.forEach(function (r) { if (r.parent) childParents[r.parent] = true; });
         var bounds = [];

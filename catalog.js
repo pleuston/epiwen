@@ -1458,41 +1458,18 @@
     var fileParam = _sp.get("file") || "";
     currentTab = tabParam;
 
-    // Load records from the data backend (epiwen-data, via token)
-    EpiData.list("records")
+    // Records now live in the Stone Sutras corpus collection (default-on) and any
+    // enabled collections; authorities + biblio stay in the always-on core.
+    // Probe a core path (data/) to detect backend readability, then load records
+    // from the collections via loadPrivate().
+    EpiData.list("data")
       .then(function (files) {
-        if (!files) { backendUnreadable = true; renderByTab(currentTab, fileParam); loadPrivate(); return; }
-
-        var xmlFiles = files
-          .filter(function (f) { return /\.xml$/i.test(f.name); })
-          .sort(function (a, b) { return a.name.localeCompare(b.name); });
-
-        if (!xmlFiles.length) { renderByTab(currentTab, fileParam); loadPrivate(); return; }
-
-        var records = [], remaining = xmlFiles.length;
-        function done() {
-          records.sort(function (a, b) { return a.name.localeCompare(b.name); });
-          records.forEach(function (r) { r.source = "public"; });
-          publicRecords = records;
-          rebuildAll();
-          renderByTab(currentTab, fileParam);
-          loadPrivate();   // additive — merges private records when they arrive
-        }
-        xmlFiles.forEach(function (f) {
-          // Use locally-cached fresh XML if the user just saved this file from the editor;
-          // otherwise read it from the data backend via the Contents API + token.
-          var fresh = sessionStorage.getItem("epiwen_fresh:" + f.name);
-          var fetchPromise = fresh ? Promise.resolve(fresh) : EpiData.text("records/" + f.name);
-          fetchPromise
-            .then(function (xml) { records.push(parseRecord(f.name, xml)); })
-            .catch(function () {})
-            .then(function () { remaining -= 1; if (!remaining) done(); });
-        });
+        if (!files) { backendUnreadable = true; renderByTab(currentTab, fileParam); return; }  // 404 = no access
+        loadPrivate();   // Stone Sutras corpus + enabled collections provide all records
       })
       .catch(function (e) {
         backendUnreadable = true; backendErrorDetail = e.message;
         renderByTab(currentTab, fileParam);
-        loadPrivate();   // private collections may still be reachable
       });
   });
 })();

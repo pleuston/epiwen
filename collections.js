@@ -34,11 +34,12 @@
   var DEFAULTS = { repo: "epiwen-private", branch: "main" };
   var MODAL_ID = "col-manager-modal";
 
-  // A SHARED collection auto-loads for everyone with app access. It lives in the
-  // data backend (epiwen-data), so no per-user config or extra grant is needed —
-  // anyone whose token can read epiwen-data gets it automatically, always on.
+  // The Stone Sutras corpus is the default-on collection (sites + records). It
+  // lives in the data backend (epiwen-data), so anyone whose token can read
+  // epiwen-data gets it automatically. Toggleable; authorities + biblio are NOT
+  // here — they stay in the always-on core, shared by every corpus.
   var SHARED = { owner: "pleuston", repo: "epiwen-data", branch: "main",
-                 id: "shared", title: "Shared collection" };
+                 id: "stonesutras", title: "Stone Sutras corpus" };
 
   var _changeHandlers = [];
 

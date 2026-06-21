@@ -85,6 +85,10 @@
   }
   function getEnabledCount() { return getEnabled().length; }
 
+  // The shared collection is ON BY DEFAULT but toggleable ("0" = the user turned it off).
+  function sharedEnabled() { return localStorage.getItem("epiwen_shared_enabled") !== "0"; }
+  function setSharedEnabled(on) { localStorage.setItem("epiwen_shared_enabled", on ? "1" : "0"); }
+
   function getTitleMap() {
     try { return JSON.parse(localStorage.getItem(LS.titles) || "{}") || {}; }
     catch (e) { return {}; }
@@ -137,7 +141,7 @@
   /* Load every .xml record in the shared collection. Always attempted (no
      enable toggle); 404 (not created yet) yields an empty, non-error result. */
   function loadShared() {
-    if (!token()) return Promise.resolve({ records: [], errors: [] });
+    if (!token() || !sharedEnabled()) return Promise.resolve({ records: [], errors: [] });
     return fetch(ctxApiUrl(SHARED, "collections/" + SHARED.id), { headers: headers(false) })
       .then(function (r) {
         if (r.status === 404) return { records: [], errors: [] };
@@ -162,7 +166,7 @@
 
   /* The shared collection's optional <kind>-index.json (authority / biblio). */
   function loadSharedIndex(kind) {
-    if (!token()) return Promise.resolve([]);
+    if (!token() || !sharedEnabled()) return Promise.resolve([]);
     return ctxFetchRaw(SHARED, "collections/" + SHARED.id + "/" + kind + "-index.json")
       .then(function (txt) {
         var arr; try { arr = JSON.parse(txt); } catch (e) { return []; }
@@ -674,26 +678,28 @@
         .sort(function (a, b) { return a.id.localeCompare(b.id); });
     }
     function updateCount() {
-      var n = getEnabled().length;
+      var n = getEnabled().length + (sharedEnabled() ? 1 : 0);
       countEl.textContent = n ? String(n) : ""; countEl.hidden = (n === 0);
     }
     function renderPanel(packages) {
       var enabled = getEnabled();
+      var sharedOn = sharedEnabled();
       var items = packages.map(function (p) {
         var on = enabled.indexOf(p.id) !== -1;
         return '<label class="col-menu-item' + (on ? " on" : "") + '">' +
-          '<input type="checkbox" value="' + esc(p.id) + '"' + (on ? " checked" : "") + '>' +
+          '<input type="checkbox" class="col-pkg-cb" value="' + esc(p.id) + '"' + (on ? " checked" : "") + '>' +
           '<span>🔒 ' + esc(p.title) + '</span></label>';
       }).join("");
       panel.innerHTML =
         '<div class="col-menu-head">Collections</div>' +
-        '<div class="col-menu-item shared on" title="Auto-loaded for everyone with backend access">' +
-          '<span>🌐 ' + esc(SHARED.title) + '</span><span class="col-menu-always">always on</span></div>' +
+        '<label class="col-menu-item shared' + (sharedOn ? " on" : "") + '" title="On by default — shared with everyone who has backend access. Untick to hide it.">' +
+          '<input type="checkbox" class="col-shared-cb"' + (sharedOn ? " checked" : "") + '>' +
+          '<span>🌐 ' + esc(SHARED.title) + '</span><span class="col-menu-always">default</span></label>' +
         (items || '<div class="col-menu-empty">No private collections yet.</div>') +
         '<div class="col-menu-sep"></div>' +
         '<button class="col-menu-action col-add" type="button">＋ Add collection…</button>' +
         '<button class="col-menu-action col-manage" type="button">⚙ Manage &amp; settings</button>';
-      Array.prototype.forEach.call(panel.querySelectorAll(".col-menu-item input"), function (cb) {
+      Array.prototype.forEach.call(panel.querySelectorAll("input.col-pkg-cb"), function (cb) {
         cb.addEventListener("change", function () {
           var en = getEnabled();
           if (cb.checked) { if (en.indexOf(cb.value) === -1) en.push(cb.value); }
@@ -702,6 +708,12 @@
           var lbl = cb.closest(".col-menu-item"); if (lbl) lbl.classList.toggle("on", cb.checked);
           updateCount(); fireChange();
         });
+      });
+      var sc = panel.querySelector("input.col-shared-cb");
+      if (sc) sc.addEventListener("change", function () {
+        setSharedEnabled(sc.checked);
+        var lbl = sc.closest(".col-menu-item"); if (lbl) lbl.classList.toggle("on", sc.checked);
+        updateCount(); fireChange();
       });
       panel.querySelector(".col-add").addEventListener("click", function () { close(); showManager(true); });
       panel.querySelector(".col-manage").addEventListener("click", function () { close(); showManager(false); });

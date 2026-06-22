@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Epiwen · Catalog</title>
+    <title>Epiwen · Glyphs</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="auth.js"></script>
     <script src="data.js"></script>
-    <script src="favorites.js"></script>
   </head>
   <body>
     <header class="topbar">
@@ -19,7 +18,7 @@
             <span class="nav-group-label">Visuals</span>
             <div class="nav-group-links">
               <a href="map.html" class="sitenav-link">Map</a>
-              <a href="graph.html" class="sitenav-link">Graph</a>
+              <a href="graph.html" class="sitenav-link active">Graph</a>
             </div>
           </div>
           <span class="nav-pipe">|</span>
@@ -27,7 +26,7 @@
             <span class="nav-group-label">Catalogs</span>
             <div class="nav-group-links">
               <a href="sites.html" class="sitenav-link">Sites</a>
-              <a href="catalog.html" class="sitenav-link active">Objects</a>
+              <a href="catalog.html" class="sitenav-link">Objects</a>
               <a href="catalog.html?tab=inscriptions" class="sitenav-link">Inscriptions</a>
               <a href="catalog.html?tab=rubbings" class="sitenav-link">Rubbings</a>
               <a href="glyphs.html" class="sitenav-link">Glyphs</a>
@@ -48,11 +47,11 @@
           <a href="bibliography.html" class="sitenav-link">Bibliography</a>
           <a href="ontology.html" class="sitenav-link">Ontology</a>
         </nav>
-      <a href="issues.html"                   class="sitenav-link">Issues</a>
-      <a href="docs.html"                    class="sitenav-link">Docs</a>
-      <a href="logs.html" class="sitenav-link">Log</a>
+      <a href="issues.html"    class="sitenav-link">Issues</a>
+      <a href="docs.html"      class="sitenav-link">Docs</a>
+      <a href="logs.html"      class="sitenav-link">Log</a>
       <span class="nav-pipe">|</span>
-      <a href="favorites.html"               class="sitenav-link">Favorites</a>
+      <a href="favorites.html" class="sitenav-link">Favorites</a>
       <button onclick="EpiAuth.signOut()" class="btn small">Sign out</button>
     </header>
 
@@ -63,38 +62,16 @@
       <div class="about-pane">
         <section class="catalog-section" style="margin-top:0">
           <div class="catalog-head">
-            <div class="catalog-head-actions">
-              <a href="editor.html" id="btn-add-new" class="btn small primary">+ New</a>
-              <input type="search" id="catalog-search" class="catalog-searchbox"
-                     placeholder="Filter…" aria-label="filter catalog" />
-            </div>
+            <h2>Graph</h2>
           </div>
-          <div id="mine-bar" style="display:none; align-items:center; gap:.5rem; flex-wrap:wrap; margin-bottom:.5rem">
-            <button id="btn-mine" type="button" class="btn small" data-active="false">
-              Show mine
-            </button>
-<span id="mine-label" style="font-size:.78rem;color:var(--muted)"></span>
-          </div>
-          <div id="catalog-list">
-            <div class="catalog-loading">Loading records from GitHub…</div>
+          <div id="graph-content">
+            <div class="catalog-loading">Graph view not yet available.</div>
           </div>
         </section>
       </div>
-
-      <div class="catalog-preview" id="cat-preview-panel">
-        <div class="preview-head">
-          <span id="preview-title">Select a record to preview</span>
-          <div class="preview-head-right">
-            <div class="view-toggle" id="cat-view-toggle" style="display:none">
-              <button class="view-btn cat-view-btn active" data-view="html">Preview</button>
-              <button class="view-btn cat-view-btn"        data-view="xml">XML</button>
-            </div>
-            <button id="preview-copy" class="btn small" style="display:none">Copy XML</button>
-            <button id="preview-delete" class="btn small btn-danger" style="display:none" title="Delete this record's file from GitHub">🗑 Delete</button>
-          </div>
-        </div>
-        <div id="cat-html-view" class="hp-pane" style="display:none"></div>
-        <pre id="cat-xml-view" style="display:none"><code id="preview-out" class="catalog-xml"></code></pre>
+        <div id="ontology-detail-content" class="hp-pane"></div>
+      </div>
+        <div id="glyph-detail-content" class="hp-pane"></div>
       </div>
 
     </div>
@@ -107,7 +84,6 @@
 
     <div id="toast" role="status" aria-live="polite"></div>
     <script src="collections.js"></script>
-    <script src="catalog.js"></script>
     <script src="modal.js"></script>
   </body>
 </html>

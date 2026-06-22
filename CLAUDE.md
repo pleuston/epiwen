@@ -74,17 +74,15 @@ collection in the obsidian-vault. Open via catalog → Collections….
   `pleuston/epiwen-data` (usually written by the editor; hand-edits fine, keep
   XML well-formed and regenerate `data/*.json` if you add or rename records).
 
-## Local clones (names lag the repos)
+## Local clones
 
-The on-disk folder names have not been renamed to match the repos:
-
-- `/Users/sassmann/repos/GitHub/epiwen-epidoc-generator` → remote `pleuston/epiwen` (this app)
-- `/Users/sassmann/repos/GitHub/epiwen` → remote `pleuston/epiwen-data` (the data)
+- `/Users/sassmann/repos/GitHub/epiwen` → remote `pleuston/epiwen` (this app)
+- `/Users/sassmann/repos/GitHub/epiwen-data` → remote `pleuston/epiwen-data` (the data)
 
 ## Session orientation
 
 ```bash
-cd /Users/sassmann/repos/GitHub/epiwen-epidoc-generator   # the app (remote: pleuston/epiwen)
+cd /Users/sassmann/repos/GitHub/epiwen   # the app (remote: pleuston/epiwen)
 git log --oneline -5
 git status --short
 ```

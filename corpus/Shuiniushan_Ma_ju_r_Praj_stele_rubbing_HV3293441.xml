@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title xml:lang="en">Shuiniushan Mañjuśrī Prajñā stele (rubbing)</title>
+        <title xml:lang="zh-Hant">水牛山文殊般若經（拓本）</title>
+        <editor role="editor">Epiwen import</editor>
+      </titleStmt>
+      <publicationStmt>
+        <authority>Epiwen / Altergraphy</authority>
+        <idno type="filename">Shuiniushan_Ma_ju_r_Praj_stele_rubbing_HV3293441.xml</idno>
+        <availability><licence target="https://library.harvard.edu/digital-collections">Harvard Library digital collections — open access</licence></availability>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc type="rubbing">
+          <msIdentifier>
+            <country>United States</country>
+            <settlement>Cambridge, MA</settlement>
+            <repository>Harvard-Yenching Library, Harvard University</repository>
+            <idno type="hollis">9721115</idno>
+          </msIdentifier>
+          <msContents>
+            <summary>Ink rubbing of the Shuiniushan Mañjuśrī Prajñā stele. Genre 'rubbings'; note places stele in Wenshang Museum, Shandong — the Shuiniushan 水牛山 stele; manifest IIIF v3, 1 canvas, thumb HTTP 200</summary>
+          </msContents>
+          <physDesc>
+            <objectDesc form="拓本 album">
+              <supportDesc><support><objectType>拓片 · ink rubbing on paper</objectType></support></supportDesc>
+            </objectDesc>
+          </physDesc>
+          <history><origin><origDate>Northern Qi Dynasty (550–577); rubbing made 1912–1945 (Republican era)</origDate></origin></history>
+          <additional>
+            <listBibl>
+              <relatedItem type="surrogateOf"><bibl><ptr target="SNS_stele"/></bibl></relatedItem>
+              <bibl><ref type="record" target="https://id.lib.harvard.edu/curiosity/chinese-rubbings-collection/6-9721115">Harvard Chinese Rubbings Collection — record</ref></bibl>
+              <bibl><ref type="iiif-manifest" target="https://nrs.harvard.edu/URN-3:FHCL:3293441:MANIFEST:3">IIIF manifest (1-page, deep-zoom)</ref></bibl>
+            </listBibl>
+          </additional>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <profileDesc><langUsage><language ident="zh">Literary Chinese 漢文</language></langUsage></profileDesc>
+    <revisionDesc>
+      <change when="2026-06-21" who="#epiwen">Imported from Harvard LibraryCloud (FHCL:3293441, HOLLIS 9721115) via the Epiwen rubbing-discovery workflow; images served live from Harvard IIIF, open access.</change>
+    </revisionDesc>
+  </teiHeader>
+  <facsimile>
+    <graphic url="https://mps.lib.harvard.edu/assets/images/drs:14169418/full/,1000/0/default.jpg"/>
+  </facsimile>
+  <text><body><div type="edition"><p>Ink rubbing — see the IIIF manifest for the full multi-page, deep-zoom images.</p></div></body></text>
+</TEI>

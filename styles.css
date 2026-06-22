@@ -204,9 +204,37 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
 
 /* ---- site navigation (about page + editor back-link) ---- */
 .sitenav { display: flex; gap: 0.5rem; align-items: center; }
-.nav-group { display: flex; flex-direction: column; gap: 0.15rem; }
-.nav-group-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); line-height: 1; padding: 0 0.1rem; }
-.nav-group-links { display: flex; align-items: center; gap: 0.05rem; }
+
+/* ---- dropdown nav groups ---- */
+.nav-group { position: relative; }
+.nav-group-btn {
+  background: none; cursor: pointer;
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.01em;
+  color: var(--ink); line-height: 1;
+  padding: 0.35rem 0.7rem; border-radius: 6px;
+  border: 1px solid transparent;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+.nav-group-btn::after { content: "▾"; font-size: 0.65rem; opacity: 0.5; }
+.nav-group-btn:hover { border-color: var(--line); }
+.nav-group.open .nav-group-btn,
+.nav-group-btn.has-active { color: var(--accent); border-color: var(--line); }
+.nav-group-btn.has-active::after { opacity: 1; }
+
+.nav-group-dropdown {
+  display: none;
+  position: absolute; top: calc(100% + 3px); left: 0;
+  background: var(--bg, #fff);
+  border: 1px solid var(--line, #e4e4e4);
+  border-radius: 8px;
+  padding: 0.3rem;
+  min-width: 9rem;
+  z-index: 200;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.nav-group.open .nav-group-dropdown { display: flex; flex-direction: column; gap: 0.1rem; }
+.nav-group-dropdown .sitenav-link { display: block; white-space: nowrap; }
+
 .sitenav-link {
   font-size: 0.85rem; color: var(--ink); text-decoration: none;
   padding: 0.35rem 0.7rem; border-radius: 6px; border: 1px solid transparent;

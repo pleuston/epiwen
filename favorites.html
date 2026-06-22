@@ -14,16 +14,16 @@
       <div class="brand"><a href="index.html" class="brand-home">Epiwen</a></div>
         <nav class="sitenav">
           <div class="nav-group">
-            <span class="nav-group-label">Visuals</span>
-            <div class="nav-group-links">
+            <button class="nav-group-btn">Visuals</button>
+            <div class="nav-group-dropdown">
               <a href="map.html" class="sitenav-link">Map</a>
               <a href="graph.html" class="sitenav-link">Graph</a>
             </div>
           </div>
           <span class="nav-pipe">|</span>
           <div class="nav-group">
-            <span class="nav-group-label">Catalogs</span>
-            <div class="nav-group-links">
+            <button class="nav-group-btn">Catalogs</button>
+            <div class="nav-group-dropdown">
               <a href="sites.html" class="sitenav-link">Sites</a>
               <a href="catalog.html" class="sitenav-link">Objects</a>
               <a href="catalog.html?tab=inscriptions" class="sitenav-link">Inscriptions</a>
@@ -33,8 +33,8 @@
           </div>
           <span class="nav-pipe">|</span>
           <div class="nav-group">
-            <span class="nav-group-label">Authorities</span>
-            <div class="nav-group-links">
+            <button class="nav-group-btn">Authorities</button>
+            <div class="nav-group-dropdown">
               <a href="authorities.html?filter=vocabulary" class="sitenav-link">Vocabularies</a>
               <a href="authorities.html?filter=personal" class="sitenav-link">Persons</a>
               <a href="authorities.html?filter=corporate" class="sitenav-link">Institutions</a>
@@ -121,5 +121,6 @@
         render();
       })();
     </script>
+    <script src="nav.js"></script>
   </body>
 </html>

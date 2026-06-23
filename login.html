@@ -117,6 +117,17 @@
           </p>
         </form>
 
+        <!-- ══ GUEST ══ -->
+        <div style="margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--line)">
+          <button id="btn-guest" type="button" class="btn btn-wide"
+                  style="background:none;border:1px solid var(--line);color:var(--muted)">
+            Browse as guest (read-only)
+          </button>
+          <p style="font-size:.75rem;color:var(--muted);text-align:center;margin:.5rem 0 0">
+            View public workshop records without a GitHub account.
+          </p>
+        </div>
+
         <!-- ══ HELP — always visible ══ -->
         <div class="login-help">
           New to GitHub?
@@ -277,6 +288,19 @@
               });
           });
         }
+
+        /* Guest: points at the public workshop repo, no token needed */
+        document.getElementById("btn-guest").addEventListener("click", function () {
+          localStorage.removeItem(LS.token);
+          localStorage.setItem(LS.username, "guest");
+          localStorage.setItem(LS.avatar,   "");
+          localStorage.setItem(LS.name,     "Guest");
+          localStorage.setItem("epiwen_gh_owner",  "pleuston");
+          localStorage.setItem("epiwen_gh_repo",   "epiwen-workshop");
+          localStorage.setItem("epiwen_gh_branch", "main");
+          localStorage.setItem("epiwen_gh_path",   "records/");
+          startSession("guest");
+        });
 
       })();
     </script>

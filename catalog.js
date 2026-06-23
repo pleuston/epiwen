@@ -78,6 +78,22 @@
                titleEn: name, titleZh: "", when: "", dateText: "", parts: [], rawXml: xmlText };
     }
 
+    // Site/place records use the exist-db catalog schema (<c:object type="site">),
+    // not TEI. They belong on the Sites page, so tag them recordType "site" and
+    // keep them out of the Objects / Inscriptions / Rubbings tabs.
+    var rootEl = doc.documentElement;
+    if (rootEl && rootEl.getAttribute("type") === "site") {
+      var siteEn = "", siteZh = "";
+      Array.prototype.forEach.call(rootEl.getElementsByTagName("*"), function (el) {
+        if ((el.localName || el.nodeName.replace(/^.*:/, "")) !== "title") return;
+        var lang = el.getAttribute("lang") || "";
+        if (lang.indexOf("zh") === 0) { if (!siteZh) siteZh = el.textContent.trim(); }
+        else if (!siteEn) siteEn = el.textContent.trim();
+      });
+      return { name: name, recordType: "site", surrogateOf: "",
+               titleEn: siteEn || name, titleZh: siteZh, when: "", dateText: "", parts: [], rawXml: xmlText };
+    }
+
     // Record type (object vs rubbing)
     var msDescEl   = doc.getElementsByTagNameNS(NS, "msDesc")[0];
     var msDescType = msDescEl ? (msDescEl.getAttribute("type") || "") : "";
@@ -1168,7 +1184,7 @@
     renderBackendNotice();
 
     if (tab === "objects") {
-      renderObjectsCatalog(allRecords.filter(function (r) { return r.recordType !== "rubbing"; }), file || "");
+      renderObjectsCatalog(allRecords.filter(function (r) { return r.recordType === "object"; }), file || "");
     } else if (tab === "inscriptions") {
       renderInscriptionsCatalog();
     } else if (tab === "rubbings") {
@@ -1259,9 +1275,9 @@
     var list = document.getElementById("catalog-list");
     list.innerHTML = "";
 
-    var nonRubbing = allRecords.filter(function (r) { return r.recordType !== "rubbing"; });
-    var totalParts = nonRubbing.reduce(function (n, r) { return n + r.parts.length; }, 0);
-    var base = applyFilters(nonRubbing);
+    var inscribable = allRecords.filter(function (r) { return r.recordType === "object"; });
+    var totalParts = inscribable.reduce(function (n, r) { return n + r.parts.length; }, 0);
+    var base = applyFilters(inscribable);
     var items = [];
     base.forEach(function (rec) {
       rec.parts.forEach(function (part, pIdx) {
@@ -1271,7 +1287,7 @@
 
     updateMineLabel(items.length, totalParts);
 
-    var bar = siteBar(nonRubbing);
+    var bar = siteBar(inscribable);
     if (!items.length) {
       list.innerHTML = bar + '<div class="catalog-empty">' +
         (siteFilter !== "all" ? 'No inscriptions at “' + esc(siteFilter) + '”.' : 'No inscriptions found.') + '</div>';

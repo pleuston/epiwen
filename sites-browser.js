@@ -62,8 +62,16 @@
     if (!window.EpiCollections || !EpiCollections.loadIndex) {
       tree.innerHTML = '<div class="catalog-loading">Collections unavailable.</div>'; return;
     }
-    EpiCollections.loadIndex("site").then(function (priv) {
-      rebuildIndexes(publicRecords.concat(priv || []));
+    var defJob = EpiCollections.loadDefaultSiteIndex
+      ? EpiCollections.loadDefaultSiteIndex() : Promise.resolve([]);
+    Promise.all([defJob, EpiCollections.loadIndex("site")]).then(function (res) {
+      var def = res[0] || [], priv = res[1] || [];
+      // Dedup by id; private/backend entries win over the public default copy.
+      var byKey = {};
+      def.forEach(function (e) { if (e && e.id) byKey[e.id] = e; });
+      priv.forEach(function (e) { if (e && e.id) byKey[e.id] = e; });
+      var merged = Object.keys(byKey).map(function (k) { return byKey[k]; });
+      rebuildIndexes(publicRecords.concat(merged));
       if (!allRecords.length) {
         tree.innerHTML = '<div class="catalog-loading">No sites — enable the Stone Sutras corpus in the Collections menu, ' +
           'or check your token can read the backend.</div>';
@@ -263,6 +271,8 @@
   // a core site (legacy) from the repo root. catalog_file/prose_file are relative.
   function fetchSiteFile(rec, file) {
     if (!file) return Promise.resolve("");
+    if (rec._defaultCorpus && window.EpiCollections && EpiCollections.fetchDefaultCorpusFile)
+      return EpiCollections.fetchDefaultCorpusFile(file).catch(function () { return ""; });
     if (rec.source === "private" && rec.collection && window.EpiCollections && EpiCollections.fetchRecordXml)
       return EpiCollections.fetchRecordXml(rec.collection, file).catch(function () { return ""; });
     return EpiData.fetch(file).then(okText).catch(function () { return ""; });

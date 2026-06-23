@@ -199,11 +199,17 @@
       .catch(function () { return []; })
       .then(buildControl);
 
-    // Sites come from the Stone Sutras corpus + enabled collections (the atlas
-    // above stays in the always-on core).
-    (window.EpiCollections ? EpiCollections.loadIndex("site") : Promise.resolve([]))
-      .then(function (recs) {
-        recs = recs || [];
+    // Sites come from the public default corpus (no token) + the Stone Sutras
+    // corpus + enabled collections (the atlas above stays in the always-on core).
+    var _defSites = (window.EpiCollections && EpiCollections.loadDefaultSiteIndex)
+      ? EpiCollections.loadDefaultSiteIndex() : Promise.resolve([]);
+    var _privSites = window.EpiCollections ? EpiCollections.loadIndex("site") : Promise.resolve([]);
+    Promise.all([_defSites, _privSites])
+      .then(function (res) {
+        var byKey = {};
+        (res[0] || []).forEach(function (e) { if (e && e.id) byKey[e.id] = e; });
+        (res[1] || []).forEach(function (e) { if (e && e.id) byKey[e.id] = e; });
+        var recs = Object.keys(byKey).map(function (k) { return byKey[k]; });
         var childParents = {};
         recs.forEach(function (r) { if (r.parent) childParents[r.parent] = true; });
         var bounds = [];

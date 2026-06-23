@@ -236,6 +236,30 @@
     return ctxFetchNoAuth(DEFAULT_CORPUS, DEFAULT_CORPUS.id + "/authority/" + encodeURIComponent(id) + ".xml");
   }
 
+  /* The default corpus's site index (corpus/site-index.json in the app repo) —
+     public, no token. Entries are tagged so the Sites browser fetches their XML
+     via the no-auth corpus/ path. [] if absent (404). */
+  function loadDefaultSiteIndex() {
+    return ctxFetchNoAuth(DEFAULT_CORPUS, DEFAULT_CORPUS.id + "/site-index.json")
+      .then(function (txt) {
+        var arr; try { arr = JSON.parse(txt); } catch (e) { return []; }
+        if (!Array.isArray(arr)) return [];
+        arr.forEach(function (e) {
+          e.source = "default"; e.collection = DEFAULT_CORPUS.id;
+          e.collectionTitle = DEFAULT_CORPUS.title; e._defaultCorpus = true;
+        });
+        return arr;
+      })
+      .catch(function () { return []; });
+  }
+
+  /* Fetch a file from the default corpus by its path relative to corpus/
+     (no token) — e.g. a site's catalog_file "sites/SNS_site.xml". */
+  function fetchDefaultCorpusFile(relPath) {
+    var p = String(relPath || "").replace(/^\/+/, "").split("/").map(encodeURIComponent).join("/");
+    return ctxFetchNoAuth(DEFAULT_CORPUS, DEFAULT_CORPUS.id + "/" + p);
+  }
+
   /* Load every .xml record in the shared collection. Always attempted (no
      enable toggle); 404 (not created yet) yields an empty, non-error result. */
   function loadShared() {
@@ -1079,6 +1103,8 @@
     loadDefaultCorpus: loadDefaultCorpus,
     loadDefaultAuthorityIndex: loadDefaultAuthorityIndex,
     fetchDefaultAuthorityXml:  fetchDefaultAuthorityXml,
+    loadDefaultSiteIndex:      loadDefaultSiteIndex,
+    fetchDefaultCorpusFile:    fetchDefaultCorpusFile,
     loadShared:        loadShared,
     loadSharedIndex:   loadSharedIndex,
     fetchSharedFile:   fetchSharedFile,

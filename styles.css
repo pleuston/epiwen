@@ -719,6 +719,10 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
 .login-note {
   font-size: 0.78rem; color: var(--muted); margin: 0.5rem 0 0;
 }
+.login-help {
+  font-size: 0.82rem; color: var(--muted); margin: 0 0 0.9rem; text-align: left;
+}
+.login-help a { color: var(--accent); }
 .login-change {
   margin-top: 0.8rem; font-size: 0.83rem; text-align: center;
 }

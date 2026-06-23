@@ -175,7 +175,10 @@
       return ctxFetchNoAuth(DEFAULT_CORPUS, path)
         .then(function (xml) {
           return { name: name, xml: xml, collection: DEFAULT_CORPUS.id,
-                   collectionTitle: DEFAULT_CORPUS.title, shared: true };
+                   collectionTitle: DEFAULT_CORPUS.title, shared: true,
+                   // Repo-relative directory (e.g. "corpus/objects/") so the record
+                   // can be located in the app repo for in-place edit/delete.
+                   _repoDir: path.slice(0, path.lastIndexOf("/") + 1) };
         })
         .catch(function () { return null; });
     }

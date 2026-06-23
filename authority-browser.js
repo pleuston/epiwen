@@ -257,9 +257,13 @@
         gnd:            rec.gnd,
         dila_authority: rec.dila_authority,
         cbdb:           rec.cbdb,
-        // Default (public corpus) authorities live in the app repo and are
-        // read-only here — no in-place delete.
-        _canDelete:     !rec._default,
+        // Default (public corpus) authorities live in the app repo at
+        // corpus/authority/; backend authorities at authority/. Carry the path +
+        // repo so the editor saves/deletes the record in place.
+        _authPrefix:    rec._default ? (EpiCollections.DEFAULT_CORPUS.id + "/authority/") : "authority/",
+        _writeTarget:   rec._default ? { owner: EpiCollections.DEFAULT_CORPUS.owner,
+                                         repo:  EpiCollections.DEFAULT_CORPUS.repo,
+                                         branch: EpiCollections.DEFAULT_CORPUS.branch } : null,
         xml:            xml
       }));
       window.location.href = "authority-editor.html";

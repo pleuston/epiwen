@@ -263,12 +263,13 @@
   // ── Init ──────────────────────────────────────────────────────────────────
 
   document.addEventListener("DOMContentLoaded", function () {
-    // Default (public corpus) authorities are read-only here — no in-place delete.
-    var _canDelete = true;
-    // Show the Delete button once we're editing a deletable existing record.
+    // Where this record's file lives: "authority/" in the configured backend, or
+    // "corpus/authority/" in the app repo for default (public corpus) authorities.
+    var _authPrefix = "authority/";
+    // Show the Delete button once we're editing an existing record.
     function revealDelete() {
       var db = document.getElementById("btn-delete-github");
-      if (db && state.id && _canDelete) db.style.display = "";
+      if (db && state.id) db.style.display = "";
     }
 
     // Preload from sessionStorage if editing an existing record
@@ -277,7 +278,9 @@
       sessionStorage.removeItem("epiwen_preload_authority");
       try {
         var preload = JSON.parse(raw);
-        _canDelete = preload._canDelete !== false;
+        if (preload._authPrefix) _authPrefix = preload._authPrefix;
+        if (preload._writeTarget && window.EpiGitHub && EpiGitHub.setTarget)
+          EpiGitHub.setTarget(preload._writeTarget);
         var parsed = preload.xml ? parseMads(preload.xml) : state;
         // Overlay any top-level fields from the index record (covers enrichments)
         ["id","wikidata","viaf","gnd","dila_authority","cbdb"].forEach(function (k) {
@@ -349,7 +352,7 @@
         return;
       }
       var xml = buildMads();
-      var relPath = "authority/" + id + ".xml";
+      var relPath = _authPrefix + id + ".xml";
       if (window.EpiGitHub) {
         EpiGitHub.saveAt(xml, relPath, function () {
           var h = document.getElementById("editor-heading");
@@ -370,7 +373,7 @@
         : Promise.resolve(window.confirm("Do you really want to delete this entry?"));
       ask.then(function (ok) {
         if (!ok) return;
-        EpiGitHub.deleteAt("authority/" + id + ".xml", function () {
+        EpiGitHub.deleteAt(_authPrefix + id + ".xml", function () {
           setTimeout(function () { window.location.href = "persons.html"; }, 800);
         });
       });

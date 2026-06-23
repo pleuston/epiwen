@@ -513,27 +513,19 @@
   /* Carry the record's origin as a write-target so the editor saves it back to
      where it came from (round-trip) — a private collection, or the public path —
      overriding any persisted "Save into" default. */
+  // Save target = the directory that holds the record's file (the editor appends
+  // the filename). Derived from its actual location so save/delete hit the right
+  // repo: the app repo for the default corpus, epiwen-public for the shared
+  // corpus, the configured repo for private collections.
   function writeTargetFor(rec) {
-    if (rec.source === "private" && window.EpiCollections) {
-      var c = EpiCollections.getConfig();
-      return { owner: c.owner, repo: c.repo, branch: c.branch,
-               path: "collections/" + rec.collection + "/" };
-    }
+    var loc = recordLocation(rec);
+    if (loc) return { owner: loc.owner, repo: loc.repo, branch: loc.branch,
+                      path: loc.path.replace(/[^/]+$/, "") };
     return { owner: OWNER, repo: REPO, branch: BRANCH, path: "records/" };
   }
 
-  // A record can be deleted in place only if it lives in the user's editable
-  // collection. The default corpus (app-repo examples) and the shared public
-  // corpus are read-only references — editing them is "save as new", and there
-  // is no in-place delete (their files are not at collections/<collection>/ in
-  // the user's configured repo, so a delete there would 404).
-  function canDeleteInPlace(rec) {
-    if (!rec || !rec.collection || !window.EpiCollections) return false;
-    var dc = EpiCollections.DEFAULT_CORPUS, sh = EpiCollections.SHARED;
-    if (dc && rec.collection === dc.id) return false;
-    if (sh && rec.collection === sh.id) return false;
-    return true;
-  }
+  // Deletable in place wherever we can resolve the file's location.
+  function canDeleteInPlace(rec) { return !!recordLocation(rec); }
 
   function openInEditor(rec) {
     var state = recToState(rec);
@@ -586,9 +578,12 @@
     if (!rec || !rec.name || !window.EpiCollections) return null;
     var file = rec._path || rec.name;
     var SH = EpiCollections.SHARED, DC = EpiCollections.DEFAULT_CORPUS;
-    // The default corpus lives in the app repo under corpus/<subdir>/ (the subdir
-    // isn't tracked in list metadata), so it can't be located for deletion here.
-    if (rec.collection && DC && rec.collection === DC.id) return null;
+    // Default corpus: lives in the app repo at <_repoDir><name> (e.g.
+    // corpus/objects/SNS_stele.xml). Needs _repoDir to be located.
+    if (rec.collection && DC && rec.collection === DC.id)
+      return rec._repoDir
+        ? { owner: DC.owner, repo: DC.repo, branch: DC.branch, path: rec._repoDir + rec.name }
+        : null;
     if (rec.collection && SH && rec.collection === SH.id)
       return { owner: SH.owner, repo: SH.repo, branch: SH.branch, path: "collections/" + SH.id + "/" + file };
     if (rec.collection) {
@@ -1562,6 +1557,7 @@
         rec.source          = "private";
         rec.collection      = r.collection;
         rec.collectionTitle = r.collectionTitle || r.collection;
+        if (r._repoDir) rec._repoDir = r._repoDir;   // default corpus: locate in app repo
         return rec;
       });
       privateRecords.sort(function (a, b) { return a.name.localeCompare(b.name); });

@@ -160,9 +160,11 @@
         localStorage.setItem("epiwen_gh_repo",   WORKSHOP.repo);
         localStorage.setItem("epiwen_gh_branch", WORKSHOP.branch);
         localStorage.setItem("epiwen_gh_path",   WORKSHOP.path);
-        // Collections: use the public workshop repo so guests can read them too
+        // Private collections: the full Stone Sutras corpus. Signed-in users
+        // whose token can read it get the whole corpus; guests (no token) get a
+        // silent 404 and just see the default Workshop corpus from the app repo.
         localStorage.setItem("epiwen_private_owner",   "pleuston");
-        localStorage.setItem("epiwen_private_repo",    "epiwen-workshop");
+        localStorage.setItem("epiwen_private_repo",    "epiwen-stonesutras-data");
         localStorage.setItem("epiwen_private_branch",  "main");
         localStorage.setItem("epiwen_private_enabled", JSON.stringify(["stonesutras"]));
       }

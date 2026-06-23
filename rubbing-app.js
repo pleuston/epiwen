@@ -815,11 +815,15 @@
     if (_btnDel) _btnDel.addEventListener("click", function () {
       var fn = tv(state.filename);
       if (!window.EpiGitHub || !fn) return;
-      var disp = fn.replace(/\.xml$/i, "") + ".xml";
-      if (!window.confirm("Delete “" + disp + "” from GitHub?\n\n" +
-          "This permanently removes the rubbing record and cannot be undone here.")) return;
-      EpiGitHub.del(fn, function () {
-        setTimeout(function () { window.location.href = "catalog.html?tab=rubbings"; }, 800);
+      var ask = (window.EpiModal && EpiModal.confirm)
+        ? EpiModal.confirm({ title: "Delete entry", message: "Do you really want to delete this entry?",
+                             confirmText: "Delete", cancelText: "Cancel", danger: true })
+        : Promise.resolve(window.confirm("Do you really want to delete this entry?"));
+      ask.then(function (ok) {
+        if (!ok) return;
+        EpiGitHub.del(fn, function () {
+          setTimeout(function () { window.location.href = "catalog.html?tab=rubbings"; }, 800);
+        });
       });
     });
 

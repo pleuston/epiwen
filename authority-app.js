@@ -361,10 +361,15 @@
     document.getElementById("btn-delete-github").addEventListener("click", function () {
       var id = (state.id || "").trim();
       if (!window.EpiGitHub || !id) return;
-      if (!window.confirm("Delete authority record “" + id + ".xml” from GitHub?\n\n" +
-          "This permanently removes the record and cannot be undone here.")) return;
-      EpiGitHub.deleteAt("authority/" + id + ".xml", function () {
-        setTimeout(function () { window.location.href = "persons.html"; }, 800);
+      var ask = (window.EpiModal && EpiModal.confirm)
+        ? EpiModal.confirm({ title: "Delete entry", message: "Do you really want to delete this entry?",
+                             confirmText: "Delete", cancelText: "Cancel", danger: true })
+        : Promise.resolve(window.confirm("Do you really want to delete this entry?"));
+      ask.then(function (ok) {
+        if (!ok) return;
+        EpiGitHub.deleteAt("authority/" + id + ".xml", function () {
+          setTimeout(function () { window.location.href = "persons.html"; }, 800);
+        });
       });
     });
   });

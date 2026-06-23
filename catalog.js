@@ -580,27 +580,44 @@
     return null;
   }
 
+  function askDelete() {
+    if (window.EpiModal && EpiModal.confirm) {
+      return EpiModal.confirm({
+        title: "Delete entry",
+        message: "Do you really want to delete this entry?",
+        confirmText: "Delete", cancelText: "Cancel", danger: true
+      });
+    }
+    return Promise.resolve(window.confirm("Do you really want to delete this entry?"));
+  }
+
   function deleteRecord(rec) {
     var loc = recordLocation(rec);
     if (!loc) { toast("Can’t locate this record’s file.", true); return; }
     if (!EpiCollections.deleteFile) { toast("Delete unavailable.", true); return; }
-    if (!window.confirm("Delete “" + rec.name + "”?\n\nThis permanently removes\n  " +
-        loc.owner + "/" + loc.repo + "/" + loc.path + "\nfrom GitHub. It cannot be undone here.")) return;
-    var btn = document.getElementById("preview-delete");
-    if (btn) { btn.disabled = true; btn.textContent = "Deleting…"; }
-    EpiCollections.deleteFile(loc.owner, loc.repo, loc.branch, loc.path, "Delete " + rec.name + " via Epiwen")
-      .then(function () {
-        privateRecords = privateRecords.filter(function (r) { return r !== rec; });
-        publicRecords  = publicRecords.filter(function (r) { return r !== rec; });
-        _insIndexCache = null;
-        rebuildAll(); clearPreview(); renderByTab(currentTab);
-        toast("Deleted " + rec.name);
-      })
-      .catch(function (e) {
-        var m = e && e.message || "error";
-        toast("Delete failed: " + m + (/403|forbidden|permission/i.test(m) ? " — token needs write access to " + loc.repo : ""), true);
-      })
-      .then(function () { if (btn) { btn.disabled = false; btn.textContent = "🗑 Delete"; } });
+    askDelete().then(function (ok) {
+      if (!ok) return;
+      var btn = document.getElementById("preview-delete");
+      if (btn) { btn.disabled = true; btn.textContent = "Deleting…"; }
+      EpiCollections.deleteFile(loc.owner, loc.repo, loc.branch, loc.path, "Delete " + rec.name + " via Epiwen")
+        .then(function () {
+          // Keep the records index current (no-op for un-indexed packages).
+          if (rec.collection && EpiCollections.recordsIndexRemove)
+            return EpiCollections.recordsIndexRemove(rec.collection, rec._path || rec.name).catch(function () {});
+        })
+        .then(function () {
+          privateRecords = privateRecords.filter(function (r) { return r !== rec; });
+          publicRecords  = publicRecords.filter(function (r) { return r !== rec; });
+          _insIndexCache = null;
+          rebuildAll(); clearPreview(); renderByTab(currentTab);
+          toast("Deleted " + rec.name);
+        })
+        .catch(function (e) {
+          var m = e && e.message || "error";
+          toast("Delete failed: " + m + (/403|forbidden|permission/i.test(m) ? " — token needs write access to " + loc.repo : ""), true);
+        })
+        .then(function () { if (btn) { btn.disabled = false; btn.textContent = "🗑 Delete"; } });
+    });
   }
 
   function clearPreview() {

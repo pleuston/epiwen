@@ -451,6 +451,18 @@
   }
 
   // ---- buttons -------------------------------------------------------------
+  // Styled "do you really want to delete this entry?" confirm (falls back to the
+  // native dialog if the modal module is unavailable). Resolves Promise<boolean>.
+  function askDelete() {
+    if (window.EpiModal && EpiModal.confirm) {
+      return EpiModal.confirm({
+        title: "Delete entry",
+        message: "Do you really want to delete this entry?",
+        confirmText: "Delete", cancelText: "Cancel", danger: true
+      });
+    }
+    return Promise.resolve(window.confirm("Do you really want to delete this entry?"));
+  }
   function lang(which) {
     document.body.className = "lang-" + which;
     Array.prototype.forEach.call(document.querySelectorAll(".langtoggle button"), function (b) {
@@ -556,11 +568,11 @@
     var _btnDel = document.getElementById("btn-delete-github");
     if (_btnDel) _btnDel.addEventListener("click", function () {
       if (!window.EpiGitHub || !state.filename) return;
-      var fn = state.filename.replace(/\.xml$/i, "") + ".xml";
-      if (!window.confirm("Delete “" + fn + "” from GitHub?\n\n" +
-          "This permanently removes the record file and cannot be undone here.")) return;
-      EpiGitHub.del(state.filename, function () {
-        setTimeout(function () { window.location.href = "catalog.html"; }, 800);
+      askDelete().then(function (ok) {
+        if (!ok) return;
+        EpiGitHub.del(state.filename, function () {
+          setTimeout(function () { window.location.href = "catalog.html"; }, 800);
+        });
       });
     });
     if (_btnCfg)  _btnCfg.addEventListener("click", function () {

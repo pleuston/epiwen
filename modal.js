@@ -75,6 +75,53 @@
     document.getElementById("modal-close-btn").focus();
   }
 
+  // Reusable styled confirm dialog. Returns a Promise<boolean>.
+  // EpiModal.confirm({ title, message, confirmText, cancelText, danger })
+  var CONFIRM_ID = "epi-confirm-modal";
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function confirmDialog(opts) {
+    opts = opts || {};
+    var danger = opts.danger !== false;   // default: destructive styling
+    return new Promise(function (resolve) {
+      var old = document.getElementById(CONFIRM_ID);
+      if (old) old.remove();
+      var wrap = document.createElement("div");
+      wrap.innerHTML =
+        '<div id="' + CONFIRM_ID + '" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="epi-confirm-title">' +
+          '<div class="modal-box" style="max-width:420px">' +
+            '<h2 id="epi-confirm-title" class="modal-title">' + esc(opts.title || "Please confirm") + '</h2>' +
+            '<p class="modal-desc">' + esc(opts.message || "Are you sure?") + '</p>' +
+            '<div style="display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.2rem">' +
+              '<button class="btn" id="epi-confirm-cancel">' + esc(opts.cancelText || "Cancel") + '</button>' +
+              '<button class="btn ' + (danger ? "btn-danger" : "primary") + '" id="epi-confirm-ok">' + esc(opts.confirmText || "Confirm") + '</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      var node = wrap.firstElementChild;
+      document.body.appendChild(node);
+      document.body.style.overflow = "hidden";
+      function close(result) {
+        node.remove();
+        document.body.style.overflow = "";
+        document.removeEventListener("keydown", onKey);
+        resolve(result);
+      }
+      function onKey(e) {
+        if (e.key === "Escape") { e.preventDefault(); close(false); }
+        else if (e.key === "Enter") { e.preventDefault(); close(true); }
+      }
+      node.querySelector("#epi-confirm-ok").addEventListener("click", function () { close(true); });
+      node.querySelector("#epi-confirm-cancel").addEventListener("click", function () { close(false); });
+      node.addEventListener("click", function (e) { if (e.target === node) close(false); });
+      document.addEventListener("keydown", onKey);
+      node.querySelector("#epi-confirm-ok").focus();
+    });
+  }
+
   function hide() {
     var el = document.getElementById(ID);
     if (el) el.hidden = true;
@@ -89,5 +136,5 @@
     );
   });
 
-  window.EpiModal = { show: show, hide: hide };
+  window.EpiModal = { show: show, hide: hide, confirm: confirmDialog };
 })();

@@ -214,6 +214,27 @@
       .catch(function () { return { records: [], errors: [] }; });
   }
 
+  /* The default corpus's authority index (corpus/authority-index.json in the
+     app repo) — public, no token. Entries are tagged _default so the browser
+     fetches their XML via the no-auth corpus/authority/ path. Returns [] if the
+     file is absent (404) so signed-in users with the private backend are
+     unaffected. */
+  function loadDefaultAuthorityIndex() {
+    return ctxFetchNoAuth(DEFAULT_CORPUS, DEFAULT_CORPUS.id + "/authority-index.json")
+      .then(function (txt) {
+        var arr; try { arr = JSON.parse(txt); } catch (e) { return []; }
+        if (!Array.isArray(arr)) return [];
+        arr.forEach(function (e) { e._default = true; });
+        return arr;
+      })
+      .catch(function () { return []; });
+  }
+
+  /* Fetch one default-corpus authority record's XML (no token). */
+  function fetchDefaultAuthorityXml(id) {
+    return ctxFetchNoAuth(DEFAULT_CORPUS, DEFAULT_CORPUS.id + "/authority/" + encodeURIComponent(id) + ".xml");
+  }
+
   /* Load every .xml record in the shared collection. Always attempted (no
      enable toggle); 404 (not created yet) yields an empty, non-error result. */
   function loadShared() {
@@ -856,6 +877,8 @@
     loadPackage:     loadPackage,
     loadEnabled:     loadEnabled,
     loadDefaultCorpus: loadDefaultCorpus,
+    loadDefaultAuthorityIndex: loadDefaultAuthorityIndex,
+    fetchDefaultAuthorityXml:  fetchDefaultAuthorityXml,
     loadShared:        loadShared,
     loadSharedIndex:   loadSharedIndex,
     fetchSharedFile:   fetchSharedFile,

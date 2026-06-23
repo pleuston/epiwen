@@ -29,18 +29,26 @@
     var list = document.getElementById("auth-list");
     list.innerHTML = '<div class="catalog-loading">Loading authority index…</div>';
 
-    EpiData.fetch("data/authority-index.json")
-      .then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      })
-      .then(function (data) {
-        _publicRecords = data;
-        mergePrivate();
-      })
-      .catch(function (err) {
-        list.innerHTML = '<div class="catalog-loading">Error loading index: ' + esc(err.message) + '</div>';
-      });
+    // Baseline: the public default-corpus authority index from the app repo
+    // (no token — works for guests). Additive: the private epiwen-data backend
+    // index, which only resolves for signed-in users who can read it.
+    var defJob = (window.EpiCollections && EpiCollections.loadDefaultAuthorityIndex)
+      ? EpiCollections.loadDefaultAuthorityIndex()
+      : Promise.resolve([]);
+    var backendJob = EpiData.fetch("data/authority-index.json")
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .catch(function () { return []; });
+
+    Promise.all([defJob, backendJob]).then(function (res) {
+      var def = res[0] || [], backend = res[1] || [];
+      // Dedup by id; the backend entry (canonical XML via EpiData) wins over the
+      // public default copy, so signed-in users open the full private record.
+      var byId = {};
+      def.forEach(function (r)     { byId[r.id] = r; });
+      backend.forEach(function (r) { byId[r.id] = r; });
+      _publicRecords = Object.keys(byId).map(function (k) { return byId[k]; });
+      mergePrivate();
+    });
   }
 
   // Merge private authority entries from enabled collections (re-run on toggle).
@@ -222,11 +230,17 @@
 
   function fetchXml(rec, cb) {
     var relPath = "authority/" + encodeURIComponent(rec.id) + ".xml";
-    var p = (rec.source === "private" && window.EpiCollections)
-      ? EpiCollections.fetchRecordXml(rec.collection, relPath)
-      : EpiData.fetch(relPath).then(function (r) {
-          if (!r.ok) throw new Error("HTTP " + r.status); return r.text();
-        });
+    var p;
+    if (rec._default && window.EpiCollections && EpiCollections.fetchDefaultAuthorityXml) {
+      // Public default-corpus record — no token needed.
+      p = EpiCollections.fetchDefaultAuthorityXml(rec.id);
+    } else if (rec.source === "private" && window.EpiCollections) {
+      p = EpiCollections.fetchRecordXml(rec.collection, relPath);
+    } else {
+      p = EpiData.fetch(relPath).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status); return r.text();
+      });
+    }
     p.then(cb).catch(function (err) { toast("Could not load XML: " + err.message, true); });
   }
 

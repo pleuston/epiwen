@@ -5,7 +5,7 @@
   var allRecords   = [];
   var _publicRecords  = [];
   var _privateRecords = [];
-  var currentFilter = (new URLSearchParams(window.location.search)).get("filter") || "all";
+  var currentFilter = window.__EPI_AUTH_FILTER || (new URLSearchParams(window.location.search)).get("filter") || "all";
   var currentQuery  = "";
   var selectedRec   = null;
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Epiwen · Glyphs</title>
+    <title>Epiwen · Places</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="auth.js"></script>
     <script src="data.js"></script>
@@ -18,7 +18,7 @@
             <button class="nav-group-btn">Explore</button>
             <div class="nav-group-dropdown">
               <a href="map.html" class="sitenav-link">Map</a>
-              <a href="graph.html" class="sitenav-link active">Graph</a>
+              <a href="graph.html" class="sitenav-link">Graph</a>
             </div>
           </div>
           <span class="nav-pipe">|</span>
@@ -40,7 +40,7 @@
               <a href="persons.html" class="sitenav-link">Persons</a>
               <a href="institutions.html" class="sitenav-link">Institutions</a>
               <a href="time.html" class="sitenav-link">Time</a>
-              <a href="places.html" class="sitenav-link">Places</a>
+              <a href="places.html" class="sitenav-link active">Places</a>
             </div>
           </div>
           <span class="nav-pipe">|</span>
@@ -71,19 +71,35 @@
 
     <div class="about-layout">
 
+      <!-- ── List pane ── -->
       <div class="about-pane">
         <section class="catalog-section" style="margin-top:0">
           <div class="catalog-head">
-            <h2>Graph</h2>
+            <h2>Places <span id="auth-count" class="catalog-date" style="font-weight:normal;font-size:.85em"></span></h2>
+            <div class="catalog-head-actions">
+              <button id="auth-new-btn" class="btn small primary">+ New</button>
+              <input type="search" id="auth-search" class="catalog-searchbox"
+                     placeholder="Filter…" aria-label="filter authorities" />
+            </div>
           </div>
-          <div id="graph-content">
-            <div class="catalog-loading">Graph view not yet available.</div>
+          <div class="view-toggle" style="margin-bottom:.5rem">
+            <button class="view-btn auth-tab-btn" data-filter="all">All</button>
+            <button class="view-btn auth-tab-btn" data-filter="vocabulary">Vocabularies</button>
+            <button class="view-btn auth-tab-btn" data-filter="personal">Persons</button>
+            <button class="view-btn auth-tab-btn" data-filter="corporate">Institutions</button>
+            <button class="view-btn auth-tab-btn" data-filter="temporal">Time</button>
+            <button class="view-btn auth-tab-btn active" data-filter="geographic">Places</button>
           </div>
+          <div id="auth-list" class="catalog-list"></div>
         </section>
       </div>
-        <div id="ontology-detail-content" class="hp-pane"></div>
-      </div>
-        <div id="glyph-detail-content" class="hp-pane"></div>
+
+      <!-- ── Detail pane ── -->
+      <div class="catalog-preview" id="auth-detail-panel">
+        <div class="preview-head">
+          <span id="preview-title">Select an authority record</span>
+        </div>
+        <div id="auth-detail-content" class="hp-pane"></div>
       </div>
 
     </div>
@@ -95,7 +111,9 @@
     </footer>
 
     <div id="toast" role="status" aria-live="polite"></div>
+    <script>window.__EPI_AUTH_FILTER = "geographic";</script>
     <script src="collections.js"></script>
+    <script src="authority-browser.js"></script>
     <script src="modal.js"></script>
     <script src="nav.js"></script>
   </body>

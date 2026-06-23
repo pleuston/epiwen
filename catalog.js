@@ -799,6 +799,21 @@
     render();
   }
 
+  // From an object's textpart row: switch to the Inscriptions tab and open that
+  // inscription's preview (selecting its row there).
+  function openInscriptionFromObject(rec, part) {
+    history.pushState({ tab: "inscriptions" }, "", "catalog.html?tab=inscriptions");
+    renderByTab("inscriptions");
+    var items = document.querySelectorAll("#catalog-list .catalog-item");
+    for (var k = 0; k < items.length; k++) {
+      if (items[k].dataset.insObj === rec.name && items[k].dataset.insN === (part.n || "")) {
+        items[k].scrollIntoView({ behavior: "smooth", block: "nearest" });
+        (items[k].querySelector(".catalog-monument") || items[k]).click();
+        return;
+      }
+    }
+  }
+
   function setCatView(mode) {
     var htmlPane = document.getElementById("cat-html-view");
     var xmlPane  = document.getElementById("cat-xml-view");
@@ -876,18 +891,26 @@
     monument.appendChild(actions);
     item.appendChild(monument);
 
-    // textparts (indented)
+    // textparts (indented) — each opens that inscription in the Inscriptions tab
     if (rec.parts.length) {
       var ul = document.createElement("ul");
       ul.className = "catalog-parts";
-      rec.parts.forEach(function (p) {
+      rec.parts.forEach(function (p, i) {
         var li = document.createElement("li");
-        li.className = "catalog-part";
+        li.className = "catalog-part catalog-part-link";
+        li.setAttribute("role", "button");
+        li.setAttribute("tabindex", "0");
+        li.title = "Open this inscription";
         var label = p.head || p.subtype || ("Text " + p.n);
         li.innerHTML =
           '<span class="catalog-part-label">' + esc(label) + '</span>' +
           (p.sutra ? ' <span class="catalog-part-sutra">' + esc(p.sutra) + '</span>' : '') +
-          (p.lang  ? ' <code class="catalog-part-lang">'  + esc(p.lang)  + '</code>'  : '');
+          (p.lang  ? ' <code class="catalog-part-lang">'  + esc(p.lang)  + '</code>'  : '') +
+          ' <span class="catalog-part-go">→</span>';
+        li.addEventListener("click", function (e) { e.stopPropagation(); openInscriptionFromObject(rec, p); });
+        li.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openInscriptionFromObject(rec, p); }
+        });
         ul.appendChild(li);
       });
       item.appendChild(ul);
@@ -1084,11 +1107,11 @@
     }
 
     fetchManifestPages(manifest).then(function (p) {
-      if (p.length) { pages = p; buildStrip(); }
-      else if (first) buildStrip();
+      if (p.length) { pages = p; buildStrip(); openPage(0); }   // show the first page directly
+      else if (first) { buildStrip(); openPage(0); }
       else strip.innerHTML = '<span class="rubview-loading">no pages found</span>';
     }).catch(function () {
-      if (first) buildStrip();
+      if (first) { buildStrip(); openPage(0); }
       else strip.innerHTML = '<span class="rubview-loading">could not load pages</span>';
     });
   }
@@ -1189,6 +1212,9 @@
     var label = part.head || part.subtype || ("Text " + part.n);
     item.dataset.idx = [label, part.sutra, part.sutraEn, rec.name, rec.titleEn, rec.titleZh]
       .join(" ").toLowerCase();
+    // Identify this inscription so an object's textpart row can deep-link to it.
+    item.dataset.insObj = rec.name;
+    item.dataset.insN   = part.n || "";
 
     var row = document.createElement("div");
     row.className = "catalog-monument";

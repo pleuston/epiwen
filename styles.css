@@ -375,6 +375,13 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
   font-size: 0.71rem; color: var(--accent);
   background: #f5f0ee; padding: 0 0.3rem; border-radius: 3px;
 }
+/* clickable textpart row → opens the inscription */
+.catalog-part-link { cursor: pointer; border-radius: 3px; padding: 0.12rem 0.3rem; margin: 0 -0.3rem; }
+.catalog-part-link:hover { background: var(--bg-subtle, #faf6f5); }
+.catalog-part-link .catalog-part-label { text-decoration: underline; text-decoration-color: var(--line); }
+.catalog-part-go { margin-left: auto; color: var(--accent); opacity: 0; transition: opacity .12s; }
+.catalog-part-link:hover .catalog-part-go,
+.catalog-part-link:focus .catalog-part-go { opacity: 1; }
 
 /* ---- catalog preview pane ---- */
 .catalog-preview {
@@ -604,8 +611,8 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
 .rubview-toolbar { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
 .rubview-count { font-size: 0.8rem; color: var(--muted); min-width: 4.2rem; text-align: center; font-variant-numeric: tabular-nums; }
 .rubview-zoom { margin-left: auto; display: inline-flex; gap: 0.25rem; }
-.rubview-osd { width: 100%; height: min(62vh, 560px); background: #222; border-radius: 4px; overflow: hidden; }
-.rubview-osd img.rubview-img { max-width: 100%; max-height: min(62vh, 560px); margin: 0 auto; display: block; }
+.rubview-osd { width: 100%; height: min(46vh, 420px); background: #222; border-radius: 4px; overflow: hidden; }
+.rubview-osd img.rubview-img { max-width: 100%; max-height: min(46vh, 420px); margin: 0 auto; display: block; }
 
 /* facsimile / IIIF rubbing image in the preview pane */
 .hp-images { margin: 0 0 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; }

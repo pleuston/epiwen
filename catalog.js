@@ -799,6 +799,63 @@
     render();
   }
 
+  // ── Rubbing repositories panel (Rubbings tab default, when none selected) ────
+  // Curated metadata for the holding institutions/aggregators in the rubbing
+  // corpus. Counts are computed live from the loaded records (not hardcoded).
+  var REPO_META = [
+    { re: /harvard.yenching/i, zh: "哈佛燕京圖書館", desc: "Harvard-Yenching Library's Chinese Rubbings and Rubbings Collection — among the largest outside China, digitised open-access and served via IIIF deep-zoom." },
+    { re: /berkeley/i,         zh: "加州大學柏克萊分校 C.V. Starr 東亞圖書館", desc: "C. V. Starr East Asian Library, UC Berkeley — East Asian rubbings in its digital collections." },
+    { re: /japan ?search|ジャパンサーチ/i, zh: "ジャパンサーチ（日本檢索）", desc: "Japan's national cross-institution discovery portal, aggregating rubbings (拓本) held across Japanese libraries, museums and archives." },
+    { re: /national diet|国立国会図書館|ndl/i, zh: "国立国会図書館", desc: "National Diet Library, Japan — rubbings in its NDL Digital Collections." },
+    { re: /colbase|national institutes for cultural heritage|national museums of japan/i, zh: "ColBase（国立文化財機構）", desc: "ColBase — the integrated collections database of Japan's National Institutes for Cultural Heritage (the national museums)." },
+    { re: /efeo|école française|ecole francaise/i, zh: "法國遠東學院", desc: "École française d'Extrême-Orient — its union catalogue of Chinese estampages (rubbings)." },
+    { re: /indianapolis/i,     zh: "印第安納波利斯藝術博物館", desc: "Indianapolis Museum of Art at Newfields — Asian art collection." }
+  ];
+  function repoMeta(name) {
+    for (var i = 0; i < REPO_META.length; i++) if (REPO_META[i].re.test(name)) return REPO_META[i];
+    return null;
+  }
+
+  function showRubbingRepositories(records) {
+    var content = document.getElementById("cat-html-view");
+    if (!content) return;
+    // Group by repository (normalised so "C.V." / "C. V." merge); live counts.
+    var groups = {};
+    (records || []).forEach(function (r) {
+      var name = (r.repository || "(unspecified)").replace(/\s+/g, " ").trim();
+      var key  = name.toLowerCase().replace(/[^a-z0-9一-鿿]+/g, "");
+      var g = groups[key] || (groups[key] = { name: name, count: 0, country: "", url: "" });
+      g.count++;
+      if (!g.country && r.country) g.country = r.country;
+      if (!g.url) g.url = r.sourceUrl || (r.provider && r.provider.url) || "";
+    });
+    var keys = Object.keys(groups).sort(function (a, b) { return groups[b].count - groups[a].count; });
+    if (!keys.length) return;
+
+    var cards = keys.map(function (k) {
+      var g = groups[k], m = repoMeta(g.name);
+      var host = "";
+      if (g.url) { try { host = new URL(g.url).hostname.replace(/^www\./, ""); } catch (e) { host = g.url; } }
+      return '<div class="source-card">' +
+        '<h3>' + esc(g.name) + '</h3>' +
+        (m && m.zh ? '<div class="source-zh">' + esc(m.zh) + '</div>' : "") +
+        '<span class="source-tag">' + g.count + (g.count === 1 ? " rubbing" : " rubbings") + ' in Epiwen</span>' +
+        (g.country ? '<span class="source-tag">' + esc(g.country) + '</span>' : "") +
+        (m && m.desc ? '<p>' + esc(m.desc) + '</p>' : "") +
+        (g.url ? '<a class="source-link" href="' + esc(g.url) + '" target="_blank" rel="noopener">' + esc(host || "record ↗") + '</a>' : "") +
+        '</div>';
+    }).join("");
+
+    document.getElementById("preview-title").textContent = "Rubbing Repositories";
+    content.innerHTML =
+      '<div class="hp-preview"><div style="padding:.25rem">' +
+        '<p style="font-size:.85rem;color:var(--muted);margin-top:0">' +
+          (records.length) + ' rubbings in this catalogue come from ' + keys.length +
+          ' holding institutions and aggregators. Counts are live; select a rubbing to view it.' +
+        '</p><div class="source-grid">' + cards + '</div></div></div>';
+    content.style.display = "";
+  }
+
   // From an object's textpart row: switch to the Inscriptions tab and open that
   // inscription's preview (selecting its row there).
   function openInscriptionFromObject(rec, part) {
@@ -1405,7 +1462,9 @@
     } else if (tab === "inscriptions") {
       renderInscriptionsCatalog();
     } else if (tab === "rubbings") {
-      renderRubbingsCatalog(allRecords.filter(function (r) { return r.recordType === "rubbing"; }));
+      var rubs = allRecords.filter(function (r) { return r.recordType === "rubbing"; });
+      renderRubbingsCatalog(rubs);
+      showRubbingRepositories(rubs);   // default detail panel (until a rubbing is selected)
     }
   }
 

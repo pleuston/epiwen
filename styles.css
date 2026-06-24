@@ -663,6 +663,33 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
 .hp-partof code { background: rgba(0,0,0,0.06); padding: 0 0.25rem; border-radius: 3px; }
 .hp-partof .hp-objlink { color: var(--accent); white-space: nowrap; }
 
+/* Authority-source cards (the "… Authority Sources" default detail panels) */
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.source-card {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+  background: var(--field-bg, #fafafa);
+}
+.source-card h3 { margin: 0 0 .2rem 0; font-size: .95rem; color: var(--ink); }
+.source-card .source-zh { color: var(--muted); font-size: .82rem; margin-bottom: .4rem; }
+.source-card p { font-size: .83rem; color: var(--ink); margin: 0 0 .5rem 0; line-height: 1.55; }
+.source-card a.source-link {
+  font-size: .8rem; color: var(--accent);
+  text-decoration: none; word-break: break-all;
+}
+.source-card a.source-link:hover { text-decoration: underline; }
+.source-tag {
+  display: inline-block; font-size: .72rem; padding: .1rem .4rem;
+  border-radius: 3px; background: #eef0f2;
+  color: var(--muted); margin-right: .25rem; margin-bottom: .3rem;
+}
+
 /* editor preview pre fills the pane */
 .preview pre { flex: 1; }
 

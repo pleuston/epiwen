@@ -82,14 +82,6 @@
                      placeholder="Filter…" aria-label="filter authorities" />
             </div>
           </div>
-          <div class="view-toggle" style="margin-bottom:.5rem">
-            <button class="view-btn auth-tab-btn" data-filter="all">All</button>
-            <button class="view-btn auth-tab-btn" data-filter="vocabulary">Vocabularies</button>
-            <button class="view-btn auth-tab-btn active" data-filter="personal">Persons</button>
-            <button class="view-btn auth-tab-btn" data-filter="corporate">Institutions</button>
-            <button class="view-btn auth-tab-btn" data-filter="temporal">Time</button>
-            <button class="view-btn auth-tab-btn" data-filter="geographic">Places</button>
-          </div>
           <div id="auth-list" class="catalog-list"></div>
         </section>
       </div>
@@ -97,9 +89,104 @@
       <!-- ── Detail pane ── -->
       <div class="catalog-preview" id="auth-detail-panel">
         <div class="preview-head">
-          <span id="preview-title">Select an authority record</span>
+          <span id="preview-title">Person Authority Sources</span>
         </div>
-        <div id="auth-detail-content" class="hp-pane"></div>
+        <div id="auth-detail-content" class="hp-pane">
+          <div style="padding:.5rem .25rem">
+            <p style="font-size:.85rem;color:var(--text-muted);margin-top:0">
+              Person authority records in this corpus link out to the following external
+              authorities via their <code>cbdb</code>, <code>dila_authority</code>,
+              <code>viaf</code>, <code>gnd</code> and <code>wikidata</code> identifiers.
+            </p>
+
+            <div class="source-grid">
+
+              <div class="source-card">
+                <h3>CBDB — China Biographical Database</h3>
+                <div class="source-zh">中國歷代人物傳記資料庫（哈佛大學）</div>
+                <span class="source-tag">Harvard</span>
+                <span class="source-tag">prosopography</span>
+                <span class="source-tag">API</span>
+                <p>The standard prosopographical database of Chinese historical figures
+                   (c. 7th century BCE – 1949), with offices, kinship, social associations,
+                   and place-of-origin. Offers a public query interface and an API.</p>
+                <a class="source-link" href="https://projects.iq.harvard.edu/cbdb"
+                   target="_blank" rel="noopener">projects.iq.harvard.edu/cbdb</a>
+              </div>
+
+              <div class="source-card">
+                <h3>DILA Person Authority</h3>
+                <div class="source-zh">法鼓山佛教文獻數位典藏 — 人名規範</div>
+                <span class="source-tag">Buddhist</span>
+                <span class="source-tag">Chinese</span>
+                <span class="source-tag">historical</span>
+                <p>Authority file of Buddhist monks, donors and historical persons in East Asia,
+                   maintained by the Dharma Drum Institute of Language and Culture —
+                   the primary reference for clerical names and dates in this corpus.</p>
+                <a class="source-link" href="https://authority.dila.edu.tw/person/"
+                   target="_blank" rel="noopener">authority.dila.edu.tw/person/</a>
+              </div>
+
+              <div class="source-card">
+                <h3>Shanghai Library Open Data</h3>
+                <div class="source-zh">上海圖書館開放數據平台</div>
+                <span class="source-tag">Shanghai</span>
+                <span class="source-tag">linked data</span>
+                <span class="source-tag">API</span>
+                <p>Shanghai Library's linked-data platform providing authority records for
+                   Chinese persons (as well as organisations and place names), cross-referenced
+                   with national standards and international authorities.
+                   Offers a REST search API and a SPARQL endpoint returning person records as
+                   RDF/JSON-LD. Authentication via a free API key (register at the developer portal).</p>
+                <a class="source-link" href="https://data.library.sh.cn/"
+                   target="_blank" rel="noopener">data.library.sh.cn</a>
+                &ensp;·&ensp;
+                <a class="source-link" href="https://data.library.sh.cn/api"
+                   target="_blank" rel="noopener">API docs</a>
+              </div>
+
+              <div class="source-card">
+                <h3>VIAF — Virtual International Authority File</h3>
+                <div class="source-zh">虛擬國際規範檔</div>
+                <span class="source-tag">international</span>
+                <span class="source-tag">library</span>
+                <span class="source-tag">aggregator</span>
+                <p>Aggregates personal-name authority records from national libraries worldwide
+                   into clustered identifiers — the interoperability anchor linking a person to
+                   LC, BnF, NDL and other library authority files.</p>
+                <a class="source-link" href="https://viaf.org/"
+                   target="_blank" rel="noopener">viaf.org</a>
+              </div>
+
+              <div class="source-card">
+                <h3>GND — Gemeinsame Normdatei</h3>
+                <div class="source-zh">德國整合規範檔</div>
+                <span class="source-tag">Germany</span>
+                <span class="source-tag">library</span>
+                <span class="source-tag">scholarly</span>
+                <p>The Integrated Authority File of the German National Library, widely used in
+                   Western sinology and digital-humanities projects. Provides stable URIs for
+                   persons cited in the scholarly literature.</p>
+                <a class="source-link" href="https://explore.gnd.network/"
+                   target="_blank" rel="noopener">explore.gnd.network</a>
+              </div>
+
+              <div class="source-card">
+                <h3>Wikidata</h3>
+                <div class="source-zh">維基數據</div>
+                <span class="source-tag">open</span>
+                <span class="source-tag">linked data</span>
+                <span class="source-tag">QID</span>
+                <p>Wikidata QIDs serve as a lightweight interoperability anchor for person records,
+                   linking to Wikipedia, VIAF, CBDB and other systems via the
+                   <code>wikidata</code> identifier on person authority records.</p>
+                <a class="source-link" href="https://www.wikidata.org/"
+                   target="_blank" rel="noopener">wikidata.org</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>

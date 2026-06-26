@@ -7,6 +7,10 @@
 (function () {
   "use strict";
   var SRC = { "harvard-librarycloud": "harvard", "berkeley-oai": "berkeley", "japan-search": "japansearch" };
+  // This module drives two pages: "rubbing" (collections.html) and "object"
+  // (objects.html, inscription/object databases). The page sets window.COLL_CATEGORY.
+  var CATEGORY = (typeof window !== "undefined" && window.COLL_CATEGORY) || "rubbing";
+  var NOUN = CATEGORY === "object" ? "inscriptions" : "rubbings";
   var all = [], sel = null;   // sel = {continent, country, province} filter
 
   function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
@@ -99,7 +103,7 @@
     { label: "Country",    key: "country" },
     { label: "Type",       key: "kind" },
     { label: "Harvested",  key: "harvested", num: true },
-    { label: "Est. 拓本",  key: "mentions",  num: true },
+    { label: CATEGORY === "object" ? "Est. records" : "Est. 拓本",  key: "mentions",  num: true },
     { label: "Access",     key: null },
     { label: "Links",      key: null }
   ];
@@ -173,11 +177,11 @@
     list.sort(cmp);
     el("coll-title").textContent = sel
       ? [sel.continent, sel.country, sel.province].filter(Boolean).join(" › ")
-      : "All collections";
+      : (CATEGORY === "object" ? "All databases" : "All collections");
     var har = list.reduce(function (s, c) { return s + (c.harvested_count || 0); }, 0);
     var agg = list.filter(function (c) { return c.kind === "aggregator"; }).length;
-    el("coll-crumb").textContent = list.length + " collection" + (list.length === 1 ? "" : "s") +
-      (har ? " · " + har.toLocaleString() + " rubbings harvested" : "") +
+    el("coll-crumb").textContent = list.length + " " + (CATEGORY === "object" ? "database" : "collection") + (list.length === 1 ? "" : "s") +
+      (har ? " · " + har.toLocaleString() + " " + NOUN + " harvested" : "") +
       (agg ? " · " + agg + " aggregator" + (agg === 1 ? "" : "s") : "");
     if (!list.length) { el("coll-cards").innerHTML = '<p class="catalog-loading">No collections here.</p>'; return; }
     var thead = "<thead><tr>" + COLS.map(function (col) {
@@ -200,7 +204,7 @@
       render();
     });
     fetch("collections.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
-      all = (d && d.collections) || [];
+      all = ((d && d.collections) || []).filter(function (c) { return (c.category || "rubbing") === CATEGORY; });
       renderTree();
       render();
     }).catch(function () {

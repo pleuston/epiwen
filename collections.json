@@ -18,7 +18,8 @@
    "continent": "Americas",
    "country": "United States",
    "authority": "harvard_yenching",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "berkeley-starr",
@@ -35,7 +36,8 @@
    "continent": "Americas",
    "country": "United States",
    "authority": "ucb_eal",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "jp-colbase",
@@ -53,7 +55,8 @@
    "continent": "Asia",
    "country": "Japan",
    "kind": "aggregator",
-   "aggregates": "4 national museums (Tokyo/Kyoto/Nara/Kyushu) + 2 research institutes"
+   "aggregates": "4 national museums (Tokyo/Kyoto/Nara/Kyushu) + 2 research institutes",
+   "category": "rubbing"
   },
   {
    "id": "jp-ndl",
@@ -70,7 +73,8 @@
    "schema": "schemas/japan-search.md",
    "continent": "Asia",
    "country": "Japan",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "jp-daito",
@@ -87,7 +91,8 @@
    "schema": "schemas/japan-search.md",
    "continent": "Asia",
    "country": "Japan",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "jp-nijl",
@@ -104,7 +109,8 @@
    "schema": "schemas/japan-search.md",
    "continent": "Asia",
    "country": "Japan",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "jp-nme",
@@ -121,7 +127,8 @@
    "schema": "schemas/japan-search.md",
    "continent": "Asia",
    "country": "Japan",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "jp-utokyo",
@@ -140,7 +147,8 @@
    "country": "Japan",
    "rubbing_site": "https://www.ioc.u-tokyo.ac.jp/database/index.html",
    "rubbing_site_note": "東洋文化研究所 拓本文字データベース / 関野貞 中国碑碣拓本資料アーカイブ — ~5,000 rubbings, 1.8M characters (Han–Xinhai)",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "jp-arc",
@@ -158,7 +166,8 @@
    "continent": "Asia",
    "country": "Japan",
    "kind": "aggregator",
-   "aggregates": "aggregates partner libraries (Waseda et al.)"
+   "aggregates": "aggregates partner libraries (Waseda et al.)",
+   "category": "rubbing"
   },
   {
    "id": "jp-jpsearch-other",
@@ -176,7 +185,8 @@
    "continent": "Asia",
    "country": "Japan",
    "kind": "aggregator",
-   "aggregates": "union of misc Japan Search databases"
+   "aggregates": "union of misc Japan Search databases",
+   "category": "rubbing"
   },
   {
    "id": "efeo",
@@ -198,7 +208,8 @@
    "holdings": "Union finding-aid aggregating Chinese rubbings held by European institutions (>10,000 records). EFEO's own holding ~379.",
    "access": "Aggregator / finding-aid — links to Chinese rubbings across European institutions. Linked for discovery only; harvest each collection from its OWN website, never from EFEO directly.",
    "aggregator_db": true,
-   "aggregates": "Société asiatique, Musée Guimet, IHEC/Collège de France, Bodleian, British Library, Rietberg + EFEO's own ~379 — >10,000 records across Europe"
+   "aggregates": "Société asiatique, Musée Guimet, IHEC/Collège de France, Bodleian, British Library, Rietberg + EFEO's own ~379 — >10,000 records across Europe",
+   "category": "rubbing"
   },
   {
    "id": "indianapolis",
@@ -215,7 +226,8 @@
    "schema": null,
    "continent": "Americas",
    "country": "United States",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "toyo-bunko",
@@ -234,7 +246,8 @@
    "schema": null,
    "continent": "Asia",
    "country": "Japan",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "kyoto-jinbun",
@@ -253,7 +266,8 @@
    "schema": null,
    "continent": "Asia",
    "country": "Japan",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "tohoku-univ",
@@ -272,7 +286,8 @@
    "schema": null,
    "continent": "Asia",
    "country": "Japan",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "daito-uno",
@@ -291,7 +306,8 @@
    "schema": null,
    "continent": "Asia",
    "country": "Japan",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "shukutoku-shogaku",
@@ -310,7 +326,8 @@
    "schema": null,
    "continent": "Asia",
    "country": "Japan",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "field-museum",
@@ -332,7 +349,8 @@
    "source": "obsidian vault — Walravens catalog (@Tchen_Starr1981) + Zhang Zong",
    "continent": "Americas",
    "country": "United States",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "nlc-beijing",
@@ -352,7 +370,8 @@
    "continent": "Asia",
    "country": "China",
    "province": "Beijing 北京",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "pku-library",
@@ -372,7 +391,8 @@
    "continent": "Asia",
    "country": "China",
    "province": "Beijing 北京",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "dalian-library",
@@ -392,7 +412,8 @@
    "continent": "Asia",
    "country": "China",
    "province": "Liaoning 遼寧",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "nara-nat-museum",
@@ -413,7 +434,8 @@
    "access": "via Japan Search (f-db=NarahakuBijutsuinDB) — not yet harvested; ~632 records mention 拓本 (upper bound)",
    "schema": "japan-search",
    "rubbing_site": "https://bijutsuindb.narahaku.go.jp/",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "rekihaku",
@@ -434,7 +456,8 @@
    "access": "via Japan Search (f-db=nmj01) — not yet harvested; ~814 records mention 拓本 (upper bound)",
    "schema": "japan-search",
    "rubbing_site": "https://www.rekihaku.ac.jp/doc/t-db-index.html",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "tokyo-met-library",
@@ -455,7 +478,8 @@
    "access": "via Japan Search (f-db=tokyo) — not yet harvested; ~395 records mention 拓本 (upper bound)",
    "schema": "japan-search",
    "rubbing_site": "https://archive.library.metro.tokyo.lg.jp/",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "nagoya-city-museum",
@@ -475,7 +499,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=NagoyaCity_Museum",
    "access": "via Japan Search (f-db=NagoyaCity_Museum) — not yet harvested; ~309 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "fukuoka-city-museum",
@@ -495,7 +520,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=fcm_db",
    "access": "via Japan Search (f-db=fcm_db) — not yet harvested; ~305 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "edo-tokyo-museum",
@@ -515,7 +541,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=tokyomuseumcolection",
    "access": "via Japan Search (f-db=tokyomuseumcolection) — not yet harvested; ~242 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "kyushu-univ",
@@ -535,7 +562,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=kyudai",
    "access": "via Japan Search (f-db=kyudai) — not yet harvested; ~78 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "maeda-tosa-museum",
@@ -555,7 +583,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=maedatosa",
    "access": "via Japan Search (f-db=maedatosa) — not yet harvested; ~40 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "ibaraki-univ",
@@ -575,7 +604,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=ibaraki_u",
    "access": "via Japan Search (f-db=ibaraki_u) — not yet harvested; ~36 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "niigata-univ",
@@ -595,7 +625,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=cria",
    "access": "via Japan Search (f-db=cria) — not yet harvested; ~35 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "ryukoku-univ",
@@ -615,7 +646,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=ryukoku",
    "access": "via Japan Search (f-db=ryukoku) — not yet harvested; ~28 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "kansai-univ",
@@ -635,7 +667,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=ukansai",
    "access": "via Japan Search (f-db=ukansai) — not yet harvested; ~14 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "keio-univ",
@@ -655,7 +688,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=keioobjecthub",
    "access": "via Japan Search (f-db=keioobjecthub) — not yet harvested; ~10 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "meiji-univ",
@@ -675,7 +709,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=meiji_u",
    "access": "via Japan Search (f-db=meiji_u) — not yet harvested; ~6 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "ryukyus-univ",
@@ -695,7 +730,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=uryukyu",
    "access": "via Japan Search (f-db=uryukyu) — not yet harvested; ~2 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "tokushima-univ",
@@ -715,7 +751,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=utokushima",
    "access": "via Japan Search (f-db=utokushima) — not yet harvested; ~2 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "oita-sages",
@@ -735,7 +772,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=oitadigital_sages",
    "access": "via Japan Search (f-db=oitadigital_sages) — not yet harvested; ~372 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "otepia-kochi",
@@ -755,7 +793,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=kochi",
    "access": "via Japan Search (f-db=kochi) — not yet harvested; ~110 records mention 拓本 (upper bound)",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "paper-museum-tokyo",
@@ -775,7 +814,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=papermuseum_tokyo",
    "access": "via Japan Search (f-db=papermuseum_tokyo) — not yet harvested; ~130 records mention 拓本 (upper bound); rubbings of printing woodblocks / paper-craft, not stone inscriptions",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "saitama-rekimin",
@@ -795,7 +835,8 @@
    "js_browse": "https://jpsearch.go.jp/csearch/jps-cross?csid=jps-cross&keyword=%E6%8B%93%E6%9C%AC&f-db=saitama_museum",
    "access": "via Japan Search (f-db=saitama_museum) — not yet harvested; ~4103 records mention 拓本 (upper bound); largely sword-fitting (刀装具) rubbings, not stone inscriptions",
    "schema": "japan-search",
-   "kind": "institution"
+   "kind": "institution",
+   "category": "rubbing"
   },
   {
    "id": "societe-asiatique",
@@ -819,7 +860,8 @@
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
    "via_aggregator": "EFEO",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "musee-guimet",
@@ -843,7 +885,8 @@
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
    "via_aggregator": "EFEO",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "ihec-paris",
@@ -865,7 +908,8 @@
    "rubbing_site": "https://salamandre.college-de-france.fr/",
    "catalogue": "EFEO · « Estampages chinois conservés en Europe » (dir. J.-P. Drège; CCK Foundation; European total >10,000)",
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
-   "aggregator_ref": "https://estampages.efeo.fr/IHEC.php"
+   "aggregator_ref": "https://estampages.efeo.fr/IHEC.php",
+   "category": "rubbing"
   },
   {
    "id": "bodleian-oxford",
@@ -889,7 +933,8 @@
    "aggregator_ref": "https://estampages.efeo.fr/BodL.php",
    "api": "IIIF (Digital Bodleian)",
    "api_url": "https://iiif.bodleian.ox.ac.uk/",
-   "harvest": "api"
+   "harvest": "api",
+   "category": "rubbing"
   },
   {
    "id": "british-library",
@@ -912,7 +957,8 @@
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
    "via_aggregator": "EFEO",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "rietberg-zurich",
@@ -935,7 +981,8 @@
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
    "via_aggregator": "EFEO",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "bnf-paris",
@@ -958,7 +1005,8 @@
    "access": "Online catalogue / digital collection.",
    "api": "SRU + IIIF",
    "api_url": "https://gallica.bnf.fr/SRU",
-   "harvest": "api"
+   "harvest": "api",
+   "category": "rubbing"
   },
   {
    "id": "heidelberg-stonesutras",
@@ -980,7 +1028,9 @@
    "access": "Online catalogue / digital collection.",
    "api": "TEI corpus (eXist)",
    "api_url": "https://www.stonesutras.org/",
-   "harvest": "api"
+   "harvest": "api",
+   "category": "object",
+   "db_type": "inscription"
   },
   {
    "id": "ashmolean-oxford",
@@ -1002,7 +1052,8 @@
    "access": "Online catalogue / digital collection.",
    "api": "IIIF (Jameel Centre)",
    "api_url": "https://jameelcentre.ashmolean.org/",
-   "harvest": "api"
+   "harvest": "api",
+   "category": "rubbing"
   },
   {
    "id": "cernuschi-paris",
@@ -1023,7 +1074,8 @@
    "holdings": "~400 Chinese rubbings (single-source); 2025–26 exhibition « Chine. Empreintes du passé »",
    "access": "Holdings documented; no dedicated online catalogue.",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "va-london",
@@ -1046,7 +1098,8 @@
    "api": "REST",
    "api_url": "https://api.vam.ac.uk/v2/objects/search?q=rubbing%20China",
    "harvest": "api",
-   "est_count": 125
+   "est_count": 125,
+   "category": "rubbing"
   },
   {
    "id": "nms-edinburgh",
@@ -1066,7 +1119,8 @@
    "holdings": "Ink rubbings of the Wu Liang Shrine (Han) and the Nestorian Stele",
    "access": "Holdings documented; no dedicated online catalogue.",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "soas-london",
@@ -1088,7 +1142,8 @@
    "access": "Online catalogue / digital collection.",
    "api": "IIIF",
    "api_url": "https://digital.soas.ac.uk/",
-   "harvest": "api"
+   "harvest": "api",
+   "category": "rubbing"
   },
   {
    "id": "cambridge-ul",
@@ -1110,7 +1165,8 @@
    "access": "Online catalogue / digital collection.",
    "api": "IIIF",
    "api_url": "https://cudl.lib.cam.ac.uk/",
-   "harvest": "api"
+   "harvest": "api",
+   "category": "rubbing"
   },
   {
    "id": "vatican-bav",
@@ -1131,7 +1187,8 @@
    "rubbing_site": "https://digi.vatlib.it/",
    "access": "Online catalogue / digital collection.",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "british-museum",
@@ -1154,7 +1211,8 @@
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
    "aggregator_ref": "https://estampages.efeo.fr/",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "mfea-stockholm",
@@ -1178,7 +1236,8 @@
    "aggregator_ref": "https://estampages.efeo.fr/",
    "api": "K-samsök (SOCH)",
    "api_url": "https://www.kulturarvsdata.se/ksamsok/api",
-   "harvest": "api"
+   "harvest": "api",
+   "category": "rubbing"
   },
   {
    "id": "ng-prague",
@@ -1201,7 +1260,8 @@
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
    "via_aggregator": "EFEO",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "nat-museum-korea",
@@ -1226,14 +1286,15 @@
    "harvest": "api",
    "aggregates": "e-museum federates 407 Korean institutions (2,477 takbon)",
    "est_count": 2477,
-   "db_type": "rubbing"
+   "db_type": "rubbing",
+   "category": "rubbing"
   },
   {
    "id": "korean-epigraphy-gsm",
    "label": "Korean Epigraphy DB (한국금석문) — NRICH",
    "label_zh": "韓國金石文",
    "connector": "none",
-   "kind": "institution",
+   "kind": "aggregator",
    "aggregator": false,
    "continent": "Asia",
    "country": "South Korea",
@@ -1251,7 +1312,9 @@
    "harvest": "api",
    "est_count": 6557,
    "db_type": "inscription",
-   "est_note": "6,557 = inscriptions (not rubbings)"
+   "est_note": "6,557 = inscriptions (not rubbings)",
+   "category": "object",
+   "aggregates": "national Korean epigraphy corpus (6,557 inscriptions across all of Korea)"
   },
   {
    "id": "kyujanggak",
@@ -1272,7 +1335,8 @@
    "schema": null,
    "hangul": "규장각한국학연구원",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "jangseogak-aks",
@@ -1295,7 +1359,8 @@
    "harvest": "api",
    "est_count": 370,
    "api": "kostma OpenAPI (XML; rubbing coverage unconfirmed)",
-   "api_url": "https://kostma.aks.ac.kr/OpenAPI/OpenAPI.aspx"
+   "api_url": "https://kostma.aks.ac.kr/OpenAPI/OpenAPI.aspx",
+   "category": "rubbing"
   },
   {
    "id": "nat-library-korea",
@@ -1316,7 +1381,8 @@
    "schema": null,
    "hangul": "국립중앙도서관",
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "sungkyunkwan-museum",
@@ -1337,7 +1403,8 @@
    "schema": null,
    "est_count": 1000,
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "seoul-calligraphy-museum",
@@ -1359,7 +1426,8 @@
    "rubbing_site": "http://calligraphy.sac.or.kr/portal/search/selectSearchList.do",
    "est_count": 74,
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "buddhist-central-museum",
@@ -1380,7 +1448,8 @@
    "schema": null,
    "est_count": 750,
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
   },
   {
    "id": "dongguk-museum",
@@ -1400,7 +1469,32 @@
    "holdings": "Premier Buddhist-epigraphy university museum; count unknown. Surfaces via the e-museum API (no own catalogue).",
    "schema": null,
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "category": "rubbing"
+  },
+  {
+   "id": "korea-ancient-epigraphy",
+   "label": "Korean Ancient Epigraphy (한국고대금석문) — NIKH",
+   "label_zh": "韓國古代金石文",
+   "hangul": "국사편찬위원회 한국고대금석문",
+   "connector": "none",
+   "kind": "aggregator",
+   "aggregator": true,
+   "category": "object",
+   "db_type": "inscription",
+   "continent": "Asia",
+   "country": "South Korea",
+   "city": "Gwacheon, South Korea",
+   "lat": 37.4292,
+   "lon": 126.9889,
+   "site": "https://db.history.go.kr/",
+   "rubbing_site": "https://db.history.go.kr/ancient/",
+   "harvested_count": 0,
+   "holdings": "Ancient Korean inscriptions (Goguryeo/Baekje/Silla) — transcriptions + interpretations; bulk XML download. Text DB (no rubbing images).",
+   "schema": null,
+   "api": "bulk XML (data.go.kr)",
+   "api_url": "https://www.data.go.kr/data/15053630/fileData.do",
+   "harvest": "api"
   }
  ]
 }

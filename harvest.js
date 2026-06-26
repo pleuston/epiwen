@@ -173,7 +173,12 @@ idnos +
 
   // ── GitHub I/O ───────────────────────────────────────────────────────────────
   function ghHeaders() {
-    return { "Authorization": "Bearer " + token(), "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+    // Omit Authorization when there's no token — an empty "Bearer " is 401, but
+    // no header is anonymous (fine for reading the public staging files).
+    var h = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+    var t = token();
+    if (t) h["Authorization"] = "Bearer " + t;
+    return h;
   }
   function listImported() {
     imported = {};

@@ -122,7 +122,8 @@
   function accessLabel(c) {
     if (c.harvested_count) return c.harvested_count.toLocaleString() + " harvested";
     if (c.connector === "japan-search") return "via Japan Search";
-    if (c.connector === "efeo-estampages") return "EFEO database";
+    if (c.aggregator_db) return "aggregator · union DB";
+    if (c.via_aggregator) return "via EFEO aggregator";
     if (c.connector === "database") return "online database";
     if (c.rubbing_site) return "online catalogue";
     return "catalog-only";
@@ -132,8 +133,11 @@
     if (src && c.harvested_count) L.push('<a href="harvest.html?source=' + src + '">holdings</a>');
     if (c.js_browse) L.push('<a href="' + esc(c.js_browse) + '" target="_blank" rel="noopener">Japan Search ↗</a>');
     if (c.site) L.push('<a href="' + esc(c.site) + '" target="_blank" rel="noopener">site ↗</a>');
-    if (c.rubbing_site && c.rubbing_site !== c.site) L.push('<a href="' + esc(c.rubbing_site) + '" target="_blank" rel="noopener">' + (c.connector === "efeo-estampages" ? "EFEO db ↗" : "rubbing db ↗") + '</a>');
-    if (c.rubbing_db2 && c.rubbing_db2 !== c.rubbing_site && c.rubbing_db2 !== c.site) L.push('<a href="' + esc(c.rubbing_db2) + '" target="_blank" rel="noopener">catalogue ↗</a>');
+    if (c.rubbing_site && c.rubbing_site !== c.site) {
+      var lbl = c.aggregator_db ? "open database ↗" : c.via_aggregator ? "EFEO record ↗" : "collection ↗";
+      L.push('<a href="' + esc(c.rubbing_site) + '" target="_blank" rel="noopener">' + lbl + '</a>');
+    }
+    if (c.aggregator_ref) L.push('<a href="' + esc(c.aggregator_ref) + '" target="_blank" rel="noopener">EFEO union ↗</a>');
     if (c.authority) L.push('<a href="institutions.html?id=' + encodeURIComponent(c.authority) + '">authority</a>');
     return L.join(" ");
   }

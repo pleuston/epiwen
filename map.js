@@ -165,6 +165,7 @@
     var cluster = L.markerClusterGroup({
       maxClusterRadius: 45, showCoverageOnHover: false, spiderfyOnMaxZoom: true
     });
+    var collLayer = L.layerGroup();   // rubbing holding collections (toggle in the panel)
 
     function buildControl(atlasTree) {
       var groups = [
@@ -179,6 +180,9 @@
           layers: CCTS_DYN.map(function (d) { return { label: d[1], layer: ccts(d[0], { zIndex: 1 }) }; }) },
         { kind: "overlay", title: "Site catalogue", layers: [
           { label: "Sites", layer: cluster, on: true }
+        ] },
+        { kind: "overlay", title: "Rubbing collections", source: "holding institutions", layers: [
+          { label: "Collections", layer: collLayer }
         ] },
         { kind: "overlay", title: "Tang overlays", source: "CCTS", layers: [
           { label: "Circuits & prefectures", layer: ccts("Tang_Admin", { zIndex: 5, opacity: 0.8 }) },
@@ -198,6 +202,27 @@
       .then(function (r) { return r.ok ? r.json() : []; })
       .catch(function () { return []; })
       .then(buildControl);
+
+    // Rubbing holding collections (app-repo collections.json; no token needed).
+    function loadCollections() {
+      var srcMap = { "harvard-librarycloud": "harvard", "berkeley-oai": "berkeley", "japan-search": "japansearch" };
+      fetch("collections.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+        if (!data || !data.collections) return;
+        data.collections.forEach(function (c) {
+          if (typeof c.lat !== "number" || typeof c.lon !== "number") return;
+          var icon = L.divIcon({ className: "site-divicon", html: '<div class="map-coll-marker"></div>',
+            iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8] });
+          var src = srcMap[c.connector];
+          L.marker([c.lat, c.lon], { icon: icon, title: c.label }).bindPopup(
+            "<h4>" + esc(c.label) + (c.label_zh ? ' <span class="pp-sub">' + esc(c.label_zh) + "</span>" : "") + "</h4>" +
+            (c.harvested_count ? '<div class="pp-sub">' + c.harvested_count + " rubbings harvested" + (c.via ? " · via " + esc(c.via) : "") + "</div>" : "") +
+            (c.site ? '<a class="btn small" href="' + esc(c.site) + '" target="_blank" rel="noopener">Collection site ↗</a> ' : "") +
+            (src && c.harvested_count ? '<a class="btn small primary" href="harvest.html?source=' + src + '">Browse harvest →</a>' : "")
+          ).addTo(collLayer);
+        });
+      }).catch(function () {});
+    }
+    loadCollections();
 
     // Sites come from the public default corpus (no token) + the Stone Sutras
     // corpus + enabled collections (the atlas above stays in the always-on core).

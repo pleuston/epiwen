@@ -161,7 +161,7 @@
       '<td>' + esc(c.country || "—") + (c.province ? '<div class="ct-city">' + esc(c.province) + '</div>' : "") + '</td>' +
       '<td>' + kind + '</td>' +
       '<td class="num">' + (c.harvested_count ? c.harvested_count.toLocaleString() : "—") + '</td>' +
-      '<td class="num">' + (est ? "~" + est.toLocaleString() : "—") + '</td>' +
+      '<td class="num">' + (est ? "~" + est.toLocaleString() + (c.db_type === "inscription" ? ' <span class="acc-req" title="count is inscriptions, not rubbings">inscr.</span>' : "") : "—") + '</td>' +
       '<td><span class="coll-access' + accCls + '" title="' + esc(c.access || c.api || "") + '">' + accessLabel(c) + '</span>' + catLine + '</td>' +
       '<td><div class="ct-links">' + linksFor(c) + '</div></td>' +
       '</tr>';

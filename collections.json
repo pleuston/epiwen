@@ -1225,7 +1225,8 @@
    "api_url": "http://www.emuseum.go.kr/openapi/",
    "harvest": "api",
    "aggregates": "e-museum federates 407 Korean institutions (2,477 takbon)",
-   "est_count": 2477
+   "est_count": 2477,
+   "db_type": "rubbing"
   },
   {
    "id": "korean-epigraphy-gsm",
@@ -1242,13 +1243,15 @@
    "site": "https://portal.nrich.go.kr/kor/ksmUsrList.do?menuIdx=584",
    "rubbing_site": "https://portal.nrich.go.kr/kor/ksmUsrList.do?menuIdx=584",
    "harvested_count": 0,
-   "holdings": "6,557 records — transcriptions, interpretations, rubbings, images; Silla–Joseon (gsm.nrich.go.kr retired -> 지식이음 portal)",
+   "holdings": "Epigraphy DATABASE (금석문), not a rubbing repository: 6,557 inscriptions — each record = a stone monument (metadata, dimensions, location, script) + 판독문 transcription, 해석문 interpretation, and 탁본 rubbing/photo images where available. Maps to the inscription model; rubbings are one attached witness.",
    "schema": null,
    "hangul": "국립문화유산연구원 금석문",
    "api": "OpenAPI (REST/XML, keyless, CC-BY)",
    "api_url": "http://portal.nrich.go.kr/kor/openapi.do?idx=51",
    "harvest": "api",
-   "est_count": 6557
+   "est_count": 6557,
+   "db_type": "inscription",
+   "est_note": "6,557 = inscriptions (not rubbings)"
   },
   {
    "id": "kyujanggak",

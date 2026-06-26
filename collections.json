@@ -817,7 +817,9 @@
    "rubbing_site": "https://estampages.efeo.fr/SA.php",
    "catalogue": "EFEO · « Estampages chinois conservés en Europe » (dir. J.-P. Drège; CCK Foundation; European total >10,000)",
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
-   "via_aggregator": "EFEO"
+   "via_aggregator": "EFEO",
+   "needs_request": true,
+   "harvest": "request"
   },
   {
    "id": "musee-guimet",
@@ -839,7 +841,9 @@
    "rubbing_site": "https://estampages.efeo.fr/MG.php",
    "catalogue": "EFEO · « Estampages chinois conservés en Europe » (dir. J.-P. Drège; CCK Foundation; European total >10,000)",
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
-   "via_aggregator": "EFEO"
+   "via_aggregator": "EFEO",
+   "needs_request": true,
+   "harvest": "request"
   },
   {
    "id": "ihec-paris",
@@ -882,7 +886,10 @@
    "rubbing_site": "https://east-asian.bodleian.ox.ac.uk/",
    "catalogue": "EFEO · « Estampages chinois conservés en Europe » (dir. J.-P. Drège; CCK Foundation; European total >10,000)",
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
-   "aggregator_ref": "https://estampages.efeo.fr/BodL.php"
+   "aggregator_ref": "https://estampages.efeo.fr/BodL.php",
+   "api": "IIIF (Digital Bodleian)",
+   "api_url": "https://iiif.bodleian.ox.ac.uk/",
+   "harvest": "api"
   },
   {
    "id": "british-library",
@@ -903,7 +910,9 @@
    "rubbing_site": "https://estampages.efeo.fr/BL.php",
    "catalogue": "EFEO · « Estampages chinois conservés en Europe » (dir. J.-P. Drège; CCK Foundation; European total >10,000)",
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
-   "via_aggregator": "EFEO"
+   "via_aggregator": "EFEO",
+   "needs_request": true,
+   "harvest": "request"
   },
   {
    "id": "rietberg-zurich",
@@ -924,7 +933,9 @@
    "rubbing_site": "https://estampages.efeo.fr/RM.php",
    "catalogue": "EFEO · « Estampages chinois conservés en Europe » (dir. J.-P. Drège; CCK Foundation; European total >10,000)",
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
-   "via_aggregator": "EFEO"
+   "via_aggregator": "EFEO",
+   "needs_request": true,
+   "harvest": "request"
   },
   {
    "id": "bnf-paris",
@@ -944,7 +955,10 @@
    "est_count": 10000,
    "holdings": "≥10,000 sheets (Pelliot, Beilin/Xi'an) + Chavannes/Segalen — plausibly Europe's largest; NOT in EFEO DB; no published total",
    "rubbing_site": "https://gallica.bnf.fr/",
-   "access": "Online catalogue / digital collection."
+   "access": "Online catalogue / digital collection.",
+   "api": "SRU + IIIF",
+   "api_url": "https://gallica.bnf.fr/SRU",
+   "harvest": "api"
   },
   {
    "id": "heidelberg-stonesutras",
@@ -963,7 +977,10 @@
    "schema": null,
    "holdings": "Western scholarly corpus of Buddhist stone-sutra rubbings (Shandong/Henan/Hebei/Shaanxi/Sichuan/Fangshan); dir. L. Ledderose",
    "rubbing_site": "https://www.stonesutras.org/",
-   "access": "Online catalogue / digital collection."
+   "access": "Online catalogue / digital collection.",
+   "api": "TEI corpus (eXist)",
+   "api_url": "https://www.stonesutras.org/",
+   "harvest": "api"
   },
   {
    "id": "ashmolean-oxford",
@@ -982,7 +999,10 @@
    "schema": null,
    "holdings": "Chinese rubbings sub-collection (Eastern Art Online); mostly Beilin, Xi'an",
    "rubbing_site": "https://jameelcentre.ashmolean.org/collection/7/10232/10270",
-   "access": "Online catalogue / digital collection."
+   "access": "Online catalogue / digital collection.",
+   "api": "IIIF (Jameel Centre)",
+   "api_url": "https://jameelcentre.ashmolean.org/",
+   "harvest": "api"
   },
   {
    "id": "cernuschi-paris",
@@ -1001,7 +1021,9 @@
    "schema": null,
    "est_count": 400,
    "holdings": "~400 Chinese rubbings (single-source); 2025–26 exhibition « Chine. Empreintes du passé »",
-   "access": "Holdings documented; no dedicated online catalogue."
+   "access": "Holdings documented; no dedicated online catalogue.",
+   "needs_request": true,
+   "harvest": "request"
   },
   {
    "id": "va-london",
@@ -1019,8 +1041,12 @@
    "harvested_count": 0,
    "schema": null,
    "holdings": "Nestorian Stele rubbing E.690-1922 (paper+ink, 321×126 cm, acq. 1922)",
-   "rubbing_site": "https://collections.vam.ac.uk/item/O487928/",
-   "access": "Online catalogue / digital collection."
+   "rubbing_site": "https://collections.vam.ac.uk/search/?q=rubbing%20china",
+   "access": "Online catalogue / digital collection.",
+   "api": "REST",
+   "api_url": "https://api.vam.ac.uk/v2/objects/search?q=rubbing%20China",
+   "harvest": "api",
+   "est_count": 125
   },
   {
    "id": "nms-edinburgh",
@@ -1038,7 +1064,9 @@
    "harvested_count": 0,
    "schema": null,
    "holdings": "Ink rubbings of the Wu Liang Shrine (Han) and the Nestorian Stele",
-   "access": "Holdings documented; no dedicated online catalogue."
+   "access": "Holdings documented; no dedicated online catalogue.",
+   "needs_request": true,
+   "harvest": "request"
   },
   {
    "id": "soas-london",
@@ -1057,7 +1085,10 @@
    "schema": null,
    "holdings": "Chinese Rubbings digital collection (e.g. a Guanyin stele rubbing); count unpublished",
    "rubbing_site": "https://digital.soas.ac.uk/",
-   "access": "Online catalogue / digital collection."
+   "access": "Online catalogue / digital collection.",
+   "api": "IIIF",
+   "api_url": "https://digital.soas.ac.uk/",
+   "harvest": "api"
   },
   {
    "id": "cambridge-ul",
@@ -1076,7 +1107,10 @@
    "schema": null,
    "holdings": "CUDL Chinese rubbings series; count unpublished (oracle bones/Wade are NOT rubbings)",
    "rubbing_site": "https://cudl.lib.cam.ac.uk/collections/chinese",
-   "access": "Online catalogue / digital collection."
+   "access": "Online catalogue / digital collection.",
+   "api": "IIIF",
+   "api_url": "https://cudl.lib.cam.ac.uk/",
+   "harvest": "api"
   },
   {
    "id": "vatican-bav",
@@ -1095,7 +1129,9 @@
    "schema": null,
    "holdings": "Nestorian Stele rubbing Barb. or. 151 (DigiVatLib); Jesuit-era materials",
    "rubbing_site": "https://digi.vatlib.it/",
-   "access": "Online catalogue / digital collection."
+   "access": "Online catalogue / digital collection.",
+   "needs_request": true,
+   "harvest": "request"
   },
   {
    "id": "british-museum",
@@ -1116,7 +1152,9 @@
    "rubbing_site": "https://www.britishmuseum.org/collection",
    "catalogue": "EFEO · « Estampages chinois conservés en Europe » (dir. J.-P. Drège; CCK Foundation; European total >10,000)",
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
-   "aggregator_ref": "https://estampages.efeo.fr/"
+   "aggregator_ref": "https://estampages.efeo.fr/",
+   "needs_request": true,
+   "harvest": "request"
   },
   {
    "id": "mfea-stockholm",
@@ -1137,7 +1175,10 @@
    "rubbing_site": "https://collections.smvk.se/carlotta-em/web",
    "catalogue": "EFEO · « Estampages chinois conservés en Europe » (dir. J.-P. Drège; CCK Foundation; European total >10,000)",
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
-   "aggregator_ref": "https://estampages.efeo.fr/"
+   "aggregator_ref": "https://estampages.efeo.fr/",
+   "api": "K-samsök (SOCH)",
+   "api_url": "https://www.kulturarvsdata.se/ksamsok/api",
+   "harvest": "api"
   },
   {
    "id": "ng-prague",
@@ -1158,7 +1199,116 @@
    "rubbing_site": "https://estampages.efeo.fr/",
    "catalogue": "EFEO · « Estampages chinois conservés en Europe » (dir. J.-P. Drège; CCK Foundation; European total >10,000)",
    "access": "Catalogued in the EFEO « Estampages chinois conservés en Europe » database.",
-   "via_aggregator": "EFEO"
+   "via_aggregator": "EFEO",
+   "needs_request": true,
+   "harvest": "request"
+  },
+  {
+   "id": "nat-museum-korea",
+   "label": "National Museum of Korea (e-museum)",
+   "label_zh": "國立中央博物館",
+   "connector": "none",
+   "kind": "institution",
+   "aggregator": false,
+   "continent": "Asia",
+   "country": "South Korea",
+   "city": "Seoul, South Korea",
+   "lat": 37.524,
+   "lon": 126.9803,
+   "site": "https://www.museum.go.kr/",
+   "rubbing_site": "https://www.emuseum.go.kr/",
+   "harvested_count": 0,
+   "holdings": "Korean & Chinese rubbings via the integrated e-museum (open API across Korean museums)",
+   "schema": null,
+   "hangul": "국립중앙박물관",
+   "api": "OpenAPI (REST)",
+   "api_url": "https://www.emuseum.go.kr/openapi",
+   "harvest": "api"
+  },
+  {
+   "id": "korean-epigraphy-gsm",
+   "label": "Korean Epigraphy DB (한국금석문) — NRICH",
+   "label_zh": "韓國金石文",
+   "connector": "none",
+   "kind": "institution",
+   "aggregator": false,
+   "continent": "Asia",
+   "country": "South Korea",
+   "city": "Daejeon, South Korea",
+   "lat": 36.3585,
+   "lon": 127.3845,
+   "site": "https://gsm.nrich.go.kr/",
+   "rubbing_site": "https://gsm.nrich.go.kr/",
+   "harvested_count": 0,
+   "holdings": "National rubbing/epigraphy image system (National Research Institute of Cultural Heritage); Silla–Joseon inscriptions",
+   "schema": null,
+   "hangul": "한국금석문 종합영상정보시스템",
+   "api": "Korea Heritage open data (data.go.kr)",
+   "api_url": "https://www.data.go.kr/",
+   "harvest": "api"
+  },
+  {
+   "id": "kyujanggak",
+   "label": "Kyujanggak Institute for Korean Studies (SNU)",
+   "label_zh": "奎章閣",
+   "connector": "none",
+   "kind": "institution",
+   "aggregator": false,
+   "continent": "Asia",
+   "country": "South Korea",
+   "city": "Seoul, South Korea",
+   "lat": 37.4602,
+   "lon": 126.9501,
+   "site": "https://kyujanggak.snu.ac.kr/",
+   "rubbing_site": "https://kyujanggak.snu.ac.kr/",
+   "harvested_count": 0,
+   "holdings": "탁본 (rubbings) of Korean & Chinese inscriptions; royal library collection",
+   "schema": null,
+   "hangul": "규장각한국학연구원",
+   "needs_request": true,
+   "harvest": "request"
+  },
+  {
+   "id": "jangseogak-aks",
+   "label": "Jangseogak, Academy of Korean Studies",
+   "label_zh": "藏書閣",
+   "connector": "none",
+   "kind": "institution",
+   "aggregator": false,
+   "continent": "Asia",
+   "country": "South Korea",
+   "city": "Seongnam, South Korea",
+   "lat": 37.3914,
+   "lon": 127.054,
+   "site": "https://jsg.aks.ac.kr/",
+   "rubbing_site": "https://jsg.aks.ac.kr/",
+   "harvested_count": 0,
+   "holdings": "Rubbings & rare materials; royal/aristocratic archives",
+   "schema": null,
+   "hangul": "장서각",
+   "needs_request": true,
+   "harvest": "request"
+  },
+  {
+   "id": "nat-library-korea",
+   "label": "National Library of Korea",
+   "label_zh": "國立中央圖書館",
+   "connector": "none",
+   "kind": "institution",
+   "aggregator": false,
+   "continent": "Asia",
+   "country": "South Korea",
+   "city": "Seoul, South Korea",
+   "lat": 37.4979,
+   "lon": 126.9947,
+   "site": "https://www.nl.go.kr/",
+   "rubbing_site": "https://www.nl.go.kr/",
+   "harvested_count": 0,
+   "holdings": "Rubbings within the national collection; count unpublished",
+   "schema": null,
+   "hangul": "국립중앙도서관",
+   "needs_request": true,
+   "harvest": "request"
   }
  ]
 }

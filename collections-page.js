@@ -123,6 +123,8 @@
     if (c.harvested_count) return c.harvested_count.toLocaleString() + " harvested";
     if (c.connector === "japan-search") return "via Japan Search";
     if (c.aggregator_db) return "aggregator · union DB";
+    if (c.api) return "API ✓";
+    if (c.needs_request) return c.via_aggregator ? "needs request · via EFEO" : "needs request";
     if (c.via_aggregator) return "via EFEO aggregator";
     if (c.connector === "database") return "online database";
     if (c.rubbing_site) return "online catalogue";
@@ -137,6 +139,7 @@
       var lbl = c.aggregator_db ? "open database ↗" : c.via_aggregator ? "EFEO record ↗" : "collection ↗";
       L.push('<a href="' + esc(c.rubbing_site) + '" target="_blank" rel="noopener">' + lbl + '</a>');
     }
+    if (c.api_url) L.push('<a href="' + esc(c.api_url) + '" target="_blank" rel="noopener" title="' + esc(c.api || "") + '">API ↗</a>');
     if (c.aggregator_ref) L.push('<a href="' + esc(c.aggregator_ref) + '" target="_blank" rel="noopener">EFEO union ↗</a>');
     if (c.authority) L.push('<a href="institutions.html?id=' + encodeURIComponent(c.authority) + '">authority</a>');
     return L.join(" ");
@@ -148,15 +151,17 @@
     var sub = c.catalog || c.holdings || "";
     var catLine = sub ? '<div class="ct-city" title="' + esc(c.catalogue || c.catalog || c.holdings || "") + '">' + esc(sub.length > 50 ? sub.slice(0, 48) + "…" : sub) + '</div>' : "";
     var est = c.mentions || c.est_count || 0;
+    var accCls = c.api ? " acc-api" : c.needs_request ? " acc-req" : "";
     return '<tr>' +
       '<td><div class="ct-name">' + esc(c.label) + '</div>' +
-        (c.label_zh ? '<div class="ct-zh">' + esc(c.label_zh) + '</div>' : "") +
+        (c.label_zh ? '<div class="ct-zh">' + esc(c.label_zh) + (c.hangul ? " · " + esc(c.hangul) : "") + '</div>'
+                    : (c.hangul ? '<div class="ct-zh">' + esc(c.hangul) + '</div>' : "")) +
         (c.city ? '<div class="ct-city">' + esc(c.city) + '</div>' : "") + '</td>' +
       '<td>' + esc(c.country || "—") + (c.province ? '<div class="ct-city">' + esc(c.province) + '</div>' : "") + '</td>' +
       '<td>' + kind + '</td>' +
       '<td class="num">' + (c.harvested_count ? c.harvested_count.toLocaleString() : "—") + '</td>' +
       '<td class="num">' + (est ? "~" + est.toLocaleString() : "—") + '</td>' +
-      '<td><span class="coll-access" title="' + esc(c.access || "") + '">' + accessLabel(c) + '</span>' + catLine + '</td>' +
+      '<td><span class="coll-access' + accCls + '" title="' + esc(c.access || c.api || "") + '">' + accessLabel(c) + '</span>' + catLine + '</td>' +
       '<td><div class="ct-links">' + linksFor(c) + '</div></td>' +
       '</tr>';
   }

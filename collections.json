@@ -260,10 +260,13 @@
    "lon": -87.617,
    "site": "https://www.fieldmuseum.org/",
    "harvested_count": 0,
-   "catalog": "@Tchen_Starr1981 — Catalogue of Chinese Rubbings from Field Museum (Chicago, 1981)",
+   "catalog": "@Tchen_Starr1981 — Catalogue of Chinese Rubbings from Field Museum, ed. Hartmut Walravens (Fieldiana Anthropology n.s. 3; Chicago, 1981)",
    "access": "print catalog only",
    "catalog_only": true,
-   "schema": null
+   "schema": null,
+   "holdings": "≈4,000+ Chinese rubbings",
+   "note": "Noted for >4,000 Chinese rubbings (四千余件). Includes the Qionglai Longxing Monastery 邛崍龍興寺 Diamond-Sutra batch (inv. 233776) collected via D.C. Graham 葛維漢; studied by Zhang Zong 張總.",
+   "source": "obsidian vault — Walravens catalog (@Tchen_Starr1981) + Zhang Zong"
   },
   {
    "id": "nlc-beijing",

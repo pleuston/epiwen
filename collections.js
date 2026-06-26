@@ -305,8 +305,8 @@
 
   /* The shared collection's optional <kind>-index.json (authority / biblio). */
   function loadSharedIndex(kind) {
-    if (!token() || !sharedEnabled()) return Promise.resolve([]);
-    return ctxFetchRaw(SHARED, "collections/" + SHARED.id + "/" + kind + "-index.json")
+    if (!sharedEnabled()) return Promise.resolve([]);   // public corpus — loads for guests too
+    return ctxFetchNoAuth(SHARED, "collections/" + SHARED.id + "/" + kind + "-index.json")
       .then(function (txt) {
         var arr; try { arr = JSON.parse(txt); } catch (e) { return []; }
         if (!Array.isArray(arr)) return [];
@@ -685,10 +685,9 @@
   // app's public data/<kind>-index.json) plus the matching XML records. Returns
   // the merged private index entries (tagged), or [] for packages without one.
   function loadIndex(kind) {
-    if (!token()) return Promise.resolve([]);
     var titles = getTitleMap();
-    var jobs = [ loadSharedIndex(kind) ];   // the shared collection is always included
-    getEnabled().forEach(function (id) {
+    var jobs = [ loadSharedIndex(kind) ];   // the shared public corpus — included for guests too
+    if (token()) getEnabled().forEach(function (id) {   // private packages need a token
       jobs.push(
         fetchFileRaw("collections/" + encodeURIComponent(id) + "/" + kind + "-index.json")
           .then(function (txt) {

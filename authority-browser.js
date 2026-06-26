@@ -6,6 +6,7 @@
   var _publicRecords  = [];
   var _privateRecords = [];
   var currentFilter = window.__EPI_AUTH_FILTER || (new URLSearchParams(window.location.search)).get("filter") || "all";
+  var _deepId = (new URLSearchParams(window.location.search)).get("id");   // deep-link to one authority
   var currentQuery  = "";
   var selectedRec   = null;
 
@@ -97,6 +98,21 @@
     recs.forEach(function (rec) { frag.appendChild(buildListItem(rec)); });
     list.innerHTML = "";
     list.appendChild(frag);
+
+    // Deep-link: ?id=<authority> opens that record (e.g. from a rubbing collection).
+    // Only consume _deepId once the record is actually present — it may arrive in a
+    // later render (the shared/private corpus loads after the default index).
+    if (_deepId) {
+      var want = _deepId;
+      var rec = recs.filter(function (r) { return r.id === want; })[0] ||
+                allRecords.filter(function (r) { return r.id === want; })[0];
+      if (rec) {
+        _deepId = null;
+        var div = list.querySelector('[data-auth-id="' + (window.CSS && CSS.escape ? CSS.escape(want) : want) + '"]');
+        selectRecord(rec, div || null);
+        if (div) div.scrollIntoView({ block: "nearest" });
+      }
+    }
   }
 
   function buildListItem(rec) {

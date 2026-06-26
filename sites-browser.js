@@ -98,11 +98,12 @@
     var roots = (byParent[""] || []).slice().sort(function (a, b) {
       return (a.title_en || a.id).localeCompare(b.title_en || b.id);
     });
-    var q = (query || "").trim().toLowerCase();
+    var fold = window.EpiVariants ? EpiVariants.fold : function (s) { return String(s == null ? "" : s).toLowerCase(); };
+    var q = fold((query || "").trim());
     if (q) {
       roots = roots.filter(function (r) {
-        return ((r.title_en || "") + " " + (r.title_zh || "") + " " +
-                (r.id || "") + " " + (r.province_en || "")).toLowerCase().indexOf(q) !== -1;
+        return fold((r.title_en || "") + " " + (r.title_zh || "") + " " +
+                (r.id || "") + " " + (r.province_en || "")).indexOf(q) !== -1;
       });
     }
     el("site-count").textContent = "(" + roots.length + (q ? " match" : " top-level") + ")";

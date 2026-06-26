@@ -179,21 +179,22 @@
 
   // ── Filter + render list ──────────────────────────────────────────────────
 
+  function fold(s) { return window.EpiVariants ? EpiVariants.fold(s) : String(s == null ? "" : s).toLowerCase(); }
   function filteredRecords() {
-    var q = currentQuery.toLowerCase();
+    var q = fold(currentQuery);
     return allRecords.filter(function (r) {
       if (currentFilter !== "all" && r.pub_type !== currentFilter) return false;
       var yr = parseInt(r.year, 10) || 0;
       if (yearMin && yr && yr < yearMin) return false;
       if (yearMax < 9999 && yr && yr > yearMax) return false;
       if (q) {
-        var hay = [
+        var hay = fold([
           r.key || "", r.reference || "", r.title || "", r.title_zh || "", r.title_en || "",
           (r.author || []).join(" "), (r.author_zh || []).join(" "),
           (r.editor || []).join(" "), (r.editor_zh || []).join(" "),
           (r.translator || []).join(" "), (r.translator_zh || []).join(" "),
           r.journal || "", r.host_title || ""
-        ].join(" ").toLowerCase();
+        ].join(" "));
         if (hay.indexOf(q) === -1) return false;
       }
       return true;

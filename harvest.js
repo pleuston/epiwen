@@ -21,6 +21,8 @@
   var importedFhcl = {}, importedHollis = {};   // sets of ids already in the corpus
 
   function token() { return localStorage.getItem("epiwen_gh_token") || ""; }
+  // Fold 繁/简/異體字 + lowercase so search is script-insensitive (variants.js).
+  function fold(s) { return window.EpiVariants ? EpiVariants.fold(s) : String(s == null ? "" : s).toLowerCase(); }
   function esc(s) {
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -141,14 +143,14 @@
 
   // ── Rendering ────────────────────────────────────────────────────────────────
   function applyFilters() {
-    var q = el("hv-search").value.trim().toLowerCase();
+    var q = fold(el("hv-search").value.trim());
     var pub = el("hv-f-public").checked, dig = el("hv-f-digit").checked, hideImp = el("hv-f-new").checked;
     filtered = entries.filter(function (e) {
       if (pub && e.access === "R") return false;
       if (dig && !e.digitised) return false;
       if (hideImp && isImported(e)) return false;
       if (q) {
-        var hay = (e.title + " " + (e.titles_all || []).join(" ") + " " + e.date + " " + e.shelf + " " + e.hollis).toLowerCase();
+        var hay = fold(e.title + " " + (e.titles_all || []).join(" ") + " " + e.date + " " + e.shelf + " " + e.hollis);
         if (hay.indexOf(q) === -1) return false;
       }
       return true;
@@ -164,9 +166,11 @@
       var idx = start + i, imp = isImported(e), restr = isRestricted(e);
       var box = (imp || restr) ? '<span title="' + (imp ? "already imported" : "access restricted") + '">' + (imp ? "✓" : "🔒") + '</span>'
                                : '<input type="checkbox" class="hv-cb" data-i="' + idx + '">';
+      var zh = cjkTitle(e);
       return '<div class="hv-row' + (imp ? " imported" : "") + '">' +
         '<div>' + box + '</div>' +
-        '<div><div class="hv-title">' + esc(e.title || "(untitled)") + '</div>' +
+        '<div><div class="hv-title">' + esc(e.title || "(untitled)") +
+            (zh ? '<span class="hv-zh">' + esc(zh) + '</span>' : '') + '</div>' +
           '<div class="hv-meta">' + esc(e.date || "") + (e.shelf ? " · " + esc(e.shelf) : "") +
             (e.hollis ? " · HOLLIS " + esc(e.hollis) : "") + (e.culture ? " · " + esc(e.culture) : "") + '</div></div>' +
         '<div class="hv-badges">' +

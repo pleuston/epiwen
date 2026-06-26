@@ -899,9 +899,9 @@
   function buildItem(rec) {
     var item = document.createElement("div");
     item.className = "catalog-item";
-    var idx = [rec.name, rec.titleEn, rec.titleZh, rec.dateText, rec.settlement, rec.region]
+    var idx = foldIdx([rec.name, rec.titleEn, rec.titleZh, rec.dateText, rec.settlement, rec.region]
       .concat(rec.parts.map(function (p) { return p.sutra + " " + p.head; }))
-      .join(" ").toLowerCase();
+      .join(" "));
     item.dataset.idx = idx;
 
     var monument = document.createElement("div");
@@ -1271,8 +1271,8 @@
     item.className = "catalog-item";
 
     var label = part.head || part.subtype || ("Text " + part.n);
-    item.dataset.idx = [label, part.sutra, part.sutraEn, rec.name, rec.titleEn, rec.titleZh]
-      .join(" ").toLowerCase();
+    item.dataset.idx = foldIdx([label, part.sutra, part.sutraEn, rec.name, rec.titleEn, rec.titleZh]
+      .join(" "));
     // Identify this inscription so an object's textpart row can deep-link to it.
     item.dataset.insObj = rec.name;
     item.dataset.insN   = part.n || "";
@@ -1325,8 +1325,8 @@
   function buildRubbingItem(rec) {
     var item = document.createElement("div");
     item.className = "catalog-item";
-    item.dataset.idx = [rec.name, rec.titleEn, rec.titleZh, rec.surrogateOf, rec.dateText]
-      .join(" ").toLowerCase();
+    item.dataset.idx = foldIdx([rec.name, rec.titleEn, rec.titleZh, rec.surrogateOf, rec.dateText]
+      .join(" "));
 
     var row = document.createElement("div");
     row.className = "catalog-monument";
@@ -1722,8 +1722,10 @@
   }
 
   // ---- search --------------------------------------------------------------
+  // Fold 繁/简/異體字 + lowercase so search is script-insensitive (variants.js).
+  function foldIdx(s) { return window.EpiVariants ? EpiVariants.fold(s) : String(s == null ? "" : s).toLowerCase(); }
   function filterCatalog(term) {
-    var q = term.toLowerCase();
+    var q = foldIdx(term);
     Array.prototype.forEach.call(document.querySelectorAll(".catalog-item"), function (el) {
       el.style.display = (!q || el.dataset.idx.indexOf(q) !== -1) ? "" : "none";
     });

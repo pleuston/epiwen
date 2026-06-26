@@ -65,8 +65,9 @@
 
   // ── Filter + render ───────────────────────────────────────────────────────
 
+  function fold(s) { return window.EpiVariants ? EpiVariants.fold(s) : String(s == null ? "" : s).toLowerCase(); }
   function filteredRecords() {
-    var q = currentQuery.toLowerCase();
+    var q = fold(currentQuery);
     return allRecords.filter(function (r) {
       if (currentFilter === "vocabulary"  && r.name_type !== "vocabulary")  return false;
       if (currentFilter === "personal"   && r.name_type !== "personal")   return false;
@@ -74,7 +75,7 @@
       if (currentFilter === "temporal"   && r.name_type !== "temporal")   return false;
       if (currentFilter === "geographic" && r.name_type !== "geographic") return false;
       if (q) {
-        var hay = ((r.display_name || "") + " " + (r.name_zh || "") + " " + (r.name_pinyin || "")).toLowerCase();
+        var hay = fold((r.display_name || "") + " " + (r.name_zh || "") + " " + (r.name_pinyin || ""));
         if (hay.indexOf(q) === -1) return false;
       }
       return true;

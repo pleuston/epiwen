@@ -209,6 +209,7 @@
       fetch("collections.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
         if (!data || !data.collections) return;
         data.collections.forEach(function (c) {
+          if ((c.category || "rubbing") === "object") return;   // object/inscription DBs aren't rubbing collections
           if (typeof c.lat !== "number" || typeof c.lon !== "number") return;
           var hollow = !c.harvested_count;   // catalog-only / not yet harvested
           var icon = L.divIcon({ className: "site-divicon",

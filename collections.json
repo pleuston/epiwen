@@ -56,7 +56,8 @@
    "country": "Japan",
    "kind": "aggregator",
    "aggregates": "4 national museums (Tokyo/Kyoto/Nara/Kyushu) + 2 research institutes",
-   "category": "rubbing"
+   "category": "rubbing",
+   "authority": "nich_japan"
   },
   {
    "id": "jp-ndl",
@@ -74,7 +75,8 @@
    "continent": "Asia",
    "country": "Japan",
    "kind": "institution",
-   "category": "rubbing"
+   "category": "rubbing",
+   "authority": "ndl_japan"
   },
   {
    "id": "jp-daito",
@@ -92,7 +94,8 @@
    "continent": "Asia",
    "country": "Japan",
    "kind": "institution",
-   "category": "rubbing"
+   "category": "rubbing",
+   "authority": "daito_bunka"
   },
   {
    "id": "jp-nijl",
@@ -110,7 +113,8 @@
    "continent": "Asia",
    "country": "Japan",
    "kind": "institution",
-   "category": "rubbing"
+   "category": "rubbing",
+   "authority": "nijl"
   },
   {
    "id": "jp-nme",
@@ -128,7 +132,8 @@
    "continent": "Asia",
    "country": "Japan",
    "kind": "institution",
-   "category": "rubbing"
+   "category": "rubbing",
+   "authority": "minpaku"
   },
   {
    "id": "jp-utokyo",
@@ -148,7 +153,8 @@
    "rubbing_site": "https://www.ioc.u-tokyo.ac.jp/database/index.html",
    "rubbing_site_note": "東洋文化研究所 拓本文字データベース / 関野貞 中国碑碣拓本資料アーカイブ — ~5,000 rubbings, 1.8M characters (Han–Xinhai)",
    "kind": "institution",
-   "category": "rubbing"
+   "category": "rubbing",
+   "authority": "utokyo"
   },
   {
    "id": "jp-arc",
@@ -167,7 +173,8 @@
    "country": "Japan",
    "kind": "aggregator",
    "aggregates": "aggregates partner libraries (Waseda et al.)",
-   "category": "rubbing"
+   "category": "rubbing",
+   "authority": "ritsumeikan_arc"
   },
   {
    "id": "jp-jpsearch-other",
@@ -307,7 +314,8 @@
    "continent": "Asia",
    "country": "Japan",
    "kind": "institution",
-   "category": "rubbing"
+   "category": "rubbing",
+   "authority": "daito_bunka"
   },
   {
    "id": "shukutoku-shogaku",
@@ -375,7 +383,8 @@
    "api": "REST (guji.nlc.cn) — geo-blocked outside China",
    "api_url": "https://guji.nlc.cn/",
    "harvest": "api",
-   "holdings": "≥230,000 rubbings (碑帖) — the largest single collection in East Asia; 碑帖菁華 digital subset ~25,000 online (full set on-site)."
+   "holdings": "≥230,000 rubbings (碑帖) — the largest single collection in East Asia; 碑帖菁華 digital subset ~25,000 online (full set on-site).",
+   "authority": "nlc_china"
   },
   {
    "id": "pku-library",
@@ -398,7 +407,8 @@
    "est_count": 56000,
    "needs_request": true,
    "harvest": "request",
-   "holdings": "≈56,000 pieces / 24,000 types 金石拓片 (≈80k+ incl. 繆荃孫藝風堂, 張仁蠡六風堂) — largest among Chinese universities. 秘籍琳琅 platform is metadata-only, no full-image public access."
+   "holdings": "≈56,000 pieces / 24,000 types 金石拓片 (≈80k+ incl. 繆荃孫藝風堂, 張仁蠡六風堂) — largest among Chinese universities. 秘籍琳琅 platform is metadata-only, no full-image public access.",
+   "authority": "pku_library"
   },
   {
    "id": "dalian-library",
@@ -1293,7 +1303,8 @@
    "aggregates": "e-museum federates 407 Korean institutions (2,477 takbon)",
    "est_count": 2477,
    "db_type": "rubbing",
-   "category": "rubbing"
+   "category": "rubbing",
+   "authority": "nmk"
   },
   {
    "id": "korean-epigraphy-gsm",
@@ -1320,7 +1331,8 @@
    "db_type": "inscription",
    "est_note": "6,557 = inscriptions (not rubbings)",
    "category": "object",
-   "aggregates": "national Korean epigraphy corpus (6,557 inscriptions across all of Korea)"
+   "aggregates": "national Korean epigraphy corpus (6,557 inscriptions across all of Korea)",
+   "authority": "nrich"
   },
   {
    "id": "kyujanggak",
@@ -1613,7 +1625,8 @@
    "est_count": 100000,
    "api": "BIBFRAME + IIIF + LOD",
    "api_url": "https://beitie.library.sh.cn/home",
-   "harvest": "api"
+   "harvest": "api",
+   "authority": "shanghai_library"
   },
   {
    "id": "palace-museum-beijing",
@@ -1636,7 +1649,8 @@
    "rubbing_site": "https://digicol.dpm.org.cn/",
    "est_count": 29719,
    "needs_request": true,
-   "harvest": "request"
+   "harvest": "request",
+   "authority": "palace_museum_beijing"
   },
   {
    "id": "cafa-library",
@@ -1783,7 +1797,8 @@
    "est_count": 50000,
    "harvest": "request",
    "needs_request": true,
-   "access": "Member-gated (IHPKMC). Active data-sharing outreach target (since 2026-05); not openly harvestable."
+   "access": "Member-gated (IHPKMC). Active data-sharing outreach target (since 2026-05); not openly harvestable.",
+   "authority": "ihp_rubbings"
   },
   {
    "id": "ncl-taipei",
@@ -1805,7 +1820,8 @@
    "rubbing_site": "https://rbook.ncl.edu.tw/NCLSearch/Search/Index/5",
    "api": "IIIF + institution-level persistent IDs",
    "api_url": "https://rbook.ncl.edu.tw/",
-   "harvest": "api"
+   "harvest": "api",
+   "authority": "ncl_taiwan"
   },
   {
    "id": "npm-taipei",
@@ -1827,7 +1843,8 @@
    "rubbing_site": "https://digitalarchive.npm.gov.tw/",
    "harvest": "open",
    "open_license": "CC0 / CC BY 4.0",
-   "access": "Open access (CC0 / CC BY 4.0); web catalogue, no documented API."
+   "access": "Open access (CC0 / CC BY 4.0); web catalogue, no documented API.",
+   "authority": "npm_taipei"
   },
   {
    "id": "ntu-library",

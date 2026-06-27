@@ -1511,11 +1511,15 @@
    "site": "https://db.history.go.kr/",
    "rubbing_site": "https://db.history.go.kr/ancient/",
    "harvested_count": 0,
-   "holdings": "Ancient Korean inscriptions (Goguryeo/Baekje/Silla) — transcriptions + interpretations; bulk XML download. Text DB (no rubbing images).",
+   "holdings": "386 ancient Korean inscriptions in literary Chinese (Goguryeo→Lelang), incl. the Gwanggaeto Stele 廣開土王陵碑. Full transcriptions (판독문, multiple readings), interpretations, references, tagged persons/places/offices, images. Harvested from the NIKH file dataset.",
    "schema": null,
-   "api": "bulk XML (data.go.kr)",
+   "api": "file dataset (data.go.kr 15053630) — harvested locally",
    "api_url": "https://www.data.go.kr/data/15053630/fileData.do",
-   "harvest": "api"
+   "harvest": "api",
+   "staged_count": 386,
+   "staged_file": "harvest/korea-ancient-epigraphy.json",
+   "harvested": "2026-06-27",
+   "authority": "nikh"
   },
   {
    "id": "zhonghua-shike",

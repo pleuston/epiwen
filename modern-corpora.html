@@ -3,16 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Epiwen · Glyphs</title>
+    <title>Epiwen · Modern Corpora</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="auth.js"></script>
-    <script src="data.js"></script>
+    <style>
+      .coll-layout { display: flex; gap: 0; align-items: stretch; min-height: calc(100vh - 52px); }
+      .coll-tree { flex: 0 0 250px; border-right: 1px solid var(--line); padding: 1rem .9rem; overflow-y: auto; max-height: calc(100vh - 52px); }
+      .coll-tree h2 { font-size: 1rem; margin: 0 0 .6rem; }
+      .ct-search { width: 100%; box-sizing: border-box; margin-bottom: .7rem; }
+      .ct-node { font-size: .86rem; }
+      .ct-row { display: flex; align-items: center; gap: .3rem; padding: .2rem .25rem; border-radius: 4px; cursor: pointer; }
+      .ct-row:hover { background: var(--field-bg, #fafafa); }
+      .ct-row.active { background: #eef0f2; font-weight: 600; }
+      .ct-caret { width: 1em; color: var(--muted); font-size: .7rem; transition: transform .12s; flex: 0 0 1em; }
+      .ct-caret.open { transform: rotate(90deg); }
+      .ct-caret.leaf { visibility: hidden; }
+      .ct-label { flex: 1 1 auto; min-width: 0; }
+      .ct-count { margin-left: auto; color: var(--muted); font-size: .76rem; }
+      .ct-children { margin-left: 1em; display: none; }
+      .ct-children.open { display: block; }
+      .coll-main { flex: 1; padding: 1.2rem 1.5rem 3rem; overflow-y: auto; max-height: calc(100vh - 52px); }
+      .coll-main h1 { font-size: 1.25rem; margin: 0 0 .2rem; }
+      .coll-crumb { font-size: .85rem; color: var(--muted); margin: 0 0 1rem; }
+      .coll-intro { font-size: .85rem; color: var(--muted); margin: 0 0 1rem; max-width: 62rem; line-height: 1.55; }
+      .coll-intro a { color: var(--accent); }
+      .coll-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+      .coll-table th, .coll-table td { text-align: left; padding: .4rem .55rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+      .coll-table thead th { position: sticky; top: 0; background: var(--bg); z-index: 2; font-weight: 600; white-space: nowrap; }
+      .coll-table th.sortable { cursor: pointer; user-select: none; }
+      .coll-table th.sortable:hover { color: var(--accent); }
+      .coll-table td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .coll-table tbody tr:hover { background: var(--field-bg, #fafafa); }
+      .ct-name { font-weight: 600; color: var(--ink); font-size: 1.0em; }
+      .ct-zh { color: var(--muted); font-weight: normal; font-size: .85em; }
+      .ct-city { color: var(--muted); font-size: .78rem; }
+      .mc-hold { display: inline-block; font-size: .68rem; padding: 0 .35rem; border-radius: 8px; margin: 0 .15rem .12rem 0; white-space: nowrap; line-height: 1.5; }
+      .mc-hold.vault { background: #e3f0e3; color: #2e6b2e; }
+      .mc-hold.harvard { background: #f3e0e0; color: #8a2f2f; }
+      .mc-hold.sbb { background: #e6ecf5; color: #2f4f86; }
+      .mc-hold.k10 { background: #eef0f2; color: var(--muted); }
+      .mc-plus { color: #8a6d2f; font-weight: 700; }
+      .mc-place { font-size: .82rem; }
+    </style>
   </head>
   <body>
     <header class="topbar">
-      <div class="brand">
-        <a href="index.html" class="brand-home">Epiwen</a>
-      </div>
+      <div class="brand"><a href="index.html" class="brand-home">Epiwen</a></div>
         <nav class="sitenav">
           <div class="nav-group">
             <button class="nav-group-btn">Explore</button>
@@ -67,36 +103,31 @@
       <div class="topbar-end"><a href="bookmarks.html" class="topbar-icon" title="Bookmarks">🔖</a><button onclick="EpiAuth.signOut()" class="btn small">Sign out</button></div>
     </header>
 
-    <div id="collections-bar" class="collections-bar" style="display:none"></div>
-
-    <div class="about-layout">
-
-      <div class="about-pane">
-        <section class="catalog-section" style="margin-top:0">
-          <div class="catalog-head">
-            <h2>Modern Corpora</h2>
-          </div>
-          <div>
-            <div class="catalog-loading">Not yet available.</div>
-          </div>
-        </section>
-      </div>
-        <div id="ontology-detail-content" class="hp-pane"></div>
-      </div>
-        <div id="glyph-detail-content" class="hp-pane"></div>
-      </div>
-
+    <div class="coll-layout">
+      <aside class="coll-tree">
+        <h2>Modern corpora</h2>
+        <input type="search" id="ct-search" class="catalog-searchbox ct-search" placeholder="Filter title / author / publisher…" />
+        <div id="ct-tree"><div class="catalog-loading">Loading…</div></div>
+      </aside>
+      <main class="coll-main">
+        <h1 id="coll-title">All modern corpora</h1>
+        <p class="coll-crumb" id="coll-crumb"></p>
+        <p class="coll-intro">Modern (20th–21st c.) published epigraphic corpora of China —
+          collections, catalogues, and series of inscriptions and rubbings — from a geographic
+          fan-out (national series → province → prefecture/county → famous mountains &amp;
+          major sites). Holdings markers note copies located at
+          <span class="mc-hold harvard">Harvard-Yenching</span>
+          <span class="mc-hold sbb">SBB-Berlin</span>
+          <span class="mc-hold k10">K10plus</span>, or
+          <span class="mc-hold vault">already in vault</span>. Filter by region/province or
+          site on the left.</p>
+        <div id="coll-cards"></div>
+      </main>
     </div>
 
-    <footer class="foot">
-      Source:
-      <a href="https://github.com/pleuston/epiwen"
-         target="_blank" rel="noopener">github.com/pleuston/epiwen</a>
-    </footer>
-
     <div id="toast" role="status" aria-live="polite"></div>
-    <script src="collections.js"></script>
-    <script src="modal.js"></script>
+    <script src="variants.js"></script>
+    <script src="modern-corpora-page.js"></script>
     <script src="nav.js"></script>
   </body>
 </html>

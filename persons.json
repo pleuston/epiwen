@@ -1,6 +1,6 @@
 {
  "generated": "2026-06-27",
- "count": 203,
+ "count": 156,
  "source": "edep_sino persons.xml (register) + people/*.xml (canonical); works-authored from the work merge",
  "persons": [
   {
@@ -223,40 +223,6 @@
    "work_count": 2
   },
   {
-   "id": "person-zhu-xi",
-   "name_zh": "朱熹",
-   "name_pinyin": "Zhu Xi",
-   "sort": "Zhu Xi",
-   "birth": {
-    "when": "1130",
-    "text": ""
-   },
-   "death": {
-    "when": "1200",
-    "text": ""
-   },
-   "dynasty": "Song 宋",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-zhongfeng-mingben",
-   "name_zh": "中峰明本",
-   "name_pinyin": "Zhongfeng Mingben",
-   "sort": "Zhongfeng Mingben",
-   "birth": {
-    "when": "1263",
-    "text": ""
-   },
-   "death": {
-    "when": "1323",
-    "text": ""
-   },
-   "dynasty": "Song 宋",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-wuqiu-yan",
    "name_zh": "吾丘衍",
    "name_pinyin": "Wuqiu Yan",
@@ -395,40 +361,6 @@
    "work_count": 3
   },
   {
-   "id": "person-wuji-mingxin",
-   "name_zh": "無極明信",
-   "name_pinyin": "Wuji Mingxin",
-   "sort": "Wuji Mingxin",
-   "birth": {
-    "when": "1512",
-    "text": ""
-   },
-   "death": {
-    "when": "1574",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-wan-gong",
-   "name_zh": "萬恭",
-   "name_pinyin": "Wan Gong",
-   "sort": "Wan Gong",
-   "birth": {
-    "when": "1515",
-    "text": ""
-   },
-   "death": {
-    "when": "1591",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-fan-dache",
    "name_zh": "范大徹",
    "name_pinyin": "Fan Dache",
@@ -513,125 +445,6 @@
    "work_count": 3
   },
   {
-   "id": "person-yuan-huang",
-   "name_zh": "袁黃",
-   "name_pinyin": "Yuan Huang",
-   "sort": "Yuan Huang",
-   "birth": {
-    "when": "1533",
-    "text": ""
-   },
-   "death": {
-    "when": "1606",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-lianzhi-zhuhong",
-   "name_zh": "蓮池袾宏",
-   "name_pinyin": "Lianzhi Zhuhong",
-   "sort": "Lianzhi Zhuhong",
-   "birth": {
-    "when": "1535",
-    "text": ""
-   },
-   "death": {
-    "when": "1615",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-baisong-zhenjue",
-   "name_zh": "百松真覺",
-   "name_pinyin": "Baisong Zhenjue",
-   "sort": "Baisong Zhenjue",
-   "birth": {
-    "when": "1538",
-    "text": ""
-   },
-   "death": {
-    "when": "1589",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-zibo-zhenke",
-   "name_zh": "紫柏真可",
-   "name_pinyin": "Zibo Zhenke",
-   "sort": "Zibo Zhenke",
-   "birth": {
-    "when": "1543",
-    "text": ""
-   },
-   "death": {
-    "when": "1604",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-hanshan-deqing",
-   "name_zh": "憨山德清",
-   "name_pinyin": "Hanshan Deqing",
-   "sort": "Hanshan Deqing",
-   "birth": {
-    "when": "1546",
-    "text": ""
-   },
-   "death": {
-    "when": "1623",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-youxi-chuandeng",
-   "name_zh": "幽溪傳燈",
-   "name_pinyin": "Youxi Chuandeng",
-   "sort": "Youxi Chuandeng",
-   "birth": {
-    "when": "1554",
-    "text": ""
-   },
-   "death": {
-    "when": "1628",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-xu-guangqi",
-   "name_zh": "徐光啟",
-   "name_pinyin": "Xu Guangqi",
-   "sort": "Xu Guangqi",
-   "birth": {
-    "when": "1562",
-    "text": ""
-   },
-   "death": {
-    "when": "1633",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-gu-qiyuan",
    "name_zh": "顧起元",
    "name_pinyin": "Gu Qiyuan",
@@ -654,108 +467,6 @@
     }
    ],
    "work_count": 1
-  },
-  {
-   "id": "person-li-zhizao",
-   "name_zh": "李之藻",
-   "name_pinyin": "Li Zhizao",
-   "sort": "Li Zhizao",
-   "birth": {
-    "when": "1565",
-    "text": ""
-   },
-   "death": {
-    "when": "1630",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-miyun-yuanwu",
-   "name_zh": "密雲圓悟",
-   "name_pinyin": "Miyun Yuanwu",
-   "sort": "Miyun Yuanwu",
-   "birth": {
-    "when": "1566",
-    "text": ""
-   },
-   "death": {
-    "when": "1642",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-yuan-hongdao",
-   "name_zh": "袁宏道",
-   "name_pinyin": "Yuan Hongdao",
-   "sort": "Yuan Hongdao",
-   "birth": {
-    "when": "1568",
-    "text": ""
-   },
-   "death": {
-    "when": "1610",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-hanyue-fazang",
-   "name_zh": "漢月法藏",
-   "name_pinyin": "Hanyue Fazang",
-   "sort": "Hanyue Fazang",
-   "birth": {
-    "when": "1573",
-    "text": ""
-   },
-   "death": {
-    "when": "1635",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-biru-guanggao",
-   "name_zh": "璧如廣鎬",
-   "name_pinyin": "Biru Guanggao",
-   "sort": "Biru Guanggao",
-   "birth": {
-    "when": "1580",
-    "text": ""
-   },
-   "death": {
-    "when": "1631",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-rushi-daofang",
-   "name_zh": "如是道昉",
-   "name_pinyin": "Rushi Daofang",
-   "sort": "Rushi Daofang",
-   "birth": {
-    "when": "1588",
-    "text": ""
-   },
-   "death": {
-    "when": "1639",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-zhao-jun",
@@ -842,23 +553,6 @@
    "work_count": 1
   },
   {
-   "id": "person-ouyi-zhixu",
-   "name_zh": "蕅益智旭",
-   "name_pinyin": "Ouyi Zhixu",
-   "sort": "Ouyi Zhixu",
-   "birth": {
-    "when": "1599",
-    "text": ""
-   },
-   "death": {
-    "when": "1655",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-huang-zongxi",
    "name_zh": "黃宗羲",
    "name_pinyin": "Huang Zongxi",
@@ -881,23 +575,6 @@
     }
    ],
    "work_count": 1
-  },
-  {
-   "id": "person-fang-yizhi",
-   "name_zh": "方以智",
-   "name_pinyin": "Fang Yizhi",
-   "sort": "Fang Yizhi",
-   "birth": {
-    "when": "1611",
-    "text": ""
-   },
-   "death": {
-    "when": "1671",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-cao-rong",
@@ -1003,9 +680,15 @@
      "title_zh": "嵩陽石刻集記",
      "year": "",
      "skslxb": true
+    },
+    {
+     "id": "wp-ye-feng-263",
+     "title_zh": "崇陽石刻集記",
+     "year": "",
+     "skslxb": false
     }
    ],
-   "work_count": 1
+   "work_count": 2
   },
   {
    "id": "person-lin-tong",
@@ -1023,6 +706,12 @@
    "dynasty": "Ming 明",
    "works": [
     {
+     "id": "ks-t-x-116",
+     "title_zh": "來齋金石刻考略",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-3-35-97-136",
      "title_zh": "唐昭陵石蹟考略",
      "year": "",
@@ -1035,7 +724,7 @@
      "skslxb": false
     }
    ],
-   "work_count": 2
+   "work_count": 3
   },
   {
    "id": "person-jiang-chenying",
@@ -1122,23 +811,6 @@
    "work_count": 1
   },
   {
-   "id": "person-chen-tingjing",
-   "name_zh": "陳廷敬",
-   "name_pinyin": "Chen Tingjing",
-   "sort": "Chen Tingjing",
-   "birth": {
-    "when": "1639",
-    "text": ""
-   },
-   "death": {
-    "when": "1712",
-    "text": ""
-   },
-   "dynasty": "Ming 明",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-chen-yixi",
    "name_zh": "陳奕禧",
    "name_pinyin": "Chen Yixi",
@@ -1161,23 +833,6 @@
     }
    ],
    "work_count": 1
-  },
-  {
-   "id": "person-wang-shihong",
-   "name_zh": "汪士鋐",
-   "name_pinyin": "Wang Shihong",
-   "sort": "Wang Shihong",
-   "birth": {
-    "when": "1658",
-    "text": ""
-   },
-   "death": {
-    "when": "1723",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-wan-jing",
@@ -1354,23 +1009,6 @@
    "work_count": 1
   },
   {
-   "id": "person-niu-yunzhen",
-   "name_zh": "牛運震",
-   "name_pinyin": "Niu Yunzhen",
-   "sort": "Niu Yunzhen",
-   "birth": {
-    "when": "1706",
-    "text": ""
-   },
-   "death": {
-    "when": "1758",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-wang-chang",
    "name_zh": "王昶",
    "name_pinyin": "Wang Chang",
@@ -1470,27 +1108,6 @@
    "work_count": 1
   },
   {
-   "id": "person-zhu-wenzao",
-   "name_zh": "朱文藻",
-   "name_pinyin": "Zhu Wenzao",
-   "sort": "Zhu Wenzao",
-   "zi": [
-    "映漘"
-   ],
-   "birth": {
-    "when": "1735",
-    "text": "雍正十三年（1735）"
-   },
-   "death": {
-    "when": "1806",
-    "text": "嘉慶十一年（1806）"
-   },
-   "bio": "Qing scholar; principal collaborator in compiling the Jinshi cuibian.",
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-xie-qikun",
    "name_zh": "謝啓昆",
    "name_pinyin": "Xie Qikun",
@@ -1561,23 +1178,6 @@
     }
    ],
    "work_count": 1
-  },
-  {
-   "id": "person-peng-xisu",
-   "name_zh": "彭希涑",
-   "name_pinyin": "Peng Xisu",
-   "sort": "Peng Xisu",
-   "birth": {
-    "when": "1740",
-    "text": ""
-   },
-   "death": {
-    "when": "1796",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-liang-yusheng",
@@ -1785,8 +1385,15 @@
     "text": ""
    },
    "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
+   "works": [
+    {
+     "id": "wp-x-834",
+     "title_zh": "説文古籀疏證",
+     "year": "1885",
+     "skslxb": false
+    }
+   ],
+   "work_count": 1
   },
   {
    "id": "person-zhao-shaozu",
@@ -1918,13 +1525,19 @@
    "dynasty": "Qing 清",
    "works": [
     {
+     "id": "ks-2-4-2415-2773",
+     "title_zh": "平津館金石萃編",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-t-x-185",
      "title_zh": "鐵橋金石跋",
      "year": "",
      "skslxb": true
     }
    ],
-   "work_count": 1
+   "work_count": 2
   },
   {
    "id": "person-huang-pilie",
@@ -2168,9 +1781,15 @@
      "title_zh": "辛丑銷夏記",
      "year": "1905",
      "skslxb": false
+    },
+    {
+     "id": "wp-wu-rongguang-229",
+     "title_zh": "筠清館金石",
+     "year": "",
+     "skslxb": false
     }
    ],
-   "work_count": 2
+   "work_count": 3
   },
   {
    "id": "person-liang-zhangju",
@@ -2248,6 +1867,12 @@
      "skslxb": true
     },
     {
+     "id": "ks-2-14-10295-10348",
+     "title_zh": "隋唐石刻拾遗",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-3-4-561-714",
      "title_zh": "元碑存目",
      "year": "",
@@ -2266,7 +1891,7 @@
      "skslxb": false
     }
    ],
-   "work_count": 4
+   "work_count": 5
   },
   {
    "id": "person-yang-longshi",
@@ -2540,8 +2165,15 @@
     "text": ""
    },
    "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
+   "works": [
+    {
+     "id": "wp-x-835",
+     "title_zh": "寶素室金石書畫編年録",
+     "year": "",
+     "skslxb": false
+    }
+   ],
+   "work_count": 1
   },
   {
    "id": "person-liang-tingnan",
@@ -3454,13 +3086,19 @@
    "dynasty": "Qing 清",
    "works": [
     {
+     "id": "wp-sheng-yu-172",
+     "title_zh": "雪屐尋碑錄",
+     "year": "",
+     "skslxb": false
+    },
+    {
      "id": "wp-sheng-yu-173",
      "title_zh": "雪屐尋碑録",
      "year": "",
      "skslxb": false
     }
    ],
-   "work_count": 1
+   "work_count": 2
   },
   {
    "id": "person-wang-shunan",
@@ -3503,23 +3141,6 @@
     }
    ],
    "work_count": 4
-  },
-  {
-   "id": "person-inukai-tsuyoshi",
-   "name_zh": "犬養毅",
-   "name_pinyin": "Inukai Tsuyoshi",
-   "sort": "Inukai Tsuyoshi",
-   "birth": {
-    "when": "1855",
-    "text": ""
-   },
-   "death": {
-    "when": "1932",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-zhang-zhongxin",
@@ -3702,23 +3323,6 @@
    "work_count": 1
   },
   {
-   "id": "person-kojima-kazuo",
-   "name_zh": "古島一雄",
-   "name_pinyin": "Kojima Kazuo",
-   "sort": "Kojima Kazuo",
-   "birth": {
-    "when": "1865",
-    "text": ""
-   },
-   "death": {
-    "when": "1952",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-luo-zhenyu",
    "name_zh": "羅振玉",
    "name_pinyin": "Luo Zhenyu",
@@ -3788,14 +3392,32 @@
      "skslxb": true
     },
     {
+     "id": "ks-1-13-10163-10169",
+     "title_zh": "吳中冢墓遗文",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-1-20-14897-14926",
      "title_zh": "山左冢墓遺文",
      "year": "",
      "skslxb": true
     },
     {
+     "id": "ks-t-x-163",
+     "title_zh": "山右冢墓遗文",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-t-x-181",
      "title_zh": "唐風樓金石文字跋尾",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "ks-t-x-45",
+     "title_zh": "東都冢墓遗文",
      "year": "",
      "skslxb": true
     },
@@ -3920,6 +3542,12 @@
      "skslxb": false
     },
     {
+     "id": "wp-luo-zhenyu-123",
+     "title_zh": "漢熹平石經殘字集錄續拾",
+     "year": "",
+     "skslxb": false
+    },
+    {
      "id": "wp-luo-zhenyu-124",
      "title_zh": "石交録",
      "year": "",
@@ -3928,6 +3556,12 @@
     {
      "id": "wp-luo-zhenyu-125",
      "title_zh": "芒洛冢墓遺文",
+     "year": "",
+     "skslxb": false
+    },
+    {
+     "id": "wp-luo-zhenyu-126",
+     "title_zh": "芒洛冢墓遺文續編",
      "year": "",
      "skslxb": false
     },
@@ -3980,7 +3614,7 @@
      "skslxb": false
     }
    ],
-   "work_count": 41
+   "work_count": 46
   },
   {
    "id": "person-ye-weiming",
@@ -4005,23 +3639,6 @@
     }
    ],
    "work_count": 1
-  },
-  {
-   "id": "person-cai-yuanpei",
-   "name_zh": "蔡元培",
-   "name_pinyin": "Cai Yuanpei",
-   "sort": "Cai Yuanpei",
-   "birth": {
-    "when": "1868",
-    "text": ""
-   },
-   "death": {
-    "when": "1940",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-wu-shijian",
@@ -4145,8 +3762,15 @@
     "text": ""
    },
    "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
+   "works": [
+    {
+     "id": "ks-t-x-19",
+     "title_zh": "安徽通志金石古物考稿",
+     "year": "",
+     "skslxb": true
+    }
+   ],
+   "work_count": 1
   },
   {
    "id": "person-yuan-jiagu",
@@ -4177,23 +3801,6 @@
     }
    ],
    "work_count": 2
-  },
-  {
-   "id": "person-kayano-nagatomo",
-   "name_zh": "萱野長知",
-   "name_pinyin": "Kayano Nagatomo",
-   "sort": "Kayano Nagatomo",
-   "birth": {
-    "when": "1873",
-    "text": ""
-   },
-   "death": {
-    "when": "1947",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-liang-qichao",
@@ -4302,23 +3909,6 @@
     }
    ],
    "work_count": 11
-  },
-  {
-   "id": "person-lin-erjia",
-   "name_zh": "林爾嘉",
-   "name_pinyin": "Lin Erjia",
-   "sort": "Lin Erjia",
-   "birth": {
-    "when": "1875",
-    "text": ""
-   },
-   "death": {
-    "when": "1951",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-yao-chun",
@@ -4454,8 +4044,15 @@
     "text": ""
    },
    "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
+   "works": [
+    {
+     "id": "ks-3-10-569-573",
+     "title_zh": "涇縣石刻紀略",
+     "year": "",
+     "skslxb": true
+    }
+   ],
+   "work_count": 1
   },
   {
    "id": "person-li-genyuan",
@@ -4482,23 +4079,6 @@
    "work_count": 1
   },
   {
-   "id": "person-hongyi",
-   "name_zh": "弘一",
-   "name_pinyin": "Hongyi",
-   "sort": "Hongyi",
-   "birth": {
-    "when": "1880",
-    "text": ""
-   },
-   "death": {
-    "when": "1942",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-liu-chenggan",
    "name_zh": "劉承幹",
    "name_pinyin": "Liu Chenggan",
@@ -4521,23 +4101,6 @@
     }
    ],
    "work_count": 1
-  },
-  {
-   "id": "person-miyakawa-ikkan",
-   "name_zh": "宮川一貫",
-   "name_pinyin": "Miyakawa Ikkan",
-   "sort": "Miyakawa Ikkan",
-   "birth": {
-    "when": "1885",
-    "text": ""
-   },
-   "death": {
-    "when": "1944",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-zhang-wei",
@@ -4564,40 +4127,6 @@
    "work_count": 1
   },
   {
-   "id": "person-hu-shi",
-   "name_zh": "胡適",
-   "name_pinyin": "Hu Shi",
-   "sort": "Hu Shi",
-   "birth": {
-    "when": "1891",
-    "text": ""
-   },
-   "death": {
-    "when": "1962",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-pan-zinian",
-   "name_zh": "潘梓年",
-   "name_pinyin": "Pan Zinian",
-   "sort": "Pan Zinian",
-   "birth": {
-    "when": "1893",
-    "text": ""
-   },
-   "death": {
-    "when": "1972",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-rong-geng",
    "name_zh": "容庚",
    "name_pinyin": "Rong Geng",
@@ -4620,40 +4149,6 @@
     }
    ],
    "work_count": 1
-  },
-  {
-   "id": "person-inukai-takeru",
-   "name_zh": "犬養健",
-   "name_pinyin": "Inukai Takeru",
-   "sort": "Inukai Takeru",
-   "birth": {
-    "when": "1896",
-    "text": ""
-   },
-   "death": {
-    "when": "1960",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-lin-fengmian",
-   "name_zh": "林風眠",
-   "name_pinyin": "Lin Fengmian",
-   "sort": "Lin Fengmian",
-   "birth": {
-    "when": "1900",
-    "text": ""
-   },
-   "death": {
-    "when": "1991",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-chen-zhi",
@@ -4684,23 +4179,6 @@
     }
    ],
    "work_count": 2
-  },
-  {
-   "id": "person-hu-feng",
-   "name_zh": "胡风",
-   "name_pinyin": "Hu Feng",
-   "sort": "Hu Feng",
-   "birth": {
-    "when": "1902",
-    "text": ""
-   },
-   "death": {
-    "when": "1985",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-gu-tinglong",
@@ -4752,9 +4230,15 @@
      "title_zh": "滿洲金石志補遺",
      "year": "1937",
      "skslxb": false
+    },
+    {
+     "id": "ks-1-23-17455-17478",
+     "title_zh": "滿洲金石志補遗",
+     "year": "",
+     "skslxb": true
     }
    ],
-   "work_count": 2
+   "work_count": 3
   },
   {
    "id": "person-zhao-wanli",
@@ -4803,143 +4287,6 @@
     }
    ],
    "work_count": 1
-  },
-  {
-   "id": "person-araki-kengo",
-   "name_zh": "荒木見悟",
-   "name_pinyin": "Araki Kengo",
-   "sort": "Araki Kengo",
-   "birth": {
-    "when": "1917",
-    "text": ""
-   },
-   "death": {
-    "when": "2017",
-    "text": ""
-   },
-   "dynasty": "modern 近現代",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-shengyan",
-   "name_zh": "聖嚴",
-   "name_pinyin": "Shengyan",
-   "sort": "Shengyan",
-   "birth": {
-    "when": "1930",
-    "text": ""
-   },
-   "death": {
-    "when": "2009",
-    "text": ""
-   },
-   "dynasty": "modern 近現代",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-shi-shengyan",
-   "name_zh": "釋聖嚴",
-   "name_pinyin": "Shi Shengyan",
-   "sort": "Shi Shengyan",
-   "birth": {
-    "when": "1931",
-    "text": ""
-   },
-   "death": {
-    "when": "2009",
-    "text": ""
-   },
-   "dynasty": "modern 近現代",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-iso-kern",
-   "name_zh": "耿寧",
-   "name_pinyin": "Iso Kern",
-   "sort": "Iso Kern",
-   "birth": {
-    "when": "1937",
-    "text": ""
-   },
-   "death": {
-    "when": "2020",
-    "text": ""
-   },
-   "dynasty": "modern 近現代",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-l-peng",
-   "name_zh": "吕澎",
-   "name_pinyin": "Lü Peng",
-   "sort": "Lü Peng",
-   "birth": {
-    "when": "1956",
-    "text": ""
-   },
-   "dynasty": "modern 近現代",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-wu-xiaoming",
-   "name_zh": "吴晓明",
-   "name_pinyin": "Wu Xiaoming",
-   "sort": "Wu Xiaoming",
-   "birth": {
-    "when": "1957",
-    "text": ""
-   },
-   "dynasty": "modern 近現代",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-huang-zhuan",
-   "name_zh": "黄专",
-   "name_pinyin": "Huang Zhuan",
-   "sort": "Huang Zhuan",
-   "birth": {
-    "when": "1958",
-    "text": ""
-   },
-   "death": {
-    "when": "2016",
-    "text": ""
-   },
-   "dynasty": "modern 近現代",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-sun-shangyang",
-   "name_zh": "孫尚揚",
-   "name_pinyin": "Sun Shangyang",
-   "sort": "Sun Shangyang",
-   "birth": {
-    "when": "1965",
-    "text": ""
-   },
-   "dynasty": "modern 近現代",
-   "works": [],
-   "work_count": 0
-  },
-  {
-   "id": "person-kong-lingwei",
-   "name_zh": "孔令伟",
-   "name_pinyin": "Kong Lingwei",
-   "sort": "Kong Lingwei",
-   "birth": {
-    "when": "1972",
-    "text": ""
-   },
-   "dynasty": "modern 近現代",
-   "works": [],
-   "work_count": 0
   },
   {
    "id": "person-bao-ding",
@@ -5082,27 +4429,6 @@
    "work_count": 1
   },
   {
-   "id": "person-wang-xizhi",
-   "name_zh": "王羲之",
-   "name_pinyin": "Wang Xizhi",
-   "sort": "Wang Xizhi",
-   "zi": [
-    "逸少"
-   ],
-   "floruit": {
-    "notBefore": "0303",
-    "notAfter": "0361",
-    "text": ""
-   },
-   "offices": [
-    "右軍將軍"
-   ],
-   "bio": "Calligrapher (303–361), Eastern Jin.",
-   "role": "official",
-   "works": [],
-   "work_count": 0
-  },
-  {
    "id": "person-yao-yan",
    "name_zh": "姚晏",
    "name_pinyin": "Yao Yan",
@@ -5174,34 +4500,19 @@
    },
    "works": [
     {
+     "id": "ks-t-x-216",
+     "title_zh": "瘗鶴銘辨",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "wp-zhang-shao-279",
      "title_zh": "瘞鶴銘辨",
      "year": "",
      "skslxb": false
     }
    ],
-   "work_count": 1
-  },
-  {
-   "id": "person-zheng-daozhao",
-   "name_zh": "鄭道昭",
-   "name_pinyin": "Zheng Daozhao",
-   "sort": "Zheng Daozhao",
-   "zi": [
-    "僖伯"
-   ],
-   "floruit": {
-    "notBefore": "0455",
-    "notAfter": "0516",
-    "text": ""
-   },
-   "offices": [
-    "光州刺史"
-   ],
-   "bio": "Northern Wei official and calligrapher, associated with the Yunfengshan cliff inscriptions.",
-   "role": "official",
-   "works": [],
-   "work_count": 0
+   "work_count": 2
   },
   {
    "id": "person-zhou-xigui",

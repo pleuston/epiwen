@@ -37,7 +37,7 @@
      "id": "wp-ouyang-xiu-151",
      "title_zh": "集古録跋尾",
      "year": "1887",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -91,7 +91,7 @@
      "id": "wp-zhu-changwen-305",
      "title_zh": "墨池編",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -115,7 +115,7 @@
      "id": "wp-ouyang-fei-149",
      "title_zh": "集古録目",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -136,7 +136,7 @@
    "dynasty": "Song 宋",
    "works": [
     {
-     "id": "ks-t-x-46",
+     "id": "ks-3-40-617-705",
      "title_zh": "東觀餘論",
      "year": "",
      "skslxb": true
@@ -184,7 +184,7 @@
    "dynasty": "Song 宋",
    "works": [
     {
-     "id": "ks-t-x-103",
+     "id": "ks-1-24-18017-18072",
      "title_zh": "金石略",
      "year": "",
      "skslxb": true
@@ -319,7 +319,7 @@
      "id": "wp-du-mu-26",
      "title_zh": "吳下冢墓遺文",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -376,7 +376,7 @@
    "dynasty": "Ming 明",
    "works": [
     {
-     "id": "ks-t-x-28",
+     "id": "ks-3-34-513-524",
      "title_zh": "碑帖紀證",
      "year": "",
      "skslxb": true
@@ -403,7 +403,7 @@
      "id": "wp-wang-shizhen-207",
      "title_zh": "墨刻跋",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -427,17 +427,17 @@
      "id": "wp-sheng-shitai-169",
      "title_zh": "元牘紀",
      "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-sheng-shitai-170",
-     "title_zh": "玄牘記",
-     "year": "",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-sheng-shitai-171",
      "title_zh": "蒼潤軒碑跋紀",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-sheng-shitai-170",
+     "title_zh": "玄牘記",
      "year": "",
      "skslxb": false
     }
@@ -460,7 +460,7 @@
    "dynasty": "Ming 明",
    "works": [
     {
-     "id": "ks-t-x-99",
+     "id": "ks-3-35-497-513",
      "title_zh": "金陵古金石考目",
      "year": "",
      "skslxb": true
@@ -523,7 +523,7 @@
      "id": "wp-sun-chengze-175",
      "title_zh": "庚子銷夏記",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -544,7 +544,7 @@
    "dynasty": "Ming 明",
    "works": [
     {
-     "id": "ks-t-x-185",
+     "id": "ks-2-2-797-873",
      "title_zh": "天下金石志",
      "year": "",
      "skslxb": true
@@ -622,19 +622,25 @@
      "skslxb": false
     },
     {
-     "id": "ks-3-35-277-295",
-     "title_zh": "石經考",
-     "year": "",
-     "skslxb": true
-    },
-    {
      "id": "ks-t-x-105",
      "title_zh": "金石文字記",
      "year": "",
      "skslxb": true
+    },
+    {
+     "id": "toc-x-18",
+     "title_zh": "求古録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "ks-3-35-277-295",
+     "title_zh": "石經考",
+     "year": "",
+     "skslxb": true
     }
    ],
-   "work_count": 3
+   "work_count": 4
   },
   {
    "id": "person-wang-hongzhuan",
@@ -652,7 +658,7 @@
    "dynasty": "Ming 明",
    "works": [
     {
-     "id": "ks-3-22-331-335",
+     "id": "ks-3-38-409-417",
      "title_zh": "砥齋題跋",
      "year": "",
      "skslxb": true
@@ -676,7 +682,7 @@
    "dynasty": "Ming 明",
    "works": [
     {
-     "id": "ks-t-x-176",
+     "id": "ks-2-14-10179-10245",
      "title_zh": "嵩陽石刻集記",
      "year": "",
      "skslxb": true
@@ -706,6 +712,12 @@
    "dynasty": "Ming 明",
    "works": [
     {
+     "id": "wp-lin-tong-82",
+     "title_zh": "來齋金石刻考畧",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-t-x-116",
      "title_zh": "來齋金石刻考略",
      "year": "",
@@ -716,12 +728,6 @@
      "title_zh": "唐昭陵石蹟考略",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-lin-tong-82",
-     "title_zh": "來齋金石刻考畧",
-     "year": "",
-     "skslxb": false
     }
    ],
    "work_count": 3
@@ -769,10 +775,10 @@
      "id": "wp-ye-yibao-265",
      "title_zh": "金石録續跋",
      "year": "1937",
-     "skslxb": false
+     "skslxb": true
     },
     {
-     "id": "ks-t-x-103",
+     "id": "ks-1-12-8985-9189",
      "title_zh": "金石錄補",
      "year": "",
      "skslxb": true
@@ -805,7 +811,7 @@
      "id": "wp-zhu-yizun-314",
      "title_zh": "金石文字跋尾",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -853,7 +859,7 @@
      "id": "wp-wan-jing-191",
      "title_zh": "分隸偶存",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -874,7 +880,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-217",
+     "id": "ks-3-38-579-589",
      "title_zh": "義門題跋",
      "year": "",
      "skslxb": true
@@ -907,7 +913,7 @@
      "id": "wp-wang-shu-208",
      "title_zh": "虛舟題跋",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -955,7 +961,7 @@
      "id": "wp-huang-shujing-57",
      "title_zh": "中州金石攷",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -1042,7 +1048,7 @@
      "id": "wp-wang-chang-193",
      "title_zh": "金石萃編未刻稾",
      "year": "1918",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -1078,7 +1084,7 @@
      "id": "wp-wu-qian-228",
      "title_zh": "陽羨摩厓紀録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 3
@@ -1174,7 +1180,7 @@
      "id": "wp-zhang-yanchang-287",
      "title_zh": "重定金石契",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -1252,11 +1258,17 @@
      "id": "wp-wu-yi-236",
      "title_zh": "安陽縣金石録",
      "year": "1819",
-     "skslxb": false
+     "skslxb": true
     },
     {
-     "id": "ks-t-x-24",
-     "title_zh": "寶豐金石志",
+     "id": "wp-wu-yi-237",
+     "title_zh": "授堂金石文字續跋",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "toc-x-11",
+     "title_zh": "金石一跋",
      "year": "",
      "skslxb": true
     },
@@ -1264,13 +1276,13 @@
      "id": "wp-wu-yi-235",
      "title_zh": "偃師金石遺文記",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     },
     {
-     "id": "wp-wu-yi-237",
-     "title_zh": "授堂金石文字續跋",
+     "id": "ks-3-30-123-177",
+     "title_zh": "寶豐金石志",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-wu-yi-238",
@@ -1279,7 +1291,7 @@
      "skslxb": false
     }
    ],
-   "work_count": 6
+   "work_count": 7
   },
   {
    "id": "person-zhao-wei",
@@ -1297,14 +1309,14 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "wp-zhao-wei-290",
-     "title_zh": "竹崦庵金石目錄",
-     "year": "",
-     "skslxb": false
-    },
-    {
      "id": "wp-zhao-wei-291",
      "title_zh": "竹崦盦金石目録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-zhao-wei-290",
+     "title_zh": "竹崦庵金石目錄",
      "year": "",
      "skslxb": false
     }
@@ -1330,7 +1342,7 @@
      "id": "wp-zhao-xihuang-292",
      "title_zh": "淇泉摹古録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -1351,22 +1363,22 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-216",
-     "title_zh": "瘞鶴銘考",
-     "year": "",
-     "skslxb": true
-    },
-    {
-     "id": "ks-t-x-216",
-     "title_zh": "瘞鶴銘考",
-     "year": "",
-     "skslxb": true
-    },
-    {
      "id": "wp-wu-dongfa-226",
      "title_zh": "商周文拾遺",
      "year": "",
-     "skslxb": false
+     "skslxb": true
+    },
+    {
+     "id": "ks-t-x-216",
+     "title_zh": "瘞鶴銘考",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "ks-t-x-216",
+     "title_zh": "瘞鶴銘考",
+     "year": "",
+     "skslxb": true
     }
    ],
    "work_count": 3
@@ -1390,7 +1402,7 @@
      "id": "wp-x-834",
      "title_zh": "説文古籀疏證",
      "year": "1885",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -1411,9 +1423,15 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-104",
+     "id": "ks-2-7-5057-5413",
      "title_zh": "金石文鈔",
      "year": "1860",
+     "skslxb": true
+    },
+    {
+     "id": "ks-1-16-11643-11771",
+     "title_zh": "安徽金石略",
+     "year": "",
      "skslxb": true
     },
     {
@@ -1423,14 +1441,8 @@
      "skslxb": true
     },
     {
-     "id": "ks-t-x-109",
+     "id": "ks-2-19-14159-14171",
      "title_zh": "涇川金石記",
-     "year": "",
-     "skslxb": true
-    },
-    {
-     "id": "ks-t-x-19",
-     "title_zh": "安徽金石略",
      "year": "",
      "skslxb": true
     }
@@ -1477,7 +1489,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-26",
+     "id": "ks-3-40-223-391",
      "title_zh": "碑版文廣例",
      "year": "",
      "skslxb": true
@@ -1525,14 +1537,14 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-2-4-2415-2773",
-     "title_zh": "平津館金石萃編",
+     "id": "ks-t-x-185",
+     "title_zh": "鐵橋金石跋",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "ks-t-x-185",
-     "title_zh": "鐵橋金石跋",
+     "id": "ks-2-4-2415-2773",
+     "title_zh": "平津館金石萃編",
      "year": "",
      "skslxb": true
     }
@@ -1555,16 +1567,16 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-188",
-     "title_zh": "汪本隸釋刊誤",
+     "id": "wp-huang-pilie-55",
+     "title_zh": "汪本隸釋刊語",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "wp-huang-pilie-55",
-     "title_zh": "汪本隸釋刊語",
+     "id": "ks-t-x-188",
+     "title_zh": "汪本隸釋刊誤",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -1660,19 +1672,19 @@
      "id": "wp-zhang-tingji-282",
      "title_zh": "清儀閣題跋",
      "year": "1891",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-zhang-tingji-280",
      "title_zh": "清儀閣金石題識",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-zhang-tingji-281",
      "title_zh": "清儀閣雜詠",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 3
@@ -1696,7 +1708,7 @@
      "id": "wp-zhou-zhongfu-303",
      "title_zh": "九曜石刻録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -1774,13 +1786,13 @@
      "id": "wp-wu-rongguang-230",
      "title_zh": "筠清館金石文字",
      "year": "1842",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-wu-rongguang-231",
      "title_zh": "辛丑銷夏記",
      "year": "1905",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-wu-rongguang-229",
@@ -1807,19 +1819,25 @@
    "dynasty": "Qing 清",
    "works": [
     {
+     "id": "wp-liang-zhangju-79",
+     "title_zh": "退菴題跋",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "toc-x-22",
+     "title_zh": "退菴金石書畫跋殘",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "wp-liang-zhangju-78",
      "title_zh": "退菴金石書畫跋",
      "year": "",
      "skslxb": false
-    },
-    {
-     "id": "wp-liang-zhangju-79",
-     "title_zh": "退菴題跋",
-     "year": "",
-     "skslxb": false
     }
    ],
-   "work_count": 2
+   "work_count": 3
   },
   {
    "id": "person-shen-qinhan",
@@ -1861,8 +1879,8 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-100",
-     "title_zh": "金石萃編補目",
+     "id": "ks-2-2-1147-1412",
+     "title_zh": "古誌石華",
      "year": "",
      "skslxb": true
     },
@@ -1873,22 +1891,22 @@
      "skslxb": true
     },
     {
+     "id": "wp-huang-benji-52",
+     "title_zh": "隋唐石刻拾遺",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-3-4-561-714",
      "title_zh": "元碑存目",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "ks-t-x-62",
-     "title_zh": "古誌石華",
+     "id": "ks-3-37-481-518",
+     "title_zh": "金石萃編補目",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-huang-benji-52",
-     "title_zh": "隋唐石刻拾遺",
-     "year": "",
-     "skslxb": false
     }
    ],
    "work_count": 5
@@ -1912,7 +1930,7 @@
      "id": "wp-yang-longshi-251",
      "title_zh": "漢四皓石刻題跋",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -1972,7 +1990,7 @@
      "id": "wp-l-138",
      "title_zh": "愛吾廬題跋",
      "year": "1879",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -1996,7 +2014,7 @@
      "id": "wp-guo-shangxian-44",
      "title_zh": "芳堅館題跋",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2020,7 +2038,7 @@
      "id": "wp-shen-tao-166",
      "title_zh": "常山貞石志",
      "year": "1842",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2065,13 +2083,13 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-217",
+     "id": "ks-2-6-4203-4272",
      "title_zh": "宜祿堂收藏金石記",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "ks-t-x-217",
+     "id": "ks-2-6-4203-4272",
      "title_zh": "宜祿堂收藏金石記",
      "year": "",
      "skslxb": true
@@ -2095,7 +2113,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-101",
+     "id": "ks-1-5-3479-3550",
      "title_zh": "金石萃編補正",
      "year": "1894",
      "skslxb": true
@@ -2119,7 +2137,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-76",
+     "id": "ks-3-40-107-221",
      "title_zh": "漢石例",
      "year": "",
      "skslxb": true
@@ -2170,7 +2188,7 @@
      "id": "wp-x-835",
      "title_zh": "寶素室金石書畫編年録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2218,7 +2236,7 @@
      "id": "wp-xu-zonggan-245",
      "title_zh": "濟寧金石志",
      "year": "1845",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2272,7 +2290,7 @@
      "id": "wp-gu-yuan-43",
      "title_zh": "韓忠武王祠墓志正編",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -2296,7 +2314,7 @@
      "id": "wp-ruan-fu-161",
      "title_zh": "滇南古金石録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2320,7 +2338,7 @@
      "id": "wp-zhu-xuzeng-313",
      "title_zh": "開有益齋金石文字記",
      "year": "1880",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2392,7 +2410,7 @@
      "id": "wp-mo-youzhi-144",
      "title_zh": "金石筆識",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2413,16 +2431,16 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-3-34-617-631",
-     "title_zh": "舊館壇碑考",
+     "id": "wp-weng-danian-220",
+     "title_zh": "陶齋金石文字跋",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "wp-weng-danian-220",
-     "title_zh": "陶齋金石文字跋",
+     "id": "ks-3-34-617-631",
+     "title_zh": "舊館壇碑考",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -2446,13 +2464,13 @@
      "id": "wp-wu-yun-239",
      "title_zh": "二百蘭亭齋收藏金石記",
      "year": "1856",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-wu-yun-240",
      "title_zh": "漢東海廟碑",
      "year": "1870",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -2476,7 +2494,7 @@
      "id": "wp-yang-han-250",
      "title_zh": "粤西得碑記",
      "year": "1924",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2497,22 +2515,22 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "wp-chen-jieqi-10",
-     "title_zh": "傳古別録",
-     "year": "",
-     "skslxb": false
-    },
-    {
      "id": "wp-chen-jieqi-11",
      "title_zh": "簠齋傳古別録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
+    },
+    {
+     "id": "wp-chen-jieqi-10",
+     "title_zh": "傳古別録",
+     "year": "",
+     "skslxb": true
     },
     {
      "id": "wp-chen-jieqi-12",
      "title_zh": "簠齋尺牘",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-chen-jieqi-13",
@@ -2573,7 +2591,7 @@
      "id": "wp-zhang-derong-274",
      "title_zh": "二銘艸堂金石聚",
      "year": "1805",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2603,13 +2621,13 @@
      "id": "wp-yu-yue-269",
      "title_zh": "讀隸輯詞",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-yu-yue-270",
      "title_zh": "駢隸",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 3
@@ -2630,16 +2648,16 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-91",
-     "title_zh": "績語堂題跋",
+     "id": "wp-wei-xizeng-219",
+     "title_zh": "績語堂碑録",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "wp-wei-xizeng-219",
-     "title_zh": "績語堂碑録",
+     "id": "ks-3-38-375-398",
+     "title_zh": "績語堂題跋",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -2663,7 +2681,7 @@
      "id": "wp-zhao-zhiqian-295",
      "title_zh": "補寰宇訪碑録",
      "year": "1864",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-zhao-zhiqian-294",
@@ -2714,7 +2732,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-51",
+     "id": "ks-3-36-517-520",
      "title_zh": "非見齋審定六朝正書碑目",
      "year": "",
      "skslxb": true
@@ -2789,7 +2807,7 @@
      "id": "wp-li-wentian-74",
      "title_zh": "和林金石録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2834,22 +2852,22 @@
    "dynasty": "Qing 清",
    "works": [
     {
+     "id": "wp-wu-dacheng-224",
+     "title_zh": "鐵華盦金石録補",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "wp-wu-dacheng-222",
      "title_zh": "吳愙齋尺牘",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-wu-dacheng-223",
      "title_zh": "説文古籀補",
      "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-wu-dacheng-224",
-     "title_zh": "鐵華盦金石録補",
-     "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 3
@@ -2870,7 +2888,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-1-17-13084-13134",
+     "id": "ks-1-17-12853-13083",
      "title_zh": "閩中金石略",
      "year": "",
      "skslxb": true
@@ -2897,7 +2915,7 @@
      "id": "wp-huang-rui-56",
      "title_zh": "台州金石録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -2978,7 +2996,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-224",
+     "id": "ks-3-38-121-128",
      "title_zh": "元魏熒陽鄭文公摩崖碑跋",
      "year": "",
      "skslxb": true
@@ -3005,19 +3023,19 @@
      "id": "wp-sun-yirang-183",
      "title_zh": "名原",
      "year": "1905",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-sun-yirang-182",
      "title_zh": "古籀餘論",
      "year": "1929",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-sun-yirang-181",
      "title_zh": "古籀拾遺",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 3
@@ -3038,7 +3056,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-202",
+     "id": "ks-3-40-543-571",
      "title_zh": "寫禮廎讀碑記",
      "year": "",
      "skslxb": true
@@ -3065,7 +3083,7 @@
      "id": "wp-pi-xirui-153",
      "title_zh": "漢碑引經攷",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -3086,14 +3104,14 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "wp-sheng-yu-172",
-     "title_zh": "雪屐尋碑錄",
-     "year": "",
-     "skslxb": false
-    },
-    {
      "id": "wp-sheng-yu-173",
      "title_zh": "雪屐尋碑録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-sheng-yu-172",
+     "title_zh": "雪屐尋碑錄",
      "year": "",
      "skslxb": false
     }
@@ -3116,6 +3134,12 @@
    "dynasty": "Qing 清",
    "works": [
     {
+     "id": "wp-wang-shunan-209",
+     "title_zh": "新疆訪古録",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-t-x-202",
      "title_zh": "新城金石志",
      "year": "",
@@ -3126,12 +3150,6 @@
      "title_zh": "新城金石志",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-wang-shunan-209",
-     "title_zh": "新疆訪古録",
-     "year": "",
-     "skslxb": false
     },
     {
      "id": "wp-wang-shunan-210",
@@ -3206,7 +3224,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-188",
+     "id": "ks-3-2-83-108",
      "title_zh": "萬邑西南山石刻記",
      "year": "1903",
      "skslxb": true
@@ -3236,13 +3254,19 @@
      "skslxb": false
     },
     {
+     "id": "toc-x-4",
+     "title_zh": "匋齋臧石記",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "wp-duanfang-28",
      "title_zh": "陶齋吉金録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
-   "work_count": 2
+   "work_count": 3
   },
   {
    "id": "person-gan-pengyun",
@@ -3260,16 +3284,16 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-3-14-1-118",
-     "title_zh": "潛江貞石記",
+     "id": "wp-gan-pengyun-35",
+     "title_zh": "崇雅堂碑録",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "wp-gan-pengyun-35",
-     "title_zh": "崇雅堂碑録",
+     "id": "ks-3-14-1-118",
+     "title_zh": "潛江貞石記",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -3317,7 +3341,7 @@
      "id": "wp-chen-hanzhang-8",
      "title_zh": "集古録補目補",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -3341,13 +3365,13 @@
      "id": "wp-luo-zhenyu-135",
      "title_zh": "金石萃編校字記",
      "year": "1885",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-luo-zhenyu-115",
      "title_zh": "昭陵碑録",
      "year": "1908",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "ks-2-16-12035-12109",
@@ -3359,16 +3383,16 @@
      "id": "wp-luo-zhenyu-127",
      "title_zh": "蒿里遺文目録",
      "year": "1926",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-luo-zhenyu-136",
      "title_zh": "雪堂所藏金石文字簿録",
      "year": "1927",
-     "skslxb": false
+     "skslxb": true
     },
     {
-     "id": "ks-t-x-232",
+     "id": "ks-3-2-239-301",
      "title_zh": "貞松堂集古遺文續編",
      "year": "1934",
      "skslxb": true
@@ -3377,16 +3401,22 @@
      "id": "wp-luo-zhenyu-122",
      "title_zh": "滿洲金石志別録",
      "year": "1936",
-     "skslxb": false
+     "skslxb": true
     },
     {
-     "id": "ks-t-x-181",
+     "id": "ks-2-15-11518-11533",
      "title_zh": "唐代海東藩閥誌存",
      "year": "1937",
      "skslxb": true
     },
     {
-     "id": "ks-t-x-121",
+     "id": "wp-luo-zhenyu-108",
+     "title_zh": "京畿冢墓遺文",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "ks-1-15-11489-11498",
      "title_zh": "兩浙冢墓遺文",
      "year": "",
      "skslxb": true
@@ -3398,8 +3428,56 @@
      "skslxb": true
     },
     {
+     "id": "wp-luo-zhenyu-111",
+     "title_zh": "吳中冢墓遺文",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "ks-1-26-19831-19848",
+     "title_zh": "唐風樓金石文字跋尾",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-114",
+     "title_zh": "山右冢墓遺文",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-1-20-14897-14926",
      "title_zh": "山左冢墓遺文",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "ks-1-18-13949-13975",
+     "title_zh": "東都冢墓遗文",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-116",
+     "title_zh": "東都冢墓遺文",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-125",
+     "title_zh": "芒洛冢墓遺文",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-128",
+     "title_zh": "襄陽冢墓遺文",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-112",
+     "title_zh": "唐三家碑録",
      "year": "",
      "skslxb": true
     },
@@ -3410,32 +3488,50 @@
      "skslxb": true
     },
     {
-     "id": "ks-t-x-181",
-     "title_zh": "唐風樓金石文字跋尾",
+     "id": "wp-luo-zhenyu-117",
+     "title_zh": "楚州金石録",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "ks-t-x-45",
-     "title_zh": "東都冢墓遗文",
+     "id": "wp-luo-zhenyu-121",
+     "title_zh": "淮陰金石僅存録",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "ks-t-x-77",
+     "id": "wp-luo-zhenyu-129",
+     "title_zh": "西陲石刻録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "ks-3-35-187-204",
      "title_zh": "漢熹平石經集錄又續編",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "ks-t-x-77",
+     "id": "ks-3-35-179-185",
      "title_zh": "漢熹平石經集錄續補",
      "year": "",
      "skslxb": true
     },
     {
-     "id": "ks-t-x-78",
+     "id": "ks-3-37-535-545",
      "title_zh": "蒿里遺文目錄續編",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-132",
+     "title_zh": "遼帝后哀册文録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-133",
+     "title_zh": "遼慶陵帝后哀册石刻輯録",
      "year": "",
      "skslxb": true
     },
@@ -3452,6 +3548,60 @@
      "skslxb": true
     },
     {
+     "id": "wp-luo-zhenyu-109",
+     "title_zh": "六朝墓誌菁英二編",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-110",
+     "title_zh": "古器物識小録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-113",
+     "title_zh": "唐風樓秦漢瓦當文字",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-119",
+     "title_zh": "海外吉金録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-120",
+     "title_zh": "海外貞珉録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-124",
+     "title_zh": "石交録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-130",
+     "title_zh": "貞松堂集古遺文",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-131",
+     "title_zh": "遼居稾",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-134",
+     "title_zh": "金石書録",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "wp-luo-zhenyu-106",
      "title_zh": "三韓塚墓遺文目錄",
      "year": "",
@@ -3464,80 +3614,8 @@
      "skslxb": false
     },
     {
-     "id": "wp-luo-zhenyu-108",
-     "title_zh": "京畿冢墓遺文",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-109",
-     "title_zh": "六朝墓誌菁英二編",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-110",
-     "title_zh": "古器物識小録",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-111",
-     "title_zh": "吳中冢墓遺文",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-112",
-     "title_zh": "唐三家碑録",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-113",
-     "title_zh": "唐風樓秦漢瓦當文字",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-114",
-     "title_zh": "山右冢墓遺文",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-116",
-     "title_zh": "東都冢墓遺文",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-117",
-     "title_zh": "楚州金石録",
-     "year": "",
-     "skslxb": false
-    },
-    {
      "id": "wp-luo-zhenyu-118",
      "title_zh": "洛陽存石閣藏石目",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-119",
-     "title_zh": "海外吉金録",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-120",
-     "title_zh": "海外貞珉録",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-121",
-     "title_zh": "淮陰金石僅存録",
      "year": "",
      "skslxb": false
     },
@@ -3548,62 +3626,8 @@
      "skslxb": false
     },
     {
-     "id": "wp-luo-zhenyu-124",
-     "title_zh": "石交録",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-125",
-     "title_zh": "芒洛冢墓遺文",
-     "year": "",
-     "skslxb": false
-    },
-    {
      "id": "wp-luo-zhenyu-126",
      "title_zh": "芒洛冢墓遺文續編",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-128",
-     "title_zh": "襄陽冢墓遺文",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-129",
-     "title_zh": "西陲石刻録",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-130",
-     "title_zh": "貞松堂集古遺文",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-131",
-     "title_zh": "遼居稾",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-132",
-     "title_zh": "遼帝后哀册文録",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-133",
-     "title_zh": "遼慶陵帝后哀册石刻輯録",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-134",
-     "title_zh": "金石書録",
      "year": "",
      "skslxb": false
     },
@@ -3659,7 +3683,7 @@
      "id": "wp-wu-shijian-232",
      "title_zh": "九鐘精舍金石跋尾甲編",
      "year": "1910",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -3818,7 +3842,7 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "ks-t-x-27",
+     "id": "ks-3-38-167-230",
      "title_zh": "碑帖跋",
      "year": "",
      "skslxb": true
@@ -3845,11 +3869,17 @@
      "id": "wp-gu-xieguang-39",
      "title_zh": "夢碧簃石言",
      "year": "1925",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "ks-2-18-13689-13738",
      "title_zh": "古誌新目初編",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-gu-xieguang-41",
+     "title_zh": "河朔訪古新録",
      "year": "",
      "skslxb": true
     },
@@ -3872,6 +3902,12 @@
      "skslxb": true
     },
     {
+     "id": "wp-gu-xieguang-37",
+     "title_zh": "兩浙金石別録",
+     "year": "",
+     "skslxb": true
+    },
+    {
      "id": "ks-3-35-553-595",
      "title_zh": "河朔新碑目",
      "year": "",
@@ -3884,12 +3920,6 @@
      "skslxb": true
     },
     {
-     "id": "wp-gu-xieguang-37",
-     "title_zh": "兩浙金石別録",
-     "year": "",
-     "skslxb": false
-    },
-    {
      "id": "wp-gu-xieguang-38",
      "title_zh": "古誌彙目",
      "year": "",
@@ -3898,12 +3928,6 @@
     {
      "id": "wp-gu-xieguang-40",
      "title_zh": "循園古塚遺文跋尾",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-gu-xieguang-41",
-     "title_zh": "河朔訪古新録",
      "year": "",
      "skslxb": false
     }
@@ -3977,31 +4001,31 @@
      "id": "wp-wang-guowei-196",
      "title_zh": "古禮器略説",
      "year": "1915",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-wang-guowei-195",
      "title_zh": "兩周金石文韻讀",
      "year": "1916",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-wang-guowei-198",
      "title_zh": "觀堂古金文考釋",
      "year": "1927",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-wang-guowei-199",
      "title_zh": "魏正始石經殘石考",
      "year": "1927",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-wang-guowei-197",
      "title_zh": "宋代金文著録表",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 5
@@ -4025,7 +4049,7 @@
      "id": "wp-ding-foyan-23",
      "title_zh": "説文古籀補補",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -4121,7 +4145,7 @@
      "id": "wp-zhang-wei-283",
      "title_zh": "隴右金石録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -4145,7 +4169,7 @@
      "id": "wp-rong-geng-160",
      "title_zh": "頌齋文稿",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -4169,13 +4193,13 @@
      "id": "wp-chen-zhi-17",
      "title_zh": "摹廬金石經眼録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "wp-chen-zhi-18",
      "title_zh": "摹廬金石記",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 2
@@ -4199,7 +4223,7 @@
      "id": "wp-gu-tinglong-36",
      "title_zh": "古匋文孴録",
      "year": "1936",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -4229,7 +4253,7 @@
      "id": "wp-luo-fuyi-102",
      "title_zh": "滿洲金石志補遺",
      "year": "1937",
-     "skslxb": false
+     "skslxb": true
     },
     {
      "id": "ks-1-23-17455-17478",
@@ -4343,7 +4367,7 @@
      "id": "wp-feng-daosheng-32",
      "title_zh": "金石遺文",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -4360,7 +4384,7 @@
    },
    "works": [
     {
-     "id": "ks-t-x-114",
+     "id": "ks-3-35-463-495",
      "title_zh": "刻碑姓名錄",
      "year": "",
      "skslxb": true
@@ -4403,7 +4427,7 @@
      "id": "wp-luo-shilin-103",
      "title_zh": "周無專鼎銘攷",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -4423,7 +4447,7 @@
      "id": "wp-sun-fengyi-176",
      "title_zh": "江寧金石待訪録",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -4440,7 +4464,7 @@
    },
    "works": [
     {
-     "id": "ks-t-x-234",
+     "id": "ks-3-36-137-183",
      "title_zh": "中州金石目",
      "year": "",
      "skslxb": true
@@ -4529,7 +4553,7 @@
      "id": "wp-zhou-xigui-301",
      "title_zh": "唐碑帖跋",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1

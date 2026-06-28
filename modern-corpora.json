@@ -17851,13 +17851,13 @@
     "harvard": false
    },
    "id": "mc-liaodai-shike-wenbian-728",
-   "section": "supplement",
+   "section": "national",
    "region": "",
    "province": "",
    "site": "",
    "category": "",
    "admin": "",
-   "place": "補遺 (gap-fill)"
+   "place": "national"
   },
   {
    "title_zh": "杭州花港摩崖萃編",
@@ -17875,13 +17875,13 @@
     "harvard": false
    },
    "id": "mc-hangzhou-huagang-moya-cu-729",
-   "section": "supplement",
-   "region": "",
-   "province": "",
+   "section": "province",
+   "region": "華東",
+   "province": "浙江",
    "site": "",
    "category": "",
    "admin": "",
-   "place": "補遺 (gap-fill)"
+   "place": "浙江"
   },
   {
    "title_zh": "徽州文物圖錄",
@@ -17899,13 +17899,13 @@
     "harvard": false
    },
    "id": "mc-huizhou-wenwu-tulu-730",
-   "section": "supplement",
-   "region": "",
-   "province": "",
+   "section": "province",
+   "region": "華東",
+   "province": "安徽",
    "site": "",
    "category": "",
    "admin": "",
-   "place": "補遺 (gap-fill)"
+   "place": "安徽"
   },
   {
    "title_zh": "武當山碑刻",
@@ -17923,13 +17923,13 @@
     "harvard": false
    },
    "id": "mc-wudangshan-beike-731",
-   "section": "supplement",
+   "section": "site",
    "region": "",
    "province": "",
-   "site": "",
-   "category": "",
+   "site": "武當山",
+   "category": "道教名山",
    "admin": "",
-   "place": "補遺 (gap-fill)"
+   "place": "武當山"
   },
   {
    "title_zh": "麥積區金石校注",
@@ -17949,13 +17949,13 @@
     "harvard": false
    },
    "id": "mc-maijiqu-jinshi-jiaozhu-732",
-   "section": "supplement",
-   "region": "",
-   "province": "",
+   "section": "province",
+   "region": "西北",
+   "province": "甘肅",
    "site": "",
    "category": "",
    "admin": "",
-   "place": "補遺 (gap-fill)"
+   "place": "甘肅"
   }
  ]
 }

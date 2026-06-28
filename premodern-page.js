@@ -110,7 +110,8 @@
     return '<tr>' +
       '<td><div class="ct-name"><a href="source.html?id=' + encodeURIComponent(c.id) + '">' + esc(c.title_zh || c.title_pinyin || "(untitled)") + '</a></div>' +
         (c.title_pinyin && c.title_zh ? '<div class="ct-city">' + esc(c.title_pinyin) + '</div>' : "") + '</td>' +
-      '<td>' + (c.author_zh ? esc(c.author_zh) : (c.author_pinyin ? esc(c.author_pinyin) : '<span class="ct-city">—</span>')) +
+      '<td>' + (c.author_id ? '<a href="epigrapher.html?id=' + encodeURIComponent(c.author_id) + '">' + esc(c.author_zh || c.author_pinyin || "?") + '</a>'
+        : (c.author_zh ? esc(c.author_zh) : (c.author_pinyin ? esc(c.author_pinyin) : '<span class="ct-city">—</span>'))) +
         (c.author_dates ? '<div class="ct-city">' + esc(c.author_dates) + '</div>' : "") + '</td>' +
       '<td>' + (c.dynasty ? esc(c.dynasty) : '<span class="ct-city">—</span>') + '</td>' +
       '<td class="num">' + (c.juan ? c.juan : "—") + '</td>' +

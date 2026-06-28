@@ -3,41 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Epiwen · Premodern Source</title>
+    <title>Epiwen · Inscription</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="auth.js"></script>
-    <script src="data.js"></script>
     <style>
       .cd-main { max-width: 920px; margin: 0 auto; padding: 1.2rem 1.5rem 4rem; }
       .cd-back { display: inline-block; font-size: .83rem; color: var(--accent); text-decoration: none; margin-bottom: 1rem; }
       .cd-back:hover { text-decoration: underline; }
       .cd-main h1 { font-size: 1.6rem; margin: .1rem 0 .1rem; }
       .cd-sub { color: var(--muted); font-size: .95rem; margin: 0 0 .2rem; }
-      .cd-tags { margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .4rem; }
-      .cd-tag { display: inline-block; padding: .08rem .5rem; border-radius: 3px; font-size: .74rem; white-space: nowrap; }
-      .cd-tag.agg { background: #f3e9d6; color: #8a6d2f; }
-      .cd-tag.inst { background: #eef0f2; color: var(--muted); }
       .cd-main h3 { font-size: .9rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 1.6rem 0 .5rem; border-bottom: 1px solid var(--line); padding-bottom: .25rem; }
       .cd-facts { display: grid; grid-template-columns: max-content 1fr; gap: .35rem .9rem; font-size: .9rem; margin: 0; }
       .cd-facts dt { color: var(--muted); }
       .cd-facts dd { margin: 0; }
-      .cd-facts code { font-size: .9em; background: var(--field-bg, #f3f3f3); padding: .05em .35em; border-radius: 3px; }
-      .cd-biblio { list-style: none; padding: 0; margin: 0; font-size: .9rem; }
-      .cd-biblio li { padding: .3rem 0; border-bottom: 1px solid var(--line); }
-      .cd-biblio a { color: var(--accent); text-decoration: none; }
-      .cd-biblio a:hover { text-decoration: underline; }
-      .cd-note { font-size: .82rem; color: var(--muted); font-style: italic; }
       .cd-list { list-style: none; padding: 0; margin: 0; font-size: .9rem; }
       .cd-list li { padding: .3rem 0; border-bottom: 1px solid var(--line); }
       .cd-list a { color: var(--accent); text-decoration: none; }
       .cd-list a:hover { text-decoration: underline; }
-      .cd-rel { display: inline-block; padding: .02rem .4rem; border-radius: 3px; font-size: .72rem;
-        background: #eef0f2; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
-      .ct-zh { color: var(--muted); font-weight: normal; }
-      .cd-toctable { width: 100%; border-collapse: collapse; font-size: .83rem; }
-      .cd-toctable th, .cd-toctable td { text-align: left; padding: .3rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
-      .cd-toctable thead th { position: sticky; top: 0; background: var(--bg); font-weight: 600; white-space: nowrap; }
-      .cd-toctable td.num, .cd-toctable th:first-child { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); white-space: nowrap; }
+      .cd-note { font-size: .82rem; color: var(--muted); font-style: italic; }
+      .cd-att { width: 100%; border-collapse: collapse; font-size: .86rem; }
+      .cd-att th, .cd-att td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+      .cd-att thead th { font-weight: 600; color: var(--muted); white-space: nowrap; }
+      .cd-att a { color: var(--accent); text-decoration: none; }
+      .cd-att a:hover { text-decoration: underline; }
     </style>
   </head>
   <body>
@@ -98,13 +86,13 @@
     </header>
 
     <main class="cd-main">
-      <a href="premodern-sources.html" id="cd-back" class="cd-back">← All premodern sources</a>
+      <a href="inscriptions.html" id="cd-back" class="cd-back">← Inscription concordance</a>
       <div id="cd-content"><div class="catalog-loading">Loading…</div></div>
     </main>
 
     <div id="toast" role="status" aria-live="polite"></div>
     <script src="variants.js"></script>
-    <script src="source-detail.js"></script>
+    <script src="inscription-detail.js"></script>
     <script src="nav.js"></script>
   </body>
 </html>

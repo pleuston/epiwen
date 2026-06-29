@@ -31,7 +31,8 @@
       : (r.region ? r.region + (r.province ? " › " + r.province : "") : (r.province || "province"));
     var tags = '<span class="cd-tag">' + esc(secLabel) + "</span>" +
       (r.gapfill ? '<span class="cd-tag">✚ gap-fill</span>' : "") +
-      (r.web ? '<span class="cd-tag web">' + (r.web_verified ? "web ✓ verified" : "web") + "</span>" : "");
+      (r.verification_pending ? '<span class="cd-tag">⧗ verification pending</span>'
+        : (r.web || r.web_verified) ? '<span class="cd-tag web">' + (r.web_catalog ? esc(r.web_catalog) + " ✓" : r.web_verified ? "catalogue ✓" : "web") + "</span>" : "");
 
     var placePath = [r.region, r.province, r.locality].filter(Boolean).join(" › ")
       || (r.section === "national" ? "全國 (national / multi-province)" : (r.site || "—"));
@@ -58,8 +59,9 @@
       '<p class="cd-note">Catalogue links search by ISBN where available, else by title.</p>' : "";
 
     var ev = r.evidence ? String(r.evidence).match(/https?:\/\/[^\s)]+/) : null;
-    var evidence = r.web ? '<h3>Source</h3><p class="cd-note">' +
+    var evidence = (r.web || r.biblio) ? '<h3>Source</h3><p class="cd-note">' +
       (r.web_catalog ? "Confirmed in " + esc(r.web_catalog) + " (library catalogue). "
+        : r.biblio ? "Attested in 新編碑刻集書目 (李仁淵 / 海交史). Catalogue verification pending. "
         : r.web_verified ? "Verified against an online source. " : "Discovered by a web fan-out (verification pending). ") +
       (ev ? '<a href="' + esc(ev[0]) + '" target="_blank" rel="noopener">' + esc(ev[0]) + " ↗</a>" : esc(r.evidence || "")) + "</p>" : "";
 

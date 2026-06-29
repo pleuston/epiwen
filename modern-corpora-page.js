@@ -91,6 +91,9 @@
         });
       });
     });
+
+    var sea = all.filter(function (r) { return r.section === "overseas"; });
+    if (sea.length) { var seaRow = mk("東南亞 / overseas", "", sea.length, 0, function () { setFilter({ section: "overseas" }, seaRow); }, false); box.appendChild(seaRow); }
   }
   function setFilter(f, row) {
     sel = f;
@@ -146,17 +149,22 @@
     if (h.sbb) b.push(lib("sbb", "SBB", "sbb", "Staatsbibliothek zu Berlin (StaBiKat)"));
     if (h.k10plus) b.push(lib("k10", "K10+", "k10", "K10plus union catalogue"));
     if (h.vault) b.push('<span class="mc-hold vault" title="already in vault">vault</span>');
-    if (r.web && !b.length) {
+    if ((r.web || r.biblio) && !b.length) {
       var ev = r.evidence ? String(r.evidence).match(/https?:\/\/[^\s)]+/) : null;
-      var c = r.web_catalog || "";
-      var short = /ndl/i.test(c) ? "NDL" : /cinii|nii/i.test(c) ? "CiNii" : /worldcat/i.test(c) ? "WorldCat"
-        : /k10|gvk/i.test(c) ? "K10+" : /nlc|国家图书馆|國家圖書館|国图/i.test(c) ? "NLC"
-        : /讀秀|读秀|duxiu/i.test(c) ? "讀秀" : /harvard|hollis/i.test(c) ? "Harvard" : /stabikat|sbb/i.test(c) ? "SBB"
-        : (c ? "catalog" : (r.web_verified ? "catalog" : "web"));
-      var lbl = short + (r.web_verified ? " ✓" : "");
-      var ttl = "confirmed in " + (c || "a library catalogue") + " ↗";
-      b.push(ev ? '<a class="mc-hold web' + (r.web_verified ? " ok" : "") + '" target="_blank" rel="noopener" href="' + esc(ev[0]) + '" title="' + esc(ttl) + '">' + lbl + ' ↗</a>'
-                : '<span class="mc-hold web' + (r.web_verified ? " ok" : "") + '" title="' + esc(ttl) + '">' + lbl + '</span>');
+      if (r.verification_pending) {
+        b.push(ev ? '<a class="mc-hold pending" target="_blank" rel="noopener" href="' + esc(ev[0]) + '" title="attested in 新編碑刻集書目 (李仁淵 / 海交史); catalogue verification pending ↗">海交史 ⧗</a>'
+                  : '<span class="mc-hold pending" title="verification pending">pending</span>');
+      } else {
+        var c = r.web_catalog || "";
+        var short = /ndl/i.test(c) ? "NDL" : /cinii|nii/i.test(c) ? "CiNii" : /worldcat/i.test(c) ? "WorldCat"
+          : /k10|gvk/i.test(c) ? "K10+" : /nlc|国家图书馆|國家圖書館|国图/i.test(c) ? "NLC"
+          : /讀秀|读秀|duxiu/i.test(c) ? "讀秀" : /harvard|hollis/i.test(c) ? "Harvard" : /stabikat|sbb/i.test(c) ? "SBB"
+          : (c ? "catalog" : "catalog");
+        var lbl = short + " ✓";
+        var ttl = "confirmed in " + (c || "a library catalogue") + " ↗";
+        b.push(ev ? '<a class="mc-hold web ok" target="_blank" rel="noopener" href="' + esc(ev[0]) + '" title="' + esc(ttl) + '">' + lbl + ' ↗</a>'
+                  : '<span class="mc-hold web ok" title="' + esc(ttl) + '">' + lbl + '</span>');
+      }
     }
     return b.join("");
   }
@@ -193,7 +201,8 @@
       : sel.site ? sel.site
       : sel.category ? sel.category
       : sel.region ? sel.region
-      : sel.section === "national" ? "全國 national series" : "Modern corpora";
+      : sel.section === "national" ? "全國 national series"
+      : sel.section === "overseas" ? "東南亞 — overseas Chinese epigraphy" : "Modern corpora";
     var nh = list.filter(function (r) { return r.holdings && (r.holdings.harvard || r.holdings.sbb || r.holdings.k10plus); }).length;
     el("coll-crumb").textContent = list.length + " corpus" + (list.length === 1 ? "" : "/corpora") + (nh ? " · " + nh + " with located holdings" : "");
     if (!list.length) { el("coll-cards").innerHTML = '<p class="catalog-loading">No corpora here.</p>'; return; }

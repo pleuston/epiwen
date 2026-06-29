@@ -129,7 +129,8 @@
   }
   function catLink(r, lib) {
     var has = !!(r.isbn && r.isbn[0]), q = has ? r.isbn[0] : (r.title_zh || "");
-    if (lib === "sbb") return "https://stabikat.de/Search/Results?lookfor=" + encodeURIComponent(q) + "&type=" + (has ? "ISN" : "AllFields");
+    if (lib === "sbb") return (r.sbb_ppn && r.sbb_ppn[0]) ? "https://stabikat.de/Record/" + encodeURIComponent(r.sbb_ppn[0])
+      : "https://stabikat.de/Search/Results?lookfor=" + encodeURIComponent(q) + "&type=" + (has ? "ISN" : "AllFields");
     if (lib === "k10") return "https://opac.k10plus.de/DB=2.1/CMD?ACT=SRCHA&IKT=" + (has ? "7" : "1016") + "&TRM=" + encodeURIComponent(q);
     if (lib === "harvard") return "https://hollis.harvard.edu/primo-explore/search?query=any,contains," + encodeURIComponent(q) + "&tab=everything&search_scope=everything&vid=HVD2&mode=basic";
     return "#";
@@ -146,7 +147,18 @@
         '" title="' + ttl + ' — search catalogue ↗">' + lbl + " ↗</a>";
     }
     if (h.harvard) b.push(lib("harvard", "Harvard", "harvard", "Harvard-Yenching (HOLLIS)"));
-    if (h.sbb) b.push(lib("sbb", "SBB", "sbb", "Staatsbibliothek zu Berlin (StaBiKat)"));
+    if (h.sbb) {
+      if (r.sbb_signatur && r.sbb_signatur.length) {
+        var sig = r.sbb_signatur;
+        var first = sig[0].replace(/\s*[;,].*$/, "").replace(/[-–]\d+$/, "");   // base shelf mark (drop volume suffix)
+        var ttl = "Staatsbibliothek zu Berlin · Signatur " + sig.join(", ");
+        b.push('<a class="mc-hold sbb" target="_blank" rel="noopener" href="' + esc(catLink(r, "sbb")) +
+          '" title="' + esc(ttl) + ' ↗">SBB ' + esc(first) + (sig.length > 1 ? ' <span class="mc-more">+' + (sig.length - 1) + '</span>' : '') + '</a>');
+        if (r.sbb_online && r.sbb_online.length)
+          b.push('<a class="mc-hold sbb-dig" target="_blank" rel="noopener" href="' + esc(r.sbb_online[0]) +
+            '" title="Staatsbibliothek zu Berlin — digitised table of contents ↗">TOC ↗</a>');
+      } else b.push(lib("sbb", "SBB", "sbb", "Staatsbibliothek zu Berlin (StaBiKat)"));
+    }
     if (h.k10plus) b.push(lib("k10", "K10+", "k10", "K10plus union catalogue"));
     if (h.vault) b.push('<span class="mc-hold vault" title="already in vault">vault</span>');
     if ((r.web || r.biblio) && !b.length) {

@@ -137,7 +137,20 @@
    "category": "",
    "admin": "",
    "place": "陝西",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 96401-1",
+    "5 B 96401-2",
+    "5 B 96401-3",
+    "5 B 96401-4",
+    "5 B 96401-5"
+   ],
+   "sbb_ppn": [
+    "1833774779"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1833774779.pdf"
+   ]
   },
   {
    "title_zh": "道家金石略",
@@ -164,7 +177,14 @@
    "category": "",
    "admin": "",
    "place": "national",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 15085"
+   ],
+   "sbb_ppn": [
+    "1039554660"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "陝西藥王山碑刻藝術總集",
@@ -418,7 +438,26 @@
    "category": "",
    "admin": "",
    "place": "山西",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 C 7892",
+    "5 C 7894",
+    "5 C 7893-1",
+    "5 C 7893-2",
+    "5 C 7895"
+   ],
+   "sbb_ppn": [
+    "1852323191",
+    "185232323X",
+    "1852323213",
+    "1852323264"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1852323191.pdf",
+    "https://www.gbv.de/dms/spk/sbb/toc/185232323X.pdf",
+    "https://www.gbv.de/dms/spk/sbb/toc/1852323213.pdf",
+    "https://www.gbv.de/dms/spk/sbb/toc/1852323264.pdf"
+   ]
   },
   {
    "title_zh": "唐代墓誌彙編",
@@ -597,7 +636,14 @@
    "category": "",
    "admin": "",
    "place": "national",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 C 965"
+   ],
+   "sbb_ppn": [
+    "1033338249"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "澤州碑刻大全",
@@ -674,7 +720,50 @@
    "category": "",
    "admin": "",
    "place": "陝西",
-   "locality": "西安"
+   "locality": "西安",
+   "sbb_signatur": [
+    "5 C 8160",
+    "5 C 8159",
+    "5 C 8156",
+    "5 C 8157-1",
+    "5 C 8157-2",
+    "5 C 8157-3",
+    "5 C 8157-4",
+    "5 C 8157-5",
+    "5 C 8157-6",
+    "5 C 8157-7",
+    "5 C 8154-1",
+    "5 C 8154-2",
+    "5 C 8154-3",
+    "5 C 8154-4",
+    "5 C 8154-5",
+    "5 C 8154-6",
+    "5 C 8155",
+    "5 C 8158",
+    "5 B 80154; NfLS",
+    "5 B 80154-1"
+   ],
+   "sbb_ppn": [
+    "1909027693",
+    "1909027685",
+    "1909027677",
+    "1909027669",
+    "1909027650",
+    "1909027642",
+    "1909027634",
+    "1035949113",
+    "1035949105",
+    "1035949091"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1909027693.pdf",
+    "https://www.gbv.de/dms/spk/sbb/toc/1909027685.pdf",
+    "https://www.gbv.de/dms/spk/sbb/toc/1909027677.pdf",
+    "https://www.gbv.de/dms/spk/sbb/toc/1909027669.pdf",
+    "https://www.gbv.de/dms/spk/sbb/toc/1909027650.pdf",
+    "https://www.gbv.de/dms/spk/sbb/toc/1909027642.pdf",
+    "https://www.gbv.de/dms/spk/sbb/toc/1909027634.pdf"
+   ]
   },
   {
    "title_zh": "秦晉豫新出墓誌蒐佚",
@@ -699,7 +788,21 @@
    "category": "",
    "admin": "",
    "place": "national",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 C 7804-1",
+    "5 C 7804-2",
+    "5 C 7804-3",
+    "5 C 7804-4",
+    "5 C 7473"
+   ],
+   "sbb_ppn": [
+    "1833774795",
+    "1035936097"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1833774795.pdf"
+   ]
   },
   {
    "title_zh": "遼代石刻文編 / 遼代石刻文續編",
@@ -774,7 +877,32 @@
    "category": "",
    "admin": "",
    "place": "西南地區",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 88726-14",
+    "5 B 88726-13",
+    "5 B 88726-12",
+    "5 B 88726-11",
+    "5 B 88726-10",
+    "5 B 88726-9",
+    "5 B 88726-8",
+    "5 B 88726-7",
+    "5 B 88726-6",
+    "5 B 88726-5"
+   ],
+   "sbb_ppn": [
+    "1681136112",
+    "1681135574",
+    "1681134985",
+    "1681134829",
+    "1681134578",
+    "168113439X",
+    "1681028220",
+    "1681027127",
+    "1681025833",
+    "168102070X"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "桂林石刻總集輯校",
@@ -1630,7 +1758,14 @@
    "category": "",
    "admin": "專題",
    "place": "北京",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 A 213112"
+   ],
+   "sbb_ppn": [
+    "1036489892"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "北京道教石刻",
@@ -1655,7 +1790,14 @@
    "category": "",
    "admin": "專題",
    "place": "北京",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 A 157426"
+   ],
+   "sbb_ppn": [
+    "1035214407"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "明清以來北京工商會館碑刻選編",
@@ -1732,7 +1874,17 @@
    "category": "",
    "admin": "遺址/名山",
    "place": "北京",
-   "locality": "內城"
+   "locality": "內城",
+   "sbb_signatur": [
+    "5 C 7709-1",
+    "5 C 7709-2"
+   ],
+   "sbb_ppn": [
+    "1684634628"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1684634628.pdf"
+   ]
   },
   {
    "title_zh": "北京東嶽廟與北京泰山信仰碑刻輯錄",
@@ -2613,7 +2765,14 @@
    "category": "",
    "admin": "府/市級",
    "place": "山西",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 70310 ; NfLS"
+   ],
+   "sbb_ppn": [
+    "1036949931"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "晉城文物通覽·碑刻卷",
@@ -2965,7 +3124,15 @@
    "category": "",
    "admin": "專題",
    "place": "山西",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 A 254810-1",
+    "5 A 254810-2"
+   ],
+   "sbb_ppn": [
+    "103598380X"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "河東水利石刻",
@@ -3302,7 +3469,14 @@
    "category": "",
    "admin": "省級",
    "place": "遼寧",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 19710"
+   ],
+   "sbb_ppn": [
+    "103948462X"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "辽宁省博物馆藏金石文字集萃",
@@ -3327,7 +3501,16 @@
    "category": "",
    "admin": "省級",
    "place": "遼寧",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 102022"
+   ],
+   "sbb_ppn": [
+    "1967974985"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1967974985.pdf"
+   ]
   },
   {
    "title_zh": "辽南碑刻",
@@ -3429,7 +3612,14 @@
    "category": "",
    "admin": "府/市級",
    "place": "遼寧",
-   "locality": "辽阳"
+   "locality": "辽阳",
+   "sbb_signatur": [
+    "5 A 272368"
+   ],
+   "sbb_ppn": [
+    "1879911973"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "辽阳碑志续编",
@@ -3454,7 +3644,14 @@
    "category": "",
    "admin": "府/市級",
    "place": "遼寧",
-   "locality": "辽阳"
+   "locality": "辽阳",
+   "sbb_signatur": [
+    "5 A 243096"
+   ],
+   "sbb_ppn": [
+    "1036203980"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "营口碑志辑注",
@@ -3579,7 +3776,14 @@
    "category": "",
    "admin": "專題",
    "place": "遼寧",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 A 154217"
+   ],
+   "sbb_ppn": [
+    "1034238299"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "元帅林石刻",
@@ -3629,7 +3833,14 @@
    "category": "",
    "admin": "遺址/名山",
    "place": "遼寧",
-   "locality": "辽河"
+   "locality": "辽河",
+   "sbb_signatur": [
+    "5 B 72917"
+   ],
+   "sbb_ppn": [
+    "1697072208"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "千山摩崖石刻研究",
@@ -5563,7 +5774,16 @@
    "category": "",
    "admin": "縣級",
    "place": "浙江",
-   "locality": "武義宋元"
+   "locality": "武義宋元",
+   "sbb_signatur": [
+    "5 C 7778"
+   ],
+   "sbb_ppn": [
+    "176750912X"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/176750912X.pdf"
+   ]
   },
   {
    "title_zh": "臨海墓志集錄",
@@ -5990,7 +6210,14 @@
    "category": "",
    "admin": "遺址/名山",
    "place": "安徽",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 43768"
+   ],
+   "sbb_ppn": [
+    "1036348709"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "齊雲山石刻",
@@ -7158,7 +7385,14 @@
    "category": "",
    "admin": "省級",
    "place": "河南",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 C 1128"
+   ],
+   "sbb_ppn": [
+    "103410215X"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "河南寺廟道觀碑刻集成·洛陽卷",
@@ -7435,7 +7669,14 @@
    "category": "",
    "admin": "遺址/名山",
    "place": "河南",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 C 7250"
+   ],
+   "sbb_ppn": [
+    "1033118893"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "洛陽新獲七朝墓誌",
@@ -8139,7 +8380,14 @@
    "category": "",
    "admin": "府/市級",
    "place": "湖南",
-   "locality": "永州"
+   "locality": "永州",
+   "sbb_signatur": [
+    "5 B 44605"
+   ],
+   "sbb_ppn": [
+    "1035695758"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "長沙碑刻集成",
@@ -8870,7 +9118,16 @@
    "category": "",
    "admin": "縣級",
    "place": "廣東",
-   "locality": "英德"
+   "locality": "英德",
+   "sbb_signatur": [
+    "5 A 317477"
+   ],
+   "sbb_ppn": [
+    "1876953047"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1876953047.pdf"
+   ]
   },
   {
    "title_zh": "連州碑刻集",
@@ -9147,7 +9404,16 @@
    "category": "",
    "admin": "府/市級",
    "place": "廣西",
-   "locality": "柳州"
+   "locality": "柳州",
+   "sbb_signatur": [
+    "5 B 96478"
+   ],
+   "sbb_ppn": [
+    "1833365615"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1833365615.pdf"
+   ]
   },
   {
    "title_zh": "玉林石刻調查與研究",
@@ -9832,7 +10098,14 @@
    "category": "",
    "admin": "省級",
    "place": "四川",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 32089"
+   ],
+   "sbb_ppn": [
+    "1039677843"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "蜀道石刻題記",
@@ -11433,7 +11706,14 @@
    "category": "",
    "admin": "縣級",
    "place": "陝西",
-   "locality": "富平"
+   "locality": "富平",
+   "sbb_signatur": [
+    "5 B 65003"
+   ],
+   "sbb_ppn": [
+    "1036773582"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "大荔碑刻",
@@ -11508,7 +11788,16 @@
    "category": "",
    "admin": "專題",
    "place": "陝西",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 C 7690"
+   ],
+   "sbb_ppn": [
+    "1695587634"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1695587634.pdf"
+   ]
   },
   {
    "title_zh": "鴛鴦七志齋藏石",
@@ -11918,7 +12207,18 @@
    "category": "",
    "admin": "省級",
    "place": "甘肅",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 A 329719-33",
+    "5 A 329719-3",
+    "5 A 329719-1"
+   ],
+   "sbb_ppn": [
+    "1946023299",
+    "1946023140",
+    "1946022969"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "絲綢之路金石叢書",
@@ -13063,7 +13363,14 @@
    "category": "",
    "admin": "遺址/名山",
    "place": "寧夏",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 19142"
+   ],
+   "sbb_ppn": [
+    "103919639X"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "須彌山石窟內容總錄",
@@ -13404,7 +13711,16 @@
    "category": "",
    "admin": "專題",
    "place": "香港",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 98586-3",
+    "5 B 98586-2"
+   ],
+   "sbb_ppn": [
+    "1887100725",
+    "1887100326"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "香港佛教碑銘彙釋（一）：港島、九龍及離島",
@@ -13456,7 +13772,14 @@
    "category": "",
    "admin": "專題",
    "place": "香港",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 A 309105"
+   ],
+   "sbb_ppn": [
+    "1866019651"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "香港碑銘資料庫",
@@ -13562,7 +13885,14 @@
    "category": "",
    "admin": "遺址/名山",
    "place": "澳門",
-   "locality": "媽閣"
+   "locality": "媽閣",
+   "sbb_signatur": [
+    "5 A 286908"
+   ],
+   "sbb_ppn": [
+    "178970863X"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "臺灣南部碑文集成",
@@ -13587,7 +13917,14 @@
    "category": "",
    "admin": "省級",
    "place": "台灣",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "37853-218"
+   ],
+   "sbb_ppn": [
+    "1034427148"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "臺灣中部碑文集成",
@@ -13612,7 +13949,14 @@
    "category": "",
    "admin": "省級",
    "place": "台灣",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "37853-151"
+   ],
+   "sbb_ppn": [
+    "1034303376"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "臺灣北部碑文集成",
@@ -13737,7 +14081,22 @@
    "category": "",
    "admin": "全國",
    "place": "台灣",
-   "locality": ""
+   "locality": "",
+   "sbb_signatur": [
+    "5 B 81596",
+    "5 B 14578",
+    "5 B 3475",
+    "5 B 3336",
+    "5 B 3074"
+   ],
+   "sbb_ppn": [
+    "1684665574",
+    "1039302831",
+    "1039109926",
+    "1038964164",
+    "1038329272"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "嵩山碑刻",
@@ -13943,7 +14302,14 @@
    "category": "五嶽",
    "admin": "",
    "place": "九華山",
-   "locality": "九華山"
+   "locality": "九華山",
+   "sbb_signatur": [
+    "5 A 188851"
+   ],
+   "sbb_ppn": [
+    "1035557932"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "池州記憶·古石刻",
@@ -13995,7 +14361,14 @@
    "category": "五嶽",
    "admin": "",
    "place": "九華山",
-   "locality": "九華山"
+   "locality": "九華山",
+   "sbb_signatur": [
+    "5 B 43817"
+   ],
+   "sbb_ppn": [
+    "1035554534"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "三晉石刻大全·大同市渾源縣卷",
@@ -14178,7 +14551,18 @@
    "category": "五嶽",
    "admin": "",
    "place": "泰山",
-   "locality": "泰山"
+   "locality": "泰山",
+   "sbb_signatur": [
+    "5 B 36019-10",
+    "5 B 36019-9",
+    "5 B 36019-8"
+   ],
+   "sbb_ppn": [
+    "1033294640",
+    "1033294624",
+    "1033294608"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "泰山石刻大全（增訂本）",
@@ -14442,7 +14826,17 @@
    "category": "五嶽",
    "admin": "",
    "place": "泰山經石峪",
-   "locality": "泰山經石峪"
+   "locality": "泰山經石峪",
+   "sbb_signatur": [
+    "5 C 7743-1",
+    "5 C 7743-2",
+    "5 C 7743-3",
+    "5 C 7743-4"
+   ],
+   "sbb_ppn": [
+    "1751543803"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "集泰山經石峪摩崖石刻",
@@ -14646,7 +15040,22 @@
    "category": "佛教名山",
    "admin": "",
    "place": "Emeishan",
-   "locality": "Emeishan"
+   "locality": "Emeishan",
+   "sbb_signatur": [
+    "5 A 237607",
+    "5 B 28021-20,[2]",
+    "5 B 38742-268",
+    "5 B 10406",
+    "5 B 33301-236"
+   ],
+   "sbb_ppn": [
+    "1036896056",
+    "1039662099",
+    "1034238094",
+    "1039444946",
+    "1033088897"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "樂山大佛（凌雲山）摩崖造像群 — 四川省文物考古研究院調查資料",
@@ -14750,7 +15159,18 @@
    "category": "佛教名山",
    "admin": "",
    "place": "五台山",
-   "locality": "五台山"
+   "locality": "五台山",
+   "sbb_signatur": [
+    "5 A 271085",
+    "5 A 271086",
+    "5 A 271087",
+    "5 A 271088",
+    "5 A 271089"
+   ],
+   "sbb_ppn": [
+    "1697141951"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "五台山碑文",
@@ -15183,7 +15603,14 @@
    "category": "道教名山",
    "admin": "",
    "place": "青城山",
-   "locality": "青城山"
+   "locality": "青城山",
+   "sbb_signatur": [
+    "5 A 89197"
+   ],
+   "sbb_ppn": [
+    "1039446930"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "都江堰金石錄",
@@ -15697,7 +16124,14 @@
    "category": "風景文化名山",
    "admin": "",
    "place": "武夷山",
-   "locality": "武夷山"
+   "locality": "武夷山",
+   "sbb_signatur": [
+    "5 B 32432"
+   ],
+   "sbb_ppn": [
+    "1033033731"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "武夷山摩崖石刻圖錄",
@@ -15826,7 +16260,14 @@
    "category": "風景文化名山",
    "admin": "",
    "place": "雁蕩山",
-   "locality": "雁蕩山"
+   "locality": "雁蕩山",
+   "sbb_signatur": [
+    "5 B 74096"
+   ],
+   "sbb_ppn": [
+    "1733149554"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "雁蕩山摩崖碑刻",
@@ -16294,7 +16735,14 @@
    "category": "石窟 grottoes",
    "admin": "",
    "place": "莫高窟",
-   "locality": "莫高窟"
+   "locality": "莫高窟",
+   "sbb_signatur": [
+    "836957-16"
+   ],
+   "sbb_ppn": [
+    "1034373722"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "敦煌莫高窟北區石窟 (全三卷)",
@@ -16787,7 +17235,25 @@
    "category": "石窟 grottoes",
    "admin": "",
    "place": "龍門石窟",
-   "locality": "龍門石窟"
+   "locality": "龍門石窟",
+   "sbb_signatur": [
+    "5 C 7794-1",
+    "5 C 7794-2",
+    "5 C 7794-3",
+    "5 C 7794-4",
+    "5 C 7794-5",
+    "5 C 7794-6",
+    "5 C 7794-7",
+    "5 C 7794-8",
+    "5 C 7794-9",
+    "5 C 7794-10"
+   ],
+   "sbb_ppn": [
+    "1814955828"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1814955828.pdf"
+   ]
   },
   {
    "title_zh": "龍門石窟石刻集成",
@@ -16812,7 +17278,14 @@
    "category": "石窟 grottoes",
    "admin": "",
    "place": "龍門石窟",
-   "locality": "龍門石窟"
+   "locality": "龍門石窟",
+   "sbb_signatur": [
+    "5 B 21586"
+   ],
+   "sbb_ppn": [
+    "1729508642"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "龍門造像題記",
@@ -16887,7 +17360,15 @@
    "category": "石窟 grottoes",
    "admin": "",
    "place": "龍門石窟",
-   "locality": "龍門石窟"
+   "locality": "龍門石窟",
+   "sbb_signatur": [
+    "2\" 38243-7",
+    "2\" 38243-9"
+   ],
+   "sbb_ppn": [
+    "1729573029"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "龍門石窟造像選萃",
@@ -17016,7 +17497,16 @@
    "category": "刻經 sutra-sites",
    "admin": "",
    "place": "房山雲居寺石經",
-   "locality": "房山雲居寺石經"
+   "locality": "房山雲居寺石經",
+   "sbb_signatur": [
+    "5 B 94848"
+   ],
+   "sbb_ppn": [
+    "180897963X"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/180897963X.pdf"
+   ]
   },
   {
    "title_zh": "雲居寺貞石錄",
@@ -17520,7 +18010,18 @@
    "category": "碑林 stele-forests",
    "admin": "",
    "place": "曲阜孔廟碑刻",
-   "locality": "曲阜孔廟碑刻"
+   "locality": "曲阜孔廟碑刻",
+   "sbb_signatur": [
+    "5 B 96384-1",
+    "5 B 96384-2",
+    "5 B 96384-3"
+   ],
+   "sbb_ppn": [
+    "1856780333"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1856780333.pdf"
+   ]
   },
   {
    "title_zh": "曲阜儒家碑刻文獻輯錄（第一—五輯）",
@@ -17745,7 +18246,14 @@
    "category": "碑林 stele-forests",
    "admin": "",
    "place": "浯溪摩崖",
-   "locality": "浯溪摩崖"
+   "locality": "浯溪摩崖",
+   "sbb_signatur": [
+    "5 A 155093-1"
+   ],
+   "sbb_ppn": [
+    "1034873369"
+   ],
+   "sbb_online": []
   },
   {
    "title_zh": "湖湘碑刻（二）浯溪卷",
@@ -17797,7 +18305,16 @@
    "category": "碑林 stele-forests",
    "admin": "",
    "place": "浯溪摩崖",
-   "locality": "浯溪摩崖"
+   "locality": "浯溪摩崖",
+   "sbb_signatur": [
+    "5 B 94978"
+   ],
+   "sbb_ppn": [
+    "1806729830"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/1806729830.pdf"
+   ]
   },
   {
    "title_zh": "永州石刻拾萃",
@@ -18427,7 +18944,16 @@
    "category": "摩崖 cliff-clusters",
    "admin": "",
    "place": "桂林石刻",
-   "locality": "桂林石刻"
+   "locality": "桂林石刻",
+   "sbb_signatur": [
+    "5 A 296940"
+   ],
+   "sbb_ppn": [
+    "178352846X"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/178352846X.pdf"
+   ]
   },
   {
    "title_zh": "桂林石刻拓片全集·摩崖造像卷",
@@ -18533,7 +19059,16 @@
    "category": "摩崖 cliff-clusters",
    "admin": "",
    "place": "桂林石刻",
-   "locality": "桂林石刻"
+   "locality": "桂林石刻",
+   "sbb_signatur": [
+    "5 A 296940"
+   ],
+   "sbb_ppn": [
+    "178352846X"
+   ],
+   "sbb_online": [
+    "https://www.gbv.de/dms/spk/sbb/toc/178352846X.pdf"
+   ]
   },
   {
    "title_zh": "遼代石刻文編",

@@ -15,7 +15,8 @@
   }
   function catLink(r, lib) {
     var has = !!(r.isbn && r.isbn[0]), q = has ? r.isbn[0] : (r.title_zh || "");
-    if (lib === "sbb") return "https://stabikat.de/Search/Results?lookfor=" + encodeURIComponent(q) + "&type=" + (has ? "ISN" : "AllFields");
+    if (lib === "sbb") return (r.sbb_ppn && r.sbb_ppn[0]) ? "https://stabikat.de/Record/" + encodeURIComponent(r.sbb_ppn[0])
+      : "https://stabikat.de/Search/Results?lookfor=" + encodeURIComponent(q) + "&type=" + (has ? "ISN" : "AllFields");
     if (lib === "k10") return "https://opac.k10plus.de/DB=2.1/CMD?ACT=SRCHA&IKT=" + (has ? "7" : "1016") + "&TRM=" + encodeURIComponent(q);
     if (lib === "harvard") return "https://hollis.harvard.edu/primo-explore/search?query=any,contains," + encodeURIComponent(q) + "&tab=everything&search_scope=everything&vid=HVD2&mode=basic";
     return "#";
@@ -52,11 +53,18 @@
     // holdings + catalogue links
     var h = r.holdings || {}, hl = [];
     if (h.harvard) hl.push('<a class="harvard" target="_blank" rel="noopener" href="' + esc(catLink(r, "harvard")) + '">Harvard-Yenching (HOLLIS) ↗</a>');
-    if (h.sbb) hl.push('<a class="sbb" target="_blank" rel="noopener" href="' + esc(catLink(r, "sbb")) + '">Staatsbibliothek zu Berlin (StaBiKat) ↗</a>');
+    if (h.sbb) {
+      var sbbBlock = '<span class="sbb-block"><a class="sbb" target="_blank" rel="noopener" href="' + esc(catLink(r, "sbb")) + '">Staatsbibliothek zu Berlin (StaBiKat) ↗</a>';
+      if (r.sbb_signatur && r.sbb_signatur.length)
+        sbbBlock += '<span class="sbb-sig">Signatur: ' + r.sbb_signatur.map(function (s) { return "<code>" + esc(s) + "</code>"; }).join(" ") + "</span>";
+      if (r.sbb_online && r.sbb_online.length)
+        sbbBlock += '<a class="sbb-dig" target="_blank" rel="noopener" href="' + esc(r.sbb_online[0]) + '">digitised TOC ↗</a>';
+      hl.push(sbbBlock + "</span>");
+    }
     if (h.k10plus) hl.push('<a class="k10" target="_blank" rel="noopener" href="' + esc(catLink(r, "k10")) + '">K10plus union catalogue ↗</a>');
     if (h.vault) hl.push('<span class="vault">already in vault</span>');
     var holdings = hl.length ? '<h3>Holdings</h3><div class="cd-hold">' + hl.join("") + "</div>" +
-      '<p class="cd-note">Catalogue links search by ISBN where available, else by title.</p>' : "";
+      '<p class="cd-note">StaBiKat opens the SBB record (with Signatur); other links search by ISBN where available, else by title.</p>' : "";
 
     var ev = r.evidence ? String(r.evidence).match(/https?:\/\/[^\s)]+/) : null;
     var evidence = (r.web || r.biblio) ? '<h3>Source</h3><p class="cd-note">' +

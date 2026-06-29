@@ -59,7 +59,8 @@
 
     var ev = r.evidence ? String(r.evidence).match(/https?:\/\/[^\s)]+/) : null;
     var evidence = r.web ? '<h3>Source</h3><p class="cd-note">' +
-      (r.web_verified ? "Verified against an online source. " : "Discovered by a web fan-out (verification pending). ") +
+      (r.web_catalog ? "Confirmed in " + esc(r.web_catalog) + " (library catalogue). "
+        : r.web_verified ? "Verified against an online source. " : "Discovered by a web fan-out (verification pending). ") +
       (ev ? '<a href="' + esc(ev[0]) + '" target="_blank" rel="noopener">' + esc(ev[0]) + " ↗</a>" : esc(r.evidence || "")) + "</p>" : "";
 
     el("cd-content").innerHTML =

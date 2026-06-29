@@ -148,10 +148,15 @@
     if (h.vault) b.push('<span class="mc-hold vault" title="already in vault">vault</span>');
     if (r.web && !b.length) {
       var ev = r.evidence ? String(r.evidence).match(/https?:\/\/[^\s)]+/) : null;
-      var lbl = r.web_verified ? "web ✓" : "web";
-      var ttl = r.web_verified ? "verified against an online source ↗" : "web fan-out (not yet verified) ↗";
-      b.push(ev ? '<a class="mc-hold web' + (r.web_verified ? " ok" : "") + '" target="_blank" rel="noopener" href="' + esc(ev[0]) + '" title="' + ttl + '">' + lbl + ' ↗</a>'
-                : '<span class="mc-hold web" title="' + ttl + '">' + lbl + '</span>');
+      var c = r.web_catalog || "";
+      var short = /ndl/i.test(c) ? "NDL" : /cinii|nii/i.test(c) ? "CiNii" : /worldcat/i.test(c) ? "WorldCat"
+        : /k10|gvk/i.test(c) ? "K10+" : /nlc|国家图书馆|國家圖書館|国图/i.test(c) ? "NLC"
+        : /讀秀|读秀|duxiu/i.test(c) ? "讀秀" : /harvard|hollis/i.test(c) ? "Harvard" : /stabikat|sbb/i.test(c) ? "SBB"
+        : (c ? "catalog" : (r.web_verified ? "catalog" : "web"));
+      var lbl = short + (r.web_verified ? " ✓" : "");
+      var ttl = "confirmed in " + (c || "a library catalogue") + " ↗";
+      b.push(ev ? '<a class="mc-hold web' + (r.web_verified ? " ok" : "") + '" target="_blank" rel="noopener" href="' + esc(ev[0]) + '" title="' + esc(ttl) + '">' + lbl + ' ↗</a>'
+                : '<span class="mc-hold web' + (r.web_verified ? " ok" : "") + '" title="' + esc(ttl) + '">' + lbl + '</span>');
     }
     return b.join("");
   }

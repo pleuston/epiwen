@@ -1,6 +1,6 @@
 {
  "generated": "2026-06-27",
- "count": 156,
+ "count": 152,
  "source": "edep_sino persons.xml (register) + people/*.xml (canonical); works-authored from the work merge",
  "persons": [
   {
@@ -494,15 +494,9 @@
      "title_zh": "金石林時地考",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-zhao-jun-288",
-     "title_zh": "寒山堂金石林時地考",
-     "year": "",
-     "skslxb": false
     }
    ],
-   "work_count": 3
+   "work_count": 2
   },
   {
    "id": "person-sun-chengze",
@@ -616,12 +610,6 @@
    "dynasty": "Ming 明",
    "works": [
     {
-     "id": "wp-gu-yanwu-42",
-     "title_zh": "求古錄",
-     "year": "1888",
-     "skslxb": false
-    },
-    {
      "id": "ks-t-x-105",
      "title_zh": "金石文字記",
      "year": "",
@@ -640,7 +628,7 @@
      "skslxb": true
     }
    ],
-   "work_count": 4
+   "work_count": 3
   },
   {
    "id": "person-wang-hongzhuan",
@@ -967,30 +955,6 @@
    "work_count": 1
   },
   {
-   "id": "person-shen-tingfang",
-   "name_zh": "沈庭芳",
-   "name_pinyin": "Shen Tingfang",
-   "sort": "Shen Tingfang",
-   "birth": {
-    "when": "1681",
-    "text": ""
-   },
-   "death": {
-    "when": "1750",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [
-    {
-     "id": "wp-shen-tingfang-167",
-     "title_zh": "福建石刻續志不分卷",
-     "year": "",
-     "skslxb": false
-    }
-   ],
-   "work_count": 1
-  },
-  {
    "id": "person-ding-jing",
    "name_zh": "丁敬",
    "name_pinyin": "Ding Jing",
@@ -1138,30 +1102,6 @@
    "work_count": 1
   },
   {
-   "id": "person-zhang-xuecheng",
-   "name_zh": "章學誠",
-   "name_pinyin": "Zhang Xuecheng",
-   "sort": "Zhang Xuecheng",
-   "birth": {
-    "when": "1738",
-    "text": ""
-   },
-   "death": {
-    "when": "1801",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [
-    {
-     "id": "wp-zhang-xuecheng-285",
-     "title_zh": "永清文徵錄一卷",
-     "year": "",
-     "skslxb": false
-    }
-   ],
-   "work_count": 1
-  },
-  {
    "id": "person-zhang-yanchang",
    "name_zh": "張燕昌",
    "name_pinyin": "Zhang Yanchang",
@@ -1283,15 +1223,9 @@
      "title_zh": "寶豐金石志",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-wu-yi-238",
-     "title_zh": "金石跋",
-     "year": "",
-     "skslxb": false
     }
    ],
-   "work_count": 7
+   "work_count": 6
   },
   {
    "id": "person-zhao-wei",
@@ -1373,15 +1307,9 @@
      "title_zh": "瘞鶴銘考",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "ks-t-x-216",
-     "title_zh": "瘞鶴銘考",
-     "year": "",
-     "skslxb": true
     }
    ],
-   "work_count": 3
+   "work_count": 2
   },
   {
    "id": "person-zhuang-shuzu",
@@ -2087,15 +2015,9 @@
      "title_zh": "宜祿堂收藏金石記",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "ks-2-6-4203-4272",
-     "title_zh": "宜祿堂收藏金石記",
-     "year": "",
-     "skslxb": true
     }
    ],
-   "work_count": 2
+   "work_count": 1
   },
   {
    "id": "person-fang-l-jian",
@@ -2237,30 +2159,6 @@
      "title_zh": "濟寧金石志",
      "year": "1845",
      "skslxb": true
-    }
-   ],
-   "work_count": 1
-  },
-  {
-   "id": "person-yang-dexin",
-   "name_zh": "楊得馨",
-   "name_pinyin": "Yang Dexin",
-   "sort": "Yang Dexin",
-   "birth": {
-    "when": "1797",
-    "text": ""
-   },
-   "death": {
-    "when": "1844",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [
-    {
-     "id": "wp-yang-dexin-248",
-     "title_zh": "順義金石志不分卷",
-     "year": "",
-     "skslxb": false
     }
    ],
    "work_count": 1
@@ -2765,30 +2663,6 @@
    "work_count": 1
   },
   {
-   "id": "person-qian-baotang",
-   "name_zh": "錢保塘",
-   "name_pinyin": "Qian Baotang",
-   "sort": "Qian Baotang",
-   "birth": {
-    "when": "1833",
-    "text": ""
-   },
-   "death": {
-    "when": "1897",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [
-    {
-     "id": "wp-qian-baotang-154",
-     "title_zh": "涪州石魚題刻一卷龍脊石題刻一卷",
-     "year": "",
-     "skslxb": false
-    }
-   ],
-   "work_count": 1
-  },
-  {
    "id": "person-li-wentian",
    "name_zh": "李文田",
    "name_pinyin": "Li Wentian",
@@ -3150,15 +3024,9 @@
      "title_zh": "新城金石志",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-wang-shunan-210",
-     "title_zh": "新疆金石志二卷",
-     "year": "",
-     "skslxb": false
     }
    ],
-   "work_count": 4
+   "work_count": 3
   },
   {
    "id": "person-zhang-zhongxin",
@@ -3248,12 +3116,6 @@
    "dynasty": "Qing 清",
    "works": [
     {
-     "id": "wp-duanfang-27",
-     "title_zh": "匋齋藏石記",
-     "year": "1909",
-     "skslxb": false
-    },
-    {
      "id": "toc-x-4",
      "title_zh": "匋齋臧石記",
      "year": "",
@@ -3266,7 +3128,7 @@
      "skslxb": true
     }
    ],
-   "work_count": 3
+   "work_count": 2
   },
   {
    "id": "person-gan-pengyun",
@@ -3630,15 +3492,9 @@
      "title_zh": "芒洛冢墓遺文續編",
      "year": "",
      "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-137",
-     "title_zh": "高昌專錄不分卷",
-     "year": "",
-     "skslxb": false
     }
    ],
-   "work_count": 46
+   "work_count": 45
   },
   {
    "id": "person-ye-weiming",
@@ -3816,15 +3672,9 @@
      "title_zh": "漢孟孝琚碑題跋",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-yuan-jiagu-271",
-     "title_zh": "石屏金石志不分卷",
-     "year": "",
-     "skslxb": false
     }
    ],
-   "work_count": 2
+   "work_count": 1
   },
   {
    "id": "person-liang-qichao",

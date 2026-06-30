@@ -47,6 +47,7 @@
     var compiled = c.compiled ? (esc(c.compiled.text || "") + (c.compiled.when ? " <span class=\"cd-note\">(" + esc(c.compiled.when) + ")</span>" : "")) : "";
     var work = '<h3>Work</h3><dl class="cd-facts">' +
       fact("Title 著作", esc(c.title_zh || "") + (c.title_pinyin ? ' <span class="ct-zh">' + esc(c.title_pinyin) + "</span>" : "")) +
+      fact("Also titled 別題", (c.aliases && c.aliases.length) ? c.aliases.map(function (a) { return esc(a); }).join("；") : "") +
       fact("Author 撰者", authorHtml) +
       fact("Dates", c.author_dates ? esc(c.author_dates) : "") +
       fact("Dynasty", c.dynasty ? esc(c.dynasty) : "") +
@@ -62,7 +63,10 @@
       var dl = fact("Series 輯", (SERIES_ZH[c.skslxb_series] || c.skslxb_series) + " (" + c.skslxb_series + ")") +
         fact("Locator", c.skslxb_locator ? "<code>" + esc(c.skslxb_locator) + "</code> <span class=\"cd-note\">series.volume:page</span>" : "<span class=\"cd-note\">series only — precise locator unresolved</span>") +
         fact("Pages", c.skslxb_pages ? esc(c.skslxb_pages) : "") +
-        fact("K&S page", c.ks_page ? "p. " + esc(c.ks_page) : "");
+        fact("K&S page", c.ks_page ? "p. " + esc(c.ks_page) : "") +
+        fact("State Library 索書號", c.sbb_callno
+          ? '<code>' + esc(c.sbb_callno) + '</code> <a class="cd-note" target="_blank" rel="noopener" href="https://stabikat.de/Search/Results?lookfor=' + encodeURIComponent("石刻史料新編 " + (SERIES_ZH[c.skslxb_series] || "")) + '&type=AllFields">Staatsbibliothek zu Berlin (StaBiKat) ↗</a>'
+          : "");
       var refs = catRefs(c.catalogue);
       if (refs) dl += "<dt>Concordances</dt><dd>" + refs + "</dd>";
       sk = '<h3>石刻史料新編 (SKSLXB) placement</h3><dl class="cd-facts">' + dl + "</dl>" +

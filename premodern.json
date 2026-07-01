@@ -1,8 +1,8 @@
 {
  "generated": "2026-06-27",
  "count": 1432,
- "in_skslxb": 1347,
- "with_locator": 806,
+ "in_skslxb": 1368,
+ "with_locator": 827,
  "merged_workxml": 1044,
  "source": "K&S/SKSLXB (kuhn-stahl-dryrun) + vault work pages, merged with edep_sino works.xml",
  "note": "Premodern Chinese epigraphy works (金石學). SKSLXB locator where resolved else series. Curated author→person links, editions, relations from edep_sino works.xml. Not limited to SKSLXB. No paratexts.",
@@ -14039,6 +14039,43 @@
    "sbb_callno": "4\"@836959-3,16"
   },
   {
+   "id": "wp-luo-zhenyu-106",
+   "title_zh": "三韓塚墓遺文目錄",
+   "title_pinyin": "",
+   "author_zh": "羅振玉",
+   "author_pinyin": "Luo Zhenyu",
+   "author_id": "person-luo-zhenyu",
+   "work_id": "work-000214",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.36",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《三韓塚墓遺文目錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《三韓塚墓遺文目錄》",
+    "《三韩冢墓遗文目录》"
+   ],
+   "vault_page": "Luo Zhenyu 羅振玉《三韓塚墓遺文目錄》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,36"
+  },
+  {
    "id": "ks-3-5-109-118",
    "title_zh": "上江金石志",
    "title_pinyin": "",
@@ -17287,6 +17324,43 @@
    "sbb_callno": "4\"@836959-3,16"
   },
   {
+   "id": "wp-he-shiji-liu-houtong-49",
+   "title_zh": "南北響堂寺及其附近石刻目錄",
+   "title_pinyin": "",
+   "author_zh": "何士驥",
+   "author_pinyin": "He Shiji Liu Houtong",
+   "author_id": "",
+   "work_id": "work-000100",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.36",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《南北響堂寺及其附近石刻目錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《南北響堂寺及其附近石刻目錄》",
+    "《南北响堂寺及其附近石刻目录》"
+   ],
+   "vault_page": "He Shiji Liu Houtong 何士驥·劉厚同《南北響堂寺及其附近石刻目錄》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,36"
+  },
+  {
    "id": "ks-3-5-293-295",
    "title_zh": "南匯金石志",
    "title_pinyin": "",
@@ -19058,11 +19132,6 @@
    "ks_date": "1819",
    "vault_page": "《咸寧縣志》(金石)",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
-   "aliases": [
-    "咸寧縣志",
-    "《咸寧縣志》(金石)",
-    "咸宁县志金石"
-   ],
    "sbb_callno": "4\"@836959-3,31"
   },
   {
@@ -19135,7 +19204,10 @@
    "aliases": [
     "《咸甯縣志》",
     "咸甯縣志",
-    "《咸宁县志》"
+    "《咸宁县志》",
+    "咸寧金石志",
+    "咸寧金石志一卷",
+    "咸宁县志金石"
    ],
    "vault_page": "《咸甯縣志》",
    "source": "石刻史料新編 (目錄) / vault",
@@ -19300,6 +19372,43 @@
     "《唐樓志》(金石)"
    ],
    "sbb_callno": "4\"@836959-3,7"
+  },
+  {
+   "id": "wp-wang-chaoqu-194",
+   "title_zh": "唐石經考正",
+   "title_pinyin": "",
+   "author_zh": "王朝渠",
+   "author_pinyin": "Wang Chaoqu",
+   "author_id": "person-wang-chaoqu",
+   "work_id": "work-000336",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.35",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《唐石經考正》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《唐石經考正》",
+    "《唐石经考正》"
+   ],
+   "vault_page": "Wang Chaoqu 王朝渠《唐石經考正》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,35"
   },
   {
    "id": "ks-3-35-227-262",
@@ -19896,6 +20005,44 @@
    "ks_date": "",
    "vault_page": "Wu Qian 吳騫《國山碑考》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編"
+  },
+  {
+   "id": "wp-x-413",
+   "title_zh": "國立北平圖書館藏碑目",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-000647",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.36",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《國立北平圖書館藏碑目》(墓誌類) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《國立北平圖書館藏碑目》(墓誌類)",
+    "《国立北平图书馆藏碑目》(墓志类)",
+    "《國立北平圖書館藏碑目》"
+   ],
+   "vault_page": "《國立北平圖書館藏碑目》(墓誌類)",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,36"
   },
   {
    "id": "ks-3-28-393-428",
@@ -20633,6 +20780,43 @@
    "ks_date": "1885",
    "vault_page": "",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編"
+  },
+  {
+   "id": "wp-wang-yirong-217",
+   "title_zh": "天壤閣雜記",
+   "title_pinyin": "",
+   "author_zh": "王懿榮",
+   "author_pinyin": "Wang Yirong",
+   "author_id": "person-wang-yirong",
+   "work_id": "work-000373",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.35",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《天壤閣雜記》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《天壤閣雜記》",
+    "《天壤阁杂记》"
+   ],
+   "vault_page": "Wang Yirong 王懿榮《天壤閣雜記》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,35"
   },
   {
    "id": "wp-zhou-zaijun-302",
@@ -27840,6 +28024,43 @@
    "sbb_callno": "4\"@836959-3,5"
   },
   {
+   "id": "wp-fu-yili-33",
+   "title_zh": "有萬憙齋石刻跋",
+   "title_pinyin": "",
+   "author_zh": "傅以禮",
+   "author_pinyin": "Fu Yili",
+   "author_id": "person-fu-yili",
+   "work_id": "work-000068",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.38",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《有萬憙齋石刻跋》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《有萬憙齋石刻跋》",
+    "《有万憙斋石刻跋》"
+   ],
+   "vault_page": "Fu Yili 傅以禮《有萬憙齋石刻跋》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,38"
+  },
+  {
    "id": "ks-3-38-153-166",
    "title_zh": "有萬熹齋石刻跋",
    "title_pinyin": "",
@@ -32146,9 +32367,6 @@
    "ks_date": "",
    "vault_page": "Qian Baotang 錢保塘《涪州石魚題刻一卷龍脊石題刻",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
-   "aliases": [
-    "《龍脊石題刻》"
-   ],
    "sbb_callno": "4\"@836959-3,15"
   },
   {
@@ -32982,6 +33200,43 @@
    "vault_page": "Zheng Qiao 鄭樵《金",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
    "sbb_callno": "4\"@836959-3,8"
+  },
+  {
+   "id": "wp-jiang-chenying-65",
+   "title_zh": "湛園題跋",
+   "title_pinyin": "",
+   "author_zh": "姜宸英",
+   "author_pinyin": "Jiang Chenying",
+   "author_id": "person-jiang-chenying",
+   "work_id": "work-000137",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.38",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《湛園題跋》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《湛園題跋》",
+    "《湛园题跋》"
+   ],
+   "vault_page": "Jiang Chenying 姜宸英《湛園題跋》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,38"
   },
   {
    "id": "wp-x-616",
@@ -34724,6 +34979,43 @@
    "sbb_callno": "4\"@836959-3,23"
   },
   {
+   "id": "wp-sheng-shitai-170",
+   "title_zh": "玄牘記",
+   "title_pinyin": "",
+   "author_zh": "盛時泰",
+   "author_pinyin": "Sheng Shitai",
+   "author_id": "person-sheng-shitai",
+   "work_id": "work-000306",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.40",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《玄牘記》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《玄牘記》",
+    "《玄牍记》"
+   ],
+   "vault_page": "Sheng Shitai 盛時泰《玄牘記》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,40"
+  },
+  {
    "id": "wp-x-642",
    "title_zh": "玉山縣志",
    "title_pinyin": "",
@@ -35653,6 +35945,43 @@
    "sbb_callno": "4\"@836959-3,37"
   },
   {
+   "id": "wp-ling-xia-84",
+   "title_zh": "癖𡚽堂收藏金石小學書目",
+   "title_pinyin": "",
+   "author_zh": "淩瑕",
+   "author_pinyin": "Ling Xia",
+   "author_id": "person-ling-xia",
+   "work_id": "work-000178",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.37",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《癖𡚽堂收藏金石小學書目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《癖𡚽堂收藏金石小學書目》",
+    "《癖𡚽堂收藏金石小学书目》"
+   ],
+   "vault_page": "Ling Xia 淩瑕《癖𡚽堂收藏金石小學書目》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,37"
+  },
+  {
    "id": "wp-x-657",
    "title_zh": "登封縣志",
    "title_pinyin": "",
@@ -35978,6 +36307,43 @@
    "ks_date": "1941",
    "vault_page": "Yu Beiyun 俞陛雲《石墨餘馨》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "sbb_callno": "4\"@836959-3,35"
+  },
+  {
+   "id": "wp-yu-beiyun-266",
+   "title_zh": "石墨餘馨續編",
+   "title_pinyin": "",
+   "author_zh": "俞陛雲",
+   "author_pinyin": "Yu Beiyun",
+   "author_id": "person-yu-beiyun",
+   "work_id": "work-000471",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.35",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《石墨餘馨續編》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《石墨餘馨續編》",
+    "《石墨余馨续编》"
+   ],
+   "vault_page": "Yu Beiyun 俞陛雲《石墨餘馨續編》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
    "sbb_callno": "4\"@836959-3,35"
   },
   {
@@ -36794,6 +37160,43 @@
    "sbb_callno": "4\"@836959-3,25"
   },
   {
+   "id": "wp-zhao-wei-290",
+   "title_zh": "竹崦庵金石目錄",
+   "title_pinyin": "",
+   "author_zh": "趙魏",
+   "author_pinyin": "Zhao Wei",
+   "author_id": "person-zhao-wei",
+   "work_id": "work-000518",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.37",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《竹崦庵金石目錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《竹崦庵金石目錄》",
+    "《竹崦庵金石目录》"
+   ],
+   "vault_page": "Zhao Wei 趙魏《竹崦庵金石目錄》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,37"
+  },
+  {
    "id": "ks-3-1-387-527",
    "title_zh": "筠消館金石",
    "title_pinyin": "",
@@ -37075,6 +37478,43 @@
    "vault_page": "Zhai Qinian 翟耆年《籀史》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
    "sbb_callno": "4\"@836959-3,28"
+  },
+  {
+   "id": "wp-zou-hanxun-317",
+   "title_zh": "紅崖碑釋",
+   "title_pinyin": "",
+   "author_zh": "鄒漢勛",
+   "author_pinyin": "Zou Hanxun",
+   "author_id": "person-zou-hanxun",
+   "work_id": "work-000551",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.34",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《紅崖碑釋》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《紅崖碑釋》",
+    "《红崖碑释》"
+   ],
+   "vault_page": "Zou Hanxun 鄒漢勛《紅崖碑釋》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,34"
   },
   {
    "id": "ks-3-34-539-547",
@@ -39197,6 +39637,43 @@
    "sbb_callno": "4\"@836959-3,6"
   },
   {
+   "id": "wp-ye-sheng-264",
+   "title_zh": "菉竹堂碑目",
+   "title_pinyin": "",
+   "author_zh": "葉盛",
+   "author_pinyin": "Ye Sheng",
+   "author_id": "person-ye-sheng",
+   "work_id": "work-000462",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.37",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《菉竹堂碑目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《菉竹堂碑目》",
+    "《菉竹堂碑目》"
+   ],
+   "vault_page": "Ye Sheng 葉盛《菉竹堂碑目》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,37"
+  },
+  {
    "id": "ks-3-37-273-308",
    "title_zh": "菜竹堂碑目",
    "title_pinyin": "",
@@ -40425,6 +40902,43 @@
    "sbb_callno": "4\"@836959-3,40"
   },
   {
+   "id": "wp-huang-jun-53",
+   "title_zh": "衡齋金石識小錄",
+   "title_pinyin": "",
+   "author_zh": "黃濬",
+   "author_pinyin": "Huang Jun",
+   "author_id": "person-huang-jun",
+   "work_id": "work-000115",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.40",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《衡齋金石識小錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《衡齋金石識小錄》",
+    "《衡斋金石识小录》"
+   ],
+   "vault_page": "Huang Jun 黃濬《衡齋金石識小錄》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,40"
+  },
+  {
    "id": "wp-x-721",
    "title_zh": "衢縣志稿",
    "title_pinyin": "",
@@ -40826,6 +41340,43 @@
    "sbb_callno": "4\"@836959-3,28"
   },
   {
+   "id": "wp-wang-kun-202",
+   "title_zh": "話雨樓碑帖目錄",
+   "title_pinyin": "",
+   "author_zh": "王鯤",
+   "author_pinyin": "Wang Kun",
+   "author_id": "person-wang-kun",
+   "work_id": "work-000348",
+   "dynasty": "",
+   "juan": 4,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.36",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《話雨樓碑帖目錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《話雨樓碑帖目錄》",
+    "《话雨楼碑帖目录》"
+   ],
+   "vault_page": "Wang Kun 王鯤《話雨樓碑帖目錄》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,36"
+  },
+  {
    "id": "ks-t-x-232",
    "title_zh": "誌銘廣例",
    "title_pinyin": "",
@@ -40904,6 +41455,43 @@
    "ks_date": "",
    "vault_page": "Lu Yapu 陸雅浦《諸史碑銘錄目》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編"
+  },
+  {
+   "id": "wp-wang-weipu-211",
+   "title_zh": "諸城王氏金石叢書提要",
+   "title_pinyin": "",
+   "author_zh": "王維樸",
+   "author_pinyin": "Wang Weipu",
+   "author_id": "person-wang-weipu",
+   "work_id": "work-000364",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.34",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《諸城王氏金石叢書提要》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《諸城王氏金石叢書提要》",
+    "《诸城王氏金石丛书提要》"
+   ],
+   "vault_page": "Wang Weipu 王維樸《諸城王氏金石叢書提要》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,34"
   },
   {
    "id": "ks-3-32-261-264",
@@ -41185,6 +41773,43 @@
    "ks_date": "1942",
    "vault_page": "",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "sbb_callno": "4\"@836959-3,35"
+  },
+  {
+   "id": "wp-zhu-dingrong-307",
+   "title_zh": "讀石墨餘馨後記",
+   "title_pinyin": "",
+   "author_zh": "朱鼎榮",
+   "author_pinyin": "Zhu Dingrong",
+   "author_id": "person-zhu-dingrong",
+   "work_id": "work-000536",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.35",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《讀石墨餘馨後記》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《讀石墨餘馨後記》",
+    "《读石墨余馨后记》"
+   ],
+   "vault_page": "Zhu Dingrong 朱鼎榮《讀石墨餘馨後記》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
    "sbb_callno": "4\"@836959-3,35"
   },
   {
@@ -42014,6 +42639,43 @@
    "ks_date": "1941",
    "vault_page": "",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "sbb_callno": "4\"@836959-3,40"
+  },
+  {
+   "id": "wp-ke-changsi-67",
+   "title_zh": "辛巳金石偶譚",
+   "title_pinyin": "",
+   "author_zh": "柯昌泗",
+   "author_pinyin": "Ke Changsi",
+   "author_id": "person-ke-changsi",
+   "work_id": "work-000142",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.40",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《辛巳金石偶譚》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《辛巳金石偶譚》",
+    "《辛巳金石偶谭》"
+   ],
+   "vault_page": "Ke Changsi 柯昌泗《辛巳金石偶譚》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
    "sbb_callno": "4\"@836959-3,40"
   },
   {
@@ -44968,6 +45630,43 @@
    "sbb_callno": "4\"@836959-3,35"
   },
   {
+   "id": "wp-chen-yixi-16",
+   "title_zh": "隱綠軒題識",
+   "title_pinyin": "",
+   "author_zh": "陳奕禧",
+   "author_pinyin": "Chen Yixi",
+   "author_id": "person-chen-yixi",
+   "work_id": "work-000028",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.38",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《隱綠軒題識》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《隱綠軒題識》",
+    "《隐绿轩题识》"
+   ],
+   "vault_page": "Chen Yixi 陳奕禧《隱綠軒題識》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,38"
+  },
+  {
    "id": "ks-3-24-1-35",
    "title_zh": "雄縣金石新篇",
    "title_pinyin": "",
@@ -46676,6 +47375,43 @@
    "sbb_callno": "4\"@836959-3,37"
   },
   {
+   "id": "wp-yan-ling-247",
+   "title_zh": "魯學齋金石文跋尾",
+   "title_pinyin": "",
+   "author_zh": "延齡",
+   "author_pinyin": "Yan Ling",
+   "author_id": "person-yan-ling",
+   "work_id": "work-000430",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.38",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《魯學齋金石文跋尾》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《魯學齋金石文跋尾》",
+    "《鲁学斋金石文跋尾》"
+   ],
+   "vault_page": "Yan Ling 延齡《魯學齋金石文跋尾》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
+   "sbb_callno": "4\"@836959-3,38"
+  },
+  {
    "id": "ks-3-35-371-379",
    "title_zh": "鮑臆園丈手札",
    "title_pinyin": "",
@@ -46703,6 +47439,43 @@
    "ks_date": "",
    "vault_page": "",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "sbb_callno": "4\"@836959-3,35"
+  },
+  {
+   "id": "wp-bao-kang-2",
+   "title_zh": "鮑臆園文手札",
+   "title_pinyin": "",
+   "author_zh": "鮑康",
+   "author_pinyin": "Bao Kang",
+   "author_id": "person-bao-kang",
+   "work_id": "work-000006",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.35",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《鮑臆園文手札》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《鮑臆園文手札》",
+    "《鲍臆园文手札》"
+   ],
+   "vault_page": "Bao Kang 鮑康《鮑臆園文手札》",
+   "source": "石刻史料新編 (OCR 總目 第三輯)",
    "sbb_callno": "4\"@836959-3,35"
   },
   {
@@ -47202,6 +47975,11 @@
    "ks_date": "",
    "vault_page": "Qian Baotang 錢保塘《涪州石魚題刻一卷龍脊石題刻",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "aliases": [
+    "涪州石魚題刻一卷龍脊石題刻一卷",
+    "《涪州石魚題刻》",
+    "涪州石魚题刻"
+   ],
    "sbb_callno": "4\"@836959-3,15"
   },
   {
@@ -50266,42 +51044,6 @@
    }
   },
   {
-   "id": "wp-luo-zhenyu-106",
-   "title_zh": "三韓塚墓遺文目錄",
-   "title_pinyin": "",
-   "author_zh": "羅振玉",
-   "author_pinyin": "Luo Zhenyu",
-   "author_id": "person-luo-zhenyu",
-   "work_id": "work-000214",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《三韓塚墓遺文目錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《三韓塚墓遺文目錄》",
-    "《三韩冢墓遗文目录》"
-   ],
-   "vault_page": "Luo Zhenyu 羅振玉《三韓塚墓遺文目錄》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-ma-heng-140",
    "title_zh": "中國金石學概要",
    "title_pinyin": "",
@@ -50440,42 +51182,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-he-shiji-liu-houtong-49",
-   "title_zh": "南北響堂寺及其附近石刻目錄",
-   "title_pinyin": "",
-   "author_zh": "何士驥",
-   "author_pinyin": "He Shiji Liu Houtong",
-   "author_id": "",
-   "work_id": "work-000100",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《南北響堂寺及其附近石刻目錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《南北響堂寺及其附近石刻目錄》",
-    "《南北响堂寺及其附近石刻目录》"
-   ],
-   "vault_page": "He Shiji Liu Houtong 何士驥·劉厚同《南北響堂寺及其附近石刻目錄》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-x-385",
    "title_zh": "南雄縣志",
    "title_pinyin": "",
@@ -50566,115 +51272,6 @@
    "relations": [],
    "aliases": [],
    "vault_page": "Sun Kehong 孫克宏《古今石刻碑帖目》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-wang-chaoqu-194",
-   "title_zh": "唐石經考正",
-   "title_pinyin": "",
-   "author_zh": "王朝渠",
-   "author_pinyin": "Wang Chaoqu",
-   "author_id": "person-wang-chaoqu",
-   "work_id": "work-000336",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《唐石經考正》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《唐石經考正》",
-    "《唐石经考正》"
-   ],
-   "vault_page": "Wang Chaoqu 王朝渠《唐石經考正》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-x-413",
-   "title_zh": "國立北平圖書館藏碑目",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-000647",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《國立北平圖書館藏碑目》(墓誌類) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《國立北平圖書館藏碑目》(墓誌類)",
-    "《国立北平图书馆藏碑目》(墓志类)",
-    "《國立北平圖書館藏碑目》"
-   ],
-   "vault_page": "《國立北平圖書館藏碑目》(墓誌類)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-wang-yirong-217",
-   "title_zh": "天壤閣雜記",
-   "title_pinyin": "",
-   "author_zh": "王懿榮",
-   "author_pinyin": "Wang Yirong",
-   "author_id": "person-wang-yirong",
-   "work_id": "work-000373",
-   "dynasty": "",
-   "juan": 1,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《天壤閣雜記》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《天壤閣雜記》",
-    "《天壤阁杂记》"
-   ],
-   "vault_page": "Wang Yirong 王懿榮《天壤閣雜記》",
    "source": "vault epigraphy work page"
   },
   {
@@ -51003,42 +51600,6 @@
     "昌平金石記一卷"
    ],
    "vault_page": "《昌平縣志》(金石)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-fu-yili-33",
-   "title_zh": "有萬憙齋石刻跋",
-   "title_pinyin": "",
-   "author_zh": "傅以禮",
-   "author_pinyin": "Fu Yili",
-   "author_id": "person-fu-yili",
-   "work_id": "work-000068",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《有萬憙齋石刻跋》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《有萬憙齋石刻跋》",
-    "《有万憙斋石刻跋》"
-   ],
-   "vault_page": "Fu Yili 傅以禮《有萬憙齋石刻跋》",
    "source": "vault epigraphy work page"
   },
   {
@@ -51417,42 +51978,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-jiang-chenying-65",
-   "title_zh": "湛園題跋",
-   "title_pinyin": "",
-   "author_zh": "姜宸英",
-   "author_pinyin": "Jiang Chenying",
-   "author_id": "person-jiang-chenying",
-   "work_id": "work-000137",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《湛園題跋》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《湛園題跋》",
-    "《湛园题跋》"
-   ],
-   "vault_page": "Jiang Chenying 姜宸英《湛園題跋》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-x-622",
    "title_zh": "滋陽縣志",
    "title_pinyin": "",
@@ -51802,42 +52327,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-sheng-shitai-170",
-   "title_zh": "玄牘記",
-   "title_pinyin": "",
-   "author_zh": "盛時泰",
-   "author_pinyin": "Sheng Shitai",
-   "author_id": "person-sheng-shitai",
-   "work_id": "work-000306",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《玄牘記》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《玄牘記》",
-    "《玄牍记》"
-   ],
-   "vault_page": "Sheng Shitai 盛時泰《玄牘記》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-fan-bin-30",
    "title_zh": "畿輔待訪碑目",
    "title_pinyin": "",
@@ -51857,42 +52346,6 @@
     "《畿輔待訪碑目》"
    ],
    "vault_page": "Fan Bin 樊彬《畿輔待訪碑目》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-ling-xia-84",
-   "title_zh": "癖𡚽堂收藏金石小學書目",
-   "title_pinyin": "",
-   "author_zh": "淩瑕",
-   "author_pinyin": "Ling Xia",
-   "author_id": "person-ling-xia",
-   "work_id": "work-000178",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《癖𡚽堂收藏金石小學書目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《癖𡚽堂收藏金石小學書目》",
-    "《癖𡚽堂收藏金石小学书目》"
-   ],
-   "vault_page": "Ling Xia 淩瑕《癖𡚽堂收藏金石小學書目》",
    "source": "vault epigraphy work page"
   },
   {
@@ -51924,42 +52377,6 @@
     "绛州石刻志"
    ],
    "vault_page": "《直隸絳州志》(石刻)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-yu-beiyun-266",
-   "title_zh": "石墨餘馨續編",
-   "title_pinyin": "",
-   "author_zh": "俞陛雲",
-   "author_pinyin": "Yu Beiyun",
-   "author_id": "person-yu-beiyun",
-   "work_id": "work-000471",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《石墨餘馨續編》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《石墨餘馨續編》",
-    "《石墨余馨续编》"
-   ],
-   "vault_page": "Yu Beiyun 俞陛雲《石墨餘馨續編》",
    "source": "vault epigraphy work page"
   },
   {
@@ -52068,42 +52485,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-zhao-wei-290",
-   "title_zh": "竹崦庵金石目錄",
-   "title_pinyin": "",
-   "author_zh": "趙魏",
-   "author_pinyin": "Zhao Wei",
-   "author_id": "person-zhao-wei",
-   "work_id": "work-000518",
-   "dynasty": "",
-   "juan": 1,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《竹崦庵金石目錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《竹崦庵金石目錄》",
-    "《竹崦庵金石目录》"
-   ],
-   "vault_page": "Zhao Wei 趙魏《竹崦庵金石目錄》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-wu-rongguang-229",
    "title_zh": "筠清館金石",
    "title_pinyin": "",
@@ -52123,42 +52504,6 @@
     "《筠清館金石》"
    ],
    "vault_page": "Wu Rongguang 吳榮光《筠清館金石》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-zou-hanxun-317",
-   "title_zh": "紅崖碑釋",
-   "title_pinyin": "",
-   "author_zh": "鄒漢勛",
-   "author_pinyin": "Zou Hanxun",
-   "author_id": "person-zou-hanxun",
-   "work_id": "work-000551",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《紅崖碑釋》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《紅崖碑釋》",
-    "《红崖碑释》"
-   ],
-   "vault_page": "Zou Hanxun 鄒漢勛《紅崖碑釋》",
    "source": "vault epigraphy work page"
   },
   {
@@ -52325,42 +52670,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-ye-sheng-264",
-   "title_zh": "菉竹堂碑目",
-   "title_pinyin": "",
-   "author_zh": "葉盛",
-   "author_pinyin": "Ye Sheng",
-   "author_id": "person-ye-sheng",
-   "work_id": "work-000462",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《菉竹堂碑目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《菉竹堂碑目》",
-    "《菉竹堂碑目》"
-   ],
-   "vault_page": "Ye Sheng 葉盛《菉竹堂碑目》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-x-705",
    "title_zh": "華州志",
    "title_pinyin": "",
@@ -52474,42 +52783,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-huang-jun-53",
-   "title_zh": "衡齋金石識小錄",
-   "title_pinyin": "",
-   "author_zh": "黃濬",
-   "author_pinyin": "Huang Jun",
-   "author_id": "person-huang-jun",
-   "work_id": "work-000115",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《衡齋金石識小錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《衡齋金石識小錄》",
-    "《衡斋金石识小录》"
-   ],
-   "vault_page": "Huang Jun 黃濬《衡齋金石識小錄》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-x-723",
    "title_zh": "襄垣縣志",
    "title_pinyin": "",
@@ -52544,150 +52817,6 @@
     "襄垣金石考不分卷"
    ],
    "vault_page": "《襄垣縣志》(金石)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-wang-kun-202",
-   "title_zh": "話雨樓碑帖目錄",
-   "title_pinyin": "",
-   "author_zh": "王鯤",
-   "author_pinyin": "Wang Kun",
-   "author_id": "person-wang-kun",
-   "work_id": "work-000348",
-   "dynasty": "",
-   "juan": 4,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《話雨樓碑帖目錄》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《話雨樓碑帖目錄》",
-    "《话雨楼碑帖目录》"
-   ],
-   "vault_page": "Wang Kun 王鯤《話雨樓碑帖目錄》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-wang-weipu-211",
-   "title_zh": "諸城王氏金石叢書提要",
-   "title_pinyin": "",
-   "author_zh": "王維樸",
-   "author_pinyin": "Wang Weipu",
-   "author_id": "person-wang-weipu",
-   "work_id": "work-000364",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《諸城王氏金石叢書提要》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《諸城王氏金石叢書提要》",
-    "《诸城王氏金石丛书提要》"
-   ],
-   "vault_page": "Wang Weipu 王維樸《諸城王氏金石叢書提要》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-zhu-dingrong-307",
-   "title_zh": "讀石墨餘馨後記",
-   "title_pinyin": "",
-   "author_zh": "朱鼎榮",
-   "author_pinyin": "Zhu Dingrong",
-   "author_id": "person-zhu-dingrong",
-   "work_id": "work-000536",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《讀石墨餘馨後記》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《讀石墨餘馨後記》",
-    "《读石墨余馨后记》"
-   ],
-   "vault_page": "Zhu Dingrong 朱鼎榮《讀石墨餘馨後記》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-ke-changsi-67",
-   "title_zh": "辛巳金石偶譚",
-   "title_pinyin": "",
-   "author_zh": "柯昌泗",
-   "author_pinyin": "Ke Changsi",
-   "author_id": "person-ke-changsi",
-   "work_id": "work-000142",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《辛巳金石偶譚》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《辛巳金石偶譚》",
-    "《辛巳金石偶谭》"
-   ],
-   "vault_page": "Ke Changsi 柯昌泗《辛巳金石偶譚》",
    "source": "vault epigraphy work page"
   },
   {
@@ -52931,42 +53060,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-chen-yixi-16",
-   "title_zh": "隱綠軒題識",
-   "title_pinyin": "",
-   "author_zh": "陳奕禧",
-   "author_pinyin": "Chen Yixi",
-   "author_id": "person-chen-yixi",
-   "work_id": "work-000028",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《隱綠軒題識》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《隱綠軒題識》",
-    "《隐绿轩题识》"
-   ],
-   "vault_page": "Chen Yixi 陳奕禧《隱綠軒題識》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-ouyang-xiu-150",
    "title_zh": "集古錄",
    "title_pinyin": "Jiguolu",
@@ -53027,78 +53120,6 @@
     "高唐金石志不分卷 (徐宗幹)"
    ],
    "vault_page": "《高唐縣志》(金石·徐宗幹)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-yan-ling-247",
-   "title_zh": "魯學齋金石文跋尾",
-   "title_pinyin": "",
-   "author_zh": "延齡",
-   "author_pinyin": "Yan Ling",
-   "author_id": "person-yan-ling",
-   "work_id": "work-000430",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《魯學齋金石文跋尾》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《魯學齋金石文跋尾》",
-    "《鲁学斋金石文跋尾》"
-   ],
-   "vault_page": "Yan Ling 延齡《魯學齋金石文跋尾》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-bao-kang-2",
-   "title_zh": "鮑臆園文手札",
-   "title_pinyin": "",
-   "author_zh": "鮑康",
-   "author_pinyin": "Bao Kang",
-   "author_id": "person-bao-kang",
-   "work_id": "work-000006",
-   "dynasty": "",
-   "juan": 1,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《鮑臆園文手札》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《鮑臆園文手札》",
-    "《鲍臆园文手札》"
-   ],
-   "vault_page": "Bao Kang 鮑康《鮑臆園文手札》",
    "source": "vault epigraphy work page"
   }
  ]

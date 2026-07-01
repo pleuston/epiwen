@@ -1,8 +1,8 @@
 {
  "generated": "2026-06-27",
- "count": 1432,
- "in_skslxb": 1406,
- "with_locator": 865,
+ "count": 1453,
+ "in_skslxb": 1427,
+ "with_locator": 896,
  "merged_workxml": 1044,
  "source": "K&S/SKSLXB (kuhn-stahl-dryrun) + vault work pages, merged with edep_sino works.xml",
  "note": "Premodern Chinese epigraphy works (金石學). SKSLXB locator where resolved else series. Curated author→person links, editions, relations from edep_sino works.xml. Not limited to SKSLXB. No paratexts.",
@@ -570,6 +570,31 @@
    ]
   },
   {
+   "id": "gap-1-10-7781-7966",
+   "title_zh": "十二視齋金石過服錄",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 1,
+   "skslxb_locator": "1.10:7781-7966",
+   "skslxb_pages": "7781-7966",
+   "skslxb_category": "",
+   "period_covered": "Qin–Yuan",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-1,10"
+  },
+  {
    "id": "wp-tao-zongyi-189",
    "title_zh": "古刻叢鈔",
    "title_pinyin": "Guke congchao",
@@ -945,7 +970,7 @@
    "juan": null,
    "in_skslxb": true,
    "skslxb_series": 1,
-   "skslxb_locator": "",
+   "skslxb_locator": "1.18:13819-13948",
    "catalogue": {},
    "editions": [
     {
@@ -974,7 +999,8 @@
     "text": "嘉慶二十四年",
     "when": "1819",
     "cert": "medium"
-   }
+   },
+   "sbb_callno": "4\"@836959-1,18"
   },
   {
    "id": "toc-x-12",
@@ -1151,6 +1177,31 @@
    "vault_page": "《寶刻類編》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
    "sbb_callno": "4\"@836959-1,24"
+  },
+  {
+   "id": "gap-1-26-19849-20084",
+   "title_zh": "寶宇訪碑錄",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 12,
+   "in_skslxb": true,
+   "skslxb_series": 1,
+   "skslxb_locator": "1.26:19849-20084",
+   "skslxb_pages": "19849-20084",
+   "skslxb_category": "",
+   "period_covered": "Zhou–Yuan",
+   "author_dates": "1753-1818",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-1,26"
   },
   {
    "id": "ks-1-21-15874",
@@ -2184,7 +2235,7 @@
    "juan": null,
    "in_skslxb": true,
    "skslxb_series": 1,
-   "skslxb_locator": "",
+   "skslxb_locator": "1.27:20635-20649",
    "catalogue": {},
    "editions": [
     {
@@ -2208,7 +2259,33 @@
    ],
    "vault_page": "Chang Maolai 常茂徠《洛陽石刻録》",
    "source": "石刻史料新編 (目錄) / vault",
-   "skslxb_category": "目録題跋類"
+   "skslxb_category": "目録題跋類",
+   "sbb_callno": "4\"@836959-1,27"
+  },
+  {
+   "id": "gap-1-23-17187-17209",
+   "title_zh": "洴陽述古編",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 1,
+   "skslxb_locator": "1.23:17187-17209",
+   "skslxb_pages": "17187-17209",
+   "skslxb_category": "",
+   "period_covered": "Han–Ming",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-1,23"
   },
   {
    "id": "wp-liu-xihai-96",
@@ -2818,6 +2895,31 @@
    "sbb_callno": "4\"@836959-1,27"
   },
   {
+   "id": "gap-1-25-18729-19079",
+   "title_zh": "潛研堂金石文",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 1,
+   "skslxb_locator": "1.25:18729-19079",
+   "skslxb_pages": "18729-19079",
+   "skslxb_category": "",
+   "period_covered": "Zhou–Yuan",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-1,25"
+  },
+  {
    "id": "wp-qian-daxin-155",
    "title_zh": "潛研堂金石文字目録",
    "title_pinyin": "Qianyantang jinshi wenzi mulu",
@@ -3141,7 +3243,7 @@
    "juan": null,
    "in_skslxb": true,
    "skslxb_series": 1,
-   "skslxb_locator": "",
+   "skslxb_locator": "1.17:12367-12466",
    "skslxb_pages": "",
    "skslxb_category": "地方類",
    "period_covered": null,
@@ -3388,6 +3490,31 @@
    "sbb_callno": "4\"@836959-1,19"
   },
   {
+   "id": "gap-1-19-14145-14323",
+   "title_zh": "芒洛冢墓遺文四編",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 3,
+   "in_skslxb": true,
+   "skslxb_series": 1,
+   "skslxb_locator": "1.19:14145-14323",
+   "skslxb_pages": "14145-14323",
+   "skslxb_category": "",
+   "period_covered": "Han–Song",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-1,19"
+  },
+  {
    "id": "ks-1-19-14055-14106",
    "title_zh": "芒洛冢墓邀文續編",
    "title_pinyin": "",
@@ -3456,6 +3583,31 @@
    "ks_date": "",
    "vault_page": "Miao Quansun 繆荃孫《藝風堂金石文字目》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編"
+  },
+  {
+   "id": "gap-1-27-20191-20270",
+   "title_zh": "補宴字訪碑錄",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 5,
+   "in_skslxb": true,
+   "skslxb_series": 1,
+   "skslxb_locator": "1.27:20191-20270",
+   "skslxb_pages": "20191-20270",
+   "skslxb_category": "",
+   "period_covered": "Qin–Yuan",
+   "author_dates": "1829-1884",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-1,27"
   },
   {
    "id": "wp-zhao-zhiqian-295",
@@ -4084,7 +4236,7 @@
    "juan": null,
    "in_skslxb": true,
    "skslxb_series": 1,
-   "skslxb_locator": "",
+   "skslxb_locator": "1.5:3749-3786",
    "skslxb_pages": "",
    "skslxb_category": "一般類",
    "period_covered": null,
@@ -4100,7 +4252,8 @@
    "source": "石刻史料新編 (目錄)",
    "aliases": [
     "Jinshi xulu"
-   ]
+   ],
+   "sbb_callno": "4\"@836959-1,5"
   },
   {
    "id": "ks-1-9-6231-6595",
@@ -4555,7 +4708,7 @@
    "juan": null,
    "in_skslxb": true,
    "skslxb_series": 1,
-   "skslxb_locator": "",
+   "skslxb_locator": "1.12:8799-8984",
    "skslxb_pages": "",
    "skslxb_category": "一般類",
    "period_covered": null,
@@ -6874,7 +7027,7 @@
    "juan": null,
    "in_skslxb": true,
    "skslxb_series": 2,
-   "skslxb_locator": "",
+   "skslxb_locator": "2.10:7449-7488",
    "catalogue": {},
    "editions": [
     {
@@ -6898,7 +7051,8 @@
    ],
    "vault_page": "Zou Bosen 鄒柏森《嚴州金石録》",
    "source": "石刻史料新編 (目錄) / vault",
-   "skslxb_category": "地方類"
+   "skslxb_category": "地方類",
+   "sbb_callno": "4\"@836959-2,10"
   },
   {
    "id": "ks-t-x-113",
@@ -7839,7 +7993,7 @@
    "juan": null,
    "in_skslxb": true,
    "skslxb_series": 2,
-   "skslxb_locator": "",
+   "skslxb_locator": "2.9:6691-6790",
    "catalogue": {},
    "editions": [
     {
@@ -7880,7 +8034,8 @@
     "text": "民國二十四年",
     "when": "1935",
     "cert": "medium"
-   }
+   },
+   "sbb_callno": "4\"@836959-2,9"
   },
   {
    "id": "ks-2-14-10179-10245",
@@ -9822,6 +9977,31 @@
    "sbb_callno": "4\"@836959-2,11"
   },
   {
+   "id": "gap-2-14-10247-10293",
+   "title_zh": "溶縣金石錄",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 2,
+   "skslxb_locator": "2.14:10247-10293",
+   "skslxb_pages": "10247-10293",
+   "skslxb_category": "",
+   "period_covered": "Han–Ming",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-2,14"
+  },
+  {
    "id": "wp-yang-longshi-251",
    "title_zh": "漢四皓石刻題跋",
    "title_pinyin": "",
@@ -10204,6 +10384,31 @@
     "when": "1840",
     "cert": "medium"
    },
+   "sbb_callno": "4\"@836959-2,13"
+  },
+  {
+   "id": "gap-2-13-9393-9742",
+   "title_zh": "濟寧州金石志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 8,
+   "in_skslxb": true,
+   "skslxb_series": 2,
+   "skslxb_locator": "2.13:9393-9742",
+   "skslxb_pages": "9393-9742",
+   "skslxb_category": "",
+   "period_covered": "Zhou–Qing",
+   "author_dates": "1796-1866",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
    "sbb_callno": "4\"@836959-2,13"
   },
   {
@@ -12442,6 +12647,31 @@
    "vault_page": "Chu Jun 褚峻·牛運震《金石圖説》",
    "source": "石刻史料新編 (目錄) / vault",
    "skslxb_category": "一般類"
+  },
+  {
+   "id": "gap-2-6-4777-4978",
+   "title_zh": "金石契",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 2,
+   "skslxb_locator": "2.6:4777-4978",
+   "skslxb_pages": "4777-4978",
+   "skslxb_category": "",
+   "period_covered": null,
+   "author_dates": "1738-1814",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-2,6"
   },
   {
    "id": "ks-2-17-12375-12417",
@@ -16021,6 +16251,31 @@
    "sbb_callno": "4\"@836959-3,24"
   },
   {
+   "id": "gap-3-38-46-56",
+   "title_zh": "元氏誌錄",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.38:46-56",
+   "skslxb_pages": "46-56",
+   "skslxb_category": "",
+   "period_covered": null,
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,38"
+  },
+  {
    "id": "ks-3-40-583-615",
    "title_zh": "元牘記",
    "title_pinyin": "",
@@ -18205,7 +18460,7 @@
    "juan": null,
    "in_skslxb": true,
    "skslxb_series": 3,
-   "skslxb_locator": "",
+   "skslxb_locator": "3.1:131-385",
    "catalogue": {},
    "editions": [
     {
@@ -18228,7 +18483,8 @@
    ],
    "vault_page": "Ji Fotuo 姬佛陀《古石抱守録》",
    "source": "石刻史料新編 (目錄) / vault",
-   "skslxb_category": "一般類"
+   "skslxb_category": "一般類",
+   "sbb_callno": "4\"@836959-3,1"
   },
   {
    "id": "wp-gu-xieguang-38",
@@ -20936,6 +21192,31 @@
    "sbb_callno": "4\"@836959-3,35"
   },
   {
+   "id": "gap-3-35-1-26",
+   "title_zh": "天發神識碑考",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.35:1-26",
+   "skslxb_pages": "1-26",
+   "skslxb_category": "",
+   "period_covered": null,
+   "author_dates": "1845-1900",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,35"
+  },
+  {
    "id": "wp-zhou-zaijun-302",
    "title_zh": "天發神讖碑考",
    "title_pinyin": "",
@@ -23275,6 +23556,31 @@
    "ks_date": "",
    "vault_page": "Huang Yi 黃易《小蓬萊閣金石文字》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編"
+  },
+  {
+   "id": "gap-3-9-399-449",
+   "title_zh": "居金石志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 2,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.9:399-449",
+   "skslxb_pages": "399-449",
+   "skslxb_category": "",
+   "period_covered": "Jin if–Yuan",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,9"
   },
   {
    "id": "ks-3-20-277-385",
@@ -25796,6 +26102,31 @@
     "《德慶縣志》(金石·朱一新)"
    ],
    "sbb_callno": "4\"@836959-3,22"
+  },
+  {
+   "id": "gap-3-8-301-313",
+   "title_zh": "德清碑刻新志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.8:301-313",
+   "skslxb_pages": "301-313",
+   "skslxb_category": "",
+   "period_covered": null,
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,8"
   },
   {
    "id": "ks-t-x-41",
@@ -32936,9 +33267,6 @@
    "ks_date": "",
    "vault_page": "Qian Baotang 錢保塘《涪州石魚題刻一卷龍脊石題刻",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
-   "aliases": [
-    "《龍脊石題刻》"
-   ],
    "sbb_callno": "4\"@836959-3,15"
   },
   {
@@ -34208,6 +34536,31 @@
    "skslxb_category": "地方類"
   },
   {
+   "id": "gap-3-12-207-212",
+   "title_zh": "滁州金石志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.12:207-212",
+   "skslxb_pages": "207-212",
+   "skslxb_category": "",
+   "period_covered": "Tang–Qing",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,12"
+  },
+  {
    "id": "wp-zhang-xilu-284",
    "title_zh": "滇東金石記一冊",
    "title_pinyin": "",
@@ -34377,6 +34730,31 @@
     "滑縣志",
     "《滑縣志》(碑誌)"
    ],
+   "sbb_callno": "4\"@836959-3,29"
+  },
+  {
+   "id": "gap-3-29-15-137",
+   "title_zh": "滑縣金石錄",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.29:15-137",
+   "skslxb_pages": "15-137",
+   "skslxb_category": "",
+   "period_covered": "Shang–Ming",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
    "sbb_callno": "4\"@836959-3,29"
   },
   {
@@ -35586,6 +35964,31 @@
     "无极县志金石"
    ],
    "sbb_callno": "4\"@836959-3,24"
+  },
+  {
+   "id": "gap-3-6-145-147",
+   "title_zh": "無錫金匱碑碣附志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.6:145-147",
+   "skslxb_pages": "145-147",
+   "skslxb_category": "",
+   "period_covered": "Tang–Song",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,6"
   },
   {
    "id": "wp-x-636",
@@ -37145,6 +37548,31 @@
     "《石城縣志》(金石)"
    ],
    "sbb_callno": "4\"@836959-3,22"
+  },
+  {
+   "id": "gap-3-35-343-356",
+   "title_zh": "石墨餘聲續編",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.35:343-356",
+   "skslxb_pages": "343-356",
+   "skslxb_category": "",
+   "period_covered": "Xia–Tang",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,35"
   },
   {
    "id": "ks-3-35-331-341",
@@ -42593,6 +43021,31 @@
    "sbb_callno": "4\"@836959-3,28"
   },
   {
+   "id": "gap-3-36-521-636",
+   "title_zh": "話爾樓碑帕目錄",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 4,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.36:521-636",
+   "skslxb_pages": "521-636",
+   "skslxb_category": "",
+   "period_covered": "Xia–Yuan",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,36"
+  },
+  {
    "id": "wp-wang-kun-202",
    "title_zh": "話雨樓碑帖目錄",
    "title_pinyin": "",
@@ -43664,7 +44117,7 @@
    "juan": 3,
    "in_skslxb": true,
    "skslxb_series": 3,
-   "skslxb_locator": "",
+   "skslxb_locator": "3.12:219-289",
    "catalogue": {},
    "editions": [
     {
@@ -43687,7 +44140,8 @@
    ],
    "vault_page": "Shao Qixian 邵啓賢《贛石録》",
    "source": "石刻史料新編 (目錄) / vault",
-   "skslxb_category": "地方類"
+   "skslxb_category": "地方類",
+   "sbb_callno": "4\"@836959-3,12"
   },
   {
    "id": "wp-x-740",
@@ -44049,7 +44503,7 @@
    "juan": 1,
    "in_skslxb": true,
    "skslxb_series": 3,
-   "skslxb_locator": "",
+   "skslxb_locator": "3.4:479-495",
    "catalogue": {},
    "editions": [
     {
@@ -44074,7 +44528,8 @@
    ],
    "vault_page": "Luo Zhenyu 羅振玉《遼帝后哀册文録》",
    "source": "石刻史料新編 (目錄) / vault",
-   "skslxb_category": "一般類"
+   "skslxb_category": "一般類",
+   "sbb_callno": "4\"@836959-3,4"
   },
   {
    "id": "wp-luo-zhenyu-133",
@@ -46880,6 +47335,31 @@
    ]
   },
   {
+   "id": "gap-3-7-47-54",
+   "title_zh": "陽換摩厓記錄",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.7:47-54",
+   "skslxb_pages": "47-54",
+   "skslxb_category": "",
+   "period_covered": "Tang–Ming",
+   "author_dates": "1733-1813",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,7"
+  },
+  {
    "id": "ks-3-29-483-485",
    "title_zh": "陽武金石志",
    "title_pinyin": "",
@@ -47980,6 +48460,31 @@
    ]
   },
   {
+   "id": "gap-3-32-37-41",
+   "title_zh": "韓城金石續志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.32:37-41",
+   "skslxb_pages": "37-41",
+   "skslxb_category": "",
+   "period_covered": "Tang–Qing",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,32"
+  },
+  {
    "id": "ks-t-x-77",
    "title_zh": "韓忠武王祠墓誌正編",
    "title_pinyin": "",
@@ -48469,7 +48974,7 @@
    "juan": 1,
    "in_skslxb": true,
    "skslxb_series": 3,
-   "skslxb_locator": "3.26:399-402",
+   "skslxb_locator": "3.26:403-405",
    "catalogue": {},
    "editions": [
     {
@@ -48816,6 +49321,31 @@
    "vault_page": "Luo Zhenyu 羅振玉《魏晉石存目》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
    "sbb_callno": "4\"@836959-3,37"
+  },
+  {
+   "id": "gap-3-38-369-374",
+   "title_zh": "魯學齋金石文",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.38:369-374",
+   "skslxb_pages": "369-374",
+   "skslxb_category": "",
+   "period_covered": "Han–Tang",
+   "author_dates": null,
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "vault_page": "",
+   "aliases": [],
+   "source": "石刻史料新編 (K&S OCR gap-fill)",
+   "sbb_callno": "4\"@836959-3,38"
   },
   {
    "id": "wp-yan-ling-247",
@@ -49418,6 +49948,11 @@
    "ks_date": "",
    "vault_page": "Qian Baotang 錢保塘《涪州石魚題刻一卷龍脊石題刻",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "aliases": [
+    "涪州石魚題刻一卷龍脊石題刻一卷",
+    "《涪州石魚題刻》",
+    "涪州石魚题刻"
+   ],
    "sbb_callno": "4\"@836959-3,15"
   },
   {

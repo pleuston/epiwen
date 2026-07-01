@@ -1,8 +1,8 @@
 {
  "generated": "2026-06-27",
  "count": 1454,
- "in_skslxb": 1436,
- "with_locator": 932,
+ "in_skslxb": 1440,
+ "with_locator": 936,
  "merged_workxml": 1044,
  "source": "K&S/SKSLXB (kuhn-stahl-dryrun) + vault work pages, merged with edep_sino works.xml",
  "note": "Premodern Chinese epigraphy works (金石學). SKSLXB locator where resolved else series. Curated author→person links, editions, relations from edep_sino works.xml. Not limited to SKSLXB. No paratexts.",
@@ -529,15 +529,8 @@
    "relations": [],
    "ks_page": null,
    "ks_date": null,
-   "vault_page": "Duanfang 端方《匋齋藏石記》",
-   "source": "石刻史料新編 (目錄)",
-   "aliases": [
-    "匋齋藏石記",
-    "《匋齋藏石記》",
-    "《陶齋藏石記》",
-    "Taozhai cangshi ji"
-   ],
-   "sbb_callno": "4\"@836959-1,11"
+   "vault_page": "",
+   "source": "石刻史料新編 (目錄)"
   },
   {
    "id": "toc-x-3",
@@ -3515,6 +3508,29 @@
    "sbb_callno": "4\"@836959-1,19"
   },
   {
+   "id": "wp-luo-zhenyu-126",
+   "title_zh": "芒洛冢墓遺文續編",
+   "title_pinyin": "",
+   "author_zh": "羅振玉",
+   "author_pinyin": "Luo Zhenyu",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 1,
+   "skslxb_locator": "1.19:14055-14106",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "aliases": [
+    "《芒洛冢墓遺文續編》"
+   ],
+   "vault_page": "Luo Zhenyu 羅振玉《芒洛冢墓遺文續編》",
+   "source": "石刻史料新編 (K&S OCR ~typo)",
+   "sbb_callno": "4\"@836959-1,19"
+  },
+  {
    "id": "ks-1-19-14055-14106",
    "title_zh": "芒洛冢墓邀文續編",
    "title_pinyin": "",
@@ -5215,8 +5231,14 @@
    "relations": [],
    "ks_page": 183,
    "ks_date": "",
-   "vault_page": "",
+   "vault_page": "Duanfang 端方《匋齋藏石記》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "aliases": [
+    "匋齋藏石記",
+    "《匋齋藏石記》",
+    "《匋齋臧石記》",
+    "Taozhai cangshi ji"
+   ],
    "sbb_callno": "4\"@836959-1,11"
   },
   {
@@ -7936,6 +7958,27 @@
    "vault_page": "",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
    "sbb_callno": "4\"@836959-2,6"
+  },
+  {
+   "id": "wp-ye-feng-263",
+   "title_zh": "崇陽石刻集記",
+   "title_pinyin": "",
+   "author_zh": "葉封",
+   "author_pinyin": "Ye Feng",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 2,
+   "skslxb_locator": "2.14:10179-10245",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "aliases": [],
+   "vault_page": "Ye Feng 葉封《崇陽石刻集記》",
+   "source": "石刻史料新編 (K&S OCR ~typo)",
+   "sbb_callno": "4\"@836959-2,14"
   },
   {
    "id": "wp-gan-pengyun-35",
@@ -10660,6 +10703,29 @@
     "Duxiao zhai jinshi wen kao"
    ],
    "sbb_callno": "4\"@836959-2,16"
+  },
+  {
+   "id": "wp-fan-bin-30",
+   "title_zh": "畿輔待訪碑目",
+   "title_pinyin": "",
+   "author_zh": "樊彬",
+   "author_pinyin": "Fan Bin",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 2,
+   "skslxb_locator": "2.20:14801-14811",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "aliases": [
+    "《畿輔待訪碑目》"
+   ],
+   "vault_page": "Fan Bin 樊彬《畿輔待訪碑目》",
+   "source": "石刻史料新編 (K&S OCR ~typo)",
+   "sbb_callno": "4\"@836959-2,20"
   },
   {
    "id": "ks-2-20-14801-14811",
@@ -35044,6 +35110,29 @@
    "sbb_callno": "4\"@836959-3,35"
   },
   {
+   "id": "wp-luo-zhenyu-123",
+   "title_zh": "漢熹平石經殘字集錄續拾",
+   "title_pinyin": "",
+   "author_zh": "羅振玉",
+   "author_pinyin": "Luo Zhenyu",
+   "author_id": "",
+   "work_id": "",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.35:204-207",
+   "catalogue": {},
+   "editions": [],
+   "relations": [],
+   "aliases": [
+    "《漢熹平石經殘字集錄續拾》"
+   ],
+   "vault_page": "Luo Zhenyu 羅振玉《漢熹平石經殘字集錄續拾》",
+   "source": "石刻史料新編 (K&S OCR ~typo)",
+   "sbb_callno": "4\"@836959-3,35"
+  },
+  {
    "id": "ks-3-35-187-204",
    "title_zh": "漢熹平石經集錄又續編",
    "title_pinyin": "",
@@ -49213,7 +49302,7 @@
    "juan": 1,
    "in_skslxb": true,
    "skslxb_series": 3,
-   "skslxb_locator": "3.26:403-405",
+   "skslxb_locator": "3.26:399-402",
    "catalogue": {},
    "editions": [
     {
@@ -53502,26 +53591,6 @@
    }
   },
   {
-   "id": "wp-ye-feng-263",
-   "title_zh": "崇陽石刻集記",
-   "title_pinyin": "",
-   "author_zh": "葉封",
-   "author_pinyin": "Ye Feng",
-   "author_id": "",
-   "work_id": "",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [],
-   "relations": [],
-   "aliases": [],
-   "vault_page": "Ye Feng 葉封《崇陽石刻集記》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-yang-shen-252",
    "title_zh": "水經注所載碑目",
    "title_pinyin": "",
@@ -53567,28 +53636,6 @@
    }
   },
   {
-   "id": "wp-luo-zhenyu-123",
-   "title_zh": "漢熹平石經殘字集錄續拾",
-   "title_pinyin": "",
-   "author_zh": "羅振玉",
-   "author_pinyin": "Luo Zhenyu",
-   "author_id": "",
-   "work_id": "",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [],
-   "relations": [],
-   "aliases": [
-    "《漢熹平石經殘字集錄續拾》"
-   ],
-   "vault_page": "Luo Zhenyu 羅振玉《漢熹平石經殘字集錄續拾》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-lou-ji-99",
    "title_zh": "漢隸字源",
    "title_pinyin": "Han Li Ziyuan",
@@ -53611,28 +53658,6 @@
     "漢隸字源"
    ],
    "vault_page": "Lou Ji 婁機《漢隸字源》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-fan-bin-30",
-   "title_zh": "畿輔待訪碑目",
-   "title_pinyin": "",
-   "author_zh": "樊彬",
-   "author_pinyin": "Fan Bin",
-   "author_id": "",
-   "work_id": "",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [],
-   "relations": [],
-   "aliases": [
-    "《畿輔待訪碑目》"
-   ],
-   "vault_page": "Fan Bin 樊彬《畿輔待訪碑目》",
    "source": "vault epigraphy work page"
   },
   {
@@ -53686,28 +53711,6 @@
     "《筠清館金石》"
    ],
    "vault_page": "Wu Rongguang 吳榮光《筠清館金石》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-luo-zhenyu-126",
-   "title_zh": "芒洛冢墓遺文續編",
-   "title_pinyin": "",
-   "author_zh": "羅振玉",
-   "author_pinyin": "Luo Zhenyu",
-   "author_id": "",
-   "work_id": "",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [],
-   "relations": [],
-   "aliases": [
-    "《芒洛冢墓遺文續編》"
-   ],
-   "vault_page": "Luo Zhenyu 羅振玉《芒洛冢墓遺文續編》",
    "source": "vault epigraphy work page"
   },
   {

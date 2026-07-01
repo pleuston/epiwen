@@ -1,8 +1,8 @@
 {
  "generated": "2026-06-27",
  "count": 1432,
- "in_skslxb": 1322,
- "with_locator": 781,
+ "in_skslxb": 1347,
+ "with_locator": 806,
  "merged_workxml": 1044,
  "source": "K&S/SKSLXB (kuhn-stahl-dryrun) + vault work pages, merged with edep_sino works.xml",
  "note": "Premodern Chinese epigraphy works (金石學). SKSLXB locator where resolved else series. Curated author→person links, editions, relations from edep_sino works.xml. Not limited to SKSLXB. No paratexts.",
@@ -529,15 +529,8 @@
    "relations": [],
    "ks_page": null,
    "ks_date": null,
-   "vault_page": "Duanfang 端方《匋齋藏石記》",
-   "source": "石刻史料新編 (目錄)",
-   "aliases": [
-    "匋齋藏石記",
-    "《匋齋藏石記》",
-    "《陶齋藏石記》",
-    "Taozhai cangshi ji"
-   ],
-   "sbb_callno": "4\"@836959-1,11"
+   "vault_page": "",
+   "source": "石刻史料新編 (目錄)"
   },
   {
    "id": "toc-x-3",
@@ -5059,8 +5052,14 @@
    "relations": [],
    "ks_page": 183,
    "ks_date": "",
-   "vault_page": "",
+   "vault_page": "Duanfang 端方《匋齋藏石記》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "aliases": [
+    "匋齋藏石記",
+    "《匋齋藏石記》",
+    "《匋齋臧石記》",
+    "Taozhai cangshi ji"
+   ],
    "sbb_callno": "4\"@836959-1,11"
   },
   {
@@ -11878,6 +11877,44 @@
    "skslxb_category": "地方類"
   },
   {
+   "id": "wp-wu-dingchang-225",
+   "title_zh": "誌石文録",
+   "title_pinyin": "Zhishi wenlu",
+   "author_zh": "吳鼎昌",
+   "author_pinyin": "Wu Dingchang",
+   "author_id": "person-wu-dingchang",
+   "work_id": "work-000391",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 2,
+   "skslxb_locator": "2.19",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《誌石文録》 — 石刻史料新編 第二輯 (新文豐, 1979)",
+     "date": "1979",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第二輯 (新文豐, 1979)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《誌石文録》",
+    "《志石文录》",
+    "Zhishi wenlu"
+   ],
+   "vault_page": "Wu Dingchang 吳鼎昌《誌石文録》",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-2,19"
+  },
+  {
    "id": "toc-x-17",
    "title_zh": "誌石文録卷上",
    "title_pinyin": "",
@@ -12472,6 +12509,56 @@
    "vault_page": "Li Yusun 李遇孫《金石學録》",
    "source": "石刻史料新編 (目錄) / vault",
    "skslxb_category": "考證目録題跋類"
+  },
+  {
+   "id": "wp-bao-changxi-1",
+   "title_zh": "金石屑",
+   "title_pinyin": "Jinshi xie",
+   "author_zh": "鮑昌熙",
+   "author_pinyin": "Bao Changxi",
+   "author_id": "person-bao-changxi",
+   "work_id": "work-000004",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 2,
+   "skslxb_locator": "2.6:4593-4775",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《金石屑》 — 石刻史料新編 第二輯 (新文豐, 1979)",
+     "date": "1979",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "嘉興鮑氏刊本 (光緒二年三年)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    },
+    {
+     "edition": "石刻史料新編 第二輯 (新文豐, 1979)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    },
+    {
+     "edition": "《金石屑》 — 嘉興鮑氏刊本 (光緒二年三年)",
+     "date": "",
+     "publisher": "嘉興鮑氏",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《金石屑》",
+    "Jinshi xie",
+    "Bao Changxi Jinshi xie"
+   ],
+   "vault_page": "Bao Changxi 鮑昌熙《金石屑》",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-2,6"
   },
   {
    "id": "toc-x-13",
@@ -17082,6 +17169,42 @@
    ]
   },
   {
+   "id": "wp-x-373",
+   "title_zh": "北平金石目",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-000604",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.36:185-246",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《北平金石目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《北平金石目》"
+   ],
+   "vault_page": "《北平金石目》",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,36"
+  },
+  {
    "id": "ks-3-38-231-243",
    "title_zh": "半氈齋題跋",
    "title_pinyin": "",
@@ -17917,6 +18040,43 @@
    "vault_page": "Ji Fotuo 姬佛陀《古石抱守録》",
    "source": "石刻史料新編 (目錄) / vault",
    "skslxb_category": "一般類"
+  },
+  {
+   "id": "wp-gu-xieguang-38",
+   "title_zh": "古誌彙目",
+   "title_pinyin": "",
+   "author_zh": "顧燮光",
+   "author_pinyin": "Gu Xieguang",
+   "author_id": "person-gu-xieguang",
+   "work_id": "work-000077",
+   "dynasty": "",
+   "juan": 4,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.37",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《古誌彙目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《古誌彙目》",
+    "《古志汇目》"
+   ],
+   "vault_page": "Gu Xieguang 顧燮光《古誌彙目》",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,37"
   },
   {
    "id": "wp-x-387",
@@ -20475,6 +20635,43 @@
    "source": "Kuhn & Stahl 1991 / 石刻史料新編"
   },
   {
+   "id": "wp-zhou-zaijun-302",
+   "title_zh": "天發神讖碑考",
+   "title_pinyin": "",
+   "author_zh": "周在浚",
+   "author_pinyin": "Zhou Zaijun",
+   "author_id": "person-zhou-zaijun",
+   "work_id": "work-000531",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.35",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《天發神讖碑考》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《天發神讖碑考》",
+    "《天发神谶碑考》"
+   ],
+   "vault_page": "Zhou Zaijun 周在浚《天發神讖碑考》",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,35"
+  },
+  {
    "id": "ks-3-9-499-546",
    "title_zh": "太平石刻續志",
    "title_pinyin": "",
@@ -20762,6 +20959,44 @@
     "《奉節縣志》(金石)"
    ],
    "sbb_callno": "4\"@836959-3,15"
+  },
+  {
+   "id": "wp-x-425",
+   "title_zh": "始興縣志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-000660",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.22:227-239",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《始興縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《始興縣志》(金石)",
+    "始興金石略",
+    "始興金石略一卷"
+   ],
+   "vault_page": "《始興縣志》(金石)",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,22"
   },
   {
    "id": "ks-3-25-233-274",
@@ -24183,6 +24418,44 @@
    "source": "Kuhn & Stahl 1991 / 石刻史料新編"
   },
   {
+   "id": "wp-x-478",
+   "title_zh": "廣州府志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-000717",
+   "dynasty": "",
+   "juan": 7,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.21",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《廣州府志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《廣州府志》(金石)",
+    "廣州金石志",
+    "广州金石志"
+   ],
+   "vault_page": "《廣州府志》(金石)",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,21"
+  },
+  {
    "id": "ks-3-25-105-139",
    "title_zh": "廣平金石略",
    "title_pinyin": "",
@@ -24937,6 +25210,43 @@
    "ks_date": "",
    "vault_page": "",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "sbb_callno": "4\"@836959-3,38"
+  },
+  {
+   "id": "wp-gu-xieguang-40",
+   "title_zh": "循園古塚遺文跋尾",
+   "title_pinyin": "",
+   "author_zh": "顧燮光",
+   "author_pinyin": "Gu Xieguang",
+   "author_id": "person-gu-xieguang",
+   "work_id": "work-000080",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.38",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《循園古塚遺文跋尾》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《循園古塚遺文跋尾》",
+    "《循园古冢遗文跋尾》"
+   ],
+   "vault_page": "Gu Xieguang 顧燮光《循園古塚遺文跋尾》",
+   "source": "石刻史料新編 (K10plus analytic)",
    "sbb_callno": "4\"@836959-3,38"
   },
   {
@@ -27050,6 +27360,82 @@
    "sbb_callno": "4\"@836959-3,23"
   },
   {
+   "id": "wp-huang-yaodong-58",
+   "title_zh": "明清臺灣碑碣選集（上）",
+   "title_pinyin": "",
+   "author_zh": "黃耀東",
+   "author_pinyin": "Huang Yaodong",
+   "author_id": "person-huang-yaodong",
+   "work_id": "work-000124",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.18",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "Huang Yaodong 黃耀東《明清臺灣碑碣選集（上）》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《明清臺灣碑碣選集（上）》",
+    "明清臺灣碑碣選集（上）",
+    "《明清台湾碑碣选集（上）》"
+   ],
+   "vault_page": "Huang Yaodong 黃耀東《明清臺灣碑碣選集（上）》",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,18"
+  },
+  {
+   "id": "wp-huang-yaodong-59",
+   "title_zh": "明清臺灣碑碣選集（下）",
+   "title_pinyin": "",
+   "author_zh": "黃耀東",
+   "author_pinyin": "Huang Yaodong",
+   "author_id": "person-huang-yaodong",
+   "work_id": "work-000125",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.18",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "Huang Yaodong 黃耀東《明清臺灣碑碣選集（下）》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《明清臺灣碑碣選集（下）》",
+    "明清臺灣碑碣選集（下）",
+    "《明清台湾碑碣选集（下）》"
+   ],
+   "vault_page": "Huang Yaodong 黃耀東《明清臺灣碑碣選集（下）》",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,18"
+  },
+  {
    "id": "ks-3-23-31-33",
    "title_zh": "昭平金石附志",
    "title_pinyin": "",
@@ -27273,6 +27659,44 @@
     "《曲阜县志》(金石·李经野)"
    ],
    "sbb_callno": "4\"@836959-3,26"
+  },
+  {
+   "id": "wp-x-534",
+   "title_zh": "曲陽縣志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-000772",
+   "dynasty": "",
+   "juan": 3,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.24:311-512",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《曲陽縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《曲陽縣志》(金石)",
+    "曲阳县志金石",
+    "曲陽金石錄"
+   ],
+   "vault_page": "《曲陽縣志》(金石)",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,24"
   },
   {
    "id": "wp-x-535",
@@ -31128,6 +31552,43 @@
    "sbb_callno": "4\"@836959-3,36"
   },
   {
+   "id": "wp-luo-zhenyu-118",
+   "title_zh": "洛陽存石閣藏石目",
+   "title_pinyin": "",
+   "author_zh": "羅振玉",
+   "author_pinyin": "Luo Zhenyu",
+   "author_id": "person-luo-zhenyu",
+   "work_id": "work-000231",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.36",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《洛陽存石閣藏石目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《洛陽存石閣藏石目》",
+    "《洛阳存石阁藏石目》"
+   ],
+   "vault_page": "Luo Zhenyu 羅振玉《洛陽存石閣藏石目》",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,36"
+  },
+  {
    "id": "ks-3-29-487-511",
    "title_zh": "洛陽金石錄",
    "title_pinyin": "",
@@ -32337,8 +32798,7 @@
     "《温州府志》",
     "温州府志",
     "溫州府志",
-    "温州府志 (李琬修)",
-    "溫州碑碣志"
+    "温州府志 (李琬修)"
    ],
    "vault_page": "《温州府志》",
    "source": "石刻史料新編 (目錄) / vault",
@@ -32836,8 +33296,12 @@
    "relations": [],
    "ks_page": 191,
    "ks_date": "1756",
-   "vault_page": "",
+   "vault_page": "《溫州府志》(金石)",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
+   "aliases": [
+    "溫州府志",
+    "《溫州府志》(金石)"
+   ],
    "sbb_callno": "4\"@836959-3,10"
   },
   {
@@ -32876,6 +33340,44 @@
    "vault_page": "《滁州志》",
    "source": "石刻史料新編 (目錄) / vault",
    "skslxb_category": "地方類"
+  },
+  {
+   "id": "wp-zhang-xilu-284",
+   "title_zh": "滇東金石記一冊",
+   "title_pinyin": "",
+   "author_zh": "張希魯",
+   "author_pinyin": "Zhang Xilu",
+   "author_id": "person-zhang-xilu",
+   "work_id": "work-000502",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.23:175-186",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "Zhang Xilu 張希魯《滇東金石記一冊》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《滇東金石記一冊》",
+    "滇東金石記",
+    "滇东金石记"
+   ],
+   "vault_page": "Zhang Xilu 張希魯《滇東金石記一冊》",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,23"
   },
   {
    "id": "ks-t-x-229",
@@ -34030,6 +34532,44 @@
    "skslxb_category": "地方類"
   },
   {
+   "id": "wp-zhang-fangchi-276",
+   "title_zh": "無棣碑表志",
+   "title_pinyin": "Wudi beibiao zhi",
+   "author_zh": "張方墀",
+   "author_pinyin": "Zhang Fangchi",
+   "author_id": "person-zhang-fangchi",
+   "work_id": "work-000491",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.26:35-39",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "Zhang Fangchi 張方墀《無棣碑表志》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《無棣碑表志》",
+    "《无棣碑表志》",
+    "Wudi beibiao zhi"
+   ],
+   "vault_page": "Zhang Fangchi 張方墀《無棣碑表志》",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,26"
+  },
+  {
    "id": "ks-3-24-179-212",
    "title_zh": "無極金石志",
    "title_pinyin": "",
@@ -35111,6 +35651,44 @@
    "vault_page": "",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
    "sbb_callno": "4\"@836959-3,37"
+  },
+  {
+   "id": "wp-x-657",
+   "title_zh": "登封縣志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-000908",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.29:623-653",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《登封縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《登封縣志》(金石)",
+    "登封金石錄",
+    "登封金石录"
+   ],
+   "vault_page": "《登封縣志》(金石)",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,29"
   },
   {
    "id": "ks-3-12-167-171",
@@ -37682,6 +38260,44 @@
    "skslxb_category": "地方類"
   },
   {
+   "id": "wp-x-694",
+   "title_zh": "臨朐縣志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-000947",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.28",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《臨朐縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《臨朐縣志》(藝文)",
+    "臨朐藝文志",
+    "临朐艺文志"
+   ],
+   "vault_page": "《臨朐縣志》(藝文)",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,28"
+  },
+  {
    "id": "wp-x-695",
    "title_zh": "臨武縣志",
    "title_pinyin": "",
@@ -37785,6 +38401,45 @@
     "《临沂县志》(金石)"
    ],
    "sbb_callno": "4\"@836959-3,26"
+  },
+  {
+   "id": "wp-x-698",
+   "title_zh": "臨淄縣志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-000951",
+   "dynasty": "",
+   "juan": 2,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.27:529-548",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《臨淄縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《臨淄縣志》(金石)",
+    "臨淄金石志",
+    "臨淄金石志二卷",
+    "临淄金石志"
+   ],
+   "vault_page": "《臨淄縣志》(金石)",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,27"
   },
   {
    "id": "ks-3-31-33-39",
@@ -38026,6 +38681,82 @@
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
    "aliases": [],
    "sbb_callno": "4\"@836959-3,18"
+  },
+  {
+   "id": "wp-taiwan-yinhang-jingji-yanjiushi-184",
+   "title_zh": "臺灣南部碑文集成（上）",
+   "title_pinyin": "",
+   "author_zh": "臺灣銀行經濟研究室",
+   "author_pinyin": "Taiwan Yinhang Jingji Yanjiushi",
+   "author_id": "",
+   "work_id": "work-000324",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.19",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "Taiwan Yinhang Jingji Yanjiushi 臺灣銀行經濟研究室《臺灣南部碑文集成（上）》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《臺灣南部碑文集成（上）》",
+    "臺灣南部碑文集成（上）",
+    "《台湾南部碑文集成（上）》"
+   ],
+   "vault_page": "Taiwan Yinhang Jingji Yanjiushi 臺灣銀行經濟研究室《臺灣南部碑文集成（上）》",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,19"
+  },
+  {
+   "id": "wp-taiwan-yinhang-jingji-yanjiushi-185",
+   "title_zh": "臺灣南部碑文集成（下）",
+   "title_pinyin": "",
+   "author_zh": "臺灣銀行經濟研究室",
+   "author_pinyin": "Taiwan Yinhang Jingji Yanjiushi",
+   "author_id": "",
+   "work_id": "work-000325",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.19",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "Taiwan Yinhang Jingji Yanjiushi 臺灣銀行經濟研究室《臺灣南部碑文集成（下）》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《臺灣南部碑文集成（下）》",
+    "臺灣南部碑文集成（下）",
+    "《台湾南部碑文集成（下）》"
+   ],
+   "vault_page": "Taiwan Yinhang Jingji Yanjiushi 臺灣銀行經濟研究室《臺灣南部碑文集成（下）》",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,19"
   },
   {
    "id": "ks-3-20-387-391",
@@ -38389,6 +39120,44 @@
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
    "aliases": [],
    "sbb_callno": "4\"@836959-3,15"
+  },
+  {
+   "id": "wp-yu-wenfeng-268",
+   "title_zh": "范縣碑文志",
+   "title_pinyin": "",
+   "author_zh": "余文鳳",
+   "author_pinyin": "Yu Wenfeng",
+   "author_id": "person-yu-wenfeng",
+   "work_id": "work-000474",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.27:11-41",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "Yu Wenfeng 余文鳳《范縣碑文志》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《范縣碑文志》",
+    "《范縣碑文志一卷》",
+    "《范县碑文志》"
+   ],
+   "vault_page": "Yu Wenfeng 余文鳳《范縣碑文志》",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,27"
   },
   {
    "id": "ks-3-6-171-174",
@@ -39479,6 +40248,44 @@
    "vault_page": "Wu Qian 吳騫《蜀石經毛詩考異》",
    "source": "Kuhn & Stahl 1991 / 石刻史料新編",
    "sbb_callno": "4\"@836959-3,35"
+  },
+  {
+   "id": "wp-x-718",
+   "title_zh": "融縣志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-000969",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.23:35-45",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《融縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《融縣志》(金石)",
+    "融縣金石志",
+    "融县金石志"
+   ],
+   "vault_page": "《融縣志》(金石)",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,23"
   },
   {
    "id": "wp-x-719",
@@ -41510,6 +42317,44 @@
    "sbb_callno": "4\"@836959-3,25"
   },
   {
+   "id": "wp-x-750",
+   "title_zh": "邯鄲縣志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-001003",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.25:193-199",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《邯鄲縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《邯鄲縣志》(金石)",
+    "邯鄲金石志",
+    "邯郸金石志"
+   ],
+   "vault_page": "《邯鄲縣志》(金石)",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,25"
+  },
+  {
    "id": "ks-3-6-567-578",
    "title_zh": "邳州古蹟志",
    "title_pinyin": "",
@@ -42421,6 +43266,42 @@
    "source": "Kuhn & Stahl 1991 / 石刻史料新編"
   },
   {
+   "id": "wp-x-773",
+   "title_zh": "金目",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-001026",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.36",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《金目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《金目》"
+   ],
+   "vault_page": "《金目》",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,36"
+  },
+  {
    "id": "ks-3-39-507-574",
    "title_zh": "金石例",
    "title_pinyin": "",
@@ -43207,6 +44088,44 @@
    "skslxb_category": "地方類"
   },
   {
+   "id": "wp-x-780",
+   "title_zh": "長垣縣志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-001036",
+   "dynasty": "",
+   "juan": 1,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.25",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《長垣縣志》(金石·蔣庸) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《長垣縣志》(金石·楊元鍚)",
+    "長垣金石錄",
+    "长垣金石录"
+   ],
+   "vault_page": "《長垣縣志》(金石·楊元鍚)",
+   "source": "石刻史料新編 (K10plus analytic)",
+   "sbb_callno": "4\"@836959-3,25"
+  },
+  {
    "id": "ks-3-25-37-39",
    "title_zh": "長垣金石志",
    "title_pinyin": "",
@@ -43929,6 +44848,44 @@
     "《陽武縣志》(金石)"
    ],
    "sbb_callno": "4\"@836959-3,29"
+  },
+  {
+   "id": "wp-x-794",
+   "title_zh": "陽江縣志",
+   "title_pinyin": "",
+   "author_zh": "",
+   "author_pinyin": "",
+   "author_id": "",
+   "work_id": "work-001053",
+   "dynasty": "",
+   "juan": null,
+   "in_skslxb": true,
+   "skslxb_series": 3,
+   "skslxb_locator": "3.22:359-375",
+   "catalogue": {},
+   "editions": [
+    {
+     "edition": "《陽江縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "1986",
+     "publisher": "新文豐出版公司",
+     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
+    },
+    {
+     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
+     "date": "",
+     "publisher": "",
+     "in_collection": ""
+    }
+   ],
+   "relations": [],
+   "aliases": [
+    "《陽江縣志》(金石)",
+    "陽江金石志",
+    "阳江金石志"
+   ],
+   "vault_page": "《陽江縣志》(金石)",
+   "source": "石刻史料新編 (K&S OCR 目錄)",
+   "sbb_callno": "4\"@836959-3,22"
   },
   {
    "id": "wp-wu-qian-228",
@@ -49461,41 +50418,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-x-373",
-   "title_zh": "北平金石目",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-000604",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《北平金石目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《北平金石目》"
-   ],
-   "vault_page": "《北平金石目》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-huang-yuji-61",
    "title_zh": "千頃堂書目",
    "title_pinyin": "",
@@ -49647,42 +50569,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-gu-xieguang-38",
-   "title_zh": "古誌彙目",
-   "title_pinyin": "",
-   "author_zh": "顧燮光",
-   "author_pinyin": "Gu Xieguang",
-   "author_id": "person-gu-xieguang",
-   "work_id": "work-000077",
-   "dynasty": "",
-   "juan": 4,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《古誌彙目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《古誌彙目》",
-    "《古志汇目》"
-   ],
-   "vault_page": "Gu Xieguang 顧燮光《古誌彙目》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-wang-chaoqu-194",
    "title_zh": "唐石經考正",
    "title_pinyin": "",
@@ -49789,79 +50675,6 @@
     "《天壤阁杂记》"
    ],
    "vault_page": "Wang Yirong 王懿榮《天壤閣雜記》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-zhou-zaijun-302",
-   "title_zh": "天發神讖碑考",
-   "title_pinyin": "",
-   "author_zh": "周在浚",
-   "author_pinyin": "Zhou Zaijun",
-   "author_id": "person-zhou-zaijun",
-   "work_id": "work-000531",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《天發神讖碑考》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《天發神讖碑考》",
-    "《天发神谶碑考》"
-   ],
-   "vault_page": "Zhou Zaijun 周在浚《天發神讖碑考》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-x-425",
-   "title_zh": "始興縣志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-000660",
-   "dynasty": "",
-   "juan": 1,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《始興縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《始興縣志》(金石)",
-    "始興金石略",
-    "始興金石略一卷"
-   ],
-   "vault_page": "《始興縣志》(金石)",
    "source": "vault epigraphy work page"
   },
   {
@@ -50082,79 +50895,6 @@
    }
   },
   {
-   "id": "wp-x-478",
-   "title_zh": "廣州府志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-000717",
-   "dynasty": "",
-   "juan": 7,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《廣州府志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《廣州府志》(金石)",
-    "廣州金石志",
-    "广州金石志"
-   ],
-   "vault_page": "《廣州府志》(金石)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-gu-xieguang-40",
-   "title_zh": "循園古塚遺文跋尾",
-   "title_pinyin": "",
-   "author_zh": "顧燮光",
-   "author_pinyin": "Gu Xieguang",
-   "author_id": "person-gu-xieguang",
-   "work_id": "work-000080",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《循園古塚遺文跋尾》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《循園古塚遺文跋尾》",
-    "《循园古冢遗文跋尾》"
-   ],
-   "vault_page": "Gu Xieguang 顧燮光《循園古塚遺文跋尾》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-x-501",
    "title_zh": "息縣志",
    "title_pinyin": "",
@@ -50263,117 +51003,6 @@
     "昌平金石記一卷"
    ],
    "vault_page": "《昌平縣志》(金石)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-huang-yaodong-58",
-   "title_zh": "明清臺灣碑碣選集（上）",
-   "title_pinyin": "",
-   "author_zh": "黃耀東",
-   "author_pinyin": "Huang Yaodong",
-   "author_id": "person-huang-yaodong",
-   "work_id": "work-000124",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "Huang Yaodong 黃耀東《明清臺灣碑碣選集（上）》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《明清臺灣碑碣選集（上）》",
-    "明清臺灣碑碣選集（上）",
-    "《明清台湾碑碣选集（上）》"
-   ],
-   "vault_page": "Huang Yaodong 黃耀東《明清臺灣碑碣選集（上）》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-huang-yaodong-59",
-   "title_zh": "明清臺灣碑碣選集（下）",
-   "title_pinyin": "",
-   "author_zh": "黃耀東",
-   "author_pinyin": "Huang Yaodong",
-   "author_id": "person-huang-yaodong",
-   "work_id": "work-000125",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "Huang Yaodong 黃耀東《明清臺灣碑碣選集（下）》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《明清臺灣碑碣選集（下）》",
-    "明清臺灣碑碣選集（下）",
-    "《明清台湾碑碣选集（下）》"
-   ],
-   "vault_page": "Huang Yaodong 黃耀東《明清臺灣碑碣選集（下）》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-x-534",
-   "title_zh": "曲陽縣志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-000772",
-   "dynasty": "",
-   "juan": 3,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《曲陽縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《曲陽縣志》(金石)",
-    "曲阳县志金石",
-    "曲陽金石錄"
-   ],
-   "vault_page": "《曲陽縣志》(金石)",
    "source": "vault epigraphy work page"
   },
   {
@@ -50676,42 +51305,6 @@
    }
   },
   {
-   "id": "wp-luo-zhenyu-118",
-   "title_zh": "洛陽存石閣藏石目",
-   "title_pinyin": "",
-   "author_zh": "羅振玉",
-   "author_pinyin": "Luo Zhenyu",
-   "author_id": "person-luo-zhenyu",
-   "work_id": "work-000231",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《洛陽存石閣藏石目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《洛陽存石閣藏石目》",
-    "《洛阳存石阁藏石目》"
-   ],
-   "vault_page": "Luo Zhenyu 羅振玉《洛陽存石閣藏石目》",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-luo-zhenchang-104",
    "title_zh": "洹洛訪古游記",
    "title_pinyin": "",
@@ -50857,43 +51450,6 @@
     "《湛园题跋》"
    ],
    "vault_page": "Jiang Chenying 姜宸英《湛園題跋》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-zhang-xilu-284",
-   "title_zh": "滇東金石記一冊",
-   "title_pinyin": "",
-   "author_zh": "張希魯",
-   "author_pinyin": "Zhang Xilu",
-   "author_id": "person-zhang-xilu",
-   "work_id": "work-000502",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "Zhang Xilu 張希魯《滇東金石記一冊》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《滇東金石記一冊》",
-    "滇東金石記",
-    "滇东金石记"
-   ],
-   "vault_page": "Zhang Xilu 張希魯《滇東金石記一冊》",
    "source": "vault epigraphy work page"
   },
   {
@@ -51094,43 +51650,6 @@
     "潞成金石记"
    ],
    "vault_page": "《潞成縣志》(金石)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-zhang-fangchi-276",
-   "title_zh": "無棣碑表志",
-   "title_pinyin": "Wudi beibiao zhi",
-   "author_zh": "張方墀",
-   "author_pinyin": "Zhang Fangchi",
-   "author_id": "person-zhang-fangchi",
-   "work_id": "work-000491",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "Zhang Fangchi 張方墀《無棣碑表志》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《無棣碑表志》",
-    "《无棣碑表志》",
-    "Wudi beibiao zhi"
-   ],
-   "vault_page": "Zhang Fangchi 張方墀《無棣碑表志》",
    "source": "vault epigraphy work page"
   },
   {
@@ -51374,43 +51893,6 @@
     "《癖𡚽堂收藏金石小学书目》"
    ],
    "vault_page": "Ling Xia 淩瑕《癖𡚽堂收藏金石小學書目》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-x-657",
-   "title_zh": "登封縣志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-000908",
-   "dynasty": "",
-   "juan": 1,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《登封縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《登封縣志》(金石)",
-    "登封金石錄",
-    "登封金石录"
-   ],
-   "vault_page": "《登封縣志》(金石)",
    "source": "vault epigraphy work page"
   },
   {
@@ -51711,43 +52193,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-x-694",
-   "title_zh": "臨朐縣志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-000947",
-   "dynasty": "",
-   "juan": 1,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《臨朐縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《臨朐縣志》(藝文)",
-    "臨朐藝文志",
-    "临朐艺文志"
-   ],
-   "vault_page": "《臨朐縣志》(藝文)",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-x-696",
    "title_zh": "臨汾縣志",
    "title_pinyin": "",
@@ -51776,44 +52221,6 @@
     "临汾金石记"
    ],
    "vault_page": "《臨汾縣志》(金石)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-x-698",
-   "title_zh": "臨淄縣志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-000951",
-   "dynasty": "",
-   "juan": 2,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《臨淄縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《臨淄縣志》(金石)",
-    "臨淄金石志",
-    "臨淄金石志二卷",
-    "临淄金石志"
-   ],
-   "vault_page": "《臨淄縣志》(金石)",
    "source": "vault epigraphy work page"
   },
   {
@@ -51857,80 +52264,6 @@
     "when": "1846",
     "cert": "medium"
    }
-  },
-  {
-   "id": "wp-taiwan-yinhang-jingji-yanjiushi-184",
-   "title_zh": "臺灣南部碑文集成（上）",
-   "title_pinyin": "",
-   "author_zh": "臺灣銀行經濟研究室",
-   "author_pinyin": "Taiwan Yinhang Jingji Yanjiushi",
-   "author_id": "",
-   "work_id": "work-000324",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "Taiwan Yinhang Jingji Yanjiushi 臺灣銀行經濟研究室《臺灣南部碑文集成（上）》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《臺灣南部碑文集成（上）》",
-    "臺灣南部碑文集成（上）",
-    "《台湾南部碑文集成（上）》"
-   ],
-   "vault_page": "Taiwan Yinhang Jingji Yanjiushi 臺灣銀行經濟研究室《臺灣南部碑文集成（上）》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-taiwan-yinhang-jingji-yanjiushi-185",
-   "title_zh": "臺灣南部碑文集成（下）",
-   "title_pinyin": "",
-   "author_zh": "臺灣銀行經濟研究室",
-   "author_pinyin": "Taiwan Yinhang Jingji Yanjiushi",
-   "author_id": "",
-   "work_id": "work-000325",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "Taiwan Yinhang Jingji Yanjiushi 臺灣銀行經濟研究室《臺灣南部碑文集成（下）》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《臺灣南部碑文集成（下）》",
-    "臺灣南部碑文集成（下）",
-    "《台湾南部碑文集成（下）》"
-   ],
-   "vault_page": "Taiwan Yinhang Jingji Yanjiushi 臺灣銀行經濟研究室《臺灣南部碑文集成（下）》",
-   "source": "vault epigraphy work page"
   },
   {
    "id": "wp-taiwan-yinhang-jingji-yanjiushi-186",
@@ -51989,43 +52322,6 @@
     "《芒洛冢墓遺文續編》"
    ],
    "vault_page": "Luo Zhenyu 羅振玉《芒洛冢墓遺文續編》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-yu-wenfeng-268",
-   "title_zh": "范縣碑文志",
-   "title_pinyin": "",
-   "author_zh": "余文鳳",
-   "author_pinyin": "Yu Wenfeng",
-   "author_id": "person-yu-wenfeng",
-   "work_id": "work-000474",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "Yu Wenfeng 余文鳳《范縣碑文志》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《范縣碑文志》",
-    "《范縣碑文志一卷》",
-    "《范县碑文志》"
-   ],
-   "vault_page": "Yu Wenfeng 余文鳳《范縣碑文志》",
    "source": "vault epigraphy work page"
   },
   {
@@ -52178,43 +52474,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-x-718",
-   "title_zh": "融縣志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-000969",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《融縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《融縣志》(金石)",
-    "融縣金石志",
-    "融县金石志"
-   ],
-   "vault_page": "《融縣志》(金石)",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-huang-jun-53",
    "title_zh": "衡齋金石識小錄",
    "title_pinyin": "",
@@ -52321,43 +52580,6 @@
     "《话雨楼碑帖目录》"
    ],
    "vault_page": "Wang Kun 王鯤《話雨樓碑帖目錄》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-wu-dingchang-225",
-   "title_zh": "誌石文録",
-   "title_pinyin": "Zhishi wenlu",
-   "author_zh": "吳鼎昌",
-   "author_pinyin": "Wu Dingchang",
-   "author_id": "person-wu-dingchang",
-   "work_id": "work-000391",
-   "dynasty": "",
-   "juan": 1,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《誌石文録》 — 石刻史料新編 第二輯 (新文豐, 1979)",
-     "date": "1979",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第二輯 (新文豐, 1979)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《誌石文録》",
-    "《志石文录》",
-    "Zhishi wenlu"
-   ],
-   "vault_page": "Wu Dingchang 吳鼎昌《誌石文録》",
    "source": "vault epigraphy work page"
   },
   {
@@ -52469,43 +52691,6 @@
    "source": "vault epigraphy work page"
   },
   {
-   "id": "wp-x-750",
-   "title_zh": "邯鄲縣志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-001003",
-   "dynasty": "",
-   "juan": 1,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《邯鄲縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《邯鄲縣志》(金石)",
-    "邯鄲金石志",
-    "邯郸金石志"
-   ],
-   "vault_page": "《邯鄲縣志》(金石)",
-   "source": "vault epigraphy work page"
-  },
-  {
    "id": "wp-x-753",
    "title_zh": "郾城縣志",
    "title_pinyin": "",
@@ -52571,127 +52756,6 @@
     "乡临金石记"
    ],
    "vault_page": "《鄉臨縣志》(金石)",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-x-773",
-   "title_zh": "金目",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-001026",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《金目》 — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《金目》"
-   ],
-   "vault_page": "《金目》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-bao-changxi-1",
-   "title_zh": "金石屑",
-   "title_pinyin": "Jinshi xie",
-   "author_zh": "鮑昌熙",
-   "author_pinyin": "Bao Changxi",
-   "author_id": "person-bao-changxi",
-   "work_id": "work-000004",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《金石屑》 — 石刻史料新編 第二輯 (新文豐, 1979)",
-     "date": "1979",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "嘉興鮑氏刊本 (光緒二年三年)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    },
-    {
-     "edition": "石刻史料新編 第二輯 (新文豐, 1979)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    },
-    {
-     "edition": "《金石屑》 — 嘉興鮑氏刊本 (光緒二年三年)",
-     "date": "",
-     "publisher": "嘉興鮑氏",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《金石屑》",
-    "Jinshi xie",
-    "Bao Changxi Jinshi xie"
-   ],
-   "vault_page": "Bao Changxi 鮑昌熙《金石屑》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-x-780",
-   "title_zh": "長垣縣志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-001036",
-   "dynasty": "",
-   "juan": 1,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《長垣縣志》(金石·蔣庸) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《長垣縣志》(金石·楊元鍚)",
-    "長垣金石錄",
-    "长垣金石录"
-   ],
-   "vault_page": "《長垣縣志》(金石·楊元鍚)",
    "source": "vault epigraphy work page"
   },
   {
@@ -52864,43 +52928,6 @@
     "《陈簠斋文笔记》"
    ],
    "vault_page": "Chen Jieqi 陳介祺《陳簠齋文筆記》",
-   "source": "vault epigraphy work page"
-  },
-  {
-   "id": "wp-x-794",
-   "title_zh": "陽江縣志",
-   "title_pinyin": "",
-   "author_zh": "",
-   "author_pinyin": "",
-   "author_id": "",
-   "work_id": "work-001053",
-   "dynasty": "",
-   "juan": null,
-   "in_skslxb": false,
-   "skslxb_series": null,
-   "skslxb_locator": "",
-   "catalogue": {},
-   "editions": [
-    {
-     "edition": "《陽江縣志》(金石) — 石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "1986",
-     "publisher": "新文豐出版公司",
-     "in_collection": "《石刻史料新編》 (新文豐, 1977–2006)"
-    },
-    {
-     "edition": "石刻史料新編 第三輯 (新文豐, 1986)",
-     "date": "",
-     "publisher": "",
-     "in_collection": ""
-    }
-   ],
-   "relations": [],
-   "aliases": [
-    "《陽江縣志》(金石)",
-    "陽江金石志",
-    "阳江金石志"
-   ],
-   "vault_page": "《陽江縣志》(金石)",
    "source": "vault epigraphy work page"
   },
   {

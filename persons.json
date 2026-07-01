@@ -1,6 +1,6 @@
 {
  "generated": "2026-06-27",
- "count": 152,
+ "count": 147,
  "source": "edep_sino persons.xml (register) + people/*.xml (canonical); works-authored from the work merge",
  "persons": [
   {
@@ -97,30 +97,6 @@
    "work_count": 1
   },
   {
-   "id": "person-ouyang-fei",
-   "name_zh": "歐陽棐",
-   "name_pinyin": "Ouyang Fei",
-   "sort": "Ouyang Fei",
-   "birth": {
-    "when": "1047",
-    "text": ""
-   },
-   "death": {
-    "when": "1113",
-    "text": ""
-   },
-   "dynasty": "Song 宋",
-   "works": [
-    {
-     "id": "wp-ouyang-fei-149",
-     "title_zh": "集古録目",
-     "year": "",
-     "skslxb": true
-    }
-   ],
-   "work_count": 1
-  },
-  {
    "id": "person-huang-bosi",
    "name_zh": "黃伯思",
    "name_pinyin": "Huang Bosi",
@@ -140,30 +116,6 @@
      "title_zh": "東觀餘論",
      "year": "",
      "skslxb": true
-    }
-   ],
-   "work_count": 1
-  },
-  {
-   "id": "person-zhao-mingcheng",
-   "name_zh": "趙明誠",
-   "name_pinyin": "Zhao Mingcheng",
-   "sort": "Zhao Mingcheng",
-   "birth": {
-    "when": "1081",
-    "text": ""
-   },
-   "death": {
-    "when": "1129",
-    "text": ""
-   },
-   "dynasty": "Song 宋",
-   "works": [
-    {
-     "id": "wp-zhao-mingcheng-289",
-     "title_zh": "金石錄",
-     "year": "",
-     "skslxb": false
     }
    ],
    "work_count": 1
@@ -314,15 +266,9 @@
      "title_zh": "金薤琳琅",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-du-mu-26",
-     "title_zh": "吳下冢墓遺文",
-     "year": "",
-     "skslxb": true
     }
    ],
-   "work_count": 2
+   "work_count": 1
   },
   {
    "id": "person-yang-shen",
@@ -1078,30 +1024,6 @@
    "work_count": 1
   },
   {
-   "id": "person-xie-qikun",
-   "name_zh": "謝啓昆",
-   "name_pinyin": "Xie Qikun",
-   "sort": "Xie Qikun",
-   "birth": {
-    "when": "1737",
-    "text": ""
-   },
-   "death": {
-    "when": "1802",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [
-    {
-     "id": "wp-weng-fanggang-221",
-     "title_zh": "粵東金石略",
-     "year": "1771",
-     "skslxb": false
-    }
-   ],
-   "work_count": 1
-  },
-  {
    "id": "person-zhang-yanchang",
    "name_zh": "張燕昌",
    "name_pinyin": "Zhang Yanchang",
@@ -1753,19 +1675,13 @@
      "skslxb": true
     },
     {
-     "id": "toc-x-22",
-     "title_zh": "退菴金石書畫跋殘",
-     "year": "",
-     "skslxb": true
-    },
-    {
      "id": "wp-liang-zhangju-78",
      "title_zh": "退菴金石書畫跋",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
-   "work_count": 3
+   "work_count": 2
   },
   {
    "id": "person-shen-qinhan",
@@ -2183,15 +2099,9 @@
      "title_zh": "宋韓蘄王碑釋文",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-gu-yuan-43",
-     "title_zh": "韓忠武王祠墓志正編",
-     "year": "",
-     "skslxb": true
     }
    ],
-   "work_count": 2
+   "work_count": 1
   },
   {
    "id": "person-ruan-fu",
@@ -2639,30 +2549,6 @@
    "work_count": 1
   },
   {
-   "id": "person-luo-xiaodun",
-   "name_zh": "羅孝敦",
-   "name_pinyin": "Luo Xiaodun",
-   "sort": "Luo Xiaodun",
-   "birth": {
-    "when": "1833",
-    "text": ""
-   },
-   "death": {
-    "when": "1889",
-    "text": ""
-   },
-   "dynasty": "Qing 清",
-   "works": [
-    {
-     "id": "wp-liu-mengyu-89",
-     "title_zh": "樂至塚墓志不分卷",
-     "year": "",
-     "skslxb": false
-    }
-   ],
-   "work_count": 1
-  },
-  {
    "id": "person-li-wentian",
    "name_zh": "李文田",
    "name_pinyin": "Li Wentian",
@@ -2982,15 +2868,9 @@
      "title_zh": "雪屐尋碑録",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-sheng-yu-172",
-     "title_zh": "雪屐尋碑錄",
-     "year": "",
-     "skslxb": false
     }
    ],
-   "work_count": 2
+   "work_count": 1
   },
   {
    "id": "person-wang-shunan",
@@ -3179,7 +3059,7 @@
      "id": "wp-takada-tadachika-187",
      "title_zh": "古籀篇",
      "year": "",
-     "skslxb": false
+     "skslxb": true
     }
    ],
    "work_count": 1
@@ -3227,12 +3107,6 @@
      "id": "wp-luo-zhenyu-135",
      "title_zh": "金石萃編校字記",
      "year": "1885",
-     "skslxb": true
-    },
-    {
-     "id": "wp-luo-zhenyu-115",
-     "title_zh": "昭陵碑録",
-     "year": "1908",
      "skslxb": true
     },
     {
@@ -3302,12 +3176,6 @@
      "skslxb": true
     },
     {
-     "id": "wp-luo-zhenyu-114",
-     "title_zh": "山右冢墓遺文",
-     "year": "",
-     "skslxb": true
-    },
-    {
      "id": "ks-1-20-14897-14926",
      "title_zh": "山左冢墓遺文",
      "year": "",
@@ -3364,6 +3232,12 @@
     {
      "id": "wp-luo-zhenyu-129",
      "title_zh": "西陲石刻録",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-luo-zhenyu-118",
+     "title_zh": "洛陽存石閣藏石目",
      "year": "",
      "skslxb": true
     },
@@ -3470,18 +3344,6 @@
      "skslxb": false
     },
     {
-     "id": "wp-luo-zhenyu-107",
-     "title_zh": "中州塚墓遺文",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-luo-zhenyu-118",
-     "title_zh": "洛陽存石閣藏石目",
-     "year": "",
-     "skslxb": false
-    },
-    {
      "id": "wp-luo-zhenyu-123",
      "title_zh": "漢熹平石經殘字集錄續拾",
      "year": "",
@@ -3494,7 +3356,7 @@
      "skslxb": false
     }
    ],
-   "work_count": 45
+   "work_count": 42
   },
   {
    "id": "person-ye-weiming",
@@ -3752,8 +3614,14 @@
      "skslxb": true
     },
     {
-     "id": "wp-gu-xieguang-37",
-     "title_zh": "兩浙金石別録",
+     "id": "wp-gu-xieguang-38",
+     "title_zh": "古誌彙目",
+     "year": "",
+     "skslxb": true
+    },
+    {
+     "id": "wp-gu-xieguang-40",
+     "title_zh": "循園古塚遺文跋尾",
      "year": "",
      "skslxb": true
     },
@@ -3768,21 +3636,9 @@
      "title_zh": "漢劉熊碑考",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-gu-xieguang-38",
-     "title_zh": "古誌彙目",
-     "year": "",
-     "skslxb": false
-    },
-    {
-     "id": "wp-gu-xieguang-40",
-     "title_zh": "循園古塚遺文跋尾",
-     "year": "",
-     "skslxb": false
     }
    ],
-   "work_count": 11
+   "work_count": 10
   },
   {
    "id": "person-yao-chun",
@@ -4283,26 +4139,6 @@
    "work_count": 1
   },
   {
-   "id": "person-sun-fengyi",
-   "name_zh": "孫馮翼",
-   "name_pinyin": "Sun Fengyi",
-   "sort": "Sun Fengyi",
-   "floruit": {
-    "notBefore": "1616",
-    "notAfter": "1912",
-    "text": "Qing"
-   },
-   "works": [
-    {
-     "id": "wp-sun-fengyi-176",
-     "title_zh": "江寧金石待訪録",
-     "year": "",
-     "skslxb": true
-    }
-   ],
-   "work_count": 1
-  },
-  {
    "id": "person-yao-yan",
    "name_zh": "姚晏",
    "name_pinyin": "Yao Yan",
@@ -4378,15 +4214,9 @@
      "title_zh": "瘗鶴銘辨",
      "year": "",
      "skslxb": true
-    },
-    {
-     "id": "wp-zhang-shao-279",
-     "title_zh": "瘞鶴銘辨",
-     "year": "",
-     "skslxb": false
     }
    ],
-   "work_count": 2
+   "work_count": 1
   },
   {
    "id": "person-zhou-xigui",

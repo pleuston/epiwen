@@ -254,7 +254,20 @@
     editLink.style.display = rec.catalog_file ? "" : "none";
     editLink.onclick = function () {
       var c = cache[id] || {};
-      sessionStorage.setItem("epiwen_preload_site", JSON.stringify({ id: id, xml: c.siteXml || "" }));
+      var xml = c.siteXml || "";
+      // TEI place files (EpiDoc-CN model) route to the site editor's TEI mode,
+      // with the shared package as write target so Save round-trips.
+      if (xml && window.EpiDocCN && EpiDocCN.detect(xml) === "site") {
+        var sh = window.EpiCollections && EpiCollections.sharedPkg && rec.collection
+          ? EpiCollections.sharedPkg(rec.collection) : null;
+        sessionStorage.setItem("epiwen_preload_site_tei", JSON.stringify({
+          rawXml: xml, filename: rec.catalog_file || (id + "_site.xml"),
+          _writeTarget: sh ? { owner: sh.owner, repo: sh.repo, branch: sh.branch,
+                               path: "collections/" + sh.id + "/" } : null
+        }));
+      } else {
+        sessionStorage.setItem("epiwen_preload_site", JSON.stringify({ id: id, xml: xml }));
+      }
       window.location.href = "site-editor.html";
     };
 
@@ -328,13 +341,41 @@
     var summary = childSummary(rec);
     if (summary) h += '<div class="detail-section-head">' + summary + "</div>";
 
-    if (c.proseXml) {
+    // TEI place files (EpiDoc-CN) carry their description inline as
+    // <note type="description"> — render it (and the object links) directly.
+    var teiDesc = "", teiObjects = [];
+    if (c.siteXml && window.EpiDocCN && EpiDocCN.detect(c.siteXml) === "site") {
+      try {
+        var st = EpiDocCN.parseSite(c.siteXml);
+        var pl = st && st.place;
+        function collect(p) {
+          if (!p) return;
+          (p.notes || []).forEach(function (nn) {
+            if (nn.type === "description" && !teiDesc) teiDesc = nn.xml;
+          });
+          (p.objectPtrs || []).forEach(function (t) { teiObjects.push(t); });
+          (p.subsites || []).forEach(collect);
+        }
+        collect(pl);
+      } catch (e) {}
+    }
+    if (teiDesc) {
       h += '<div class="detail-section-head">Description</div>';
-      h += '<div class="prose-body">' + teiBodyToHtml(c.proseXml) + "</div>";
-    } else if (rec.has_description) {
-      h += '<div class="prose-body"><em>Description file referenced but not loaded.</em></div>';
-    } else {
-      h += '<div class="prose-body" style="color:var(--text-muted)"><em>No prose description.</em></div>';
+      h += '<div class="prose-body">' + esc(teiDesc) + "</div>";
+    }
+    if (teiObjects.length) {
+      h += '<div class="detail-section-head">Objects at this site</div><ul class="prose-body">' +
+        teiObjects.map(function (t) { return "<li><code>" + esc(t) + "</code></li>"; }).join("") + "</ul>";
+    }
+    if (!teiDesc) {
+      if (c.proseXml) {
+        h += '<div class="detail-section-head">Description</div>';
+        h += '<div class="prose-body">' + teiBodyToHtml(c.proseXml) + "</div>";
+      } else if (rec.has_description) {
+        h += '<div class="prose-body"><em>Description file referenced but not loaded.</em></div>';
+      } else if (!teiObjects.length) {
+        h += '<div class="prose-body" style="color:var(--text-muted)"><em>No prose description.</em></div>';
+      }
     }
 
     setTimeout(bindGoto, 0);

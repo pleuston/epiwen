@@ -266,12 +266,19 @@
       sessionStorage.removeItem("epiwen_preload_site");
       try {
         var preload = JSON.parse(raw);
-        var parsed = preload.xml ? parseSite(preload.xml) : {};
-        if (preload.id) parsed.id = preload.id;
-        Object.assign(state, parsed);
-        writeForm(state);
-        var h = document.getElementById("editor-heading");
-        if (h && state.id) h.textContent = "Edit: " + state.id;
+        // A TEI place file (EpiDoc-CN model) belongs to the TEI mode — hand it
+        // over to the extension below instead of the legacy c:object parser.
+        if (preload.xml && window.EpiDocCN && EpiDocCN.detect(preload.xml) === "site") {
+          sessionStorage.setItem("epiwen_preload_site_tei",
+            JSON.stringify({ rawXml: preload.xml, filename: preload.filename || (preload.id ? preload.id + "_site.xml" : "") }));
+        } else {
+          var parsed = preload.xml ? parseSite(preload.xml) : {};
+          if (preload.id) parsed.id = preload.id;
+          Object.assign(state, parsed);
+          writeForm(state);
+          var h = document.getElementById("editor-heading");
+          if (h && state.id) h.textContent = "Edit: " + state.id;
+        }
       } catch (e) { console.warn("preload parse error", e); }
     }
 

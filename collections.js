@@ -351,17 +351,19 @@
 
   /* The shared collection's optional <kind>-index.json (authority / biblio). */
   function loadSharedIndex(kind) {
-    if (!sharedEnabled()) return Promise.resolve([]);   // public corpus — loads for guests too
-    return ctxFetchPublic(SHARED, "collections/" + SHARED.id + "/" + kind + "-index.json")
-      .then(function (txt) {
-        var arr; try { arr = JSON.parse(txt); } catch (e) { return []; }
-        if (!Array.isArray(arr)) return [];
-        arr.forEach(function (e) {
-          e.source = "private"; e.collection = SHARED.id; e.collectionTitle = SHARED.title;
-        });
-        return arr;
-      })
-      .catch(function () { return []; });   // 404 → no shared index of this kind
+    if (!sharedEnabled()) return Promise.resolve([]);   // public corpora — load for guests too
+    return Promise.all(SHARED_PKGS.map(function (pkg) {
+      return ctxFetchPublic(pkg, "collections/" + pkg.id + "/" + kind + "-index.json")
+        .then(function (txt) {
+          var arr; try { arr = JSON.parse(txt); } catch (e) { return []; }
+          if (!Array.isArray(arr)) return [];
+          arr.forEach(function (e) {
+            e.source = "private"; e.shared = true; e.collection = pkg.id; e.collectionTitle = pkg.title;
+          });
+          return arr;
+        })
+        .catch(function () { return []; });   // 404 → this package has no index of this kind
+    })).then(function (lists) { return [].concat.apply([], lists); });
   }
 
   /* Fetch an arbitrary file (e.g. _inscription_index.json) from the shared corpus. */

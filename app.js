@@ -633,6 +633,27 @@
     s.authority = o.authority || s.authority;
     return s;
   }
+  // A parsed file may lack whole sections (e.g. an inscription whose only
+  // physDesc content was the objectType thin-dup, now object-level). Give the
+  // form empty structures to bind to; they prune away again on build, so a
+  // load-then-save leaves such files unchanged.
+  function normalize(st) {
+    st.phys = st.phys || { form: "", supportItems: [], condition: null, layout: null, deco: [], hand: null, _x: [] };
+    st.phys.supportItems = st.phys.supportItems || [];
+    st.msContents = st.msContents || { summaryEn: "", summaryZh: "", items: [] };
+    if (!st.msContents.items.length)
+      st.msContents.items.push({ n: "", corresp: "", locusTarget: "", locusText: "",
+        titles: [{ lang: "zh", type: "", text: "" }, { lang: "en", type: "", text: "" }],
+        notes: [], mainLang: "", _x: [] });                     // mainLang empty → prunes on build
+    st.history = st.history || { date: null, dateNotes: [], place: null, provenance: null, _x: [] };
+    st.witnesses = st.witnesses || [];
+    st.bibls = st.bibls || [];
+    st._bodyX = st._bodyX || [];
+    st.titles = st.titles && st.titles.length ? st.titles
+      : [{ lang: "zh", type: "", text: "" }, { lang: "en", type: "", text: "" }];
+    return st;
+  }
+
   function preload() {
     var raw = sessionStorage.getItem("epiwen_preload");
     if (!raw) return;
@@ -640,7 +661,7 @@
     try {
       var o = JSON.parse(raw);
       if (o.rawXml && CN.detect(o.rawXml) === "inscription") {
-        state = CN.parseInscription(o.rawXml);
+        state = normalize(CN.parseInscription(o.rawXml));
         if (!state.idno && o.filename) state.idno = o.filename;
       } else {
         state = mapLegacy(o);

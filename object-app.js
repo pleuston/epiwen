@@ -474,6 +474,15 @@
       var o = JSON.parse(raw);
       if (o.rawXml && CN.detect(o.rawXml) === "objectfile") {
         state = CN.parseObject(o.rawXml);
+        // give the form empty structures to bind to (they prune away on build)
+        if (state.obj) {
+          state.obj.phys = state.obj.phys || { form: "", supportItems: [], condition: null, layout: null, deco: [], hand: null, _x: [] };
+          state.obj.phys.supportItems = state.obj.phys.supportItems || [];
+          state.obj.phys.deco = state.obj.phys.deco || [];
+          state.obj.history = state.obj.history || { date: null, dateNotes: [], place: null, provenance: null, _x: [] };
+          state.obj.msContents = state.obj.msContents || { summaryEn: "", summaryZh: "", items: [] };
+          state.obj.notes = state.obj.notes || []; state.obj.parts = state.obj.parts || [];
+        }
         _filename = o.filename || (state.idno ? state.idno + ".xml" : "");
       }
       if (o._writeTarget && window.EpiGitHub && EpiGitHub.setTarget) EpiGitHub.setTarget(o._writeTarget);

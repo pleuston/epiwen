@@ -227,25 +227,58 @@
     return (a.title_en || a.id).localeCompare(b.title_en || b.id);
   }
 
-  // an object node (bearer / cave / wall / subsite) — expandable when it has
-  // children of its own (EpiDoc-CN: ◆ object → its inscriptions).
+  // the display siglum of an inscription node (short id, .text disambiguator dropped)
+  function siglumOf(rec) {
+    var s = rec.catalog_file ? rec.catalog_file.replace(/\.xml$/i, "") : (rec.id || "");
+    return s.replace(/\.text$/, "");
+  }
+  function inscriptionsOf(id) {
+    return (byParent[id] || []).filter(function (k) { return k.kind === "inscription"; })
+      .slice().sort(kidSort);
+  }
+  // clickable inscription sigla for one object (e.g. CLS_1 · CLS_2 · CLS_3 · CLS_4)
+  function siglaChips(id) {
+    return inscriptionsOf(id).map(function (k) {
+      return '<a href="#" class="siglum" data-goto="' + esc(k.id) + '" title="' +
+        esc(k.title_zh || k.title_en || k.id) + '">' + esc(siglumOf(k)) + "</a>";
+    }).join(" ");
+  }
+
+  // an object bearer (◆) lists its inscription SIGLA inline; sections/subsites
+  // nest their object children.
   function renderObject(obj) {
     var wrap = document.createElement("div");
-    var kids = (byParent[obj.id] || []).slice().sort(kidSort);
+    var childObjs = (byParent[obj.id] || [])
+      .filter(function (k) { return k.kind !== "inscription"; }).sort(kidSort);
+    var sigla = obj.kind === "object" ? siglaChips(obj.id) : "";
+    var expandable = childObjs.length > 0;
+
     var row = detailRow(obj);
-    var car = kids.length ? caret(false) : leafCaret();
+    var car = expandable ? caret(false) : leafCaret();
     row.appendChild(car);
-    var icon = obj.kind === "object" ? "◆ " : obj.kind === "inscription" ? "· " : "";
+    var icon = obj.kind === "object" ? "◆ " : "";
     var lab = document.createElement("span");
     lab.innerHTML = esc(icon) + label(obj) +
-      (obj.cave ? "" : '<span class="tree-id">' + esc(obj.id) + "</span>") +
+      '<span class="tree-id">' + esc(obj.id) + "</span>" +
       (obj.has_description ? '<span class="badge-desc">desc</span>' : "");
     row.appendChild(lab);
     wrap.appendChild(row);
-    if (kids.length) {
+
+    if (sigla) {
+      var sig = document.createElement("div");
+      sig.className = "tree-sigla";
+      sig.innerHTML = "── " + sigla;
+      Array.prototype.forEach.call(sig.querySelectorAll(".siglum"), function (a) {
+        a.addEventListener("click", function (e) {
+          e.preventDefault(); e.stopPropagation(); showDetail(a.getAttribute("data-goto"));
+        });
+      });
+      wrap.appendChild(sig);
+    }
+    if (expandable) {
       var box = document.createElement("div");
       box.className = "tree-children";
-      kids.forEach(function (k) { box.appendChild(renderObject(k)); });
+      childObjs.forEach(function (k) { box.appendChild(renderObject(k)); });
       wrap.appendChild(box);
       car.addEventListener("click", function (e) {
         e.stopPropagation();
@@ -328,18 +361,25 @@
   }
 
   function childSummary(rec) {
-    if (rec.kind === "section") {
-      var c = allRecords.filter(function (r) {
-        return r.parent === rec.parent && r.section === rec.section && r.kind === "cave";
-      }).length;
-      return c ? c + (c === 1 ? " cave" : " caves") : "";
-    }
+    if (rec.kind === "object" || rec.kind === "inscription") return "";
     var kids = byParent[rec.id] || [];
     if (!kids.length) return "";
+    function plural(n, w) { return n + " " + w + (n === 1 ? "" : "s"); }
     var secs = kids.filter(function (k) { return k.kind === "section"; }).length;
+    var objs = kids.filter(function (k) { return k.kind === "object"; }).length;
     var caves = kids.filter(function (k) { return k.kind === "cave"; }).length;
-    if (secs) return secs + " sections · " + caves + " caves";
-    return kids.length + " subsites";
+    var insc = 0;                                     // all descendant inscriptions
+    (function walk(id) {
+      (byParent[id] || []).forEach(function (k) {
+        if (k.kind === "inscription") insc += 1; else walk(k.id);
+      });
+    })(rec.id);
+    var parts = [];
+    if (secs) parts.push(plural(secs, "subsite"));
+    if (objs) parts.push(plural(objs, "object"));
+    if (caves) parts.push(plural(caves, "cave"));
+    if (insc) parts.push(plural(insc, "inscription"));
+    return parts.join(" · ");
   }
 
   function okText(r) { return r.ok ? r.text() : ""; }
@@ -370,45 +410,75 @@
     var summary = childSummary(rec);
     if (summary) h += '<div class="detail-section-head">' + summary + "</div>";
 
-    // TEI place files (EpiDoc-CN) carry their description inline as
-    // <note type="description"> — render it (and the object links) directly.
-    var teiDesc = "", teiObjects = [];
-    if (c.siteXml && window.EpiDocCN && EpiDocCN.detect(c.siteXml) === "site") {
-      try {
-        var st = EpiDocCN.parseSite(c.siteXml);
-        var pl = st && st.place;
-        function collect(p) {
-          if (!p) return;
-          (p.notes || []).forEach(function (nn) {
-            if (nn.type === "description" && !teiDesc) teiDesc = nn.xml;
-          });
-          (p.objectPtrs || []).forEach(function (t) { teiObjects.push(t); });
-          (p.subsites || []).forEach(collect);
-        }
-        collect(pl);
-      } catch (e) {}
-    }
-    if (teiDesc) {
+    // Description — from the record's own XML, whichever tier it is:
+    // site → note type="description"; object → msContents summary / description
+    // note; inscription → msContents summary.
+    var desc = detailDesc(c.siteXml);
+    if (desc) {
       h += '<div class="detail-section-head">Description</div>';
-      h += '<div class="prose-body">' + esc(teiDesc) + "</div>";
+      h += '<div class="prose-body">' + esc(desc) + "</div>";
+    } else if (c.proseXml) {
+      h += '<div class="detail-section-head">Description</div>';
+      h += '<div class="prose-body">' + teiBodyToHtml(c.proseXml) + "</div>";
+    } else if (rec.has_description) {
+      h += '<div class="prose-body"><em>Description file referenced but not loaded.</em></div>';
     }
-    if (teiObjects.length) {
-      h += '<div class="detail-section-head">Objects at this site</div><ul class="prose-body">' +
-        teiObjects.map(function (t) { return "<li><code>" + esc(t) + "</code></li>"; }).join("") + "</ul>";
-    }
-    if (!teiDesc) {
-      if (c.proseXml) {
-        h += '<div class="detail-section-head">Description</div>';
-        h += '<div class="prose-body">' + teiBodyToHtml(c.proseXml) + "</div>";
-      } else if (rec.has_description) {
-        h += '<div class="prose-body"><em>Description file referenced but not loaded.</em></div>';
-      } else if (!teiObjects.length) {
-        h += '<div class="prose-body" style="color:var(--text-muted)"><em>No prose description.</em></div>';
-      }
-    }
+
+    // Structure — objects + their inscription sigla (from the site index).
+    h += relatedHtml(rec);
 
     setTimeout(bindGoto, 0);
     return h;
+  }
+
+  // pull a human description out of any EpiDoc-CN tier
+  function detailDesc(xml) {
+    var kind = xml && window.EpiDocCN ? EpiDocCN.detect(xml) : null;
+    if (!kind) return "";
+    try {
+      if (kind === "site") {
+        var found = "";
+        (function walk(p) {
+          if (!p || found) return;
+          (p.notes || []).forEach(function (nn) { if (nn.type === "description" && !found) found = nn.xml; });
+          (p.subsites || []).forEach(walk);
+        })(EpiDocCN.parseSite(xml).place);
+        return found;
+      }
+      if (kind === "objectfile") {
+        var o = EpiDocCN.parseObject(xml).obj || {};
+        var d = (o.msContents && (o.msContents.summaryZh || o.msContents.summaryEn)) || "";
+        (o.notes || []).forEach(function (nn) { if (nn.type === "description" && !d) d = nn.xml; });
+        return d;
+      }
+      if (kind === "inscription") {
+        var mc = EpiDocCN.parseInscription(xml).msContents;
+        return mc ? (mc.summaryZh || mc.summaryEn || "") : "";
+      }
+    } catch (e) {}
+    return "";
+  }
+
+  // objects + inscription sigla under a record (site → ◆ objects → sigla)
+  function relatedHtml(rec) {
+    if (rec.kind === "object") {
+      var s = siglaChips(rec.id);
+      return s ? '<div class="detail-section-head">Inscriptions</div>' +
+        '<div class="prose-body">' + s + "</div>" : "";
+    }
+    function lst(pid) {
+      var objs = (byParent[pid] || [])
+        .filter(function (k) { return k.kind !== "inscription"; }).slice().sort(kidSort);
+      if (!objs.length) return "";
+      return '<ul class="site-objects">' + objs.map(function (o) {
+        var icon = o.kind === "object" ? "◆ " : "";
+        var sig = siglaChips(o.id);
+        return "<li>" + esc(icon) + '<a href="#" data-goto="' + esc(o.id) + '">' + label(o) + "</a>" +
+          (sig ? ' <span class="sigla">── ' + sig + "</span>" : "") + lst(o.id) + "</li>";
+      }).join("") + "</ul>";
+    }
+    var sub = lst(rec.id);
+    return sub ? '<div class="detail-section-head">Objects &amp; inscriptions</div>' + sub : "";
   }
 
   function renderXml(c) {

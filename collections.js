@@ -550,6 +550,25 @@
         if (u) base.manifest = u[0];
         return true;
       });
+      // Texts borne by this object: msContents/msItem, each @corresp-linked to
+      // its own inscription FILE (mirrors catalog.js parseRecord's cn branch —
+      // keep the two in sync). head carries the siglum; corresp the target file.
+      if (cnKind === "objectfile") {
+        _iq(doc, "msItem").forEach(function (mi, i) {
+          // @corresp may be a bare local filename (clickable) or a
+          // "prefix:path" CURIE to the upstream repo (not migrated here).
+          var correspRaw = (mi.getAttribute("corresp") || "").split(/\s+/)[0].split("#")[0];
+          var corresp = /^[A-Za-z0-9_.-]+\.xml$/.test(correspRaw) ? correspRaw : "";
+          var sp = sutraPair(_iq(mi, "title"));
+          var tl = _ifirst(mi, "textLang");
+          base.parts.push({
+            n: mi.getAttribute("n") || String(i + 1),
+            head: corresp ? corresp.replace(/\.xml$/, "") : (sp.zh || sp.en || ("Text " + (i + 1))),
+            subtype: "", lang: tl ? (tl.getAttribute("mainLang") || "") : "",
+            sutra: sp.zh, sutra_en: sp.en, corresp: corresp
+          });
+        });
+      }
       // sites belong to the Sites browser (site-index.json), not the catalog tabs
       base.record_type = cnKind === "site" ? "site" : "object";
       return base;

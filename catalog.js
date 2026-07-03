@@ -124,6 +124,33 @@
           if (u) cnManifest = u[0];
         }
       });
+      // Texts borne by this object: msContents/msItem, each @corresp-linked to
+      // its own inscription FILE (the EpiDoc-CN division-of-description model —
+      // unlike legacy records, the text isn't an embedded textpart div). head
+      // carries the inscription's siglum so the row reads like the sites-browser
+      // tree (CLS_1, CLS_2…); corresp carries the target file for the "→" jump.
+      var cnParts = [];
+      if (cnKind === "objectfile") {
+        qns(doc, "msItem").forEach(function (mi, i) {
+          // @corresp may be a bare local filename (this collection has the
+          // inscription too — clickable) or a "prefix:path" CURIE to the
+          // upstream source repo (not migrated here — show its title, not a
+          // dead link).
+          var correspRaw = (mi.getAttribute("corresp") || "").split(/\s+/)[0].split("#")[0];
+          var corresp = /^[A-Za-z0-9_.-]+\.xml$/.test(correspRaw) ? correspRaw : "";
+          var miTitles = qns(mi, "title");
+          var miZh = txt(miTitles.find(function (t) { return (t.getAttribute("xml:lang") || "").indexOf("zh") === 0; }) || null);
+          var miEn = txt(miTitles.find(function (t) { return t.getAttribute("xml:lang") === "en"; }) || null);
+          var tl = first(mi, "textLang");
+          cnParts.push({
+            n: mi.getAttribute("n") || String(i + 1),
+            head: corresp ? corresp.replace(/\.xml$/, "") : (miZh || miEn || ("Text " + (i + 1))),
+            subtype: "", lang: tl ? (tl.getAttribute("mainLang") || "") : "",
+            sutra: miZh, sutraEn: miEn, cbeta: "", taisho: "",
+            editionText: "", translationText: "", corresp: corresp
+          });
+        });
+      }
       return { name: name, recordType: cnKind === "site" ? "site" : "object", surrogateOf: "", _cnKind: cnKind,
                titleEn: cnEn || name, titleZh: cnZh,
                objectType: cnKind === "site" ? "site 地點" : "object 器物",
@@ -131,7 +158,7 @@
                when: cnDateEl ? (cnDateEl.getAttribute("when") || cnDateEl.getAttribute("notBefore") || "") : "",
                dateText: txt(cnDateEl), summary: txt(qns(doc, "summary")[0] || null),
                manifest: cnManifest, images: [],
-               parts: [], rawXml: xmlText };
+               parts: cnParts, rawXml: xmlText };
     }
 
     // Record type (object vs rubbing vs EpiDoc-CN inscription)
@@ -330,7 +357,8 @@
       parts: (r.parts || []).map(function (p) {
         return { n: p.n || "", head: p.head || "", subtype: p.subtype || "",
                  sutra: p.sutra || "", sutraEn: p.sutra_en || "", lang: p.lang || "",
-                 cbeta: "", taisho: "", editionText: "", translationText: "" };
+                 cbeta: "", taisho: "", editionText: "", translationText: "",
+                 corresp: p.corresp || "" };
       }),
       rawXml: "", _lazy: true, _path: r.file || r.name,
       shared: !!r.shared, _cnKind: r.cn_kind || "", bearer: r.bearer || ""
@@ -943,13 +971,19 @@
   }
 
   // From an object's textpart row: switch to the Inscriptions tab and open that
-  // inscription's preview (selecting its row there).
+  // inscription's preview (selecting its row there). Legacy records embed the
+  // text IN the object file (match by object name + textpart n); EpiDoc-CN
+  // objects link OUT to a separate inscription file via part.corresp (match by
+  // that file's own name — it's a single-part record, so insN is irrelevant).
   function openInscriptionFromObject(rec, part) {
     history.pushState({ tab: "inscriptions" }, "", "catalog.html?tab=inscriptions");
     renderByTab("inscriptions");
     var items = document.querySelectorAll("#catalog-list .catalog-item");
     for (var k = 0; k < items.length; k++) {
-      if (items[k].dataset.insObj === rec.name && items[k].dataset.insN === (part.n || "")) {
+      var match = part.corresp
+        ? items[k].dataset.insObj === part.corresp
+        : (items[k].dataset.insObj === rec.name && items[k].dataset.insN === (part.n || ""));
+      if (match) {
         items[k].scrollIntoView({ behavior: "smooth", block: "nearest" });
         (items[k].querySelector(".catalog-monument") || items[k]).click();
         return;

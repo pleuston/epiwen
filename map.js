@@ -2,7 +2,9 @@
  *
  * Layer panel: modern base maps + the full 中國歷史地圖集 (左图右史 / OSGeo.cn)
  * as a dynasty tree (21 dynasties → 303 period maps, data/osgeo-atlas.json),
- * plus the clustered site markers. Grouped, collapsible, compact.
+ * the catalogue (sites / objects / inscriptions — mutually exclusive, one
+ * colour each), and rubbing collections (continent → institution, with
+ * counts). Grouped, collapsible, compact.
  */
 (function () {
   "use strict";
@@ -58,6 +60,10 @@
     );
   }
 
+  // Catalogue tiers — one colour each, reused for both the marker dot on the
+  // map and the accent colour of its radio button in the panel.
+  var TIER_COLOR = { site: "#c0392b", object: "#1a936f", inscription: "#8e44ad" };
+
   var ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/><polyline points="2 15.5 12 22 22 15.5"/></svg>';
 
   function groupedControl(map, groups) {
@@ -72,11 +78,17 @@
       var head = C("div", "lp-head", body); head.innerHTML = "<span>Layers</span>";
       var close = C("button", "lp-close", head); close.type = "button"; close.innerHTML = "×";
 
-      var bases = [];
-      function addItem(parent, kind, label, layer) {
+      var bases = [];        // the base-map radio set (Streets/Satellite/…) — unchanged
+      var radioSets = {};    // name -> layers[] for OTHER mutually-exclusive groups (e.g. catalogue tiers)
+
+      function addItem(parent, kind, label, opts) {
+        opts = opts || {};
         var row = C("label", "lp-item", parent);
-        var inp = C("input", "", row); inp.type = (kind === "base") ? "radio" : "checkbox";
+        var inp = C("input", "", row);
+        inp.type = (kind === "base" || opts.radioGroup) ? "radio" : "checkbox";
         if (kind === "base") inp.name = "lp-base";
+        else if (opts.radioGroup) inp.name = opts.radioGroup;
+        if (opts.color) inp.style.accentColor = opts.color;
         var sp = C("span", "lp-label", row); sp.innerHTML = label; sp.title = sp.textContent;
         return { inp: inp };
       }
@@ -92,19 +104,21 @@
           on(gh, "click", function () { gEl.classList.toggle("open"); });
         }
 
-        if (g.tree) {                                   // dynasty tree (atlas)
+        if (g.tree) {                                   // two-level tree (atlas dynasties, collection continents)
           g.tree.forEach(function (dyn) {
             var d = C("div", "lp-dyn", items);
             var dh = C("div", "lp-dynhead", d);
-            dh.innerHTML = '<span class="lp-dyn-zh">' + esc(dyn.zh) + "</span>" +
+            dh.innerHTML = (dyn.zh ? '<span class="lp-dyn-zh">' + esc(dyn.zh) + "</span>" : "") +
               '<span class="lp-dyn-en">' + esc(dyn.en) + "</span>" +
-              '<span class="lp-dyn-n">' + dyn.sections.length + "</span>";
+              '<span class="lp-dyn-n">' + (dyn.count != null ? dyn.count : dyn.sections.length) + "</span>";
             var di = C("div", "lp-dynitems", d);
             on(dh, "click", function () { d.classList.toggle("open"); });
             dyn.sections.forEach(function (s) {
-              var it = addItem(di, "overlay", esc(s.label));
+              var label = esc(s.label) +
+                (s.count != null ? ' <span class="lp-item-n">' + s.count.toLocaleString() + "</span>" : "");
+              var it = addItem(di, "overlay", label);
               on(it.inp, "change", function () {
-                if (!s._layer) s._layer = osgeo(s.uid);
+                if (!s._layer) s._layer = g.layerFactory(s);
                 if (it.inp.checked) map.addLayer(s._layer); else map.removeLayer(s._layer);
               });
             });
@@ -113,12 +127,19 @@
         }
 
         g.layers.forEach(function (lyr) {               // flat group
-          var it = addItem(items, g.kind, lyr.label);
+          var it = addItem(items, g.kind, lyr.label, { radioGroup: g.radioGroup, color: lyr.color });
           if (lyr.on) it.inp.checked = true;
           if (g.kind === "base") {
             bases.push(lyr.layer);
             on(it.inp, "change", function () {
               bases.forEach(function (b) { if (map.hasLayer(b)) map.removeLayer(b); });
+              map.addLayer(lyr.layer);
+            });
+          } else if (g.radioGroup) {
+            var set = (radioSets[g.radioGroup] = radioSets[g.radioGroup] || []);
+            set.push(lyr.layer);
+            on(it.inp, "change", function () {
+              set.forEach(function (b) { if (map.hasLayer(b)) map.removeLayer(b); });
               map.addLayer(lyr.layer);
             });
           } else {
@@ -162,12 +183,76 @@
     sat.addTo(map);
     window.addEventListener("resize", function () { sizeMap(); map.invalidateSize(); });
 
-    var cluster = L.markerClusterGroup({
-      maxClusterRadius: 45, showCoverageOnHover: false, spiderfyOnMaxZoom: true
-    });
-    var collLayer = L.layerGroup();   // rubbing holding collections (toggle in the panel)
+    // Catalogue tiers — mutually exclusive (radioGroup "lp-tier"): only one of
+    // sites / objects / inscriptions is ever on the map at a time.
+    var siteCluster = L.markerClusterGroup({ maxClusterRadius: 45, showCoverageOnHover: false, spiderfyOnMaxZoom: true });
+    var objCluster  = L.markerClusterGroup({ maxClusterRadius: 45, showCoverageOnHover: false, spiderfyOnMaxZoom: true });
+    var insCluster  = L.markerClusterGroup({ maxClusterRadius: 45, showCoverageOnHover: false, spiderfyOnMaxZoom: true });
 
-    function buildControl(atlasTree) {
+    var srcMap = { "harvard-librarycloud": "harvard", "berkeley-oai": "berkeley", "japan-search": "japansearch" };
+
+    // Build one institution's marker (lazy — only when its checkbox is first
+    // switched on, mirroring the atlas dynasty tree's lazy tile layers).
+    function collectionLayerFactory(s) {
+      var c = s._c;
+      var hollow = !c.harvested_count;
+      var icon = L.divIcon({ className: "site-divicon",
+        html: '<div class="map-coll-marker' + (hollow ? " catalog" : "") + '"></div>',
+        iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8] });
+      var src = srcMap[c.connector];
+      return L.marker([c.lat, c.lon], { icon: icon, title: c.label }).bindPopup(
+        "<h4>" + esc(c.label) + (c.label_zh ? ' <span class="pp-sub">' + esc(c.label_zh) + "</span>" : "") + "</h4>" +
+        (c.harvested_count ? '<div class="pp-sub">' + c.harvested_count + " rubbings harvested" + (c.via ? " · via " + esc(c.via) : "") + "</div>"
+                           : (c.connector === "japan-search" ? '<div class="pp-sub">via Japan Search — not yet harvested</div>'
+                              : c.aggregator_db ? '<div class="pp-sub">aggregator — EFEO union database (>10,000 across Europe)</div>'
+                              : c.via_aggregator ? '<div class="pp-sub">via the EFEO aggregator</div>'
+                              : c.verify ? '<div class="pp-sub">verification pending — no online rubbing DB</div>'
+                                                              : '<div class="pp-sub">catalog-only — not yet harvested</div>')) +
+        (c.holdings ? '<div class="pp-sub">Holdings: ' + esc(c.holdings) + "</div>" : "") +
+        (c.api ? '<div class="pp-sub">✓ harvestable API: ' + esc(c.api) + "</div>"
+               : (c.needs_request ? '<div class="pp-sub">⌑ data by request (no open API)</div>'
+               : (c.verify ? '<div class="pp-sub">⚠ no rubbing collection verified here</div>' : ""))) +
+        (c.mentions ? '<div class="pp-sub">~' + c.mentions + " records mention 拓本</div>"
+                    : (c.est_count ? '<div class="pp-sub">~' + c.est_count.toLocaleString() + " rubbings (est.)</div>" : "")) +
+        (c.catalog ? '<div class="pp-sub">Catalog: ' + esc(c.catalog) + "</div>" : "") +
+        (c.site ? '<a class="btn small" href="' + esc(c.site) + '" target="_blank" rel="noopener">Collection site ↗</a> ' : "") +
+        (c.rubbing_site && c.rubbing_site !== c.site ? '<a class="btn small primary" href="' + esc(c.rubbing_site) + '" target="_blank" rel="noopener">' + (c.aggregator_db ? "Open EFEO database ↗" : c.via_aggregator ? "EFEO record ↗" : "Rubbing database ↗") + '</a> ' : "") +
+        (c.api_url ? '<a class="btn small" href="' + esc(c.api_url) + '" target="_blank" rel="noopener">API ↗</a> ' : "") +
+        (c.aggregator_ref ? '<a class="btn small" href="' + esc(c.aggregator_ref) + '" target="_blank" rel="noopener">EFEO union ↗</a> ' : "") +
+        (src && c.harvested_count ? '<a class="btn small primary" href="harvest.html?source=' + src + '">Browse harvest →</a>' : "") +
+        (c.js_browse ? '<a class="btn small primary" href="' + esc(c.js_browse) + '" target="_blank" rel="noopener">Browse on Japan Search ↗</a>' : "")
+      );
+    }
+
+    // Rubbing holding collections (app-repo collections.json; no token needed)
+    // as a continent → institution tree, each institution showing its
+    // harvested-rubbings count.
+    function loadCollectionsTree() {
+      return fetch("collections.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+        if (!data || !data.collections) return [];
+        var byContinent = {};
+        data.collections.forEach(function (c) {
+          if ((c.category || "rubbing") === "object") return;   // object/inscription DBs aren't rubbing collections
+          if (typeof c.lat !== "number" || typeof c.lon !== "number") return;
+          var cont = c.continent || "Other";
+          (byContinent[cont] = byContinent[cont] || []).push(c);
+        });
+        var order = ["Asia", "Europe", "Americas"];
+        var conts = Object.keys(byContinent).sort(function (a, b) {
+          var ia = order.indexOf(a), ib = order.indexOf(b);
+          return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+        });
+        return conts.map(function (cont) {
+          var list = byContinent[cont].slice().sort(function (a, b) { return (b.harvested_count || 0) - (a.harvested_count || 0); });
+          return {
+            en: cont, count: list.length,
+            sections: list.map(function (c) { return { uid: c.id, label: c.label, count: c.harvested_count || 0, _c: c }; })
+          };
+        });
+      }).catch(function () { return []; });
+    }
+
+    function buildControl(atlasTree, collTree, tierCounts) {
       var groups = [
         { kind: "base", title: "Base map", collapsible: true, layers: [
           { label: "Streets", layer: osm },
@@ -178,12 +263,14 @@
         { kind: "base", title: "Historical borders", source: "Tan Qixiang · CCTS",
           collapsible: true, collapsed: true,
           layers: CCTS_DYN.map(function (d) { return { label: d[1], layer: ccts(d[0], { zIndex: 1 }) }; }) },
-        { kind: "overlay", title: "Site catalogue", collapsible: true, layers: [
-          { label: "Sites", layer: cluster, on: true }
+        { kind: "overlay", title: "Catalogue", collapsible: true, radioGroup: "lp-tier", layers: [
+          { label: 'Sites <span class="lp-item-n">' + tierCounts.site + '</span>', layer: siteCluster, on: true, color: TIER_COLOR.site },
+          { label: 'Objects <span class="lp-item-n">' + tierCounts.object + '</span>', layer: objCluster, color: TIER_COLOR.object },
+          { label: 'Inscriptions <span class="lp-item-n">' + tierCounts.inscription + '</span>', layer: insCluster, color: TIER_COLOR.inscription }
         ] },
-        { kind: "overlay", title: "Rubbing collections", source: "holding institutions", collapsible: true, layers: [
-          { label: "Collections", layer: collLayer }
-        ] },
+        { kind: "overlay", title: "Rubbing collections", source: "holding institutions",
+          collapsible: true, collapsed: true,
+          tree: collTree, layerFactory: collectionLayerFactory },
         { kind: "overlay", title: "Tang overlays", source: "CCTS", collapsible: true, layers: [
           { label: "Circuits & prefectures", layer: ccts("Tang_Admin", { zIndex: 5, opacity: 0.8 }) },
           { label: "Traffic routes", layer: ccts("Tang_TrafficRoute", { zIndex: 6, opacity: 0.8 }) }
@@ -192,63 +279,26 @@
       if (atlasTree && atlasTree.length) {
         groups.push({ kind: "atlas", title: '中國歷史地圖集 <span class="lp-gtitle-en">Historical atlas</span>',
                       source: "左图右史 · OSGeo", collapsible: true, collapsed: true,
-                      tree: atlasTree });
+                      tree: atlasTree, layerFactory: function (s) { return osgeo(s.uid); } });
       }
       groupedControl(map, groups).addTo(map);
     }
 
-    // Load the dynasty atlas tree, then build the panel (degrade gracefully)
-    EpiData.fetch("data/osgeo-atlas.json")
+    var _atlasP = EpiData.fetch("data/osgeo-atlas.json")
       .then(function (r) { return r.ok ? r.json() : []; })
-      .catch(function () { return []; })
-      .then(buildControl);
+      .catch(function () { return []; });
 
-    // Rubbing holding collections (app-repo collections.json; no token needed).
-    function loadCollections() {
-      var srcMap = { "harvard-librarycloud": "harvard", "berkeley-oai": "berkeley", "japan-search": "japansearch" };
-      fetch("collections.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
-        if (!data || !data.collections) return;
-        data.collections.forEach(function (c) {
-          if ((c.category || "rubbing") === "object") return;   // object/inscription DBs aren't rubbing collections
-          if (typeof c.lat !== "number" || typeof c.lon !== "number") return;
-          var hollow = !c.harvested_count;   // catalog-only / not yet harvested
-          var icon = L.divIcon({ className: "site-divicon",
-            html: '<div class="map-coll-marker' + (hollow ? " catalog" : "") + '"></div>',
-            iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8] });
-          var src = srcMap[c.connector];
-          L.marker([c.lat, c.lon], { icon: icon, title: c.label }).bindPopup(
-            "<h4>" + esc(c.label) + (c.label_zh ? ' <span class="pp-sub">' + esc(c.label_zh) + "</span>" : "") + "</h4>" +
-            (c.harvested_count ? '<div class="pp-sub">' + c.harvested_count + " rubbings harvested" + (c.via ? " · via " + esc(c.via) : "") + "</div>"
-                               : (c.connector === "japan-search" ? '<div class="pp-sub">via Japan Search — not yet harvested</div>'
-                                  : c.aggregator_db ? '<div class="pp-sub">aggregator — EFEO union database (>10,000 across Europe)</div>'
-                                  : c.via_aggregator ? '<div class="pp-sub">via the EFEO aggregator</div>'
-                                  : c.verify ? '<div class="pp-sub">verification pending — no online rubbing DB</div>'
-                                                                  : '<div class="pp-sub">catalog-only — not yet harvested</div>')) +
-            (c.holdings ? '<div class="pp-sub">Holdings: ' + esc(c.holdings) + "</div>" : "") +
-            (c.api ? '<div class="pp-sub">✓ harvestable API: ' + esc(c.api) + "</div>"
-                   : (c.needs_request ? '<div class="pp-sub">⌑ data by request (no open API)</div>'
-                   : (c.verify ? '<div class="pp-sub">⚠ no rubbing collection verified here</div>' : ""))) +
-            (c.mentions ? '<div class="pp-sub">~' + c.mentions + " records mention 拓本</div>"
-                        : (c.est_count ? '<div class="pp-sub">~' + c.est_count.toLocaleString() + " rubbings (est.)</div>" : "")) +
-            (c.catalog ? '<div class="pp-sub">Catalog: ' + esc(c.catalog) + "</div>" : "") +
-            (c.site ? '<a class="btn small" href="' + esc(c.site) + '" target="_blank" rel="noopener">Collection site ↗</a> ' : "") +
-            (c.rubbing_site && c.rubbing_site !== c.site ? '<a class="btn small primary" href="' + esc(c.rubbing_site) + '" target="_blank" rel="noopener">' + (c.aggregator_db ? "Open EFEO database ↗" : c.via_aggregator ? "EFEO record ↗" : "Rubbing database ↗") + '</a> ' : "") +
-            (c.api_url ? '<a class="btn small" href="' + esc(c.api_url) + '" target="_blank" rel="noopener">API ↗</a> ' : "") +
-            (c.aggregator_ref ? '<a class="btn small" href="' + esc(c.aggregator_ref) + '" target="_blank" rel="noopener">EFEO union ↗</a> ' : "") +
-            (src && c.harvested_count ? '<a class="btn small primary" href="harvest.html?source=' + src + '">Browse harvest →</a>' : "") +
-            (c.js_browse ? '<a class="btn small primary" href="' + esc(c.js_browse) + '" target="_blank" rel="noopener">Browse on Japan Search ↗</a>' : "")
-          ).addTo(collLayer);
-        });
-      }).catch(function () {});
-    }
-    loadCollections();
+    var _collP = loadCollectionsTree();
 
-    // Sites come from the public default corpus (no token) + the Stone Sutras
-    // corpus + enabled collections (the atlas above stays in the always-on core).
+    // Sites/objects/inscriptions come from the public default corpus (no
+    // token) + the Stone Sutras corpus + enabled collections. Objects and
+    // inscriptions carry no coordinates of their own (they're physically
+    // located wherever their site is) — resolveCoords walks the parent chain
+    // up to the ancestor site.
     var _defSites = (window.EpiCollections && EpiCollections.loadDefaultSiteIndex)
       ? EpiCollections.loadDefaultSiteIndex() : Promise.resolve([]);
     var _privSites = window.EpiCollections ? EpiCollections.loadIndex("site") : Promise.resolve([]);
-    Promise.all([_defSites, _privSites])
+    var _sitesP = Promise.all([_defSites, _privSites])
       .then(function (res) {
         var byKey = {};
         (res[0] || []).forEach(function (e) { if (e && e.id) byKey[e.id] = e; });
@@ -256,15 +306,28 @@
         var recs = Object.keys(byKey).map(function (k) { return byKey[k]; });
         var childParents = {};
         recs.forEach(function (r) { if (r.parent) childParents[r.parent] = true; });
+
+        function resolveCoords(r) {
+          var cur = r, guard = 0;
+          while (cur && guard++ < 20) {
+            var ll = parseLonLat(cur.coordinates);
+            if (ll) return ll;
+            cur = cur.parent ? byKey[cur.parent] : null;
+          }
+          return null;
+        }
+
+        var counts = { site: 0, object: 0, inscription: 0 };
         var bounds = [];
         recs.forEach(function (r) {
-          if (r.kind && r.kind !== "site") return;
-          var ll = parseLonLat(r.coordinates);
+          var kind = r.kind || "site";
+          if (kind !== "site" && kind !== "object" && kind !== "inscription") return;   // skip subsite "section" rows
+          var ll = resolveCoords(r);
           if (!ll) return;
-          var isParent = !!childParents[r.id];
+          var isParent = kind === "site" && !!childParents[r.id];
+          var cls = "map-marker" + (kind !== "site" ? " map-marker-" + kind : (isParent ? " is-parent" : ""));
           var icon = L.divIcon({
-            className: "site-divicon",
-            html: '<div class="map-marker' + (isParent ? " is-parent" : "") + '"></div>',
+            className: "site-divicon", html: '<div class="' + cls + '"></div>',
             iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8]
           });
           var m = L.marker([ll.lat, ll.lon], { icon: icon, title: r.title_en || r.id });
@@ -274,16 +337,27 @@
             (r.province_en ? '<div class="pp-sub">' + esc(r.province_en) + "</div>" : "") +
             '<a class="btn small" href="sites.html?site=' + encodeURIComponent(r.id) + '">Open in Sites →</a>'
           );
-          cluster.addLayer(m);
-          bounds.push([ll.lat, ll.lon]);
+          counts[kind]++;
+          if (kind === "site") { siteCluster.addLayer(m); bounds.push([ll.lat, ll.lon]); }
+          else if (kind === "object") objCluster.addLayer(m);
+          else insCluster.addLayer(m);
         });
-        map.addLayer(cluster);
+
+        map.addLayer(siteCluster);   // default-visible tier, matches the "Sites" radio's on:true
         var countEl = document.getElementById("map-count");
-        if (countEl) countEl.textContent = bounds.length;
+        if (countEl) countEl.textContent = counts.site;
         map.invalidateSize();
         if (bounds.length) map.fitBounds(bounds, { padding: [40, 40] });
         else toast("No site coordinates to plot", true);
+        return counts;
       })
-      .catch(function (e) { toast("Could not load sites: " + e.message, true); });
+      .catch(function (e) {
+        toast("Could not load sites: " + e.message, true);
+        return { site: 0, object: 0, inscription: 0 };
+      });
+
+    Promise.all([_atlasP, _collP, _sitesP]).then(function (res) {
+      buildControl(res[0], res[1], res[2]);
+    });
   });
 })();

@@ -22,6 +22,9 @@
         box-shadow: 0 1px 3px rgba(0,0,0,.45); box-sizing: border-box;
       }
       .map-marker.is-parent { background: var(--accent-strong, #7a1f12); width: 15px; height: 15px; }
+      /* catalogue tiers — same colours as the panel's radio dots */
+      .map-marker-object { background: #1a936f; }
+      .map-marker-inscription { background: #8e44ad; }
       /* holding collections = blue diamonds (distinct from red site circles) */
       .map-coll-marker {
         width: 13px; height: 13px; background: #2f6f9f; border: 2px solid #fff;
@@ -111,6 +114,10 @@
       .lp-dyn-n {
         margin-left: auto; flex: 0 0 auto; font-size: .68rem; color: var(--text-muted, #888);
         background: var(--bg-subtle, #eef); border-radius: 8px; padding: 0 .35rem;
+      }
+      .lp-item-n {
+        font-size: .68rem; color: var(--text-muted, #888);
+        background: var(--bg-subtle, #eef); border-radius: 8px; padding: 0 .35rem; margin-left: .25rem;
       }
       .lp-dynitems { display: none; margin-left: .85rem; padding-left: .3rem; border-left: 1px solid var(--border-subtle, #eee); }
       .lp-dyn.open .lp-dynitems { display: block; }

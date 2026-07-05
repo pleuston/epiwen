@@ -169,28 +169,28 @@
 
     function buildControl(atlasTree) {
       var groups = [
-        { kind: "base", title: "Base map", layers: [
+        { kind: "base", title: "Base map", collapsible: true, layers: [
           { label: "Streets", layer: osm },
           { label: "Satellite", layer: sat, on: true },
           { label: "Terrain", layer: topo },
           { label: "Light", layer: light }
         ] },
-        { kind: "base", title: "Historical atlas", source: "Tan Qixiang · CCTS",
+        { kind: "base", title: "Historical borders", source: "Tan Qixiang · CCTS",
           collapsible: true, collapsed: true,
           layers: CCTS_DYN.map(function (d) { return { label: d[1], layer: ccts(d[0], { zIndex: 1 }) }; }) },
-        { kind: "overlay", title: "Site catalogue", layers: [
+        { kind: "overlay", title: "Site catalogue", collapsible: true, layers: [
           { label: "Sites", layer: cluster, on: true }
         ] },
-        { kind: "overlay", title: "Rubbing collections", source: "holding institutions", layers: [
+        { kind: "overlay", title: "Rubbing collections", source: "holding institutions", collapsible: true, layers: [
           { label: "Collections", layer: collLayer }
         ] },
-        { kind: "overlay", title: "Tang overlays", source: "CCTS", layers: [
+        { kind: "overlay", title: "Tang overlays", source: "CCTS", collapsible: true, layers: [
           { label: "Circuits & prefectures", layer: ccts("Tang_Admin", { zIndex: 5, opacity: 0.8 }) },
           { label: "Traffic routes", layer: ccts("Tang_TrafficRoute", { zIndex: 6, opacity: 0.8 }) }
         ] }
       ];
       if (atlasTree && atlasTree.length) {
-        groups.push({ kind: "atlas", title: "中國歷史地圖集",
+        groups.push({ kind: "atlas", title: '中國歷史地圖集 <span class="lp-gtitle-en">Historical atlas</span>',
                       source: "左图右史 · OSGeo", collapsible: true, collapsed: true,
                       tree: atlasTree });
       }

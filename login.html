@@ -120,17 +120,6 @@
             The token is stored only in this browser — never transmitted to Epiwen servers.
           </p>
         </form>
-
-        <!-- ══ GUEST ══ -->
-        <div style="margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--line)">
-          <button id="btn-guest" type="button" class="btn btn-wide"
-                  style="background:none;border:1px solid var(--line);color:var(--muted)">
-            Browse as guest (read-only)
-          </button>
-          <p style="font-size:.75rem;color:var(--muted);text-align:center;margin:.5rem 0 0">
-            View public workshop records without a GitHub account.
-          </p>
-        </div>
       </div>
     </main>
 
@@ -149,8 +138,21 @@
         var params    = new URLSearchParams(window.location.search);
         var returnUrl = params.get("r") || "catalog.html";
 
-        /* If already in an active session, skip login entirely */
+        /* A stale "guest" identity (from the retired Browse-as-guest button)
+           is not a valid signed-in session — clear it so this browser falls
+           through to a real sign-in instead of silently reading the empty
+           epiwen-workshop backend forever. */
         var storedUser = localStorage.getItem(LS.username);
+        if (storedUser === "guest") {
+          [LS.username, LS.avatar, LS.name, LS.token].forEach(function (k) { localStorage.removeItem(k); });
+          sessionStorage.removeItem(SESSION_KEY);
+          localStorage.setItem("epiwen_gh_owner",  "pleuston");
+          localStorage.setItem("epiwen_gh_repo",   "epiwen-data");
+          localStorage.setItem("epiwen_gh_branch", "main");
+          storedUser = null;
+        }
+
+        /* If already in an active session, skip login entirely */
         if (storedUser && sessionStorage.getItem(SESSION_KEY) === storedUser) {
           window.location.replace(returnUrl);
           return;
@@ -269,8 +271,9 @@
                 localStorage.setItem(LS.name,     user.name       || "");
                 /* A real GitHub sign-in uses the canonical private data backend.
                    Set it unconditionally so a leftover guest/workshop backend
-                   (epiwen-workshop, set by "Browse as guest") doesn't persist and
-                   break EpiData reads like the bibliography. */
+                   (epiwen-workshop, from the now-retired "Browse as guest"
+                   button — some browsers may still carry it) doesn't persist
+                   and break EpiData reads like the map atlas or bibliography. */
                 localStorage.setItem("epiwen_gh_owner",  "pleuston");
                 localStorage.setItem("epiwen_gh_repo",   "epiwen-data");
                 localStorage.setItem("epiwen_gh_branch", "main");
@@ -282,25 +285,6 @@
               });
           });
         }
-
-        /* Guest: points at the public workshop repo, no token needed */
-        document.getElementById("btn-guest").addEventListener("click", function () {
-          localStorage.removeItem(LS.token);
-          localStorage.setItem(LS.username, "guest");
-          localStorage.setItem(LS.avatar,   "");
-          localStorage.setItem(LS.name,     "Guest");
-          localStorage.setItem("epiwen_gh_owner",  "pleuston");
-          localStorage.setItem("epiwen_gh_repo",   "epiwen-workshop");
-          localStorage.setItem("epiwen_gh_branch", "main");
-          localStorage.setItem("epiwen_gh_path",   "records/");
-          // Full Stone Sutras corpus is private; guests get a silent 404 and see
-          // only the default Workshop corpus bundled in the app repo.
-          localStorage.setItem("epiwen_private_owner",   "pleuston");
-          localStorage.setItem("epiwen_private_repo",    "epiwen-stonesutras-data");
-          localStorage.setItem("epiwen_private_branch",  "main");
-          localStorage.setItem("epiwen_private_enabled", JSON.stringify(["stonesutras"]));
-          startSession("guest");
-        });
 
       })();
     </script>

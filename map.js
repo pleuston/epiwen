@@ -189,70 +189,51 @@
     var objCluster  = L.markerClusterGroup({ maxClusterRadius: 45, showCoverageOnHover: false, spiderfyOnMaxZoom: true });
     var insCluster  = L.markerClusterGroup({ maxClusterRadius: 45, showCoverageOnHover: false, spiderfyOnMaxZoom: true });
 
-    var srcMap = { "harvard-librarycloud": "harvard", "berkeley-oai": "berkeley", "japan-search": "japansearch" };
+    // Rubbing holding collections — one cluster group (like the catalogue
+    // tiers) so the ~90 institution pins collapse into count bubbles when
+    // zoomed out instead of overlapping individually; one checkbox for all.
+    var collLayer = L.markerClusterGroup({ maxClusterRadius: 45, showCoverageOnHover: false, spiderfyOnMaxZoom: true });
 
-    // Build one institution's marker (lazy — only when its checkbox is first
-    // switched on, mirroring the atlas dynasty tree's lazy tile layers).
-    function collectionLayerFactory(s) {
-      var c = s._c;
-      var hollow = !c.harvested_count;
-      var icon = L.divIcon({ className: "site-divicon",
-        html: '<div class="map-coll-marker' + (hollow ? " catalog" : "") + '"></div>',
-        iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8] });
-      var src = srcMap[c.connector];
-      return L.marker([c.lat, c.lon], { icon: icon, title: c.label }).bindPopup(
-        "<h4>" + esc(c.label) + (c.label_zh ? ' <span class="pp-sub">' + esc(c.label_zh) + "</span>" : "") + "</h4>" +
-        (c.harvested_count ? '<div class="pp-sub">' + c.harvested_count + " rubbings harvested" + (c.via ? " · via " + esc(c.via) : "") + "</div>"
-                           : (c.connector === "japan-search" ? '<div class="pp-sub">via Japan Search — not yet harvested</div>'
-                              : c.aggregator_db ? '<div class="pp-sub">aggregator — EFEO union database (>10,000 across Europe)</div>'
-                              : c.via_aggregator ? '<div class="pp-sub">via the EFEO aggregator</div>'
-                              : c.verify ? '<div class="pp-sub">verification pending — no online rubbing DB</div>'
-                                                              : '<div class="pp-sub">catalog-only — not yet harvested</div>')) +
-        (c.holdings ? '<div class="pp-sub">Holdings: ' + esc(c.holdings) + "</div>" : "") +
-        (c.api ? '<div class="pp-sub">✓ harvestable API: ' + esc(c.api) + "</div>"
-               : (c.needs_request ? '<div class="pp-sub">⌑ data by request (no open API)</div>'
-               : (c.verify ? '<div class="pp-sub">⚠ no rubbing collection verified here</div>' : ""))) +
-        (c.mentions ? '<div class="pp-sub">~' + c.mentions + " records mention 拓本</div>"
-                    : (c.est_count ? '<div class="pp-sub">~' + c.est_count.toLocaleString() + " rubbings (est.)</div>" : "")) +
-        (c.catalog ? '<div class="pp-sub">Catalog: ' + esc(c.catalog) + "</div>" : "") +
-        (c.site ? '<a class="btn small" href="' + esc(c.site) + '" target="_blank" rel="noopener">Collection site ↗</a> ' : "") +
-        (c.rubbing_site && c.rubbing_site !== c.site ? '<a class="btn small primary" href="' + esc(c.rubbing_site) + '" target="_blank" rel="noopener">' + (c.aggregator_db ? "Open EFEO database ↗" : c.via_aggregator ? "EFEO record ↗" : "Rubbing database ↗") + '</a> ' : "") +
-        (c.api_url ? '<a class="btn small" href="' + esc(c.api_url) + '" target="_blank" rel="noopener">API ↗</a> ' : "") +
-        (c.aggregator_ref ? '<a class="btn small" href="' + esc(c.aggregator_ref) + '" target="_blank" rel="noopener">EFEO union ↗</a> ' : "") +
-        (src && c.harvested_count ? '<a class="btn small primary" href="harvest.html?source=' + src + '">Browse harvest →</a>' : "") +
-        (c.js_browse ? '<a class="btn small primary" href="' + esc(c.js_browse) + '" target="_blank" rel="noopener">Browse on Japan Search ↗</a>' : "")
-      );
-    }
-
-    // Rubbing holding collections (app-repo collections.json; no token needed)
-    // as a continent → institution tree, each institution showing its
-    // harvested-rubbings count.
-    function loadCollectionsTree() {
-      return fetch("collections.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
-        if (!data || !data.collections) return [];
-        var byContinent = {};
+    function loadCollections() {
+      var srcMap = { "harvard-librarycloud": "harvard", "berkeley-oai": "berkeley", "japan-search": "japansearch" };
+      fetch("collections.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+        if (!data || !data.collections) return;
         data.collections.forEach(function (c) {
           if ((c.category || "rubbing") === "object") return;   // object/inscription DBs aren't rubbing collections
           if (typeof c.lat !== "number" || typeof c.lon !== "number") return;
-          var cont = c.continent || "Other";
-          (byContinent[cont] = byContinent[cont] || []).push(c);
+          var hollow = !c.harvested_count;   // catalog-only / not yet harvested
+          var icon = L.divIcon({ className: "site-divicon",
+            html: '<div class="map-coll-marker' + (hollow ? " catalog" : "") + '"></div>',
+            iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8] });
+          var src = srcMap[c.connector];
+          L.marker([c.lat, c.lon], { icon: icon, title: c.label }).bindPopup(
+            "<h4>" + esc(c.label) + (c.label_zh ? ' <span class="pp-sub">' + esc(c.label_zh) + "</span>" : "") + "</h4>" +
+            (c.harvested_count ? '<div class="pp-sub">' + c.harvested_count + " rubbings harvested" + (c.via ? " · via " + esc(c.via) : "") + "</div>"
+                               : (c.connector === "japan-search" ? '<div class="pp-sub">via Japan Search — not yet harvested</div>'
+                                  : c.aggregator_db ? '<div class="pp-sub">aggregator — EFEO union database (>10,000 across Europe)</div>'
+                                  : c.via_aggregator ? '<div class="pp-sub">via the EFEO aggregator</div>'
+                                  : c.verify ? '<div class="pp-sub">verification pending — no online rubbing DB</div>'
+                                                                  : '<div class="pp-sub">catalog-only — not yet harvested</div>')) +
+            (c.holdings ? '<div class="pp-sub">Holdings: ' + esc(c.holdings) + "</div>" : "") +
+            (c.api ? '<div class="pp-sub">✓ harvestable API: ' + esc(c.api) + "</div>"
+                   : (c.needs_request ? '<div class="pp-sub">⌑ data by request (no open API)</div>'
+                   : (c.verify ? '<div class="pp-sub">⚠ no rubbing collection verified here</div>' : ""))) +
+            (c.mentions ? '<div class="pp-sub">~' + c.mentions + " records mention 拓本</div>"
+                        : (c.est_count ? '<div class="pp-sub">~' + c.est_count.toLocaleString() + " rubbings (est.)</div>" : "")) +
+            (c.catalog ? '<div class="pp-sub">Catalog: ' + esc(c.catalog) + "</div>" : "") +
+            (c.site ? '<a class="btn small" href="' + esc(c.site) + '" target="_blank" rel="noopener">Collection site ↗</a> ' : "") +
+            (c.rubbing_site && c.rubbing_site !== c.site ? '<a class="btn small primary" href="' + esc(c.rubbing_site) + '" target="_blank" rel="noopener">' + (c.aggregator_db ? "Open EFEO database ↗" : c.via_aggregator ? "EFEO record ↗" : "Rubbing database ↗") + '</a> ' : "") +
+            (c.api_url ? '<a class="btn small" href="' + esc(c.api_url) + '" target="_blank" rel="noopener">API ↗</a> ' : "") +
+            (c.aggregator_ref ? '<a class="btn small" href="' + esc(c.aggregator_ref) + '" target="_blank" rel="noopener">EFEO union ↗</a> ' : "") +
+            (src && c.harvested_count ? '<a class="btn small primary" href="harvest.html?source=' + src + '">Browse harvest →</a>' : "") +
+            (c.js_browse ? '<a class="btn small primary" href="' + esc(c.js_browse) + '" target="_blank" rel="noopener">Browse on Japan Search ↗</a>' : "")
+          ).addTo(collLayer);
         });
-        var order = ["Asia", "Europe", "Americas"];
-        var conts = Object.keys(byContinent).sort(function (a, b) {
-          var ia = order.indexOf(a), ib = order.indexOf(b);
-          return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
-        });
-        return conts.map(function (cont) {
-          var list = byContinent[cont].slice().sort(function (a, b) { return (b.harvested_count || 0) - (a.harvested_count || 0); });
-          return {
-            en: cont, count: list.length,
-            sections: list.map(function (c) { return { uid: c.id, label: c.label, count: c.harvested_count || 0, _c: c }; })
-          };
-        });
-      }).catch(function () { return []; });
+      }).catch(function () {});
     }
+    loadCollections();
 
-    function buildControl(atlasTree, collTree, tierCounts) {
+    function buildControl(atlasTree, tierCounts) {
       var groups = [
         { kind: "base", title: "Base map", collapsible: true, layers: [
           { label: "Streets", layer: osm },
@@ -268,9 +249,9 @@
           { label: 'Objects <span class="lp-item-n">' + tierCounts.object + '</span>', layer: objCluster, color: TIER_COLOR.object },
           { label: 'Inscriptions <span class="lp-item-n">' + tierCounts.inscription + '</span>', layer: insCluster, color: TIER_COLOR.inscription }
         ] },
-        { kind: "overlay", title: "Rubbing collections", source: "holding institutions",
-          collapsible: true, collapsed: true,
-          tree: collTree, layerFactory: collectionLayerFactory },
+        { kind: "overlay", title: "Rubbing collections", source: "holding institutions", collapsible: true, layers: [
+          { label: "Collections", layer: collLayer }
+        ] },
         { kind: "overlay", title: "Tang overlays", source: "CCTS", collapsible: true, layers: [
           { label: "Circuits & prefectures", layer: ccts("Tang_Admin", { zIndex: 5, opacity: 0.8 }) },
           { label: "Traffic routes", layer: ccts("Tang_TrafficRoute", { zIndex: 6, opacity: 0.8 }) }
@@ -287,8 +268,6 @@
     var _atlasP = EpiData.fetch("data/osgeo-atlas.json")
       .then(function (r) { return r.ok ? r.json() : []; })
       .catch(function () { return []; });
-
-    var _collP = loadCollectionsTree();
 
     // Sites/objects/inscriptions come from the public default corpus (no
     // token) + the Stone Sutras corpus + enabled collections. Objects and
@@ -356,8 +335,8 @@
         return { site: 0, object: 0, inscription: 0 };
       });
 
-    Promise.all([_atlasP, _collP, _sitesP]).then(function (res) {
-      buildControl(res[0], res[1], res[2]);
+    Promise.all([_atlasP, _sitesP]).then(function (res) {
+      buildControl(res[0], res[1]);
     });
   });
 })();

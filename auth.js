@@ -17,6 +17,24 @@
   }
 
   var username = localStorage.getItem(USERNAME_KEY);
+
+  // A stale "guest" identity (from the retired Browse-as-guest button) is
+  // never valid, regardless of what sessionStorage says — without this, a
+  // browser that was already "signed in" as guest before the button was
+  // removed would pass the sessionStorage check below on every reload and
+  // never get routed back through login.html's own cleanup, staying stuck
+  // on the empty epiwen-workshop backend indefinitely.
+  if (username === "guest") {
+    sessionStorage.removeItem(SESSION_KEY);
+    ["epiwen_gh_username", "epiwen_gh_avatar", "epiwen_gh_name", "epiwen_gh_token"]
+      .forEach(function (k) { localStorage.removeItem(k); });
+    localStorage.setItem("epiwen_gh_owner",  "pleuston");
+    localStorage.setItem("epiwen_gh_repo",   "epiwen-data");
+    localStorage.setItem("epiwen_gh_branch", "main");
+    redirect();
+    return;
+  }
+
   if (!username) { redirect(); return; }
   if (sessionStorage.getItem(SESSION_KEY) !== username) { redirect(); return; }
 

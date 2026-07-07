@@ -136,14 +136,30 @@
     return c;
   }
 
-  // a clickable row that opens the detail pane
+  // Objects/inscriptions have their own home in the catalog — clicking one
+  // anywhere in this page (tree, sigla, related lists, parent link) jumps
+  // there instead of swapping the in-page pane. Sites/sections have no
+  // catalog-tab home, so they keep the in-page detail behavior.
+  function gotoRecord(id) {
+    var rec = byId[id];
+    if (!rec) return;
+    var tab = rec.kind === "object" || rec.kind === "cave" ? "objects"
+      : rec.kind === "inscription" ? "inscriptions" : "";
+    if (tab && rec.catalog_file) {
+      window.location.href = "catalog.html?tab=" + tab + "&file=" + encodeURIComponent(rec.catalog_file);
+      return;
+    }
+    showDetail(id);
+  }
+
+  // a clickable row that opens the detail pane (or jumps to the catalog)
   function detailRow(rec, extraClass) {
     var row = document.createElement("div");
     row.className = "tree-row" + (extraClass ? " " + extraClass : "");
     row.dataset.id = rec.id;
     row.addEventListener("click", function (e) {
       e.stopPropagation();
-      showDetail(rec.id);
+      gotoRecord(rec.id);
     });
     return row;
   }
@@ -283,7 +299,7 @@
       sig.innerHTML = "── " + sigla;
       Array.prototype.forEach.call(sig.querySelectorAll(".siglum"), function (a) {
         a.addEventListener("click", function (e) {
-          e.preventDefault(); e.stopPropagation(); showDetail(a.getAttribute("data-goto"));
+          e.preventDefault(); e.stopPropagation(); gotoRecord(a.getAttribute("data-goto"));
         });
       });
       wrap.appendChild(sig);
@@ -514,7 +530,7 @@
     document.querySelectorAll("#site-detail [data-goto]").forEach(function (a) {
       a.addEventListener("click", function (e) {
         e.preventDefault();
-        showDetail(a.getAttribute("data-goto"));
+        gotoRecord(a.getAttribute("data-goto"));
       });
     });
   }

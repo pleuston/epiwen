@@ -14,6 +14,7 @@
   var currentXml   = "";
   var selectedItem = null;
   var currentTab   = "objects";
+  var pendingFile  = "";        // ?file= from a fresh nav — consumed once records finish loading
   var showMine     = false;
   var rubSourceFilter = "all"; // Rubbings tab: filter by holding collection / source
   var siteFilter   = "all";    // Objects/Inscriptions: filter by site (origPlace / repository)
@@ -1623,7 +1624,7 @@
     if (tab === "objects") {
       renderObjectsCatalog(allRecords.filter(function (r) { return r.recordType === "object"; }), file || "");
     } else if (tab === "inscriptions") {
-      renderInscriptionsCatalog();
+      renderInscriptionsCatalog(file || "");
     } else if (tab === "rubbings") {
       var rubs = allRecords.filter(function (r) { return r.recordType === "rubbing"; });
       renderRubbingsCatalog(rubs);
@@ -1710,7 +1711,7 @@
     wireSiteFilter();
   }
 
-  function renderInscriptionsCatalog() {
+  function renderInscriptionsCatalog(file) {
     var list = document.getElementById("catalog-list");
     list.innerHTML = "";
 
@@ -1742,7 +1743,14 @@
     }
     list.innerHTML = bar;
     items.forEach(function (it) {
-      list.appendChild(buildInscriptionItem(it.rec, it.part, it.pIdx));
+      var item = buildInscriptionItem(it.rec, it.part, it.pIdx);
+      list.appendChild(item);
+      if (file && it.rec.name === file) {
+        setTimeout(function () {
+          item.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          showInscriptionPreview(it.rec, it.part, it.pIdx, item);
+        }, 0);
+      }
     });
     wireSiteFilter();
   }
@@ -1902,7 +1910,7 @@
      Additive and idempotent — safe to call again after the manager changes the
      enabled set. */
   function loadPrivate() {
-    if (!window.EpiCollections) { renderByTab(currentTab); return; }
+    if (!window.EpiCollections) { var f0 = pendingFile; pendingFile = ""; renderByTab(currentTab, f0); return; }
     // The shared collection auto-loads alongside any enabled private collections.
     var jobs = [ EpiCollections.loadEnabled() ];
     if (EpiCollections.loadShared) jobs.unshift(EpiCollections.loadShared());
@@ -1927,7 +1935,8 @@
     }).then(function () {
       // Always render, success or failure, so the UI never hangs on "Loading…".
       rebuildAll();
-      renderByTab(currentTab);
+      var f = pendingFile; pendingFile = "";
+      renderByTab(currentTab, f);
     });
   }
 
@@ -1991,6 +2000,7 @@
     var tabParam  = _sp.get("tab")  || "objects";
     var fileParam = _sp.get("file") || "";
     currentTab = tabParam;
+    pendingFile = fileParam;
 
     // Records now live in the Stone Sutras corpus collection (default-on) and any
     // enabled collections; authorities + biblio stay in the always-on core.

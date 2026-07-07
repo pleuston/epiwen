@@ -152,10 +152,23 @@
     }
     var handDesc = hnote.length ? el("handDesc", null, el("handNote", null, hnote)) : null;
 
-    /* physDesc — additions (paratext) */
+    /* physDesc — additions (paratext). Colophons and seals are repeatable —
+       a mounted rubbing can carry several owner colophons or seal
+       impressions — so each renders as its own <p>, with author/date or
+       owner folded into the label when given. */
+    function paratextPs(list, typeToken, defaultLabel, textKey, metaFn) {
+      return (list || []).map(function (item) {
+        if (!tv(item[textKey])) return null;
+        var meta = metaFn(item).map(tv).filter(Boolean).join(", ");
+        var lbl = defaultLabel + (meta ? " (" + meta + ")" : "");
+        return "<p type=\"" + typeToken + "\"><label>" + ex(lbl) + "</label>: " + ex(tv(item[textKey])) + "</p>";
+      }).filter(Boolean);
+    }
     var addParts = [];
-    if (tv(s.colophon))            addParts.push("<p><label>Colophon 跋</label>: " + ex(tv(s.colophon)) + "</p>");
-    if (tv(s.seals))               addParts.push("<p><label>Seals 印章</label>: "   + ex(tv(s.seals))    + "</p>");
+    addParts = addParts.concat(paratextPs(s.paratexts, "colophon", "Colophon 跋", "text",
+      function (pt) { return [pt.author, pt.date]; }));
+    addParts = addParts.concat(paratextPs(s.seals, "seal", "Seal 印章", "text",
+      function (sl) { return [sl.owner]; }));
     if (tv(s.objectInscriptions))  addParts.push("<p><label>Inscriptions 器物題記</label>: " + ex(tv(s.objectInscriptions)) + "</p>");
     if (tv(s.markTypeLabel) || tv(s.markLocation)) {
       addParts.push(el("note", { type: "mark", subtype: tv(s.markTypeToken) },
@@ -294,6 +307,8 @@
   var state = {
     authority: "Epiwen / Altergraphy",
     agents: [{}],
+    paratexts: [{}],
+    seals: [{}],
     paperAttrs: [],
     originalArtist: {},
     engraver: {},
@@ -478,8 +493,8 @@
         label: function (o) { return label(o); }, pick: pickCopyTech }
     ]},
     { en: "Paratext", zh: "旁白文字（跋語、印章、記號）", fields: [
-      { key: "colophon", type: "textarea", en: "Colophon 跋",  zh: "跋文" },
-      { key: "seals",    type: "textarea", en: "Seals 印章",    zh: "印章" },
+      { custom: "paratexts" },
+      { custom: "seals" },
       { key: "objectInscriptions", type: "textarea", en: "Inscriptions on object", zh: "器物題記",
         hint_en: "Collector's notes, catalogue marks etc. written on the object — distinct from the rubbed text itself",
         hint_zh: "器物本身所題之文字（如藏家題識、編目記號），非拓製之銘文本身" },
@@ -619,6 +634,61 @@
     return box;
   }
 
+  // -- Generic repeatable block of plain text-input rows (paratexts, seals):
+  // add/remove rows just like the agents block, but with caller-supplied
+  // sub-fields instead of the fixed name/role/date shape agents needs.
+  function renderRepeatableTextBlock(stateKey, subFields, titleEn, titleZh, addEn, addZh) {
+    var wrap = document.createElement("div");
+    var box = document.createElement("div");
+    wrap.appendChild(box);
+
+    function renderRows() {
+      box.innerHTML = "";
+      var list = state[stateKey] || (state[stateKey] = [{}]);
+      list.forEach(function (item, i) {
+        var rowBox = document.createElement("div"); rowBox.className = "textblock";
+        var head = document.createElement("div"); head.className = "textblock-head";
+        head.innerHTML = "<strong>" +
+          '<span class="en">' + esc(titleEn) + '</span><span class="zh">' + esc(titleZh) + "</span>" +
+          " " + (i + 1) + "</strong>";
+        if (list.length > 1) {
+          var del = document.createElement("button");
+          del.type = "button"; del.className = "btn small";
+          del.innerHTML = '− <span class="en">remove</span><span class="zh">刪除</span>';
+          del.addEventListener("click", function () { list.splice(i, 1); renderRows(); update(); });
+          head.appendChild(del);
+        }
+        rowBox.appendChild(head);
+
+        var row = document.createElement("div"); row.className = "field row";
+        subFields.forEach(function (sf) {
+          var fwrap = document.createElement("div");
+          fwrap.innerHTML = '<span class="label"><span class="en">' + esc(sf.en) +
+            '</span><span class="zh">' + esc(sf.zh) + "</span></span>";
+          var ctrl = sf.type === "textarea" ? document.createElement("textarea") : document.createElement("input");
+          if (ctrl.tagName === "INPUT") ctrl.type = "text";
+          ctrl.value = item[sf.key] || "";
+          ctrl.addEventListener("input", function () { item[sf.key] = ctrl.value; update(); });
+          fwrap.appendChild(ctrl);
+          row.appendChild(fwrap);
+        });
+        rowBox.appendChild(row);
+        box.appendChild(rowBox);
+      });
+    }
+
+    var addBtn = document.createElement("button");
+    addBtn.type = "button"; addBtn.className = "btn";
+    addBtn.innerHTML = '+ <span class="en">' + esc(addEn) + '</span><span class="zh">' + esc(addZh) + "</span>";
+    addBtn.addEventListener("click", function () {
+      (state[stateKey] || (state[stateKey] = [])).push({});
+      renderRows(); update();
+    });
+    wrap.appendChild(addBtn);
+    renderRows();
+    return wrap;
+  }
+
   // -- Agents (repeatable person block) --
   var _agBox = null;
   function renderAgentsBlock() {
@@ -711,6 +781,19 @@
     if (f.custom === "originalArtist")  return renderCreatorBlock("originalArtist", "Original artist", "原作者");
     if (f.custom === "engraver")        return renderCreatorBlock("engraver", "Engraver", "刻工");
     if (f.custom === "rubber")          return renderCreatorBlock("rubber", "Rubbing-taker", "拓工");
+    if (f.custom === "paratexts") return renderRepeatableTextBlock("paratexts",
+      [
+        { key: "text",   type: "textarea", en: "Text",             zh: "內容" },
+        { key: "author", en: "Author / writer", zh: "作者" },
+        { key: "date",   en: "Date",             zh: "年代" }
+      ],
+      "Colophon / note", "跋文題記", "Add paratext", "增加旁白文字");
+    if (f.custom === "seals") return renderRepeatableTextBlock("seals",
+      [
+        { key: "text",  en: "Seal text",           zh: "印文" },
+        { key: "owner", en: "Owner / attribution",  zh: "鈐印者" }
+      ],
+      "Seal", "印章", "Add seal", "增加印章");
 
     var wrap = document.createElement("div"); wrap.className = "field";
 
@@ -850,13 +933,22 @@
     if (tv(s.copyingLabel)) {
       html += sec("Other copying technique", [row("Technique", s.copyingLabel)]);
     }
-    html += sec("Paratext", [
-      row("Colophon", s.colophon),
-      row("Seals",    s.seals),
+    var paratextRows = (s.paratexts || [])
+      .filter(function (pt) { return tv(pt.text); })
+      .map(function (pt, i) {
+        var meta = [pt.author, pt.date].filter(tv).join(", ");
+        return row("Colophon " + (i + 1) + (meta ? " (" + meta + ")" : ""), pt.text);
+      });
+    var sealRows = (s.seals || [])
+      .filter(function (sl) { return tv(sl.text); })
+      .map(function (sl, i) {
+        return row("Seal " + (i + 1) + (tv(sl.owner) ? " (" + sl.owner + ")" : ""), sl.text);
+      });
+    html += sec("Paratext", paratextRows.concat(sealRows).concat([
       row("Inscriptions on object", s.objectInscriptions),
       row("Mark type",     s.markTypeLabel),
       row("Mark location", s.markLocation)
-    ]);
+    ]));
     html += sec("Creation", [
       personRow("Original artist", s.originalArtist),
       row("Date of original work", s.dateOriginalWork),
@@ -971,7 +1063,7 @@
       state.techniqueLabel = ""; state.techniqueRef = "";
       state.rubObjectTypeLabel = ""; state.rubObjectTypeRef = "";
       state.copyingLabel = ""; state.copyingRef = "";
-      state.colophon = ""; state.seals = ""; state.objectInscriptions = "";
+      state.paratexts = [{}]; state.seals = [{}]; state.objectInscriptions = "";
       state.markTypeLabel = ""; state.markTypeToken = ""; state.markLocation = "";
       state.agents = [{}];
       state.originalArtist = {}; state.engraver = {}; state.rubber = {};

@@ -245,7 +245,40 @@
     { en: "Black ink rubbing",      zh: "墨拓",   ref: th("802952"), opentheso_id: "802952" },
     { en: "Charcoal rubbing",       zh: "",       ref: th("802954"), opentheso_id: "802954" },
     { en: "Blue ink rubbing",       zh: "蓝拓",   ref: th("884731"), opentheso_id: "884731" },
-    { en: "Vermillion ink rubbing", zh: "朱砂墨", ref: th("884797"), opentheso_id: "884797" }
+    { en: "Vermillion ink rubbing", zh: "朱砂墨", ref: th("884797"), opentheso_id: "884797" },
+    { en: "Printing ink",           zh: "印刷墨" }
+  ];
+
+  // Object type — the primary reproduction method (rubbing vs. photographic/
+  // print facsimile). Reuses the existing "Rubbing" top concept and the
+  // Collotype/Photolithography refs already in OTHER_COPY_TECHNIQUES.
+  V.OBJECT_TYPES = [
+    { en: "Rubbing / estampage", zh: "拓片",   ref: th("802596"), opentheso_id: "802596" },
+    { en: "Photolithograph",     zh: "石印",   ref: th("802956"), opentheso_id: "802956" },
+    { en: "Collotype",           zh: "珂羅版", ref: th("802955"), opentheso_id: "802955" }
+  ];
+
+  // Title type — whose title is being recorded: the rubbing's own title
+  // (as inscribed/catalogued on the object) or the title of the original
+  // work it reproduces.
+  V.TITLE_TYPES = [
+    { en: "Title of the rubbing",       zh: "拓本標題", token: "rubbing" },
+    { en: "Title of the original work", zh: "原作標題", token: "originalWork" }
+  ];
+
+  // Place-of-creation type for the rubbing itself: taken directly off the
+  // original object (in situ) or made elsewhere from a surrogate/reproduction.
+  V.PLACE_TYPES = [
+    { en: "In situ",                        zh: "原址",   token: "inSitu" },
+    { en: "Reproduction (made elsewhere)",  zh: "異地複製", token: "reproduction" }
+  ];
+
+  // Mark type (884822 area has no dedicated branch for this — plain labels).
+  V.MARK_TYPES = [
+    { en: "Pencil mark", zh: "鉛筆記號", token: "pencil" },
+    { en: "Label",       zh: "標籤",     token: "label" },
+    { en: "Stamp",       zh: "印記",     token: "stamp" },
+    { en: "Other",       zh: "其他",     token: "other" }
   ];
 
   // Paper types (884787 branch under 802961)

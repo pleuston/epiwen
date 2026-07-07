@@ -34,6 +34,21 @@
     return "<" + tag + a + ">" + b + "</" + tag + ">";
   }
 
+  // One <person> — either a fixed creation-chain identity (nameZh/namePinyin
+  // + birth/death) or a free-form agent (bare name + floruit). Returns null
+  // when nothing was actually filled in, so empty rows never emit a tag.
+  function buildPersonEl(roleLabel, roleRef, nameZh, namePinyin, name, birth, death, floruit) {
+    var pch = [];
+    if (tv(nameZh))     pch.push(el("persName", { "xml:lang": "zh" }, ex(tv(nameZh))));
+    if (tv(namePinyin)) pch.push(el("persName", { "xml:lang": "und-Latn-pinyin" }, ex(tv(namePinyin))));
+    if (tv(name) && !tv(nameZh) && !tv(namePinyin)) pch.push(el("persName", null, ex(tv(name))));
+    if (tv(birth))   pch.push(el("birth",   null, ex(tv(birth))));
+    if (tv(death))   pch.push(el("death",   null, ex(tv(death))));
+    if (tv(floruit)) pch.push(el("floruit", null, ex(tv(floruit))));
+    if (!pch.length) return null;
+    return el("person", roleRef ? { role: roleLabel, ref: roleRef } : { role: roleLabel }, pch);
+  }
+
   function buildXML(s) {
     var X = [
       '<?xml version="1.0" encoding="UTF-8"?>',
@@ -42,10 +57,14 @@
       '<TEI xmlns="http://www.tei-c.org/ns/1.0">'
     ];
 
-    /* titleStmt */
+    /* titleStmt — type distinguishes the rubbing's own title from the title
+       of the original work it reproduces (same type applies to all three
+       language variants, since they name the same thing). */
+    var titleAttr = tv(s.titleTypeToken) ? { type: tv(s.titleTypeToken) } : null;
     var ts = el("titleStmt", null, [
-      el("title",  { "xml:lang": "en" },       ex(tv(s.titleEn))),
-      el("title",  { "xml:lang": "zh-Hant" },  ex(tv(s.titleZh))),
+      el("title",  Object.assign({ "xml:lang": "en" },              titleAttr || {}), ex(tv(s.titleEn))),
+      el("title",  Object.assign({ "xml:lang": "und-Latn-pinyin" }, titleAttr || {}), ex(tv(s.titlePinyin))),
+      el("title",  Object.assign({ "xml:lang": "zh-Hant" },         titleAttr || {}), ex(tv(s.titleZh))),
       el("editor", null,                        ex(tv(s.editor)))
     ]);
 
@@ -72,8 +91,8 @@
     /* physDesc — support */
     var suppChildren = [
       el("objectType",
-        { ref: "https://opentheso.huma-num.fr/?idc=802596&idt=th770" },
-        "拓片 Rubbing")
+        { ref: tv(s.objectTypeRef) || "https://opentheso.huma-num.fr/?idc=802596&idt=th770" },
+        ex(tv(s.objectTypeLabel) || "拓片 Rubbing"))
     ];
     if (tv(s.formatRef)) {
       suppChildren.push("<p>" +
@@ -92,9 +111,15 @@
       suppChildren.push(el("note", { type: "paperAttributes" }, paTerms));
     }
     if (tv(s.heightCm) || tv(s.widthCm)) {
-      suppChildren.push(el("dimensions", { unit: "cm" }, [
+      suppChildren.push(el("dimensions", { type: "sheet", unit: "cm" }, [
         el("height", null, ex(tv(s.heightCm))),
         el("width",  null, ex(tv(s.widthCm)))
+      ]));
+    }
+    if (tv(s.mountHeightCm) || tv(s.mountWidthCm)) {
+      suppChildren.push(el("dimensions", { type: "mount", unit: "cm" }, [
+        el("height", null, ex(tv(s.mountHeightCm))),
+        el("width",  null, ex(tv(s.mountWidthCm)))
       ]));
     }
     var suppDesc = el("supportDesc", null, [
@@ -129,20 +154,59 @@
 
     /* physDesc — additions (paratext) */
     var addParts = [];
-    if (tv(s.colophon)) addParts.push("<p><label>Colophon 跋</label>: " + ex(tv(s.colophon)) + "</p>");
-    if (tv(s.seals))    addParts.push("<p><label>Seals 印章</label>: "   + ex(tv(s.seals))    + "</p>");
-    if (tv(s.marks))    addParts.push("<p><label>Marks</label>: "         + ex(tv(s.marks))    + "</p>");
+    if (tv(s.colophon))            addParts.push("<p><label>Colophon 跋</label>: " + ex(tv(s.colophon)) + "</p>");
+    if (tv(s.seals))               addParts.push("<p><label>Seals 印章</label>: "   + ex(tv(s.seals))    + "</p>");
+    if (tv(s.objectInscriptions))  addParts.push("<p><label>Inscriptions 器物題記</label>: " + ex(tv(s.objectInscriptions)) + "</p>");
+    if (tv(s.markTypeLabel) || tv(s.markLocation)) {
+      addParts.push(el("note", { type: "mark", subtype: tv(s.markTypeToken) },
+        [
+          tv(s.markTypeLabel) ? el("term", null, ex(tv(s.markTypeLabel))) : null,
+          tv(s.markLocation)  ? el("locus", null, ex(tv(s.markLocation))) : null
+        ]));
+    }
     var additions = addParts.length ? el("additions", null, addParts.join("\n")) : null;
 
     var physDesc = el("physDesc", null, [objDesc, handDesc, additions]);
 
-    /* history */
-    var orig = el("origin", null, [
-      el("origDate", tv(s.dateCreatedISO) ? { when: tv(s.dateCreatedISO) } : null, ex(tv(s.dateCreated))),
-      el("origPlace", null, ex(tv(s.placeCreated)))
-    ]);
+    /* history — three creation stages tracked separately (French/EFEO
+       rubbing schema): the original work's composition, the engraving of
+       the stone/object, and the taking of THIS rubbing. Each origin only
+       appears if something was actually filled in for that stage. */
+    function placeNameEls(zh, pinyin) {
+      var pn = [];
+      if (tv(zh))     pn.push(el("placeName", { "xml:lang": "zh" }, ex(tv(zh))));
+      if (tv(pinyin)) pn.push(el("placeName", { "xml:lang": "und-Latn-pinyin" }, ex(tv(pinyin))));
+      return pn.length ? pn : null;
+    }
+    var origOriginalWork = (tv(s.dateOriginalWork) || tv(s.dynastyOriginalWork))
+      ? el("origin", { type: "originalWork" }, [
+          tv(s.dateOriginalWork) ? el("origDate",
+            tv(s.dateOriginalWorkISO) ? { when: tv(s.dateOriginalWorkISO) } : null,
+            ex(tv(s.dateOriginalWork))) : null,
+          tv(s.dynastyOriginalWork) ? el("note", { type: "dynasty" }, ex(tv(s.dynastyOriginalWork))) : null
+        ])
+      : null;
+    var origEngraving = (tv(s.dateEngraving) || tv(s.dynastyEngraving) || tv(s.placeEngravingZh) || tv(s.placeEngravingPinyin))
+      ? el("origin", { type: "engraving" }, [
+          tv(s.dateEngraving) ? el("origDate",
+            tv(s.dateEngravingISO) ? { when: tv(s.dateEngravingISO) } : null,
+            ex(tv(s.dateEngraving))) : null,
+          tv(s.dynastyEngraving) ? el("note", { type: "dynasty" }, ex(tv(s.dynastyEngraving))) : null,
+          el("origPlace", null, placeNameEls(s.placeEngravingZh, s.placeEngravingPinyin))
+        ])
+      : null;
+    var origRubbing = (tv(s.dateCreated) || tv(s.placeRubbingZh) || tv(s.placeRubbingPinyin))
+      ? el("origin", { type: "rubbing" }, [
+          tv(s.dateCreated) ? el("origDate",
+            tv(s.dateCreatedISO) ? { when: tv(s.dateCreatedISO) } : null,
+            ex(tv(s.dateCreated))) : null,
+          el("origPlace",
+            tv(s.placeRubbingTypeToken) ? { type: tv(s.placeRubbingTypeToken) } : null,
+            placeNameEls(s.placeRubbingZh, s.placeRubbingPinyin))
+        ])
+      : null;
     var history = el("history", null, [
-      orig,
+      origOriginalWork, origEngraving, origRubbing,
       el("provenance",   null, ex(tv(s.provenance))),
       el("acquisition",
         tv(s.dateAcquiredISO) ? { when: tv(s.dateAcquiredISO) } : null,
@@ -182,16 +246,21 @@
       ? el("additional", null, el("listBibl", null, bibs))
       : null;
 
-    /* listPerson (agents) */
+    /* listPerson — the three fixed creation-chain identities (original
+       artist / engraver / rubbing-taker) first, then any free-form agents
+       (collector, sponsor, etc.). */
     var persons = [];
+    var oa = s.originalArtist || {}, eng = s.engraver || {}, rub = s.rubber || {};
+    var pOriginal = buildPersonEl("Original artist 原作者", null, oa.nameZh, oa.namePinyin, null, oa.birth, oa.death, null);
+    if (pOriginal) persons.push(pOriginal);
+    var pEngraver = buildPersonEl("Engraver 刻工", null, eng.nameZh, eng.namePinyin, null, eng.birth, eng.death, null);
+    if (pEngraver) persons.push(pEngraver);
+    var pRubber = buildPersonEl("Rubbing-taker 拓工", null, rub.nameZh, rub.namePinyin, null, rub.birth, rub.death, null);
+    if (pRubber) persons.push(pRubber);
     (s.agents || []).forEach(function (ag) {
       if (!tv(ag.name) && !tv(ag.roleLabel)) return;
-      var pch = [el("persName", null, ex(tv(ag.name)))];
-      if (tv(ag.date)) pch.push(el("floruit", null, ex(tv(ag.date))));
-      persons.push(el("person",
-        tv(ag.roleRef) ? { role: tv(ag.roleLabel), ref: tv(ag.roleRef) }
-                       : { role: tv(ag.roleLabel) },
-        pch));
+      var p = buildPersonEl(tv(ag.roleLabel), tv(ag.roleRef), null, null, ag.name, null, null, ag.date);
+      if (p) persons.push(p);
     });
     var listPerson = persons.length ? el("listPerson", null, persons) : null;
 
@@ -225,7 +294,10 @@
   var state = {
     authority: "Epiwen / Altergraphy",
     agents: [{}],
-    paperAttrs: []
+    paperAttrs: [],
+    originalArtist: {},
+    engraver: {},
+    rubber: {}
   };
 
   function setVal(key, v) {
@@ -276,6 +348,18 @@
     state.licence = o.label; state.licenceTarget = o.target;
     setVal("licenceTarget", o.target);
   }
+  function pickObjectType(o) {
+    state.objectTypeLabel = label(o); state.objectTypeRef = o.ref;
+  }
+  function pickTitleType(o) {
+    state.titleTypeLabel = label(o); state.titleTypeToken = o.token;
+  }
+  function pickPlaceRubbingType(o) {
+    state.placeRubbingTypeLabel = label(o); state.placeRubbingTypeToken = o.token;
+  }
+  function pickMarkType(o) {
+    state.markTypeLabel = label(o); state.markTypeToken = o.token;
+  }
 
   function refreshSubtypes() {
     var sel = document.getElementById("f-_inkingSubtype");
@@ -295,10 +379,23 @@
   // ===== FORM SECTIONS =========================================================
   var SECTIONS = [
     { en: "Identity", zh: "著錄", fields: [
-      { key: "filename",  en: "File name",     zh: "檔名",   ph: "RUB_1.xml" },
-      { key: "titleEn",   en: "English title", zh: "英文標題" },
-      { key: "titleZh",   en: "Chinese title", zh: "中文標題" },
-      { key: "editor",    en: "Editor",         zh: "編者" }
+      { key: "filename",    en: "File name",     zh: "檔名",     ph: "RUB_1.xml" },
+      { key: "titleEn",     en: "English title", zh: "英文標題" },
+      { key: "titlePinyin", en: "Pinyin title",  zh: "拼音標題" },
+      { key: "titleZh",     en: "Chinese title", zh: "中文標題" },
+      { type: "vocab", key: "_titleType", en: "Title type", zh: "標題類型",
+        hint_en: "Is this the rubbing's own title, or the title of the original work it reproduces?",
+        hint_zh: "此為拓本本身之標題，或所拓原作之標題？",
+        options: V.TITLE_TYPES,
+        label: function (o) { return label(o); }, pick: pickTitleType },
+      { key: "editor",      en: "Editor",         zh: "編者" }
+    ]},
+    { en: "Object type", zh: "物件類型", fields: [
+      { type: "vocab", key: "_objectType", en: "Reproduction type", zh: "複製類型",
+        hint_en: "Hand-taken rubbing vs. a photographic/print facsimile",
+        hint_zh: "手拓拓片，或攝影/印刷複製品",
+        options: V.OBJECT_TYPES,
+        label: function (o) { return label(o); }, pick: pickObjectType }
     ]},
     { en: "Inscription reference", zh: "銘文參照", fields: [
       { key: "inscriptionFile",
@@ -323,6 +420,10 @@
       { row: [
         { key: "heightCm", type: "number", en: "Height (cm)", zh: "高" },
         { key: "widthCm",  type: "number", en: "Width (cm)",  zh: "寬" }
+      ]},
+      { row: [
+        { key: "mountHeightCm", type: "number", en: "Mount height (cm)", zh: "裱件高" },
+        { key: "mountWidthCm",  type: "number", en: "Mount width (cm)",  zh: "裱件寬" }
       ]},
       { key: "condition", en: "Condition", zh: "保存狀況" }
     ]},
@@ -379,17 +480,51 @@
     { en: "Paratext", zh: "旁白文字（跋語、印章、記號）", fields: [
       { key: "colophon", type: "textarea", en: "Colophon 跋",  zh: "跋文" },
       { key: "seals",    type: "textarea", en: "Seals 印章",    zh: "印章" },
-      { key: "marks",    type: "textarea", en: "Marks",          zh: "記號" }
+      { key: "objectInscriptions", type: "textarea", en: "Inscriptions on object", zh: "器物題記",
+        hint_en: "Collector's notes, catalogue marks etc. written on the object — distinct from the rubbed text itself",
+        hint_zh: "器物本身所題之文字（如藏家題識、編目記號），非拓製之銘文本身" },
+      { type: "vocab", key: "_markType", en: "Mark type", zh: "記號類型",
+        options: V.MARK_TYPES,
+        label: function (o) { return label(o); }, pick: pickMarkType },
+      { key: "markLocation", en: "Mark location", zh: "記號位置",
+        hint_en: "Where on the object the mark appears" }
     ]},
-    { en: "Persons", zh: "著錄人物", fields: [
-      { custom: "agents" }
-    ]},
-    { en: "Dates & provenance", zh: "紀年與收藏史", fields: [
+    { en: "Creation", zh: "創作與製作", fields: [
+      { custom: "originalArtist" },
+      { row: [
+        { key: "dateOriginalWork",    en: "Date of original work", zh: "原作創作年代" },
+        { key: "dateOriginalWorkISO", en: "ISO year",              zh: "公曆年" }
+      ]},
+      { key: "dynastyOriginalWork", en: "Dynasty (original work)", zh: "原作朝代" },
+      { custom: "engraver" },
+      { row: [
+        { key: "dateEngraving",    en: "Date of engraving", zh: "刻製年代" },
+        { key: "dateEngravingISO", en: "ISO year",          zh: "公曆年" }
+      ]},
+      { key: "dynastyEngraving", en: "Dynasty (engraving)", zh: "刻製朝代" },
+      { row: [
+        { key: "placeEngravingZh",     en: "Place of engraving (Chinese)", zh: "刻製地點（中文）" },
+        { key: "placeEngravingPinyin", en: "Place of engraving (pinyin)",  zh: "刻製地點（拼音）" }
+      ]},
+      { custom: "rubber" },
       { row: [
         { key: "dateCreated",    en: "Date of rubbing",     zh: "拓製年代", ph: "1880年代" },
         { key: "dateCreatedISO", en: "ISO year",            zh: "公曆年",  ph: "1880" }
       ]},
-      { key: "placeCreated",   en: "Place of creation",  zh: "拓製地點" },
+      { row: [
+        { key: "placeRubbingZh",     en: "Place of rubbing (Chinese)", zh: "拓製地點（中文）" },
+        { key: "placeRubbingPinyin", en: "Place of rubbing (pinyin)",  zh: "拓製地點（拼音）" }
+      ]},
+      { type: "vocab", key: "_placeRubbingType", en: "Place type", zh: "地點類型",
+        hint_en: "Was this rubbing taken directly off the object (in situ) or from a surrogate elsewhere?",
+        hint_zh: "此拓本是直接就原物拓製（原址），或就異地之複製品拓製？",
+        options: V.PLACE_TYPES,
+        label: function (o) { return label(o); }, pick: pickPlaceRubbingType }
+    ]},
+    { en: "Other persons", zh: "其他相關人物", fields: [
+      { custom: "agents" }
+    ]},
+    { en: "Dates & provenance", zh: "紀年與收藏史", fields: [
       { key: "dateParatext",   en: "Date on paratext",   zh: "旁白年代",
         hint_en: "Date appearing in colophon or seal" },
       { row: [
@@ -447,6 +582,41 @@
     });
     wrap.appendChild(_paBox);
     return wrap;
+  }
+
+  // -- Fixed creator identity (original artist / engraver / rubbing-taker) --
+  // Unlike the repeatable "agents" list below, each of these is exactly one
+  // person (or unknown), so no add/remove — just four fields.
+  function renderCreatorBlock(stateKey, titleEn, titleZh) {
+    var box = document.createElement("div"); box.className = "textblock";
+    var head = document.createElement("div"); head.className = "textblock-head";
+    head.innerHTML = "<strong><span class=\"en\">" + esc(titleEn) + "</span>" +
+      "<span class=\"zh\">" + esc(titleZh) + "</span></strong>";
+    box.appendChild(head);
+
+    var row1 = document.createElement("div"); row1.className = "field row";
+    var row2 = document.createElement("div"); row2.className = "field row";
+
+    function sub(labelEn, labelZh, subKey, row) {
+      var wrap = document.createElement("div");
+      wrap.innerHTML = '<span class="label"><span class="en">' + esc(labelEn) +
+        '</span><span class="zh">' + esc(labelZh) + "</span></span>";
+      var inp = document.createElement("input"); inp.type = "text";
+      inp.value = (state[stateKey] && state[stateKey][subKey]) || "";
+      inp.addEventListener("input", function () {
+        state[stateKey] = state[stateKey] || {};
+        state[stateKey][subKey] = inp.value;
+        update();
+      });
+      wrap.appendChild(inp); row.appendChild(wrap);
+    }
+    sub("Name (pinyin)",  "姓名（拼音）", "namePinyin", row1);
+    sub("Name (Chinese)", "姓名（中文）", "nameZh",     row1);
+    sub("Birth",          "生年",         "birth",      row2);
+    sub("Death",          "卒年",         "death",      row2);
+
+    box.appendChild(row1); box.appendChild(row2);
+    return box;
   }
 
   // -- Agents (repeatable person block) --
@@ -538,6 +708,9 @@
   function renderField(f) {
     if (f.custom === "paperAttributes") return renderPaperAttributesBlock();
     if (f.custom === "agents")          return renderAgentsBlock();
+    if (f.custom === "originalArtist")  return renderCreatorBlock("originalArtist", "Original artist", "原作者");
+    if (f.custom === "engraver")        return renderCreatorBlock("engraver", "Engraver", "刻工");
+    if (f.custom === "rubber")          return renderCreatorBlock("rubber", "Rubbing-taker", "拓工");
 
     var wrap = document.createElement("div"); wrap.className = "field";
 
@@ -614,13 +787,28 @@
       return '<section class="hp-section"><h4 class="hp-st">' + esc(title) +
              '</h4><dl class="hp-dl">' + r + "</dl></section>";
     }
+    function personRow(labelEn, p) {
+      p = p || {};
+      var name = [p.nameZh, p.namePinyin].filter(Boolean).join(" · ");
+      if (!name) return "";
+      var val = name;
+      var dates = [p.birth, p.death].filter(Boolean).join("–");
+      if (dates) val += " (" + dates + ")";
+      return row(labelEn, val);
+    }
+
     var html = '<div class="hp-preview">';
     html += sec("Identity", [
-      row("File",      s.filename),
-      row("Title EN",  s.titleEn),
-      row("Title ZH",  s.titleZh),
-      row("Editor",    s.editor)
+      row("File",         s.filename),
+      row("Title EN",     s.titleEn),
+      row("Title pinyin", s.titlePinyin),
+      row("Title ZH",     s.titleZh),
+      row("Title type",   s.titleTypeLabel),
+      row("Editor",       s.editor)
     ]);
+    if (tv(s.objectTypeLabel)) {
+      html += sec("Object type", [row("Reproduction type", s.objectTypeLabel)]);
+    }
     if (tv(s.inscriptionFile)) {
       html += sec("Inscription reference", [row("Source file", s.inscriptionFile)]);
     }
@@ -636,6 +824,9 @@
       row("Format",    s.formatLabel),
       (s.heightCm || s.widthCm)
         ? row("H × W", [s.heightCm, s.widthCm].filter(Boolean).join(" × ") + " cm")
+        : "",
+      (s.mountHeightCm || s.mountWidthCm)
+        ? row("Mount H × W", [s.mountHeightCm, s.mountWidthCm].filter(Boolean).join(" × ") + " cm")
         : "",
       row("Condition", s.condition)
     ]);
@@ -662,7 +853,29 @@
     html += sec("Paratext", [
       row("Colophon", s.colophon),
       row("Seals",    s.seals),
-      row("Marks",    s.marks)
+      row("Inscriptions on object", s.objectInscriptions),
+      row("Mark type",     s.markTypeLabel),
+      row("Mark location", s.markLocation)
+    ]);
+    html += sec("Creation", [
+      personRow("Original artist", s.originalArtist),
+      row("Date of original work", s.dateOriginalWork),
+      s.dateOriginalWorkISO ? row("ISO year", s.dateOriginalWorkISO) : "",
+      row("Dynasty (original work)", s.dynastyOriginalWork),
+      personRow("Engraver", s.engraver),
+      row("Date of engraving", s.dateEngraving),
+      s.dateEngravingISO ? row("ISO year", s.dateEngravingISO) : "",
+      row("Dynasty (engraving)", s.dynastyEngraving),
+      (s.placeEngravingZh || s.placeEngravingPinyin)
+        ? row("Place of engraving", [s.placeEngravingZh, s.placeEngravingPinyin].filter(Boolean).join(" · "))
+        : "",
+      personRow("Rubbing-taker", s.rubber),
+      row("Date of rubbing", s.dateCreated),
+      s.dateCreatedISO ? row("ISO year", s.dateCreatedISO) : "",
+      (s.placeRubbingZh || s.placeRubbingPinyin)
+        ? row("Place of rubbing", [s.placeRubbingZh, s.placeRubbingPinyin].filter(Boolean).join(" · "))
+        : "",
+      row("Place type", s.placeRubbingTypeLabel)
     ]);
     if (s.agents && s.agents.length) {
       var agRows = s.agents
@@ -673,12 +886,9 @@
           if (a.date) val += " (" + a.date + ")";
           return row(label2, val);
         });
-      if (agRows.length) html += sec("Persons", agRows);
+      if (agRows.length) html += sec("Other persons", agRows);
     }
     html += sec("Dates & provenance", [
-      row("Date of rubbing",  s.dateCreated),
-      s.dateCreatedISO  ? row("ISO year",        s.dateCreatedISO)  : "",
-      row("Place of creation", s.placeCreated),
       row("Date on paratext", s.dateParatext),
       row("Date acquired",    s.dateAcquired),
       row("Provenance",       s.provenance)
@@ -743,12 +953,15 @@
     var btnReset = document.getElementById("btn-reset");
     if (btnReset) btnReset.addEventListener("click", function () {
       if (!confirm("Reset all fields? / 清空所有欄位？")) return;
-      state.filename = ""; state.titleEn = ""; state.titleZh = "";
+      state.filename = ""; state.titleEn = ""; state.titlePinyin = ""; state.titleZh = "";
+      state.titleTypeLabel = ""; state.titleTypeToken = "";
       state.editor = ""; state.inscriptionFile = "";
+      state.objectTypeLabel = ""; state.objectTypeRef = "";
       state.country = ""; state.region = ""; state.settlement = "";
       state.institution = ""; state.repository = ""; state.inventoryNo = "";
       state.formatLabel = ""; state.formatRef = "";
-      state.heightCm = ""; state.widthCm = ""; state.condition = "";
+      state.heightCm = ""; state.widthCm = "";
+      state.mountHeightCm = ""; state.mountWidthCm = ""; state.condition = "";
       state.inkingTechniqueLabel = ""; state.inkingTechniqueRef = "";
       state.inkingSubtypeLabel = "";  state.inkingSubtypeRef = "";
       state.inkingMediumLabel = "";   state.inkingMediumRef = "";
@@ -758,10 +971,17 @@
       state.techniqueLabel = ""; state.techniqueRef = "";
       state.rubObjectTypeLabel = ""; state.rubObjectTypeRef = "";
       state.copyingLabel = ""; state.copyingRef = "";
-      state.colophon = ""; state.seals = ""; state.marks = "";
+      state.colophon = ""; state.seals = ""; state.objectInscriptions = "";
+      state.markTypeLabel = ""; state.markTypeToken = ""; state.markLocation = "";
       state.agents = [{}];
+      state.originalArtist = {}; state.engraver = {}; state.rubber = {};
+      state.dateOriginalWork = ""; state.dateOriginalWorkISO = ""; state.dynastyOriginalWork = "";
+      state.dateEngraving = ""; state.dateEngravingISO = ""; state.dynastyEngraving = "";
+      state.placeEngravingZh = ""; state.placeEngravingPinyin = "";
       state.dateCreated = ""; state.dateCreatedISO = "";
-      state.placeCreated = ""; state.dateParatext = "";
+      state.placeRubbingZh = ""; state.placeRubbingPinyin = "";
+      state.placeRubbingTypeLabel = ""; state.placeRubbingTypeToken = "";
+      state.dateParatext = "";
       state.dateAcquired = ""; state.dateAcquiredISO = "";
       state.provenance = ""; state.acquisition = "";
       state.commentary = ""; state.bibliography = "";

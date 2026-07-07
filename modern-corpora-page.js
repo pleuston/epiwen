@@ -5,6 +5,68 @@
 (function () {
   "use strict";
   var all = [], sel = null;   // sel = {section?, region?, province?, category?, site?}
+  var doc = null;             // the whole modern-corpora.json document (for write-back)
+  var saving = false;         // one remove at a time
+
+  function token() {
+    return (window.EpiAuth ? EpiAuth.getUser().token : "") ||
+           localStorage.getItem("epiwen_gh_token") || "";
+  }
+  function canEdit() { return !!token(); }
+  function toast(msg, isErr) {
+    var t = el("toast"); if (!t) { if (isErr) alert(msg); return; }
+    t.textContent = msg; t.className = "show" + (isErr ? " toast-error" : "");
+    setTimeout(function () { t.className = ""; }, isErr ? 6000 : 3000);
+  }
+  // Persist the register back to the APP repo (modern-corpora.json lives in
+  // pleuston/epiwen, not the data backend): GET the blob sha, PUT the new
+  // content. Contents-API GET stops inlining content at 1 MB but still
+  // returns the sha, and PUT is fine at this size.
+  function putRegister(newDoc, message) {
+    var t = token();
+    if (!t) return Promise.reject(new Error("Sign in to edit the register."));
+    var url = "https://api.github.com/repos/pleuston/epiwen/contents/modern-corpora.json";
+    var h = { "Authorization": "Bearer " + t, "Accept": "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28" };
+    return fetch(url + "?ref=main", { headers: h })
+      .then(function (r) { if (!r.ok) throw new Error("GitHub " + r.status + " reading the file sha"); return r.json(); })
+      .then(function (meta) {
+        var body = JSON.stringify(newDoc, null, 1);
+        return fetch(url, { method: "PUT", headers: h, body: JSON.stringify({
+          message: message, branch: "main", sha: meta.sha,
+          content: btoa(unescape(encodeURIComponent(body)))
+        }) });
+      })
+      .then(function (r) {
+        if (!r.ok) return r.json().catch(function () { return {}; }).then(function (e) {
+          throw new Error("GitHub " + r.status + (e.message ? " — " + e.message : ""));
+        });
+        return r.json();
+      });
+  }
+  function removeCorpus(id) {
+    if (saving) return;
+    var idx = -1;
+    all.forEach(function (r, i) { if (r.id === id && idx === -1) idx = i; });
+    if (idx === -1) return;
+    var rec = all[idx];
+    var name = (rec.title_zh || rec.id) + (rec.year ? " (" + rec.year + ")" : "");
+    if (!confirm("Remove this corpus from the register?\n\n" + name +
+                 "\n\nThis deletes its entry from modern-corpora.json on GitHub.")) return;
+    saving = true; toast("Removing “" + name + "”…");
+    var candidate = {};
+    Object.keys(doc).forEach(function (k) { candidate[k] = doc[k]; });
+    candidate.corpora = all.filter(function (r, i) { return i !== idx; });
+    candidate.count = candidate.corpora.length;
+    putRegister(candidate, "modern-corpora: remove " + (rec.title_zh || rec.id) + " [" + rec.id + "]")
+      .then(function () {
+        doc = candidate; all = doc.corpora;
+        renderTree(); render();
+        toast("Removed — " + all.length + " corpora remain.");
+      })
+      .catch(function (e) { toast("Remove failed: " + e.message, true); })
+      .then(function () { saving = false; });
+  }
 
   function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
   function fold(s) { return window.EpiVariants ? EpiVariants.fold(s) : String(s == null ? "" : s).toLowerCase(); }
@@ -196,7 +258,11 @@
       '<td class="num mc-year" title="' + esc(r.year || "") + '">' + (r.year ? esc(compactYear(r)) : "—") + "</td>" +
       "<td>" + (r.publisher ? '<span class="ct-zh">' + esc(r.publisher.replace(/\s*\([^)]*\)/g, "")) + "</span>" : '<span class="ct-city">—</span>') + "</td>" +
       '<td class="mc-place">' + esc(place) + (sub ? '<div class="ct-city">' + esc(sub) + "</div>" : "") + "</td>" +
-      "<td>" + (holds(r) || '<span class="ct-city">—</span>') + "</td></tr>";
+      "<td>" + (holds(r) || '<span class="ct-city">—</span>') + "</td>" +
+      (canEdit()
+        ? '<td class="mc-delcell"><button type="button" class="btn small btn-danger mc-del" data-id="' +
+          esc(r.id) + '" title="remove this corpus from the register">🗑</button></td>'
+        : "") + "</tr>";
   }
   function render() {
     var q = fold(el("ct-search").value.trim());
@@ -222,13 +288,15 @@
       if (!col.key) return "<th>" + esc(col.label) + "</th>";
       var arrow = sortKey === col.key ? (sortDir === "desc" ? " ▼" : " ▲") : "";
       return '<th class="sortable" data-key="' + col.key + '">' + esc(col.label) + arrow + "</th>";
-    }).join("") + "</tr></thead>";
+    }).join("") + (canEdit() ? "<th></th>" : "") + "</tr></thead>";
     el("coll-cards").innerHTML = '<table class="coll-table">' + thead + "<tbody>" + list.map(rowHtml).join("") + "</tbody></table>";
   }
 
   document.addEventListener("DOMContentLoaded", function () {
     el("ct-search").addEventListener("input", render);
     el("coll-cards").addEventListener("click", function (e) {
+      var del = e.target.closest ? e.target.closest("button.mc-del") : null;
+      if (del) { removeCorpus(del.getAttribute("data-id")); return; }
       var th = e.target.closest ? e.target.closest("th.sortable") : null;
       if (!th) return;
       var k = th.getAttribute("data-key");
@@ -237,7 +305,8 @@
       render();
     });
     fetch("modern-corpora.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
-      all = (d && d.corpora) || [];
+      doc = d || { corpora: [] };
+      all = doc.corpora || [];
       renderTree(); render();
     }).catch(function () { el("ct-tree").innerHTML = '<div class="catalog-loading">Could not load modern-corpora.json.</div>'; });
   });

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>EpiDoc-CN round-trip harness</title></head>
+<body>
+<pre id="out">running…</pre>
+<script src="../epidoc-cn.js"></script>
+<script>
+(async function () {
+  var CN = window.EpiDocCN;
+  var manifest = (await (await fetch("manifest.txt")).text()).trim().split("\n");
+  var results = [];   // {file, kind, status, detail}
+
+  function normTree(node) {
+    // element → [tag, sorted attrs, normalized text, child trees]; comments dropped
+    var attrs = [];
+    for (var i = 0; i < node.attributes.length; i++) {
+      var a = node.attributes[i];
+      if (a.name === "xmlns" || a.name.indexOf("xmlns:") === 0) continue;
+      attrs.push(a.name + "=" + a.value);
+    }
+    attrs.sort();
+    var text = "", ch = [];
+    for (var n = node.firstChild; n; n = n.nextSibling) {
+      if (n.nodeType === 3) text += n.nodeValue;
+      else if (n.nodeType === 1) ch.push(normTree(n));
+      // comments (8), PIs (7): dropped — the accepted loss
+    }
+    return { tag: node.localName, attrs: attrs, text: text.replace(/\s+/g, " ").trim(), ch: ch };
+  }
+  function treeDiff(a, b, path) {
+    if (a.tag !== b.tag) return path + ": tag " + a.tag + " ≠ " + b.tag;
+    if (a.attrs.join("|") !== b.attrs.join("|"))
+      return path + "/" + a.tag + ": attrs [" + a.attrs + "] ≠ [" + b.attrs + "]";
+    if (a.text !== b.text)
+      return path + "/" + a.tag + ": text “" + a.text.slice(0, 60) + "” ≠ “" + b.text.slice(0, 60) + "”";
+    if (a.ch.length !== b.ch.length) {
+      var an = a.ch.map(function (c) { return c.tag; }).join(",");
+      var bn = b.ch.map(function (c) { return c.tag; }).join(",");
+      return path + "/" + a.tag + ": children " + a.ch.length + " [" + an + "] ≠ " + b.ch.length + " [" + bn + "]";
+    }
+    for (var i = 0; i < a.ch.length; i++) {
+      var d = treeDiff(a.ch[i], b.ch[i], path + "/" + a.tag + "[" + i + "]");
+      if (d) return d;
+    }
+    return null;
+  }
+  function parseXml(s) {
+    var doc = new DOMParser().parseFromString(s, "application/xml");
+    return doc.getElementsByTagName("parsererror").length ? null : doc;
+  }
+
+  for (var f of manifest) {
+    try {
+      var xml = await (await fetch("files/" + f)).text();
+      var kind = CN.detect(xml);
+      if (!kind) { results.push({ file: f, kind: "?", status: "SKIP", detail: "undetected" }); continue; }
+      if (kind === "taxonomy") {
+        var tax = CN.parseTaxonomies(xml);
+        results.push({ file: f, kind: kind,
+          status: tax && tax.textGenres ? "PASS" : (tax ? "PASS" : "FAIL"),
+          detail: tax ? Object.keys(tax).length + " taxonomies" : "parse failed" });
+        continue;
+      }
+      if (kind === "sitedesc") { results.push({ file: f, kind: kind, status: "SKIP", detail: "prose doc (no builder)" }); continue; }
+      var parse = kind === "site" ? CN.parseSite : kind === "objectfile" ? CN.parseObject : CN.parseInscription;
+      var build = kind === "site" ? CN.buildSite : kind === "objectfile" ? CN.buildObject : CN.buildInscription;
+      var st = parse(xml);
+      var out1 = build(st);
+      var d1 = parseXml(out1);
+      if (!d1) { results.push({ file: f, kind: kind, status: "FAIL", detail: "rebuilt XML ill-formed" }); continue; }
+      var diff = treeDiff(normTree(parseXml(xml).documentElement), normTree(d1.documentElement), "");
+      // generation stability: parse(build) → build must be byte-identical
+      var out2 = build(parse(out1));
+      var stable = out1 === out2;
+      results.push({ file: f, kind: kind,
+        status: diff ? "FAIL" : (stable ? "PASS" : "UNSTABLE"),
+        detail: diff || (stable ? "" : "build(parse(build)) differs") });
+    } catch (e) {
+      results.push({ file: f, kind: "?", status: "ERROR", detail: String(e && e.message || e) });
+    }
+  }
+  var pass = results.filter(function (r) { return r.status === "PASS"; }).length;
+  var lines = results.map(function (r) {
+    return r.status.padEnd(9) + r.kind.padEnd(12) + r.file + (r.detail ? "   — " + r.detail : "");
+  });
+  lines.unshift("PASS " + pass + " / " + results.length +
+    "  (FAIL " + results.filter(function (r) { return r.status === "FAIL"; }).length +
+    ", UNSTABLE " + results.filter(function (r) { return r.status === "UNSTABLE"; }).length +
+    ", ERROR " + results.filter(function (r) { return r.status === "ERROR"; }).length +
+    ", SKIP " + results.filter(function (r) { return r.status === "SKIP"; }).length + ")");
+  document.getElementById("out").textContent = lines.join("\n");
+  window.__RT = results;
+})();
+</script>
+</body>
+</html>

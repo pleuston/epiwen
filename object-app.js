@@ -242,6 +242,24 @@
       input(function () { return o.ident.idnoSupport; }, function (v) { o.ident.idnoSupport = v; }, "SNS_stele"),
       "the sibling key shared with every inscription this object bears"));
 
+    // museum slots (0.1-sample): the OBJECT's current keeper — pair with a
+    // provenance type="moved" in history; rubbing collections stay on witnesses
+    FORM.appendChild(sectionTitle("Current keeper (museum slots)", "現藏（博物館）"));
+    function mus(slot) { return o.ident[slot] || (o.ident[slot] = {}); }
+    FORM.appendChild(rowOf(
+      labelled("Institution 中文", "主管機構（中）", input(function () { return mus("institution").zh || ""; }, function (v) { mus("institution").zh = v; }, "汶上縣")),
+      labelled("Institution EN", "主管機構（英）", input(function () { return mus("institution").en || ""; }, function (v) { mus("institution").en = v; }, "Wenshang County"))
+    ));
+    FORM.appendChild(rowOf(
+      labelled("Repository 中文", "收藏處（中）", input(function () { return mus("repository").zh || ""; }, function (v) { mus("repository").zh = v; }, "汶上縣中都博物館")),
+      labelled("Repository EN", "收藏處（英）", input(function () { return mus("repository").en || ""; }, function (v) { mus("repository").en = v; }, "Wenshang Municipal Museum"))
+    ));
+    FORM.appendChild(rowOf(
+      labelled("Collection 中文", "藏品系列（中）", input(function () { return mus("collection").zh || ""; }, function (v) { mus("collection").zh = v; })),
+      labelled("Inventory no.", "登錄號", input(function () { return o.ident.idnoInventory || ""; },
+        function (v) { o.ident.idnoInventory = v; o.ident.idnoInventoryPresent = !!v || o.ident.idnoInventoryPresent; }))
+    ));
+
     FORM.appendChild(sectionTitle("Texts borne (msContents)", "所載文本"));
     FORM.appendChild(labelled("Summary (en)", "提要",
       area(function () { return o.msContents ? o.msContents.summaryEn : ""; },

@@ -20,8 +20,13 @@
       titleZh: "", titleEn: "",
       authority: "Epiwen / EpiDoc-CN profile — sample",
       idnoType: "filename", idno: "",
-      availability: { status: "restricted", text: "Draft sample, not for publication." },
+      availability: { status: "restricted", text: "Draft sample, not for publication.", licence: null, _x: [] },
       sourceBibls: [], prefixes: [],
+      // 0.1-sample boilerplate: profile version stamp on every new record;
+      // respStmt/funder stay empty until the wording is confirmed (workshop D14)
+      respStmts: [], funder: null,
+      editionStmt: { n: "epidoc-cn-0.1-sample", text: "Epiwen sample encoding, profile draft 0.1" },
+      textClass: null, revision: null, biblLists: [],
       corresp: "",
       msIdent: { country: "中國", region: "", settlement: "", idnoEdition: "", idnoSupport: "",
                  idnoSegment: "", altType: "sutras-data", altIdno: "", _x: [] },
@@ -30,8 +35,8 @@
             { lang: "zh", type: "", text: "" }, { lang: "en", type: "", text: "" }],
           notes: [], mainLang: "lzh", _x: [] } ] },
       phys: { form: "", supportItems: [], condition: null, layout: { columns: "", ruledLines: "", items: [] },
-              deco: [], hand: null, _x: [] },
-      history: { date: null, dateNotes: [], place: null, provenance: null, _x: [] },
+              deco: [], hand: null, hands: [], _x: [] },
+      history: { date: null, dateNotes: [], place: null, agents: [], provenance: null, _x: [] },
       witnesses: [],
       languages: [{ ident: "lzh", label: "Literary Chinese" }],
       textNext: "", textPrev: "",
@@ -138,8 +143,60 @@
     it.target = v;
   }
   function ensureHistory() {
-    if (!state.history) state.history = { date: null, dateNotes: [], place: null, provenance: null, _x: [] };
+    if (!state.history) state.history = { date: null, dateNotes: [], place: null, agents: [], provenance: null, _x: [] };
+    if (!state.history.agents) state.history.agents = [];
     return state.history;
+  }
+  function ensureTextClass() {
+    if (!state.textClass) state.textClass = { catRefs: [], keywords: [], _x: [] };
+    return state.textClass;
+  }
+  function genreTarget() {
+    var tc = state.textClass;
+    var cr = tc && tc.catRefs.filter(function (c) { return c.scheme === "#textGenres"; })[0];
+    return cr ? cr.target : "";
+  }
+  function setGenre(cat) {
+    var tc = ensureTextClass();
+    var cr = tc.catRefs.filter(function (c) { return c.scheme === "#textGenres"; })[0];
+    if (!cr) { cr = { scheme: "#textGenres", target: "" }; tc.catRefs.push(cr); }
+    cr.target = "#" + cat.id;
+  }
+  function traditionAna() {
+    var tc = state.textClass;
+    var kw = tc && tc.keywords.filter(function (k) { return k.scheme === "#tradition"; })[0];
+    if (!kw || !kw.terms.length) return "";
+    var zh = (kw.terms.filter(function (t) { return t.lang === "zh"; })[0] || kw.terms[0]).text;
+    var hit = (TAX.tradition || []).filter(function (o) { return o.zh === zh; })[0];
+    return hit ? "#" + hit.id : "";
+  }
+  function setTradition(cat) {
+    var tc = ensureTextClass();
+    var kw = tc.keywords.filter(function (k) { return k.scheme === "#tradition"; })[0];
+    if (!kw) { kw = { scheme: "#tradition", terms: [] }; tc.keywords.push(kw); }
+    kw.terms = [{ lang: "zh", text: cat.zh }, { lang: "en", text: cat.en }];
+  }
+  function canonicalTitle() {
+    var item0 = state.msContents.items[0], found = null;
+    (item0.titles || []).forEach(function (t) { if (t.type === "canonical" && !found) found = t; });
+    return found;
+  }
+  function ensureCanonicalTitle() {
+    var t = canonicalTitle();
+    if (!t) { t = { lang: "zh", type: "canonical", ref: "", text: "" }; state.msContents.items[0].titles.push(t); }
+    return t;
+  }
+  function bIdno(b, type) {
+    if (!b.idnos) return type === "taisho" ? (b.taisho || "") : "";
+    var f = null; b.idnos.forEach(function (i) { if (i.type === type && !f) f = i; });
+    return f ? f.text : "";
+  }
+  function setBIdno(b, type, v) {
+    if (!b.idnos) { b.idnos = b.taisho ? [{ type: "taisho", text: b.taisho }] : []; delete b.taisho; }
+    var f = null; b.idnos.forEach(function (i) { if (i.type === type && !f) f = i; });
+    if (!f) { f = { type: type, text: "" }; if (type === "cbeta") b.idnos.unshift(f); else b.idnos.push(f); }
+    f.text = v;
+    b.idnos = b.idnos.filter(function (i) { return i.text; });
   }
   function firstTitle(list, lang) {
     var found = null;
@@ -311,6 +368,16 @@
             function (v) { setTitle(item0.titles, "en", v); })));
     FORM.appendChild(labelled("Text language", "文本語言",
       input(function () { return item0.mainLang; }, function (v) { item0.mainLang = v; }, "lzh")));
+    // canonical-text identity IN msContents (decision 2026-07-02): the excerpted
+    // work's canonical title + a @ref into the corpus's own sutra records
+    FORM.appendChild(rowOf(
+      labelled("Canonical work 中文", "所出經（中）", input(
+        function () { var t = canonicalTitle(); return t ? t.text : ""; },
+        function (v) { ensureCanonicalTitle().text = v; }, "文殊師利所説摩訶般若波羅蜜經")),
+      labelled("Canonical @ref", "經錄連結", input(
+        function () { var t = canonicalTitle(); return t ? (t.ref || "") : ""; },
+        function (v) { ensureCanonicalTitle().ref = v; }, "sutras:biblio/sutras/T_232….xml", true))
+    ));
 
     // — Physical (text-specific: the script field)
     FORM.appendChild(sectionTitle("Physical — script field", "形制（銘刻面）"));
@@ -421,6 +488,31 @@
         function (v) { (ensureHistory().place || (state.history.place = { lang: "zh" })).text = v; }, "水牛山"))
     ));
 
+    // — Production agents (decision 2026-07-02: persName @role children of origin;
+    //   never invent a role — upstream role-less producers get "patron" only WITH
+    //   a role-source note)
+    FORM.appendChild(sectionTitle("Production agents", "營造人物"));
+    var agentsBox = el("div", null); FORM.appendChild(agentsBox);
+    repeatable(agentsBox, function () { return ensureHistory().agents; }, function (box, a) {
+      box.appendChild(rowOf(
+        labelled("role", "角色", input(function () { return a.role; }, function (v) { a.role = v; },
+          "patron / composer / calligrapher / carver / title-writer / erector / donor / monk / ruler")),
+        labelled("name 中文", "姓名", input(function () { return a.text; }, function (v) { a.text = v; }, "王子椿")),
+        labelled("authority @ref", "權威連結", input(function () { return a.ref || ""; }, function (v) { a.ref = v; }, "CBDB / DILA"))
+      ));
+      box.appendChild(labelled("role-source note (required when the role is inferred)", "角色出處",
+        area(function () { return a.noteXml; }, function (v) { a.noteXml = v; }, "", true)));
+    }, "add agent 增加人物", function () {
+      return { role: "", ref: "", lang: "zh", text: "", noteLang: "", noteXml: "" };
+    });
+
+    // — Classification (textClass: genre catRef + tradition keywords)
+    FORM.appendChild(sectionTitle("Classification", "文體分類"));
+    FORM.appendChild(taxPicker("textGenres", "Text genre 文體 (catRef #textGenres)", "文體",
+      genreTarget, setGenre));
+    FORM.appendChild(taxPicker("tradition", "Tradition (keywords #tradition)", "傳統",
+      traditionAna, setTradition));
+
     // — Witnesses
     FORM.appendChild(sectionTitle("Witnesses (rubbings …)", "見證（拓本…）"));
     var witBox = el("div", null); FORM.appendChild(witBox);
@@ -513,16 +605,26 @@
     repeatable(biblBox, function () { return state.bibls; }, function (box, b) {
       if (b.canonical) {
         box.appendChild(rowOf(
-          labelled("Taishō no.", "大正藏", input(function () { return b.taisho; }, function (v) { b.taisho = v; }, "T_232")),
+          labelled("CBETA no.", "CBETA", input(function () { return bIdno(b, "cbeta"); }, function (v) { setBIdno(b, "cbeta", v); }, "T08n0232")),
+          labelled("Taishō no.", "大正藏", input(function () { return bIdno(b, "taisho"); }, function (v) { setBIdno(b, "taisho", v); }, "T_232")),
           labelled("Cited range", "頁行", input(function () { return b.range; }, function (v) { b.range = v; }, "728a26–29"))
         ));
       } else {
         box.appendChild(labelled("bibl (raw XML)", "著錄", area(function () { return b.xml; }, function (v) { b.xml = v; }, "", true)));
       }
-    }, "add canonical ref 增加經藏著錄", function () { return { canonical: true, taisho: "", range: "" }; });
+    }, "add canonical ref 增加經藏著錄", function () { return { canonical: true, subtype: "", idnos: [], range: "", noteXml: "" }; });
+    // scholarship lists (transcription / illustration / discussion) ride verbatim
+    var otherLists = (state.biblLists || []).filter(function (l) { return l.bibls !== state.bibls; });
+    if (otherLists.length) {
+      FORM.appendChild(labelled("Scholarship bibliography (preserved)", "研究著錄",
+        el("div", "hint", otherLists.map(function (l) {
+          return esc((l.type || "untyped") + " — " + l.bibls.length + " entries");
+        }).join("<br>")),
+        "typed listBibl blocks (transcription · illustration · discussion) are carried verbatim; edit in XML"));
+    }
 
-    // — Publication
-    FORM.appendChild(sectionTitle("Publication", "出版"));
+    // — Publication & boilerplate (0.1-sample header template)
+    FORM.appendChild(sectionTitle("Publication & boilerplate", "出版與樣板"));
     FORM.appendChild(labelled("Authority", "發布機構",
       input(function () { return state.authority; }, function (v) { state.authority = v; })));
     FORM.appendChild(rowOf(
@@ -533,6 +635,57 @@
         function () { return state.availability ? state.availability.text : ""; },
         function (v) { (state.availability || (state.availability = {})).text = v; }))
     ));
+    FORM.appendChild(rowOf(
+      labelled("Licence target", "授權連結", input(
+        function () { return state.availability && state.availability.licence ? state.availability.licence.target : ""; },
+        function (v) { var av = state.availability || (state.availability = { status: "restricted", text: "" });
+                       (av.licence || (av.licence = { target: "", xml: "" })).target = v; },
+        "https://creativecommons.org/licenses/by/4.0/")),
+      labelled("Licence text", "授權說明", input(
+        function () { return state.availability && state.availability.licence ? state.availability.licence.xml : ""; },
+        function (v) { var av = state.availability || (state.availability = { status: "restricted", text: "" });
+                       (av.licence || (av.licence = { target: "", xml: "" })).xml = v; },
+        "CC BY 4.0 (proposed)"))
+    ));
+    FORM.appendChild(rowOf(
+      labelled("Edition @n (profile version)", "版本標記", input(
+        function () { return state.editionStmt ? state.editionStmt.n : ""; },
+        function (v) { (state.editionStmt || (state.editionStmt = { n: "", text: "" })).n = v; }, "epidoc-cn-0.1-sample")),
+      labelled("Edition statement", "版本說明", input(
+        function () { return state.editionStmt ? state.editionStmt.text : ""; },
+        function (v) { (state.editionStmt || (state.editionStmt = { n: "", text: "" })).text = v; },
+        "Epiwen sample encoding, profile draft 0.1"))
+    ));
+    var respBox = el("div", null);
+    FORM.appendChild(labelled("Responsibility (respStmt)", "編纂責任", respBox));
+    repeatable(respBox, function () { return state.respStmts; }, function (box, rs) {
+      box.appendChild(rowOf(
+        labelled("resp", "職責", input(function () { return rs.resp; }, function (v) { rs.resp = v; }, "sample encoding (Epiwen / EpiDoc-CN profile)")),
+        labelled("name", "名稱", input(function () { return rs.name; }, function (v) { rs.name = v; }, "Stone Sutras project"))
+      ));
+    }, "add respStmt 增加責任項", function () { return { resp: "", name: "" }; });
+    FORM.appendChild(labelled("Funder", "資助方", input(
+      function () { return state.funder ? state.funder.xml : ""; },
+      function (v) { state.funder = v ? { xml: v } : null; }, "{confirm: DFG / Heidelberg Academy wording}")));
+
+    // — Revision log
+    FORM.appendChild(sectionTitle("Revision log", "修訂記錄"));
+    FORM.appendChild(labelled("Status", "狀態", input(
+      function () { return state.revision ? state.revision.status : ""; },
+      function (v) { (state.revision || (state.revision = { status: "", changes: [] })).status = v; }, "draft")));
+    var revBox = el("div", null); FORM.appendChild(revBox);
+    repeatable(revBox, function () {
+      if (!state.revision) state.revision = { status: "draft", changes: [] };
+      return state.revision.changes;
+    }, function (box, c) {
+      box.appendChild(rowOf(
+        labelled("when", "日期", input(function () { return c.when; }, function (v) { c.when = v; }, "2026-07-07")),
+        labelled("who", "作者", input(function () { return c.who; }, function (v) { c.who = v; }, "#epiwen-sample"))
+      ));
+      box.appendChild(labelled("change", "變更", area(function () { return c.xml; }, function (v) { c.xml = v; }, "", true)));
+    }, "add change 增加變更", function () {
+      return { when: new Date().toISOString().slice(0, 10), who: "#epiwen-sample", xml: "" };
+    });
   }
 
   // ---- preview card ----------------------------------------------------------
@@ -638,17 +791,20 @@
   // form empty structures to bind to; they prune away again on build, so a
   // load-then-save leaves such files unchanged.
   function normalize(st) {
-    st.phys = st.phys || { form: "", supportItems: [], condition: null, layout: null, deco: [], hand: null, _x: [] };
+    st.phys = st.phys || { form: "", supportItems: [], condition: null, layout: null, deco: [], hand: null, hands: [], _x: [] };
     st.phys.supportItems = st.phys.supportItems || [];
     st.msContents = st.msContents || { summaryEn: "", summaryZh: "", items: [] };
     if (!st.msContents.items.length)
       st.msContents.items.push({ n: "", corresp: "", locusTarget: "", locusText: "",
         titles: [{ lang: "zh", type: "", text: "" }, { lang: "en", type: "", text: "" }],
         notes: [], mainLang: "", _x: [] });                     // mainLang empty → prunes on build
-    st.history = st.history || { date: null, dateNotes: [], place: null, provenance: null, _x: [] };
+    st.history = st.history || { date: null, dateNotes: [], place: null, agents: [], provenance: null, _x: [] };
+    st.history.agents = st.history.agents || [];
     st.witnesses = st.witnesses || [];
     st.bibls = st.bibls || [];
+    st.biblLists = st.biblLists || [];
     st._bodyX = st._bodyX || [];
+    st.respStmts = st.respStmts || [];
     st.titles = st.titles && st.titles.length ? st.titles
       : [{ lang: "zh", type: "", text: "" }, { lang: "en", type: "", text: "" }];
     return st;

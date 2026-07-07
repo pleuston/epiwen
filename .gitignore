@@ -1,3 +1,5 @@
 # Local study copy of the Hamburg generator — do not publish (their source)
 _reference/
 test/_err.txt
+rt-test/files/
+rt-test/manifest.txt

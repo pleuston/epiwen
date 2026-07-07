@@ -160,9 +160,70 @@
           });
         });
       }
+
+      // Physical / holding / history — the 0.1-sample object shape: bilingual
+      // <term> pairs inside objectType/material (not bare text like legacy
+      // records), museum "current keeper" slots, typed <provenance> life-events.
+      var cnObjectType = "", cnMaterial = "", cnCondition = "", cnOrigPlace = "";
+      var cnInstitution = "", cnRepository = "", cnCollection = "", cnInventory = "";
+      var cnHeight = "", cnWidth = "", cnDepth = "", cnProvenance = "";
+      if (cnKind === "objectfile") {
+        function cnTermPair(el) {
+          if (!el) return "";
+          var zh = "", en = "";
+          qns(el, "term").forEach(function (t) {
+            var lg = t.getAttribute("xml:lang") || "";
+            if (lg.indexOf("zh") === 0) { if (!zh) zh = txt(t); }
+            else if (!en) en = txt(t);
+          });
+          return [zh, en].filter(Boolean).join(" · ") || txt(el);
+        }
+        function cnBilingualEl(tag) {
+          var zh = "", en = "";
+          qns(doc, tag).forEach(function (e) {
+            var lg = e.getAttribute("xml:lang") || "";
+            if (lg.indexOf("zh") === 0) { if (!zh) zh = txt(e); }
+            else if (!en) en = txt(e);
+          });
+          return [zh, en].filter(Boolean).join(" · ");
+        }
+        cnObjectType = cnTermPair(first(doc, "objectType"));
+        cnMaterial   = cnTermPair(first(doc, "material"));
+        var cnCondEl = first(doc, "condition");
+        if (cnCondEl) {
+          var cnCondPs = qns(cnCondEl, "p").filter(function (p) { return p.parentNode === cnCondEl; });
+          var ccZh = txt(cnCondPs.find(function (p) { return (p.getAttribute("xml:lang") || "").indexOf("zh") === 0; }) || null);
+          var ccEn = txt(cnCondPs.find(function (p) { return p.getAttribute("xml:lang") === "en"; }) || null);
+          cnCondition = [ccZh, ccEn].filter(Boolean).join(" · ") || txt(cnCondEl);
+        }
+        var cnOpEl = first(doc, "origPlace");
+        cnOrigPlace = cnOpEl ? txt(qns(cnOpEl, "placeName")[0] || cnOpEl) : "";
+        cnInstitution = cnBilingualEl("institution");
+        cnRepository  = cnBilingualEl("repository");
+        cnCollection  = cnBilingualEl("collection");
+        var cnInvEl = qns(doc, "idno").find(function (e) { return e.getAttribute("type") === "inventory"; });
+        cnInventory = cnInvEl ? txt(cnInvEl) : "";
+        var cnDimsEl = qns(doc, "dimensions").find(function (e) { return e.getAttribute("type") === "overall"; })
+          || qns(doc, "dimensions")[0] || null;
+        if (cnDimsEl) {
+          cnHeight = txt(first(cnDimsEl, "height"));
+          cnWidth  = txt(first(cnDimsEl, "width"));
+          cnDepth  = txt(first(cnDimsEl, "depth"));
+        }
+        cnProvenance = qns(doc, "provenance").map(function (pv) {
+          var pType = pv.getAttribute("type") || "";
+          var pText = txt(qns(pv, "p")[0] || pv);
+          return pType ? ("[" + pType + "] " + pText) : pText;
+        }).filter(Boolean).join(" ");
+      }
+
       return { name: name, recordType: cnKind === "site" ? "site" : "object", surrogateOf: "", _cnKind: cnKind,
                titleEn: cnEn || name, titleZh: cnZh,
-               objectType: cnKind === "site" ? "site 地點" : "object 器物",
+               objectType: cnKind === "site" ? "site 地點" : (cnObjectType || "object 器物"),
+               material: cnMaterial, condition: cnCondition, origPlace: cnOrigPlace,
+               institution: cnInstitution, repository: cnRepository, collection: cnCollection,
+               inventoryNo: cnInventory, height: cnHeight, width: cnWidth, depth: cnDepth,
+               provenance: cnProvenance,
                region: txt(qns(doc, "region")[0] || null),
                when: cnDateEl ? (cnDateEl.getAttribute("when") || cnDateEl.getAttribute("notBefore") || "") : "",
                dateText: txt(cnDateEl), summary: txt(qns(doc, "summary")[0] || null),
@@ -330,6 +391,52 @@
       else if (!sourceUrl) sourceUrl = t;
     });
 
+    // Production agents, genre/tradition, and canonical (CBETA/Taishō) bibliography
+    // — 0.1-sample additions, EpiDoc-CN inscriptions only.
+    var agents = [], genre = "", tradition = "";
+    if (_cnKind) {
+      qns(doc, "origin").forEach(function (o) {
+        qns(o, "persName").forEach(function (p) {
+          if (p.parentNode !== o) return;
+          var role = p.getAttribute("role") || "", nm = txt(p);
+          if (nm) agents.push(role ? (role + ": " + nm) : nm);
+        });
+      });
+      var textClassEl = first(doc, "textClass");
+      if (textClassEl) {
+        var catRefEl = first(textClassEl, "catRef");
+        genre = catRefEl ? (catRefEl.getAttribute("target") || "").replace(/^#/, "") : "";
+        var kwEl = first(textClassEl, "keywords");
+        if (kwEl) {
+          var kwZh = "", kwEn = "";
+          qns(kwEl, "term").forEach(function (t) {
+            var lg = t.getAttribute("xml:lang") || "";
+            if (lg.indexOf("zh") === 0) { if (!kwZh) kwZh = txt(t); }
+            else if (!kwEn) kwEn = txt(t);
+          });
+          tradition = [kwZh, kwEn].filter(Boolean).join(" · ");
+        }
+      }
+      var canonCbeta = {}, canonTaisho = {};
+      qns(doc, "bibl").forEach(function (b) {
+        if (b.getAttribute("type") !== "canonical") return;
+        qns(b, "idno").forEach(function (idn) {
+          var v = txt(idn);
+          if (!v) return;
+          if (idn.getAttribute("type") === "cbeta") canonCbeta[v] = true;
+          else if (idn.getAttribute("type") === "taisho") canonTaisho[v] = true;
+        });
+      });
+      var canonCbetaStr  = Object.keys(canonCbeta).join(", ");
+      var canonTaishoStr = Object.keys(canonTaisho).join(", ");
+      if (canonCbetaStr || canonTaishoStr) {
+        parts.forEach(function (p) {
+          if (!p.cbeta)  p.cbeta  = canonCbetaStr;
+          if (!p.taisho) p.taisho = canonTaishoStr;
+        });
+      }
+    }
+
     return {
       name: name, recordType: recordType, surrogateOf: surrogateOf, _cnKind: _cnKind, bearer: bearer,
       images: images, sourceUrl: sourceUrl, provider: provider, manifest: manifest,
@@ -348,6 +455,7 @@
       licence: licence, licenceTarget: licenceTarget,
       changeWhen: changeWhen, changeWho: changeWho, changeNote: changeNote,
       dataSource: _cnKind ? dataSourceOf(doc) : "",
+      agents: agents, genre: genre, tradition: tradition,
       parts: parts, rawXml: xmlText
     };
   }
@@ -494,8 +602,11 @@
       row("Country", rec.country),
       row("Region", rec.region),
       row("Settlement", rec.settlement),
+      row("Institution", rec.institution),
       row("Repository", rec.repository),
+      row("Collection", rec.collection),
       row("Inventory no.", rec.inventoryNo),
+      row("Provenance", rec.provenance),
     ]);
     html += sec("Physical", [
       row("Material", rec.material),
@@ -858,16 +969,28 @@
     var html = '<div class="hp-preview">';
     html += '<div class="hp-partof">Part of <code class="catalog-filename">' + esc(rec.name) + '</code>' +
             ' — <a class="hp-objlink" href="' + esc(objHref) + '">open the object record →</a></div>';
+    var dsInfo = DATA_SOURCE_INFO[rec.dataSource];
     var idRows = [
       row("Section", label),
       row("Text", part.sutra),
       row("Text (EN)", part.sutraEn),
       row("CBETA", part.cbeta),
+      row("Taishō", part.taisho),
       row("Language", part.lang),
       row("On object", rec.titleEn || rec.titleZh),
-      row("Date", rec.dateText)
+      row("Date", rec.dateText),
+      dsInfo ? '<dt>Data source</dt><dd><a href="' + esc(dsInfo.url) + '" target="_blank" rel="noopener">' +
+        esc(rec.dataSource) + '</a> <span class="hp-ds-title">' + esc(dsInfo.title) + '</span></dd>' : "",
     ].join("");
     if (idRows) html += '<section class="hp-section"><h4 class="hp-st">Inscription</h4><dl class="hp-dl">' + idRows + '</dl></section>';
+    var classRows = [
+      row("Genre", rec.genre),
+      row("Tradition", rec.tradition),
+    ].join("");
+    if (classRows) html += '<section class="hp-section"><h4 class="hp-st">Classification</h4><dl class="hp-dl">' + classRows + '</dl></section>';
+    if (rec.agents && rec.agents.length)
+      html += '<section class="hp-section"><h4 class="hp-st">Production</h4><dl class="hp-dl">' +
+        rec.agents.map(function (a) { return row("Agent", a); }).join("") + '</dl></section>';
     if (part.editionText)
       html += '<section class="hp-section"><h4 class="hp-st">Transcription</h4><pre class="hp-text">' + esc(part.editionText) + '</pre></section>';
     if (part.translationText)

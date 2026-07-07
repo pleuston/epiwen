@@ -504,13 +504,23 @@
   function _b64utf8(s) { return btoa(unescape(encodeURIComponent(s))); }
   function _unb64utf8(s) { try { return decodeURIComponent(escape(atob((s || "").replace(/\n/g, "")))); } catch (e) { return ""; } }
 
+  // EpiDoc-CN records carry a curatorial-source pill: the Stone Sutras project
+  // (Heidelberger Akademie der Wissenschaften, "HAdW") vs an ASCDC import —
+  // distinguished by publicationStmt/authority ("… — sample" vs "… — ASCDC
+  // import"), the one field every tier (site/object/inscription) always has.
+  function _dataSourceOf(doc) {
+    var a = _itxt(_ifirst(doc, "authority"));
+    return /ASCDC/i.test(a) ? "ASCDC" : "HAdW";
+  }
+
   // Build one records-index entry from a record's XML. Mirrors the fields
   // scripts/build_records_index.py extracts (and catalog.js parseRecord's list
   // view). Keep the two in sync.
   function indexEntryFromXml(filename, xmlText) {
     var base = { name: filename, file: filename, record_type: "object", title_en: filename,
                  title_zh: "", editor: "", when: "", date_text: "", region: "", settlement: "",
-                 repository: "", orig_place: "", surrogate_of: "", provider_label: "", manifest: "", parts: [] };
+                 repository: "", orig_place: "", surrogate_of: "", provider_label: "", manifest: "", parts: [],
+                 data_source: "" };
     var doc = new DOMParser().parseFromString(xmlText, "application/xml");
     if (doc.getElementsByTagName("parsererror").length) return base;
 
@@ -531,6 +541,7 @@
     // branch — objects tab, zh titles, manifest from note type="iiif-manifest".
     var cnKind = window.EpiDocCN ? EpiDocCN.detect(doc) : null;
     base.cn_kind = cnKind || "";
+    if (cnKind) base.data_source = _dataSourceOf(doc);
     if (cnKind === "taxonomy") { base.record_type = "taxonomy"; return base; }
     if (cnKind === "sitedesc") { base.record_type = "sitedesc"; return base; }   // site prose, not a catalog row
     if (cnKind === "site" || cnKind === "objectfile") {

@@ -32,6 +32,19 @@
     return esc(r.title_en || r.id) +
       (r.title_zh ? ' <span class="tree-label-zh">' + esc(r.title_zh) + "</span>" : "");
   }
+  // Curatorial source of an EpiDoc-CN record: the Stone Sutras project (Heidelberger
+  // Akademie der Wissenschaften) vs an Academia Sinica (ASCDC) import. Mirrors
+  // catalog.js's DATA_SOURCE_INFO — keep the two in sync.
+  var DATA_SOURCE_INFO = {
+    HAdW:  { title: "Heidelberger Akademie der Wissenschaften — Stone Sutras project",
+             url: "https://github.com/StoneSutras/sutras-data" },
+    ASCDC: { title: "Academia Sinica Center for Digital Cultures — 佛教藝術圖典與知識系統",
+             url: "https://buddhism.ascdc.sinica.edu.tw" }
+  };
+  function dsBadge(r) {
+    var info = r && DATA_SOURCE_INFO[r.data_source];
+    return info ? '<span class="badge-ds" title="' + esc(info.title) + '">' + esc(r.data_source) + "</span>" : "";
+  }
   function toast(msg, isErr) {
     var t = el("toast"); if (!t) return;
     t.textContent = msg; t.className = "show" + (isErr ? " toast-error" : "");
@@ -148,7 +161,7 @@
     row.appendChild(car);
     var lab = document.createElement("span");
     lab.innerHTML = label(site) + '<span class="tree-id">' + esc(site.id) + "</span>" +
-      (site.has_description ? '<span class="badge-desc">desc</span>' : "");
+      (site.has_description ? '<span class="badge-desc">desc</span>' : "") + dsBadge(site);
     row.appendChild(lab);
     wrap.appendChild(row);
 
@@ -203,7 +216,7 @@
       row.insertBefore(car, row.firstChild || null);
       var lab = document.createElement("span");
       lab.innerHTML = "Section " + esc(sec) +
-        (secRec && secRec.has_description ? '<span class="badge-desc">desc</span>' : "");
+        (secRec && secRec.has_description ? '<span class="badge-desc">desc</span>' : "") + dsBadge(secRec);
       row.appendChild(lab);
       secWrap.appendChild(row);
 
@@ -260,7 +273,7 @@
     var lab = document.createElement("span");
     lab.innerHTML = esc(icon) + label(obj) +
       '<span class="tree-id">' + esc(obj.id) + "</span>" +
-      (obj.has_description ? '<span class="badge-desc">desc</span>' : "");
+      (obj.has_description ? '<span class="badge-desc">desc</span>' : "") + dsBadge(obj);
     row.appendChild(lab);
     wrap.appendChild(row);
 
@@ -405,6 +418,9 @@
       row("Volume", volLabel(rec.volume));
     row("Province", [rec.province_en, rec.province_zh].filter(Boolean).join(" · "));
     row("Coordinates", rec.coordinates);
+    var dsInfo = DATA_SOURCE_INFO[rec.data_source];
+    if (dsInfo) h += '<dt>Source</dt><dd><a href="' + esc(dsInfo.url) + '" target="_blank" rel="noopener">' +
+      esc(rec.data_source) + '</a> <span class="hp-ds-title">' + esc(dsInfo.title) + "</span></dd>";
     h += "</dl>";
 
     var summary = childSummary(rec);

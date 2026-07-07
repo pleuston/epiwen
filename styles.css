@@ -352,6 +352,12 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
   background: #fdf6f6; color: var(--accent); border: 1px solid var(--accent);
   vertical-align: middle; white-space: nowrap;
 }
+.catalog-badge-datasource {
+  display: inline-block; margin: 0 0.3rem 0.25rem 0; padding: 0.04rem 0.45rem;
+  font-size: 0.68rem; font-weight: 600; border-radius: 10px;
+  background: var(--field-bg); color: var(--muted); border: 1px solid var(--line);
+  vertical-align: middle; white-space: nowrap;
+}
 .catalog-filename { font-size: 0.77rem; color: var(--muted); display: block; }
 .catalog-title    { font-size: 0.86rem; font-weight: 600; margin-top: 0.15rem; }
 .catalog-title-en { color: var(--ink); }
@@ -621,6 +627,7 @@ textarea.mono { font-family: "SF Mono", Menlo, monospace; }
   border: 1px solid var(--line); border-radius: 4px; background: #faf9f8;
 }
 .hp-source { font-size: 0.8rem; color: var(--accent); align-self: flex-start; }
+.hp-ds-title { font-size: 0.78rem; color: var(--muted); margin-left: 0.3rem; }
 
 .hp-section { margin-bottom: 1.1rem; }
 .hp-st {

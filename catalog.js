@@ -70,6 +70,14 @@
     return p ? p.textContent.trim() : divEl.textContent.trim();
   }
 
+  // EpiDoc-CN records carry a curatorial-source pill: the Stone Sutras project
+  // (Heidelberger Akademie der Wissenschaften, "HAdW") vs an ASCDC import —
+  // distinguished by publicationStmt/authority ("… — sample" vs "… — ASCDC
+  // import"), the one field every tier (site/object/inscription) always has.
+  function dataSourceOf(doc) {
+    return /ASCDC/i.test(txt(first(doc, "authority"))) ? "ASCDC" : "HAdW";
+  }
+
   // ---- parseRecord ---------------------------------------------------------
   function parseRecord(name, xmlText) {
     var doc = new DOMParser().parseFromString(xmlText, "application/xml");
@@ -158,6 +166,7 @@
                when: cnDateEl ? (cnDateEl.getAttribute("when") || cnDateEl.getAttribute("notBefore") || "") : "",
                dateText: txt(cnDateEl), summary: txt(qns(doc, "summary")[0] || null),
                manifest: cnManifest, images: [],
+               dataSource: dataSourceOf(doc),
                parts: cnParts, rawXml: xmlText };
     }
 
@@ -337,6 +346,7 @@
       langs: langs, authority: authority,
       licence: licence, licenceTarget: licenceTarget,
       changeWhen: changeWhen, changeWho: changeWho, changeNote: changeNote,
+      dataSource: _cnKind ? dataSourceOf(doc) : "",
       parts: parts, rawXml: xmlText
     };
   }
@@ -361,7 +371,8 @@
                  corresp: p.corresp || "" };
       }),
       rawXml: "", _lazy: true, _path: r.file || r.name,
-      shared: !!r.shared, _cnKind: r.cn_kind || "", bearer: r.bearer || ""
+      shared: !!r.shared, _cnKind: r.cn_kind || "", bearer: r.bearer || "",
+      dataSource: r.data_source || ""
     };
   }
 
@@ -398,6 +409,21 @@
     return '<span class="catalog-badge-private" ' +
       'title="Private collection — only visible with your token">🔒 ' +
       esc(label) + '</span>';
+  }
+
+  /* Curatorial source of an EpiDoc-CN record: the Stone Sutras project (Heidelberger
+     Akademie der Wissenschaften) vs an Academia Sinica (ASCDC) import. */
+  var DATA_SOURCE_INFO = {
+    HAdW:  { title: "Heidelberger Akademie der Wissenschaften — Stone Sutras project",
+             url: "https://github.com/StoneSutras/sutras-data" },
+    ASCDC: { title: "Academia Sinica Center for Digital Cultures — 佛教藝術圖典與知識系統",
+             url: "https://buddhism.ascdc.sinica.edu.tw" }
+  };
+  function dataSourceBadge(rec) {
+    var info = rec && DATA_SOURCE_INFO[rec.dataSource];
+    if (!info) return "";
+    return '<span class="catalog-badge-datasource" title="' + esc(info.title) + '">' +
+      esc(rec.dataSource) + '</span>';
   }
 
   // ---- HTML preview card ---------------------------------------------------
@@ -437,12 +463,15 @@
       '</div>';
     }
 
+    var dsInfo = DATA_SOURCE_INFO[rec.dataSource];
     html += sec("Identity", [
       row("File", rec.name),
       row("Title (EN)", rec.titleEn),
       row("Title (ZH)", rec.titleZh),
       row("Editor", rec.editor),
       row("Summary", rec.summary),
+      dsInfo ? '<dt>Data source</dt><dd><a href="' + esc(dsInfo.url) + '" target="_blank" rel="noopener">' +
+        esc(rec.dataSource) + '</a> <span class="hp-ds-title">' + esc(dsInfo.title) + '</span></dd>' : "",
     ]);
 
     if (rec.recordType === "rubbing" && rec.surrogateOf) {
@@ -1026,7 +1055,7 @@
     var info = document.createElement("div");
     info.className = "catalog-info";
     info.innerHTML =
-      sourceBadge(rec) +
+      sourceBadge(rec) + dataSourceBadge(rec) +
       '<code class="catalog-filename">' + esc(rec.name) + '</code>' +
       (rec.titleEn || rec.titleZh
         ? '<div class="catalog-title">' +
@@ -1421,7 +1450,7 @@
 
     var bearerFile = rec.bearer || rec.name;    // new-model: the object bearer; legacy: the object record itself
     info.innerHTML =
-      sourceBadge(rec) +
+      sourceBadge(rec) + dataSourceBadge(rec) +
       titleHtml +
       '<span class="catalog-date">' + esc(label) +
       ' · inscribed on <a href="catalog.html?tab=objects&amp;file=' + encodeURIComponent(bearerFile) +

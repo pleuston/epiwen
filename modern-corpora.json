@@ -42109,10 +42109,10 @@
    "isbn": [],
    "gapfill": false,
    "biblio": true,
-   "web_verified": false,
-   "web_catalog": "",
-   "verification_pending": true,
-   "evidence": "https://idv.sinica.edu.tw/ryli/stoneinscriptions.htm",
+   "web_verified": true,
+   "web_catalog": "WorldCat",
+   "verification_pending": false,
+   "evidence": "https://search.worldcat.org/title/:-FO-ZAI-NAN-ZHOU-:-QIJIANG-GUJIANSHAN-FOJIAO-YIZHI-BEITA-JILU/oclc/933570047",
    "id": "mc-x-20461",
    "section": "province",
    "region": "西南",
@@ -42127,7 +42127,9 @@
     "sbb": false,
     "k10plus": false,
     "harvard": false
-   }
+   },
+   "web": true,
+   "web_match_title": "佛在南州 : 綦江古剑山佛教遗址碑拓辑录"
   },
   {
    "title_zh": "九龍佛緣：九龍坡區佛教遺址碑拓輯錄",
@@ -43281,10 +43283,10 @@
    "isbn": [],
    "gapfill": false,
    "biblio": true,
-   "web_verified": false,
-   "web_catalog": "",
-   "verification_pending": true,
-   "evidence": "https://idv.sinica.edu.tw/ryli/stoneinscriptions.htm",
+   "web_verified": true,
+   "web_catalog": "WorldCat",
+   "verification_pending": false,
+   "evidence": "https://search.worldcat.org/title/croix-lotus-inscriptions-et-manuscrits-nestoriens-en-ecriture-syriaque-decouverts-en-chine/oclc/855408340",
    "id": "mc-x-20500",
    "section": "national",
    "region": "",
@@ -43299,7 +43301,9 @@
     "sbb": false,
     "k10plus": false,
     "harvard": false
-   }
+   },
+   "web": true,
+   "web_match_title": "La croix-lotus : inscriptions et manuscrits nestoriens en ecriture syriaque decouverts en Chine"
   },
   {
    "title_zh": "柏克萊加州大學東亞圖書館藏碑帖",

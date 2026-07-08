@@ -962,7 +962,16 @@
     return out.join("\n\n") || rec.rawXml;
   }
 
-  function buildInscriptionPreview(rec, part, pIdx) {
+  // Resolve a taxonomy category id (e.g. "genre.jiewen") to its bilingual gloss
+  // via a loadTaxonomies() result; falls back to the raw id if not found/loaded.
+  function taxLabel(tax, listName, id) {
+    if (!id) return "";
+    var list = tax && tax[listName];
+    var cat = list && list.find(function (c) { return c.id === id; });
+    return cat ? [cat.zh, cat.en].filter(Boolean).join(" · ") : id;
+  }
+
+  function buildInscriptionPreview(rec, part, pIdx, tax) {
     function row(label, val) { return (val || val === 0) ? "<dt>" + esc(label) + "</dt><dd>" + esc(String(val)) + "</dd>" : ""; }
     var label   = part.head || part.subtype || ("Text " + (pIdx + 1));
     var objHref = "catalog.html?tab=objects&file=" + encodeURIComponent(rec.name);
@@ -984,7 +993,7 @@
     ].join("");
     if (idRows) html += '<section class="hp-section"><h4 class="hp-st">Inscription</h4><dl class="hp-dl">' + idRows + '</dl></section>';
     var classRows = [
-      row("Genre", rec.genre),
+      row("Genre", taxLabel(tax, "textGenres", rec.genre)),
       row("Tradition", rec.tradition),
     ].join("");
     if (classRows) html += '<section class="hp-section"><h4 class="hp-st">Classification</h4><dl class="hp-dl">' + classRows + '</dl></section>';
@@ -1025,12 +1034,16 @@
     function render() {
       // Re-resolve the part from the (now full) record so we get edition/translation text.
       var p = (rec.parts || []).filter(function (x) { return x.n === part.n; })[0] || part;
-      view.innerHTML = buildInscriptionPreview(rec, p, pIdx);
-      var xml = partXml(rec, p);
-      document.getElementById("preview-out").textContent = xml;
-      currentXml = xml;
-      wireObjLink(view, rec);
-      setCatView("html");
+      var taxP = (window.EpiDocCN && EpiDocCN.loadTaxonomies) ? EpiDocCN.loadTaxonomies() : Promise.resolve(null);
+      taxP.catch(function () { return null; }).then(function (tax) {
+        if (selectedItem !== item) return;   // user moved on before this resolved
+        view.innerHTML = buildInscriptionPreview(rec, p, pIdx, tax);
+        var xml = partXml(rec, p);
+        document.getElementById("preview-out").textContent = xml;
+        currentXml = xml;
+        wireObjLink(view, rec);
+        setCatView("html");
+      });
     }
 
     if (rec._lazy && !rec.rawXml) {

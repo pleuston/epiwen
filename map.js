@@ -265,7 +265,13 @@
       groupedControl(map, groups).addTo(map);
     }
 
-    var _atlasP = EpiData.fetch("data/osgeo-atlas.json")
+    // The historical-atlas tree is public reference data (a tree of OSGeo tile
+    // UIDs), NOT catalog data — bundled in the app repo like collections.json /
+    // modern-corpora.json and fetched relatively. This keeps it off the private
+    // epiwen-data backend, so it loads for anyone who reaches the map (a
+    // public_repo-scoped token can read the corpus but not epiwen-data, which is
+    // why the overlay silently vanished once the corpus went public).
+    var _atlasP = fetch("osgeo-atlas.json")
       .then(function (r) { return r.ok ? r.json() : []; })
       .catch(function () { return []; });
 
